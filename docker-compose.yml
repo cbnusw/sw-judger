@@ -30,19 +30,24 @@ services:
     depends_on:
       - kafka
     volumes:
-      - judger-web:app
+      - judger-web:/app
   judger-api:
     build: judger-api
+    ports:
+      - "4003:4003"
   judger-web:
     build: judger-web
-  nginx:
-    build: nginx
-    volumes:
-      - judger-web
+    ports:
+      - "80:80"
+#  nginx:
+#    build: nginx
+#    volumes:
+#      - ./judger-web:/WEB
   mongo:
     image: mongo
     volumes:
-      - mongodb
+      - mongodb:/data/db
+
 volumes:
   mongodb:
   judger-web:
