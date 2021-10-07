@@ -1,0 +1,48 @@
+version: "3.8"
+
+networks:
+  kafka-net:
+    driver: bridge
+
+services:
+  zookeeper:
+    image: bitnami/zookeeper
+    networks:
+      - kafka-net
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka:
+    image: bitnami/kafka
+    networks:
+      - kafka-net
+    ports:
+      - '9092:9092'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+  judger:
+    build: judger
+    depends_on:
+      - kafka
+    volumes:
+      - judger-web:app
+  judger-api:
+    build: judger-api
+  judger-web:
+    build: judger-web
+  nginx:
+    build: nginx
+    volumes:
+      - judger-web
+  mongo:
+    image: mongo
+    volumes:
+      - mongodb
+volumes:
+  mongodb:
+  judger-web:
