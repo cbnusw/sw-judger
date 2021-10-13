@@ -1,0 +1,15 @@
+#version: "3.9"
+#services:
+#    judger_server:
+#        build:
+#            context: .
+#            network: host
+#        volumes:
+#            - /var/www/judger-api-server/uploads:/source
+#            - /var/www/judger-api-server/uploads:/io
+#        expose:
+#            - 9092
+#            - 5000
+#        environment:
+#            KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1:9092
+#            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181

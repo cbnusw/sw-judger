@@ -1,53 +1,112 @@
-version: "3.8"
+version: "3.9"
 
-networks:
-  kafka-net:
-    driver: bridge
 
 services:
+
   zookeeper:
-    image: bitnami/zookeeper
-    networks:
-      - kafka-net
+    image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
+
+
   kafka:
-    image: bitnami/kafka
-    networks:
-      - kafka-net
+    build:
+      context: ./kafka
+      dockerfile: Dockerfile
     ports:
-      - '9092:9092'
+      - "9092:9092"
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
-      - ALLOW_PLAINTEXT_LISTENER=yes
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
+
+#  zookeeper:
+#    image: bitnami/zookeeper
+#    ports:
+#      - "2181:2181"
+#    environment:
+#      - ALLOW_ANONYMOUS_LOGIN=yes
+
+#  kafka:
+#    build:
+#      context: ./kafka
+#      dockerfile: Dockerfile
+#    ports:
+#      - '9092:9092'
+#    environment:
+#      KAFKA_ADVERTISED_HOST_NAME: kafka
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_ADVERTISED_PORT: 9092
+#      KAFKA_MESSAGE_MAX_BYTES: 369295620
+#    depends_on:
+#      - zookeeper
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+
+
+#  kafka:
+#    image: bitnami/kafka
+#    ports:
+#      - "9092:9092"
+#    depends_on:
+#      - zookeeper
+#    environment:
+#      - KAFKA_BROKER_ID=1
+#      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+#      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+#      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+#      - ALLOW_PLAINTEXT_LISTENER=yes
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+
+
   judger:
-    build: judger
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
     depends_on:
       - kafka
+    env_file:
+      - ./judger/server/.env
+    ports:
+      - "5000:5000"
     volumes:
-      - judger-web:/app
+      - ./judger-api/uploads:/source
+      - ./judger-api/uploads:/io
+
+
   judger-api:
-    build: judger-api
+    build:
+      context: ./judger-api
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-api/.env
     ports:
       - "4003:4003"
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    volumes:
+      - ./Server-Logs:/usr/src/app/logs
+
+
   judger-web:
-    build: judger-web
+    build:
+      context: ./judger-web
+      dockerfile: Dockerfile
     ports:
       - "80:80"
-#  nginx:
-#    build: nginx
-#    volumes:
-#      - ./judger-web:/WEB
-  mongo:
-    image: mongo
-    volumes:
-      - mongodb:/data/db
 
-volumes:
+
   mongodb:
-  judger-web:
+      build:
+        context: ./mongo
+        dockerfile: Dockerfile
+      volumes:
+        - ./mongodb:/data/db
+      ports:
+        - "27017:27017"
