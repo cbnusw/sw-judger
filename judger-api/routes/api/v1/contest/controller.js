@@ -130,8 +130,10 @@ const createContestProblem = asyncHandler(async (req, res, next) => {
 
   const problem = await Problem.create(body);
 
-  const urls = [body.content, ...(body.ioSet || []).map(io => io.inFile), ...(body.ioSet || []).map(io => io.outFile)];
+  const urls = [body.content, ...(body.ioSet || []).map(io => io.inFile.url), ...(body.ioSet || []).map(io => io.outFile.url)];
   contest.problems.push(problem._id);
+
+  console.log(urls)
 
   await Promise.all([contest.save(), updateFilesByUrls(req, problem._id, 'Problem', urls)]);
 
@@ -232,7 +234,7 @@ const updateContestProblem = asyncHandler(async (req, res, next) => {
   const start = new Date(testPeriod.start);
   if (now.getTime() > start.getTime()) return next(AFTER_TEST_START);
 
-  const urls = [...($set.ioSet || []).map(io => io.inFile), ...($set.ioSet || []).map(io => io.outFile)];
+  const urls = [...($set.ioSet || []).map(io => io.inFile.url), ...($set.ioSet || []).map(io => io.outFile.url)];
   if ($set.content) urls.push($set.content);
 
   await Promise.all([problem.updateOne({ $set }), updateFilesByUrls(req, problem._id, 'Problem', urls)]);

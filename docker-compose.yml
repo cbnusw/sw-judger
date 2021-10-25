@@ -1,81 +1,63 @@
 version: "3.9"
 
-
 services:
-
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: zookeeper
     ports:
       - "2181:2181"
+    volumes:
+      - ./zookeeper/conf:/conf
 
+
+#  zk-web:
+#    container_name: local-zk-web
+#    image: goodguide/zk-web
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - ZKWEB_PORT=8080
+#    depends_on:
+#      - zookeeper
+#
 
   kafka:
-    build:
-      context: ./kafka
-      dockerfile: Dockerfile
+    image: wurstmeister/kafka
     ports:
       - "9092:9092"
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+      KAFKA_HEAP_OPTS: "-Xms4g -Xmx6g"
+      KAFKA_BROKER_ID: 1
+      KAFKA_CREATE_TOPICS:
+        "swjudge-submit:4:1,\
+         swjudge-result:4:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
-
-#  zookeeper:
-#    image: bitnami/zookeeper
-#    ports:
-#      - "2181:2181"
-#    environment:
-#      - ALLOW_ANONYMOUS_LOGIN=yes
-
-#  kafka:
-#    build:
-#      context: ./kafka
-#      dockerfile: Dockerfile
-#    ports:
-#      - '9092:9092'
-#    environment:
-#      KAFKA_ADVERTISED_HOST_NAME: kafka
-#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-#      KAFKA_ADVERTISED_PORT: 9092
-#      KAFKA_MESSAGE_MAX_BYTES: 369295620
-#    depends_on:
-#      - zookeeper
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock
-
-
-#  kafka:
-#    image: bitnami/kafka
-#    ports:
-#      - "9092:9092"
-#    depends_on:
-#      - zookeeper
-#    environment:
-#      - KAFKA_BROKER_ID=1
-#      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-#      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
-#      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-#      - ALLOW_PLAINTEXT_LISTENER=yes
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock
 
 
   judger:
     build:
       context: ./judger
       dockerfile: Dockerfile
-    depends_on:
-      - kafka
     env_file:
-      - ./judger/server/.env
+      - judger/.env
     ports:
       - "5000:5000"
     volumes:
       - ./judger-api/uploads:/source
       - ./judger-api/uploads:/io
+    depends_on:
+      - kafka
+      - mongodb
+    links:
+      - kafka
+      - mongodb
 
 
   judger-api:
@@ -88,8 +70,10 @@ services:
       - "4003:4003"
     depends_on:
       - mongodb
+      - kafka
     links:
       - mongodb
+      - kafka
     volumes:
       - ./Server-Logs:/usr/src/app/logs
 

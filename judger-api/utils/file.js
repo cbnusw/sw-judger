@@ -80,16 +80,16 @@ const updateFilesByUrls = async (req, ref, refModel, urls) => {
 
   if (additions.length > 0) await File.updateMany({ url: { $in: additions } }, { $set: { ref, refModel } });
   if (deletions.length > 0) await removeFilesByUrls(req, deletions);
+
+  console.log("updated as urls");
 };
 
 const updateFilesByIds = async (req, ref, refModel, ids) => {
   const { user } = req;
   const files = await File.find({ ref, refModel });
-  {
-    if (!hasRole(user) && files.some(file => String(user.info) !== String(file.uploader))) {
-      throw FORBIDDEN;
-    }
-  }
+
+  if (!hasRole(user) && files.some(file => String(user.info) !== String(file.uploader)))
+    throw FORBIDDEN;
 
   ids = ids.map(id => String(id));
   const inDB = files.map(file => String(file._id));
@@ -98,6 +98,8 @@ const updateFilesByIds = async (req, ref, refModel, ids) => {
 
   if (additions.length > 0) await File.updateMany({ _id: { $in: additions } }, { $set: { ref, refModel } });
   if (deletions.length > 0) await removeFilesByIds(req, deletions);
+
+  console.log("updated as ids");
 };
 
 const findImageUrlsFromHtml = html => {

@@ -1,4 +1,4 @@
-const { KAFKA_SUBMIT_TOPIC: topic } = require('../../../../env');
+const { SUBMIT_TOPIC: topic } = require('../../../../env');
 
 
 exports.producingSubmit = (producer, submitId) => {

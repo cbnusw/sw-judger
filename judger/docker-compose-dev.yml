@@ -1,13 +1,14 @@
 version: "3.9"
 services:
-    judger:
+    judger_server:
         build:
             context: .
             dockerfile: Dockerfile.dev
         volumes:
-            - ../judger-api/uploads:/source
+            - ../judger-api/uploads:/source/source/
             - ../judger-api/uploads:/io
-            - ./:/app
-            - ./node_modules
+            - ./:/app/
         ports:
           - "5000:5000"
+        env_file:
+            - .env

@@ -11,16 +11,17 @@ RUN cd / && git clone -b newnew  --depth 1 https://github.com/QingdaoU/Judger &&
 RUN apt-get purge -y --auto-remove $buildDeps && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /code && mkdir -p /output
-#ADD server /code
 WORKDIR /app
-COPY . /app
+COPY package*.json ./
 RUN npm i
+RUN npm install -g nodemon
+COPY . .
 RUN gcc -shared -fPIC -o unbuffer.so unbuffer.c
-#RUN mkdir -p /kotlin
-#ADD kotlin /kotlin
+# RUN mkdir -p /kotlin
+# ADD kotlin /kotlin
 EXPOSE 5000
 EXPOSE 9092
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
 #ENV DOCKERIZE_VERSION v0.6.1
 #RUN apt-get update && apt-get -y install wget \
 #    && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \

@@ -1,10 +1,10 @@
 const { KafkaClient, Producer, Consumer } = require('kafka-node');
 const { debug, error } = require('../utils/logger');
-const { KAFKA_RESULT_TOPIC: topic, KAFKA_BOOTSTRAP_SERVER } = require('../env');
+const { RESULT_TOPIC: topic, KAFKA_BOOTSTRAP_SERVER } = require('../env');
 const { Submit, ScoreBoard, Contest } = require('../models');
 const { CONTEST_NOT_FOUND } = require('../errors');
 
-const client = new KafkaClient({ kafkaHost: 'kafka:9092' });
+const client = new KafkaClient({idleConnection: 24 * 60 * 60 * 1000, kafkaHost: KAFKA_BOOTSTRAP_SERVER });
 
 
 const initConsumer = io => {
@@ -57,7 +57,7 @@ const initConsumer = io => {
 const createProducer = () => {
   const producer = new Producer(client);
   producer.on('ready', () => debug('ready producer'));
-  producer.on('error', err => error('producer error'));
+  producer.on('error', err => error('producer error', err));
   return producer;
 };
 

@@ -41,6 +41,7 @@ const getProblem = asyncHandler(async (req, res, next) => {
   res.json(createResponse(res, doc));
 });
 
+
 const createSubmit = asyncHandler(async (req, res, next) => {
   const { params: { id }, body, user } = req;
   const producer = req.app.get('submitProducer');
@@ -50,9 +51,11 @@ const createSubmit = asyncHandler(async (req, res, next) => {
 
   const submit = await Submit.create(body);
   await producingSubmit(producer, String(submit._id));
-
+  console.log(submit.source)
+  await updateFilesByUrls(req, submit._id, 'Submit', [submit.source])
   res.json(createResponse(res, submit));
 });
+
 
 const createProblem = asyncHandler(async (req, res, next) => {
   const { body, user } = req;
@@ -66,13 +69,15 @@ const createProblem = asyncHandler(async (req, res, next) => {
   const doc = await Problem.create(body);
   const urls = [body.content];
   const ids = [...body.ioSet.map(io => io.inFile), ...body.ioSet.map(io => io.outFile)];
-
+  console.log(urls);
+  console.log(ids)
   await Promise.all([
     updateFilesByUrls(req, doc._id, 'Problem', urls),
     updateFilesByIds(req, doc._id, 'Problem', ids)
   ]);
   res.json(createResponse(res, doc));
 });
+
 
 const updateProblem = asyncHandler(async (req, res, next) => {
   const { params: { id }, body: $set, user } = req;
@@ -88,11 +93,11 @@ const updateProblem = asyncHandler(async (req, res, next) => {
 
   const urls = [$set.content]
   const ids = [...$set.ioSet.map(io => io.inFile), ...$set.ioSet.map(io => io.outFile)];
-
+  console.log(urls, ids)
   await Promise.all([
     doc.updateOne({ $set }),
     updateFilesByUrls(req, doc._id, 'Problem', urls),
-    updateFilesByIds(req, doc._id, 'Problem', ids)
+    updateFilesByIds(req, doc._id, 'Problem', ids),
   ]);
 
   res.json(createResponse(res));
@@ -120,7 +125,6 @@ const removeProblem = asyncHandler(async (req, res, next) => {
   await Promise.all([
     doc.deleteOne(),
     removeFilesByUrls(req, urls),
-    removeFilesByIds(req, ids)
   ]);
 
   res.json(createResponse(res));
