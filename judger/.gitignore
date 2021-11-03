@@ -1,4 +1,9 @@
-
+.env
+.env2
+.env3
+.env4
+.env5
+node_modules
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,webstorm,visualstudiocode,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,webstorm,visualstudiocode,node
 

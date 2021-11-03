@@ -35,7 +35,7 @@ const getRegisteredContests = asyncHandler(async (req, res, next) => {
   const documents = await Contest.search(query, {
     $and: [
       { contestants: user.info },
-      { 'testPeriod.end': { $lte: now } }
+      { 'testPeriod.end': { $gt: now } }
     ]
   });
   res.json(createResponse(res, documents));
@@ -133,8 +133,6 @@ const createContestProblem = asyncHandler(async (req, res, next) => {
   const urls = [body.content, ...(body.ioSet || []).map(io => io.inFile.url), ...(body.ioSet || []).map(io => io.outFile.url)];
   contest.problems.push(problem._id);
 
-  console.log(urls)
-
   await Promise.all([contest.save(), updateFilesByUrls(req, problem._id, 'Problem', urls)]);
 
   res.json(createResponse(res, problem));
@@ -229,10 +227,10 @@ const updateContestProblem = asyncHandler(async (req, res, next) => {
   if (String(problem.writer) !== String(user.info)) return next(FORBIDDEN);
   if (!contest.problems.map(p => String(p)).includes(String(problem._id))) return next(IS_NOT_CONTEST_PROBLEM);
 
-  const { testPeriod } = contest;
-  const now = new Date();
-  const start = new Date(testPeriod.start);
-  if (now.getTime() > start.getTime()) return next(AFTER_TEST_START);
+  // const { testPeriod } = contest;
+  // const now = new Date();
+  // const start = new Date(testPeriod.start);
+  // if (now.getTime() > start.getTime()) return next(AFTER_TEST_START);
 
   const urls = [...($set.ioSet || []).map(io => io.inFile.url), ...($set.ioSet || []).map(io => io.outFile.url)];
   if ($set.content) urls.push($set.content);
@@ -262,6 +260,11 @@ const removeContest = asyncHandler(async (req, res, next) => {
   const doc = await Contest.findById(id);
 
   if (!doc) return next(CONTEST_NOT_FOUND);
+
+  const { testPeriod } = doc;
+  const now = new Date();
+  const start = new Date(testPeriod.start);
+  if (now.getTime() > start.getTime()) return next(AFTER_TEST_START);
 
   await doc.deleteOne();
 

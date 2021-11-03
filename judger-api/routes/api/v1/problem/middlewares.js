@@ -11,7 +11,7 @@ const handleAccessProblem = asyncHanlder(async (req, res, next) => {
 
   const now = new Date();
 
-  if (problem.publised) {
+  if (problem.published) {
     const published = new Date(problem.publised);
     return now.getTime() > published.getTime() ? next(FORBIDDEN) : next();
   }

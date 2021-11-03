@@ -80,8 +80,6 @@ const updateFilesByUrls = async (req, ref, refModel, urls) => {
 
   if (additions.length > 0) await File.updateMany({ url: { $in: additions } }, { $set: { ref, refModel } });
   if (deletions.length > 0) await removeFilesByUrls(req, deletions);
-
-  console.log("updated as urls");
 };
 
 const updateFilesByIds = async (req, ref, refModel, ids) => {
@@ -98,8 +96,6 @@ const updateFilesByIds = async (req, ref, refModel, ids) => {
 
   if (additions.length > 0) await File.updateMany({ _id: { $in: additions } }, { $set: { ref, refModel } });
   if (deletions.length > 0) await removeFilesByIds(req, deletions);
-
-  console.log("updated as ids");
 };
 
 const findImageUrlsFromHtml = html => {

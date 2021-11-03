@@ -1,12 +1,13 @@
-const { Contest, Problem, Submit } = require('../../../../models');
+const { Contest, Problem, Submit, UserInfo } = require('../../../../models');
 const { createResponse } = require('../../../../utils/response');
 const { hasRole } = require('../../../../utils/permission');
-const { updateFilesByIds, updateFilesByUrls, removeFilesByUrls } = require('../../../../utils/file');
+const { updateFilesByIds, updateFilesByUrls, removeFilesByUrls, removeFilesByIds } = require('../../../../utils/file');
 const {
   CONTEST_NOT_FOUND,
   FORBIDDEN,
   INVALID_PROBLEM_PUBLISH,
-  PROBLEM_NOT_FOUND
+  PROBLEM_NOT_FOUND,
+  AFTER_TEST_START,
 } = require('../../../../errors');
 const asyncHandler = require('express-async-handler');
 const { producingSubmit } = require('./service');
@@ -19,7 +20,7 @@ const getProblems = asyncHandler(async (req, res, next) => {
 
   const documents = await Problem.search(query, {
     $and: [{ published: { $ne: null } }, { published: { $lte: now } }]
-  }, [{ path: 'contest', model: Contest }]);
+  }, [{ path: 'contest', model: Contest },{ path:'writer', model: UserInfo }])
 
   res.json(createResponse(res, documents));
 });
@@ -51,7 +52,6 @@ const createSubmit = asyncHandler(async (req, res, next) => {
 
   const submit = await Submit.create(body);
   await producingSubmit(producer, String(submit._id));
-  console.log(submit.source)
   await updateFilesByUrls(req, submit._id, 'Submit', [submit.source])
   res.json(createResponse(res, submit));
 });
@@ -75,6 +75,7 @@ const createProblem = asyncHandler(async (req, res, next) => {
     updateFilesByUrls(req, doc._id, 'Problem', urls),
     updateFilesByIds(req, doc._id, 'Problem', ids)
   ]);
+
   res.json(createResponse(res, doc));
 });
 
@@ -93,7 +94,6 @@ const updateProblem = asyncHandler(async (req, res, next) => {
 
   const urls = [$set.content]
   const ids = [...$set.ioSet.map(io => io.inFile), ...$set.ioSet.map(io => io.outFile)];
-  console.log(urls, ids)
   await Promise.all([
     doc.updateOne({ $set }),
     updateFilesByUrls(req, doc._id, 'Problem', urls),
@@ -110,6 +110,13 @@ const removeProblem = asyncHandler(async (req, res, next) => {
 
   if (!hasRole(user) && String(user.info) !== String(doc.writer)) return next(FORBIDDEN);
 
+  const contest = await Contest.findById(doc.contest);
+
+  const { testPeriod } = contest;
+  const now = new Date();
+  const start = new Date(testPeriod.start);
+  if (now.getTime() > start.getTime()) return next(AFTER_TEST_START);
+
   if (doc.contest) {
     const contest = await Contest.findById(doc.contest);
     const index = contest.problems.indexOf(doc._id);
@@ -121,10 +128,10 @@ const removeProblem = asyncHandler(async (req, res, next) => {
 
   const urls = [doc.content];
   const ids = [...doc.ioSet.map(io => io.inFile), ...doc.ioSet.map(io => io.outFile)];
-
   await Promise.all([
     doc.deleteOne(),
     removeFilesByUrls(req, urls),
+    removeFilesByIds(req, ids),
   ]);
 
   res.json(createResponse(res));

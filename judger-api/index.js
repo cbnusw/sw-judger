@@ -20,7 +20,8 @@ server.on('listening', () => {
 // initialize().then(() => debug(`initialization complete!`));
 
 socketIo(server, app);
-initConsumer(app.get('io'));
+// initConsumer(app.get('io'))
+initConsumer()
 
 
 

@@ -11,6 +11,6 @@ router.post('/', ...hasPermission('judge'), controller.createProblem);
 // router.post('/:id/submit', controller.createSubmit);
 router.post('/:id/submit', isAuthenticated, handleAccessProblem, controller.createSubmit);
 router.put('/:id', ...hasPermission('judge'), controller.updateProblem);
-router.delete('/:id', ...hasPermission('judge'), controller.removeProblem);
+router.delete('/:id',...hasPermission('judge'), handleAccessProblem,controller.removeProblem);
 
 module.exports = router;

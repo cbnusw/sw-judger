@@ -6,34 +6,57 @@ const { CODE_BASE_PATH } = require("./env");
 
 const compile_c = function (name) {
   out_path = path.join(CODE_BASE_PATH, name.substring(0, name.lastIndexOf(".")));
-  execSync(`gcc -o  ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
+  try {
+    execSync(`gcc -o  ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
+  } catch (err) {
+    console.log(err);
+    out_path = 'null'
+  }
   return out_path;
 };
 
 const compile_cpp = function (name) {
   out_path = path.join(CODE_BASE_PATH, name.substring(0, name.lastIndexOf(".")));
-  execSync(`g++ -o  ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
+  try {
+    execSync(`g++ -o  ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
+  }
+  catch (err) {
+    console.log(err);
+    out_path = 'null'
+  }
   return out_path;
 };
 
-const compile_java = function (name) {
-  out_path = name.substring(0, name.lastIndexOf("."));
-  execSync(`javac -d ${CODE_BASE_PATH} ${path.join(CODE_BASE_PATH, name)} -encoding UTF8`);
+const compile_java = function (name, originalName) {
+  try {
+    execSync(`cp ${path.join(CODE_BASE_PATH,name)} ${path.join('/java_submit',originalName)} &&javac ${path.join('/java_submit',originalName)} -encoding UTF8 &&rm -rf ${path.join('/java_submit',originalName)}`);
+    out_path = path.join('/java_submit', originalName.substring(0, originalName.lastIndexOf("."))+".class")
+  } catch (err) {
+    console.log(err);
+    out_path= 'null'
+  }
   return out_path;
 };
 
-const compile_kotlin = function (name) {
-  // out_path = path.join(CODE_BASE_PATH, name.substring(0, name.lastIndexOf(".")));
-  // execSync(`/kotlin/bin/kotlinc-native -o ${out_path} -opt ${path.join(CODE_BASE_PATH, name)}`);
-  // return `${out_path}.kexe`;
-  out_path = name.substring(0, name.lastIndexOf("."));
-  execSync(`/kotlin/bin/kotlinc-jvm -include-runtime -d ${CODE_BASE_PATH} ${path.join(CODE_BASE_PATH, name)}`);
-  return `${out_path}`;
+const compile_kotlin = function (name, originalName) {
+  try {
+    execSync(`cp ${path.join(CODE_BASE_PATH,name)} ${path.join('/kotlin_submit', originalName)} && /kotlin/bin/kotlinc-jvm ${path.join('/kotlin_submit', originalName)} -include-runtime -d ${path.join('/kotlin_submit',originalName.substring(0, originalName.lastIndexOf("."))+'.jar')}&& rm -rf ${path.join('/kotlin_submit', originalName)}`);
+    out_path = path.join('/kotlin_submit',originalName.substring(0, originalName.lastIndexOf("."))+'.jar');
+  } catch (err) {
+    console.log(err);
+    out_path='null'
+  }
+  return out_path;
 };
 
 const compile_go = function (name) {
   out_path = path.join(CODE_BASE_PATH, name.substring(0, name.lastIndexOf(".")));
-  execSync(`go build -o ${CODE_BASE_PATH} ${path.join(CODE_BASE_PATH, name)}`);
+  try {
+    execSync(`go build -o ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
+  } catch (err) {
+    console.log(err);
+    out_path = 'null'
+  }
   return out_path;
 };
 

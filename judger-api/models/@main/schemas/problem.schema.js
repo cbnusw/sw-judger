@@ -1,4 +1,5 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 const { createSchema } = require('../../helpers');
 const { searchPlugin } = require('../../plugins');
 const { toRegEx, toRef } = require('../../mappers');
@@ -78,3 +79,4 @@ schema.plugin(searchPlugin({
 }));
 
 module.exports = schema;
+

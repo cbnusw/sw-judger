@@ -8,18 +8,6 @@ services:
     volumes:
       - ./zookeeper/conf:/conf
 
-
-#  zk-web:
-#    container_name: local-zk-web
-#    image: goodguide/zk-web
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      - ZKWEB_PORT=8080
-#    depends_on:
-#      - zookeeper
-#
-
   kafka:
     image: wurstmeister/kafka
     ports:
@@ -28,8 +16,8 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
-      KAFKA_LISTENERS: PLAINTEXT://:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_HEAP_OPTS: "-Xms4g -Xmx6g"
       KAFKA_BROKER_ID: 1
       KAFKA_CREATE_TOPICS:
@@ -41,17 +29,15 @@ services:
       - zookeeper
 
 
-  judger:
+  judger1:
     build:
       context: ./judger
       dockerfile: Dockerfile
     env_file:
-      - judger/.env
-    ports:
-      - "5000:5000"
+      - ./judger/.env
     volumes:
-      - ./judger-api/uploads:/source
-      - ./judger-api/uploads:/io
+      - ./Uploads:/source
+      - ./Uploads:/io
     depends_on:
       - kafka
       - mongodb
@@ -59,11 +45,74 @@ services:
       - kafka
       - mongodb
 
+  judger2:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger/.env2
+    volumes:
+      - ./Uploads:/source
+      - ./Uploads:/io
+    depends_on:
+      - kafka
+      - mongodb
+    links:
+      - kafka
+      - mongodb
+
+  judger3:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger/.env3
+    volumes:
+      - ./Uploads:/source
+      - ./Uploads:/io
+    depends_on:
+      - kafka
+      - mongodb
+    links:
+      - kafka
+      - mongodb
+
+  judger4:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger/.env4
+    volumes:
+      - ./Uploads:/source
+      - ./Uploads:/io
+    depends_on:
+      - kafka
+      - mongodb
+    links:
+      - kafka
+      - mongodb
+
+  judger5:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger/.env4
+    volumes:
+      - ./Uploads:/source
+      - ./Uploads:/io
+    depends_on:
+      - kafka
+      - mongodb
+    links:
+      - kafka
+      - mongodb
 
   judger-api:
     build:
       context: ./judger-api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     env_file:
       - ./judger-api/.env
     ports:
@@ -76,7 +125,7 @@ services:
       - kafka
     volumes:
       - ./Server-Logs:/usr/src/app/logs
-
+      - ./Uploads:/usr/src/app/uploads
 
   judger-web:
     build:
@@ -84,13 +133,4 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
-
-
-  mongodb:
-      build:
-        context: ./mongo
-        dockerfile: Dockerfile
-      volumes:
-        - ./mongodb:/data/db
-      ports:
-        - "27017:27017"
+      - "443:443"

@@ -1,67 +1,49 @@
 const { KafkaClient, Producer, Consumer } = require('kafka-node');
 const { debug, error } = require('../utils/logger');
-const { RESULT_TOPIC: topic, KAFKA_BOOTSTRAP_SERVER } = require('../env');
-const { Submit, ScoreBoard, Contest } = require('../models');
-const { CONTEST_NOT_FOUND } = require('../errors');
+const { RESULT_TOPIC: topic, SUBMIT_TOPIC: s_topic, KAFKA_BOOTSTRAP_SERVER, RESULT_GROUP_ID } = require('../env');
+const { run } = require('../tools/scoreboard')
 
 const client = new KafkaClient({idleConnection: 24 * 60 * 60 * 1000, kafkaHost: KAFKA_BOOTSTRAP_SERVER });
 
-
-const initConsumer = io => {
-  const topics = [{ topic, partition: 0 }];
-  const options = { autoCommit: true, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 1024 };
+const initConsumer = () => {
+  const topics = [{ topic, partition: 0 },
+                  { topic, partition: 1 },
+                  { topic, partition: 2 },
+                  { topic, partition: 3 }];
+  const options = { autoCommit: true, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 1024};
   const consumer = new Consumer(client, topics, options);
 
+  debug("ready consumer")
+
   consumer.on('message', async (message) => {
-    debug(`comsumer message:::${message.value}`);
-
+    debug(`comsumer message:::${message.value}, consumer partition ::: ${message.partition}`);
     const id = message.value;
-
-    try {
-      const submitResult = await Submit.findById(id);
-      const { contest, user, problem, result, createdAt } = submitResult;
-      const contestDoc = await Contest.findById(contest);
-
-      if (!contestDoc) throw CONTEST_NOT_FOUND;
-
-      const { testPeriod } = contestDoc;
-      const start = new Date(testPeriod.start);
-      const submittedAt = new Date(createdAt);
-
-      let scoreBoard = await ScoreBoard.findOne({ contest, user });
-      if (!scoreBoard) {
-        const problems = contestDoc.problems;
-        scoreBoard = await ScoreBoard.create({ contest, user, scores: problems.map(problem => ({ problem })) });
-      }
-
-      const score = scoreBoard.scores.find(s => s.problem === problem);
-
-      score.right = result.type === 'done';
-      score.tries++;
-      score.time = Math.floor((submittedAt.getTime() - start.getTime()) / 60000); // 대회 시작 후 걸린 시간(분)
-
-      await scoreBoard.save();
-
-      io.emit('result', submitResult);
-    } catch (e) {
-      io.emit('error', e);
-    }
-
-  });
+    console.log(`ID ${id} 제출 건 체점 시작`)
+    await run(id)
+    console.log(`ID ${id} 제출 건 체점 끝`)
+    });
 
   consumer.on('error', error => {
-    console.error(error);
+    debug(error);
+    console.log(error)
   });
 };
 
 const createProducer = () => {
-  const producer = new Producer(client);
+  const producer = new Producer(client,{partitionerType:2});
   producer.on('ready', () => debug('ready producer'));
   producer.on('error', err => error('producer error', err));
   return producer;
 };
 
+const refreshMetaData = () =>{
+  client.refreshMetadata([s_topic, topic],cb =>{
+    debug(`Metadata Refreshed`)
+  });
+}
+
 module.exports = {
   createProducer,
   initConsumer,
+  refreshMetaData
 };

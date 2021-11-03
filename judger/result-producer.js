@@ -10,18 +10,20 @@ const kafka = new Kafka({
 const producer = kafka.producer({ groupId: RESULT_GROUP_ID });
 
 const sendMessage = (SubmitId) => {
-    return producer
-        .send({
-            topic: RESULT_TOPIC,
-            messages: SubmitId
-        })
-        .then(console.log)
-        .catch((e) => console.error(`[Result Producer Error]:::${e}`));
+  return producer
+    .send({
+      topic: RESULT_TOPIC,
+      messages: [
+        { value: SubmitId }
+      ]
+    })
+    .then(console.log("------- Producer Submitted -------"))
+    .catch((e) => console.error(`[result-producer] ${e.message}`, e));
 };
 
 const init = async () => {
-    await producer.connect();
-    console.log("------- Producer Connected -------")
+    await producer.connect()
+      .then(console.log("------- Producer Connected -------"))
 };
 
 module.exports = {

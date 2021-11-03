@@ -1,11 +1,12 @@
-const { promises, fstat, existsSync } = require('fs');
+const { promises, existsSync } = require('fs');
 const path = require('path');
 const { parse } = require('url');
 
 const judger = require('/Judger/bindings/NodeJS');
 const base = require('./base.js');
-const { Submit, Problem } = require('./models/@main');
+const { Submit, Problem, File } = require('./models/@main');
 const { OUTPUT_PATH, CODE_BASE_PATH } = require('./env');
+const { execSync } = require("child_process");
 
 const getBasename = url => path.basename(parse(url).pathname);
 
@@ -21,54 +22,60 @@ const startJudge = async (submitId) => {
     return;
 
   config['language'] = submit.language;
-  config['code_name'] = path.join(CODE_BASE_PATH, getBasename(submit.source));
-  console.log(config['language'], config['code_name'])
+  config['code_name'] = getBasename(submit.source);
+  config['answer_path'] = path.join(CODE_BASE_PATH,getBasename(submit.source));
   let compiledPath
   console.log("컴파일 시작");
   switch (config['language']) {
     case 'c':
       compiledPath = base.compile_c(config['code_name']);
       config['exe_path'] = compiledPath;
-      console.log(compiledPath,"::: C");
+      console.log("complied language :::::: C");
       break;
     case 'c++':
       compiledPath = base.compile_cpp(config['code_name'])
       config['exe_path'] = compiledPath;
-      console.log(compiledPath, "::: C++");
+      console.log("complied language :::::: C++");
       break;
     case 'python2':
-      config['exe_path'] = '/usr/bin/python';
-      config['args'] = [path.join(base.code_base_path, config['code_name'])];
-      console.log("Python2");
+      config['exe_path'] = '/usr/bin/python2.7';
+      compiledPath = config['exe_path'];
+      config['args'] = `${path.join(base.code_base_path, config['code_name'])}`.split(' ');
+      console.log("complied language :::::: Python2");
       break;
     case 'python3':
-      config['exe_path'] = '/usr/bin/python3';
-      config['args'] = [path.join(base.code_base_path, config['code_name'])];
-      console.log("Python3");
+      config['exe_path'] = '/usr/local/bin/python3.9';
+      compiledPath = config['exe_path'];
+      config['args'] = `${path.join(base.code_base_path, config['code_name'])}`.split(' ');
+      console.log("complied language :::::: Python3");
       break;
     case 'java':
-      compiledPath = base.compile_java(config['code_name']);
+      const originalJava = await File.findOne({url:submit.source});
+      compiledPath = base.compile_java(config['code_name'], originalJava.filename);
       config['exe_path'] = '/usr/bin/java';
-      config['args'] = `-cp ${base.code_base_path} -Djava.security.manager -Dfile.encoding=UTF-8 -Djava.security.policy==/etc/java_policy -Djava.awt.headless=true ${compiledPath}`.split(' ');
+      config['args'] = `-cp /java_submit ${originalJava.filename.substring(0, originalJava.filename.lastIndexOf("."))}`.split(' ');
       config['memory_limit_check_only'] = 1;
-      console.log(compiledPath,"::: Java");
+      config['java_result_path'] = compiledPath;
+      console.log("complied language :::::: Java");
       break;
     case 'kotlin':
-      compiledPath = base.compile_kotlin(config['code_name']);
-      config['exe_path'] = '/usr/bin/java';
-      config['args'] = `-cp ${base.code_base_path} -Djava.security.manager -Dfile.encoding=UTF-8 -Djava.security.policy==/etc/java_policy -Djava.awt.headless=true ${compiledPath}`.split(' ');
+      const originalKotlin = await File.findOne({url:submit.source});
+      compiledPath = base.compile_kotlin(config['code_name'], originalKotlin.filename);
+      config['exe_path'] = '/kotlin/bin/kotlin';
+      config['args'] = `/kotlin_submit/${originalKotlin.filename.substring(0, originalKotlin.filename.lastIndexOf("."))+'.jar'}`.split(' ');
       config['memory_limit_check_only'] = 1;
-      console.log(compiledPath,"::: Kotlin");
+      config['kotlin_result_path'] = compiledPath;
+      console.log("complied language :::::: Kotlin");
       break;
     case 'go':
       compiledPath = base.compile_go(config['code_name']);
       config['exe_path'] = compiledPath;
       config['memory_limit_check_only'] = 1;
-      console.log(compiledPath,"::: Go");
+      console.log("complied language :::::: Go");
       break;
   }
   console.log("컴파일 완료");
-
+  // console.log(config)
   if (!existsSync(compiledPath)) {
     await submit.updateOne({
       $set: {
@@ -83,14 +90,13 @@ const startJudge = async (submitId) => {
   }
 
   console.log("채점 시작");
-  const result = await judge(config, submit);
+  const result = await judge(config, submit)
   console.log("채점 완료");
 
   const type = ['done', 'timeout', 'timeout', 'memory', 'runtime', 'wrong'];
 
   if (result['type'] == judger.RESULT_WRONG_ANSWER)
     result['type'] = 5;
-
 
   await submit.updateOne({
     $set: {
@@ -101,28 +107,38 @@ const startJudge = async (submitId) => {
       }
     }
   });
-
-  const resultPath = path.join(OUTPUT_PATH, `${config['submit_id']}.out`);
-
   console.log("삭제 시작");
+
+  let resultPath
+  if (config['language'] === 'java')
+  { resultPath = config['java_result_path'];
+    execSync('rm -rf /java_submit/*')}
+  else if (config['language'] === 'kotlin')
+  { resultPath = config['kotlin_result_path'];
+    execSync('rm -rf /kotlin_submit/*')}
+  else
+    resultPath = path.join(OUTPUT_PATH, `${config['submit_id']}.out`);
+
   try {
     await promises.unlink(resultPath);
-    if (compiledPath) {
-      await promises.unlink(compiledPath);
-    }
   } catch (e) {
-    console.error(e);
+    console.log(`Deletion Error : File Not Found In Path "${resultPath}"`);
   }
   console.log("삭제 완료");
   return result;
 }
 
 const judge = async (config, submit) => {
-  const problem = await Problem.findById(submit.problem)
+  // console.log(submit)
+  const problem = await Problem.findById({ _id: submit.problem })
     .populate({ path: 'ioSet.inFile' })
     .populate({ path: 'ioSet.outFile' });
 
   config["max_real_time"] = problem.options.maxRealTime;
+
+  if (config['language'] == "python")
+    config["max_cpu_time"] = config["max_cpu_time"] * 10;
+
   config["max_memory"] = problem.options.maxMemory * 1024 * 1024;
 
   console.log("real", config["max_real_time"]);
@@ -130,39 +146,32 @@ const judge = async (config, submit) => {
 
   const { ioSet } = problem;
 
-  console.log(ioSet);
-
   let result = { 'memory': 0, 'real_time': 0 };
 
   for (const io of ioSet) {
-    config['input_path'] = path.join('/io', getBasename(io.inFile.url)); // todo 연결된 볼륨 주소로 치환
-    config['answer_path'] = path.join('/io', getBasename(io.outFile.url)); // todo 연결된 볼륨 주소로 치환
+    config['input_path'] = path.join(OUTPUT_PATH, getBasename(io.inFile.url));
+    config['answer_path'] = path.join(OUTPUT_PATH, getBasename(io.outFile.url));
     config['output_path'] = path.join(OUTPUT_PATH, `${config['submit_id']}.out`);
 
-    console.log(config['input_path']);
-    console.log(config['answer_path']);
-    console.log(config['output_path']);
-
+    // console.log(config);
     const judgerResult = await judger.run(config);
 
-    const answer = base.read_file(config['answer_path']);
-    const output = base.read_file(config['output_path']);
-
+    const answer = base.read_file(config['answer_path']).replace(/(^\s*)|(\s*$)/g, "");
+    const output = base.read_file(config['output_path']).replace(/(^\s*)|(\s*$)/g, "");
     result['type'] = judgerResult['result'];
+    result['memory'] = judgerResult['memory'];
+    result['real_time'] = judgerResult['real_time'];
 
-    if (result['memory'] > judgerResult['memory'])
-      result['memory'] = judgerResult['memory'];
-
-    if (result['real_time'] > judgerResult['real_time'])
-      result['real_time'] = judgerResult['real_time'];
-
-    console.log(result['memory'], result['real_time']);
-
+    // console.log(judgerResult);
     if (judgerResult['result'] != judger.RESULT_SUCCESS)
+    {
+      console.log("result undefined");
       break;
+    }
 
-    if (answer !== output) {
+    if (answer != output) {
       result['type'] = judger.RESULT_WRONG_ANSWER;
+      console.log("wrong answer!")
       break;
     }
   }

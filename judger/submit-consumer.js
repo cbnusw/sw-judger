@@ -23,11 +23,12 @@ const init = async () => {
     partitionsConsumedConcurrently: 1,
     eachMessage: async ({ topic, partition, message }) => {
       const submitId = message.value.toString('utf-8');
-
-      console.log("시작", `Target: ${submitId}`);
+      console.log("시작 :::::: ", `타켓 ID: ${submitId}, 파티션: ${partition}`);
       await judger.startJudge(submitId);
-      console.log("프로듀서 동작", `Target: ${submitId}`);
-      resultProducer.sendMessage(submitId);
+      console.log("프로듀서 동작 :::::: ", `타겟 ID: ${submitId}`);
+      await resultProducer.init();
+      await resultProducer.sendMessage(submitId);
+      console.log( `ID ${submitId} 작업 완료`)
     },
   });
 
