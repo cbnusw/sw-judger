@@ -39,10 +39,10 @@ services:
       - ./Uploads:/io
     depends_on:
       - kafka
-      - mongodb
+
     links:
       - kafka
-      - mongodb
+
 
   judger2:
     build:
@@ -55,10 +55,10 @@ services:
       - ./Uploads:/io
     depends_on:
       - kafka
-      - mongodb
+
     links:
       - kafka
-      - mongodb
+
 
   judger3:
     build:
@@ -71,10 +71,10 @@ services:
       - ./Uploads:/io
     depends_on:
       - kafka
-      - mongodb
+
     links:
       - kafka
-      - mongodb
+
 
   judger4:
     build:
@@ -87,10 +87,10 @@ services:
       - ./Uploads:/io
     depends_on:
       - kafka
-      - mongodb
+
     links:
       - kafka
-      - mongodb
+
 
   judger5:
     build:
@@ -103,10 +103,10 @@ services:
       - ./Uploads:/io
     depends_on:
       - kafka
-      - mongodb
+
     links:
       - kafka
-      - mongodb
+
 
   judger-api:
     build:
@@ -117,10 +117,10 @@ services:
     ports:
       - "4003:4003"
     depends_on:
-      - mongodb
+
       - kafka
     links:
-      - mongodb
+
       - kafka
     volumes:
       - ./Server-Logs:/usr/src/app/logs
