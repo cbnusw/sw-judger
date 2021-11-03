@@ -2,6 +2,8 @@ FROM node:16.13.0 AS build
 
 RUN mkdir -p /app
 
+RUN mkdir -p /etc/nginx/ssl
+
 WORKDIR /app
 
 COPY package*.json /app/
