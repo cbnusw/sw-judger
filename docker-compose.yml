@@ -34,8 +34,8 @@ services:
     env_file:
       - judger/.env
     volumes:
-      - ./Uploads:/source
-      - ./Uploads:/io
+      - /uploads:/source
+      - /uploads:/io
     depends_on:
       - kafka
 
@@ -50,8 +50,8 @@ services:
     env_file:
       - judger/.env
     volumes:
-      - ./Uploads:/source
-      - ./Uploads:/io
+      - /uploads:/source
+      - /uploads:/io
     depends_on:
       - kafka
 
@@ -66,8 +66,8 @@ services:
     env_file:
       - judger/.env
     volumes:
-      - ./Uploads:/source
-      - ./Uploads:/io
+      - /uploads:/source
+      - /uploads:/io
     depends_on:
       - kafka
 
@@ -82,8 +82,8 @@ services:
     env_file:
       - judger/.env
     volumes:
-      - ./Uploads:/source
-      - ./Uploads:/io
+      - /uploads:/source
+      - /uploads:/io
     depends_on:
       - kafka
 
@@ -98,8 +98,8 @@ services:
     env_file:
       - judger/.env
     volumes:
-      - ./Uploads:/source
-      - ./Uploads:/io
+      - /uploads:/source
+      - /uploads:/io
     depends_on:
       - kafka
 
@@ -122,8 +122,8 @@ services:
 
       - kafka
     volumes:
-      - ./Server-Logs:/usr/src/app/logs
-      - ./Uploads:/usr/src/app/uploads
+      - /server-Logs:/usr/src/app/logs
+      - /uploads:/usr/src/app/uploads
 
   judger-web:
     build:

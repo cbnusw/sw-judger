@@ -110,10 +110,12 @@ const startJudge = async (submitId) => {
   console.log("삭제 시작");
 
   let resultPath
-  if (config['language'] === 'java')
+  let language = config['language']
+  if (language === 'java')
   { resultPath = config['java_result_path'];
-    execSync('rm -rf /java_submit/*')}
-  else if (config['language'] === 'kotlin')
+    execSync('rm -rf /java_submit/*')
+  }
+  else if (language === 'kotlin')
   { resultPath = config['kotlin_result_path'];
     execSync('rm -rf /kotlin_submit/*')}
   else
@@ -121,6 +123,9 @@ const startJudge = async (submitId) => {
 
   try {
     await promises.unlink(resultPath);
+    if (language === 'c' || language === 'c++' || language === 'go') {
+      await  promises.unlink(config['exe_path']);
+    }
   } catch (e) {
     console.log(`Deletion Error : File Not Found In Path "${resultPath}"`);
   }

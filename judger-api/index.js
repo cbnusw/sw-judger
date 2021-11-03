@@ -24,6 +24,5 @@ socketIo(server, app);
 initConsumer()
 
 
-
 //카프카 consumer 코드
 // kafkaConsumer();
