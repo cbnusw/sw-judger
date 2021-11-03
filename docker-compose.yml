@@ -21,13 +21,12 @@ services:
       KAFKA_HEAP_OPTS: "-Xms4g -Xmx6g"
       KAFKA_BROKER_ID: 1
       KAFKA_CREATE_TOPICS:
-        "swjudge-submit:4:1"
-
+        "swjudge-submit:4:1,swjudge-result:4:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
-    command: sh -c "/opt/kafka/bin/kafka-topics.sh --create --topic swjudge-result --bootstrap-server localhost:9092 --partitions 4 --replication-factor 1"
+    command: cd /opt/kafka && bin/kafka-topics.sh --create --topic swjudge-result --zookeeper zookeeper:2181 -- partition 4 --replication-factor 1
 
   judger1:
     build:
