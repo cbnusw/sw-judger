@@ -25,7 +25,6 @@ RUN apt-get purge -y --auto-remove $buildDeps && \
 WORKDIR /app
 COPY package*.json ./
 RUN npm i
-#RUN npm install -g nodemon
 RUN npm install -g pm2
 COPY . .
 RUN gcc -shared -fPIC -o unbuffer.so unbuffer.c

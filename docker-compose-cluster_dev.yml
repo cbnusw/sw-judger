@@ -34,7 +34,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - ./judger/.env
+      - judger/envs/.env1
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -51,7 +51,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - ./judger/.env2
+      - judger/envs/.env2
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -68,7 +68,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - ./judger/.env3
+      - judger/envs/.env3
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -85,7 +85,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - ./judger/.env4
+      - judger/envs/.env4
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -102,7 +102,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - ./judger/.env4
+      - judger/envs/.env5
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -138,8 +138,9 @@ services:
       context: ./judger-web
       dockerfile: Dockerfile.dev
     ports:
-      - "80:80"
-      - "443:443"
+      - "4200:4200"
+    volumes:
+      - ./judger-web:/app
 
   mongodb:
     build:

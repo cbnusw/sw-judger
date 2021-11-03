@@ -10,11 +10,7 @@ RUN npm install
 
 COPY . /app
 
-#실서버용 빌드
 RUN npm run build
-
-#디벨롭용
-#RUN npm run build:dev
 
 FROM nginx
 

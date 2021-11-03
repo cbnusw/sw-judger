@@ -28,13 +28,12 @@ services:
     depends_on:
       - zookeeper
 
-
   judger1:
     build:
       context: ./judger
       dockerfile: Dockerfile
     env_file:
-      - ./judger/.env
+      - judger/.env
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -50,7 +49,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile
     env_file:
-      - ./judger/.env2
+      - judger/.env
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -66,7 +65,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile
     env_file:
-      - ./judger/.env3
+      - judger/.env
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -82,7 +81,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile
     env_file:
-      - ./judger/.env4
+      - judger/.env
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -98,7 +97,7 @@ services:
       context: ./judger
       dockerfile: Dockerfile
     env_file:
-      - ./judger/.env4
+      - judger/.env
     volumes:
       - ./Uploads:/source
       - ./Uploads:/io
@@ -112,7 +111,7 @@ services:
   judger-api:
     build:
       context: ./judger-api
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     env_file:
       - ./judger-api/.env
     ports:

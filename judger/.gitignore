@@ -1,8 +1,4 @@
-.env
-.env2
-.env3
-.env4
-.env5
+envs/*
 node_modules
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,webstorm,visualstudiocode,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,webstorm,visualstudiocode,node
@@ -124,7 +120,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+envs/.env1
 .env.test
 .env.production
 
