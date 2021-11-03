@@ -18,7 +18,7 @@ COPY --from=build app/dist/main /usr/share/nginx/html
 
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-COPY nginx/ssl/ /etc/nginx/ssl/
+COPY nginx/ssl/* /etc/nginx/ssl/
 
 EXPOSE 80
 EXPOSE 443
