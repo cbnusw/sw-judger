@@ -1,0 +1,47 @@
+<div *ngIf="!value;else pdfTemplate"
+     swFileChooser accept="application/pdf"
+     (filesChange)="uploadPdf($event)"
+     class="cursor pointer hover relative border flex justify-center align-center py-3">
+    <div class="loading" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <span class="text-50">
+        <i class="las la-file-pdf me-1"></i>문제 파일(PDF 형식)을 업로드해주세요.
+    </span>
+</div>
+<ng-template #pdfTemplate>
+    <div class="relative">
+        <div class="actions flex align-center">
+            <div class="me-2">
+                <button type="button"
+                        [disabled]="(page || 1) <= 1"
+                        (click)="prevPage()"
+                        mat-icon-button>
+                    <mat-icon>arrow_back_ios</mat-icon>
+                </button>
+            </div>
+            <div class="me-auto">
+                <button type="button"
+                        [disabled]="page >= (lastPage || 1)"
+                        (click)="nextPage()"
+                        mat-icon-button>
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                </button>
+            </div>
+            <div>
+                <button type="button"
+                        (click)="close()"
+                        mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+        <pdf-viewer class="w-100"
+                    [(page)]="page"
+                    (after-load-complete)="load($event)"
+                    [show-all]="false"
+                    [original-size]="false"
+                    [src]="value | secure | async"
+                    [render-text]="true"></pdf-viewer>
+    </div>
+</ng-template>

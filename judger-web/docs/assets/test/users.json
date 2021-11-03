@@ -1,0 +1,147 @@
+[
+  {
+    "no": "919105",
+    "password": "asdf1234",
+    "roles": ["staff", "operator"],
+    "permissions": ["online judge"],
+    "info": {
+      "no": "919105",
+      "name": "안광모",
+      "email": "ahnmo777@gmail.com",
+      "phone": "01024392727",
+      "center": "오픈소스SW센터",
+      "department": "SW중심대학사업단",
+      "position": "강의전담교수"
+    }
+  },
+  {
+    "no": "2019036070",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2019036070",
+      "name": "권지예",
+      "email": "whojiye@naver.com",
+      "phone": "01028624514",
+      "department": "정보통신공학부"
+    }
+  },
+  {
+    "no": "2017038063",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2017038063",
+      "name": "박성진",
+      "email": "huitseize@naver.com",
+      "phone": "01035355909",
+      "department": "소프트웨어학과"
+    }
+  },
+  {
+    "no": "2018037010",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2018037010",
+      "name": "윤정환",
+      "email": "ghks0630@naver.com",
+      "phone": "01084834880",
+      "department": "컴퓨터공학과"
+    }
+  },
+  {
+    "no": "2017038069",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2017038069",
+      "name": "이동우",
+      "email": "ehddn977@naver.com",
+      "phone": "01020829743",
+      "department": "소프트웨어학과"
+    }
+  },
+  {
+    "no": "2018036031",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2018036031",
+      "name": "이예찬",
+      "email": "dldpcks1999@naver.com",
+      "phone": "01052650737",
+      "department": "정보통신공학부"
+    }
+  },
+  {
+    "no": "2016039029",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2016039029",
+      "name": "이종영",
+      "email": "whdwlrudtjd@naver.com",
+      "phone": "01092974916",
+      "department": "소프트웨어학과"
+    }
+  },
+  {
+    "no": "2018037004",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2018037004",
+      "name": "이진희",
+      "email": "brill_be@naver.com",
+      "phone": "01090616840",
+      "department": "컴퓨터공학과"
+    }
+  },
+  {
+    "no": "2017036153",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2017036153",
+      "name": "이찬혁",
+      "email": "lee505052@naver.com",
+      "phone": "01058911560",
+      "department": "정보통신공학부"
+    }
+  },
+  {
+    "no": "2016039036",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2016039036",
+      "name": "장병권",
+      "email": "wkdqudrnjsbg@naver.com",
+      "phone": "01063370375",
+      "department": "소프트웨어학과"
+    }
+  },
+  {
+    "no": "2020039080",
+    "password": "asdf1234",
+    "roles": ["student"],
+    "permissions": [],
+    "info": {
+      "no": "2020039080",
+      "name": "조현창",
+      "email": "gusckd57@naver.com",
+      "phone": "01053806255",
+      "department": "소프트웨어학과"
+    }
+  }
+]

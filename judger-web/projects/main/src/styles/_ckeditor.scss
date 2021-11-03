@@ -1,0 +1,205 @@
+:root {
+  --ck-z-default: 100;
+  --ck-z-modal: calc(var(--ck-z-default) + 999);
+}
+
+.ck-editor {
+  margin: 0 0 1em;
+  border: 1px solid hsla(0, 0%, 0%, 0.1);
+  border-radius: 4px;
+
+  /* Adding internal spacing, border and background to the toolbar.  */
+  .btn-toolbar {
+    padding: .5rem;
+    background: #f7f7f9;
+    border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+  }
+
+  /* Tweaking the editable area for better readability. */
+  .ck-editor__editable {
+    padding: 2em 2em 1em;
+    overflow: auto;
+    height: 300px;
+
+    /* When in read–only mode, the editable should fade out. */
+    &.ck-read-only {
+      background: #fafafa;
+      color: hsl(0, 0%, 47%);
+    }
+  }
+
+  /* Make sure the headings dropdown button does not change its size as different headings are selected */
+  .dropdown-toggle span {
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+  }
+
+  /* Make the headings dropdown items visually distinctive. */
+  .heading-item_heading1 { font-size: 1.5em; }
+  .heading-item_heading2 { font-size: 1.3em; }
+  .heading-item_heading3 { font-size: 1.1em; }
+
+  [class*="heading-item_"] {
+    line-height: 22px;
+    padding: 10px;
+  }
+
+  [class*="heading-item_heading"] { font-weight: bold; }
+
+  /* Give the basic styles buttons some icon–like shape */
+  #bold { font-weight: bold; }
+  #italic { font-style: italic; }
+  #underline { text-decoration: underline; }
+
+  /* https://github.com/ckeditor/ckeditor5/issues/903 */
+  .ck-content > :first-child { margin-top: 0; }
+}
+
+pre.content {
+  width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.ck-content {
+  overflow: hidden;
+  word-break: break-all;
+  width: 100%;
+  /*
+ * Override the width of the table set by Bootstrap content styles.
+ * See: https://github.com/ckeditor/ckeditor5-table/issues/154.
+ */
+  .table {
+    width: auto;
+    display: table;
+  }
+
+  .image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 1em auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .image-style-align-left, .image-style-align-right {
+    margin-right: 1.5em;
+    max-width: 50%;
+  }
+
+  .image-style-align-left {
+    float: left;
+  }
+
+  .image-style-align-right {
+    float: right;
+  }
+
+  a {
+    color: #377dff;
+  }
+
+  .table {
+    margin: 1em auto;
+
+    $th-bg: #dddddd;
+
+    table {
+      border-collapse: collapse;
+      border: 1px solid darken($th-bg, 5%);
+
+      th {
+        //background-color: $th-bg;
+        //color: white;
+      }
+
+      th, td {
+        border: 1px solid darken($th-bg, 5%);
+        padding: 1rem;
+      }
+
+      th, td {
+        min-width: 2em;
+
+        figure {
+          margin: 0;
+        }
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  figure.table, figure.image {
+    width: 90%;
+    margin: 1rem auto;
+  }
+
+  //@include mobile {
+  //  figure {
+  //    width: 100%;
+  //  }
+  //  .image-style-align-right, .image-style-align-left {
+  //    float: none;
+  //    max-width: 100%;
+  //    margin: 1rem 0;
+  //  }
+  //}
+
+}
+
+
+
+/*
+ * Bring back the default CKEditor 5 input appearance by overriding
+ * high–specificity styles brought by materialize.css.
+ *
+ * See: https://github.com/Dogfalo/materialize/blob/v1-dev/sass/components/forms/_input-fields.scss#L10-L40
+ */
+.ck {
+  input {
+    &.ck-input.ck-input-text {
+      box-shadow: var(--ck-inner-shadow),0 0;
+      background: var(--ck-color-input-background);
+      border: 1px solid var(--ck-color-input-border);
+      padding: var(--ck-spacing-extra-tiny) var(--ck-spacing-medium);
+      transition-property: box-shadow,border;
+      transition: .2s ease-in-out;
+
+      height: inherit;
+      width: inherit;
+      font-size: inherit;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    &.ck-input.ck-input-text:focus {
+      border: var(--ck-focus-ring);
+      box-shadow: var(--ck-focus-outer-shadow),var(--ck-inner-shadow);
+    }
+  }
+}
+
+/*
+ * Bring back the default <ul> and <li> appearance.
+ *
+ * See: https://github.com/Dogfalo/materialize/blob/v1-dev/sass/components/_global.scss#L28-L37
+ */
+.ck.ck-content ul,
+.ck.ck-content ul li {
+  list-style-type: inherit;
+}
+
+.ck.ck-content ul {
+  /* Default user agent stylesheet, you can change it to your needs. */
+  padding-left: 40px;
+}
+

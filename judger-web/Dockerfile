@@ -1,0 +1,28 @@
+FROM node:16.13.0 AS build
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+COPY package*.json /app
+
+RUN npm install
+
+COPY . /app
+
+#실서버용 빌드
+RUN npm run build
+
+#디벨롭용
+#RUN npm run build:dev
+
+FROM nginx
+
+COPY --from=build app/dist/main /usr/share/nginx/html
+
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR nginx/ssl /etc/nginx/ssl
+
+EXPOSE 80
+EXPOSE 443

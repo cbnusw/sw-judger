@@ -1,0 +1,51 @@
+@mixin generate-spacer($prefix, $properties) {
+  $sizes: (0, 0.5, 1, 1.5, 2, 2.5, 3);
+
+  @for $i from 1 through length($sizes) {
+    .#{$prefix}-#{$i - 1} {
+      @each $property in $properties {
+        #{$property}: 1rem * nth($sizes, $i) !important;
+      }
+    }
+  }
+}
+
+@mixin generate-neg-spacer($prefix, $properties) {
+  $sizes: (0, 0.5, 1, 1.5, 2, 2.5, 3);
+
+  @for $i from 1 through length($sizes) {
+    .#{$prefix}-neg-#{$i - 1} {
+      @each $property in $properties {
+        #{$property}: -1em * nth($sizes, $i) !important;
+      }
+    }
+  }
+}
+
+.ms-auto {
+  margin-left: auto;
+}
+
+.me-auto {
+  margin-right: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@include generate-spacer(ms, (margin-left));
+@include generate-spacer(me, (margin-right));
+@include generate-spacer(mx, (margin-left, margin-right));
+@include generate-spacer(mt, (margin-top));
+@include generate-spacer(mb, (margin-bottom));
+@include generate-spacer(my, (margin-top, margin-bottom));
+@include generate-spacer(m, (margin));
+@include generate-spacer(ps, (padding-left));
+@include generate-spacer(pe, (padding-right));
+@include generate-spacer(px, (padding-left, padding-right));
+@include generate-spacer(pt, (padding-top));
+@include generate-spacer(pb, (padding-bottom));
+@include generate-spacer(py, (padding-top, padding-bottom));
+@include generate-spacer(p, (padding));

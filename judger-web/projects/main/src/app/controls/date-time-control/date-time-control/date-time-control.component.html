@@ -1,0 +1,32 @@
+<mat-form-field class="me-1">
+    <mat-label>날짜</mat-label>
+    <input matInput
+           required
+           [errorStateMatcher]="errorStateMatcher"
+           [matDatepicker]="startPicker"
+           [ngModel]="start.date"
+           (ngModelChange)="changeDate($event)"
+           autocomplete="off">
+    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+    <mat-datepicker #startPicker></mat-datepicker>
+</mat-form-field>
+<mat-form-field class="me-1 time-select">
+    <mat-label>시</mat-label>
+    <select matNativeControl
+            required
+            [errorStateMatcher]="errorStateMatcher"
+            [ngModel]="start.hours"
+            (ngModelChange)="changeHours($event)"
+            autocomplete="off">
+        <option [value]="hours" *ngFor="let hours of hoursOptions">{{hours}}시</option>
+    </select>
+</mat-form-field>
+<mat-form-field class="time-select">
+    <mat-label>분</mat-label>
+    <select matNativeControl required
+            [errorStateMatcher]="errorStateMatcher"
+            [ngModel]="start.minutes"
+            (ngModelChange)="changeMinutes($event)">
+        <option [value]="minutes" *ngFor="let minutes of minutesOptions">{{minutes}}분</option>
+    </select>
+</mat-form-field>
