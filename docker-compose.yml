@@ -26,7 +26,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
-    command: cd /opt/kafka && bin/kafka-topics.sh --create --topic swjudge-result --zookeeper zookeeper:2181 -- partition 4 --replication-factor 1
 
   judger1:
     build:
