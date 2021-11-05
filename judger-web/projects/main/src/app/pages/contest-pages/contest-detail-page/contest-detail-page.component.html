@@ -23,7 +23,7 @@
     </div>
 
     <div class="flex justify-end" *ngIf="isContestant$ | async; else notContestantTemplate">
-      <a *ngIf=" isTestPeriod ||isAfterTestPeriod" class="text-white me-2 no-border-radius"
+      <a *ngIf=" isTestPeriod || isAfterTestPeriod" class="text-white me-2 no-border-radius"
          mat-flat-button color="primary"
          routerLink="/scoreboard"
          [queryParams]="{contest: contest?._id}">
@@ -76,6 +76,12 @@
                     mat-flat-button color="primary">
                 참가신청
             </button>
+          <a *ngIf=" isTestPeriod || isAfterTestPeriod" class="text-white me-2 no-border-radius"
+             mat-flat-button color="primary"
+             routerLink="/scoreboard"
+             [queryParams]="{contest: contest?._id}">
+            스코어보드
+          </a>
         </div>
     </ng-template>
 </div>
