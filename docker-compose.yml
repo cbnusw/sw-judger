@@ -18,7 +18,7 @@ services:
       KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
       KAFKA_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_HEAP_OPTS: "-Xms4g -Xmx6g"
+      KAFKA_HEAP_OPTS: "-Xms8g -Xmx8g"
       KAFKA_BROKER_ID: 1
       KAFKA_CREATE_TOPICS:
         "swjudge-submit:4:1,swjudge-result:4:1"
