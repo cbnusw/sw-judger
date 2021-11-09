@@ -168,6 +168,7 @@ const judge = async (config, submit) => {
     result['real_time'] = judgerResult['real_time'];
 
     // console.log(judgerResult);
+    console.log("answer ::: ",answer,"\noutput ::: ", output);
     if (judgerResult['result'] != judger.RESULT_SUCCESS)
     {
       console.log("result undefined");

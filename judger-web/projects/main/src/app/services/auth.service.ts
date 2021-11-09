@@ -19,7 +19,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService extends RequestBase {
+export class  AuthService extends RequestBase {
 
   private meSubject: BehaviorSubject<IUserInfo> = new BehaviorSubject(null);
   me$: Observable<IUserInfo> = this.meSubject.asObservable();

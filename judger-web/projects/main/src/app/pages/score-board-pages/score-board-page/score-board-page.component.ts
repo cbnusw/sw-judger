@@ -48,7 +48,7 @@ export class ScoreBoardPageComponent implements OnInit, OnDestroy {
             }
             b.score = score;
           })
-
+          score = 0;
           b.penalty = b.scores.reduce((acc, cur) => {
             if (cur.right) {
               acc += cur.time;
