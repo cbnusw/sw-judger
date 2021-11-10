@@ -62,6 +62,18 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/scoreboard'], { queryParams: { contest: this.contest._id } });
   }
 
+  get isBeforeTestPeriod(): boolean {
+    if (!this.contest) {
+      return false;
+    }
+
+    const { testPeriod } = this.contest;
+    const now = new Date();
+    const start = new Date(testPeriod.start);
+
+    return now.getTime() < start.getTime();
+  }
+
   ngOnInit(): void {
     this.subscription = this.route.params.pipe(
       map(params => params.id),

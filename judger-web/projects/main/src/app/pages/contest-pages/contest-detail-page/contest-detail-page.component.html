@@ -56,9 +56,13 @@
               [routerLink]="['/contest/edit', contest?._id]">
         <i class="las la-edit"></i><span class="ms-2 mobile-d-none">대회 수정</span>
       </button>
-      <button class="text-white me-2 no-border-radius" *ngIf="isTestPeriod|| isBeforeTestPeriod" mat-flat-button color="primary"
+      <button class="text-white me-2 no-border-radius" *ngIf="isBeforeTestPeriod" mat-flat-button color="primary"
               [routerLink]="['/contest', contest?._id, 'problems']">
         <i class="las la-folder-plus"></i><span class="ms-2 mobile-d-none">문제 등록/수정</span>
+      </button>
+      <button class="text-white me-2 no-border-radius" *ngIf="isTestPeriod" mat-flat-button color="primary"
+              [routerLink]="['/contest', contest?._id, 'problems']">
+        <i class="las la-folder-plus"></i><span class="ms-2 mobile-d-none">문제 수정</span>
       </button>
       <button type="button"
               class="text-white no-border-radius"
@@ -76,7 +80,7 @@
                     mat-flat-button color="primary">
                 참가신청
             </button>
-          <a *ngIf=" isTestPeriod || isAfterTestPeriod" class="text-white no-border-radius"
+          <a *ngIf=" isTestPeriod && !(isWriter$ | async) || isAfterTestPeriod && !(isWriter$ | async)" class="text-white no-border-radius"
              mat-flat-button color="primary"
              routerLink="/scoreboard"
              [queryParams]="{contest: contest?._id}">

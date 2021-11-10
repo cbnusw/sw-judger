@@ -30,7 +30,7 @@
                 (click)="setReorderMode()">
             순서변경
         </button>
-        <a class="no-border-radius ms-2"
+        <a class="no-border-radius ms-2" *ngIf="isBeforeTestPeriod"
            mat-flat-button
            routerLink="/problem/new"
            [queryParams]="{ contest: contest?._id }"

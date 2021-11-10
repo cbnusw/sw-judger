@@ -46,7 +46,6 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
 
 
   async submit(): Promise<void> {
-    console.log(this.formGroup.getRawValue());
     await super.submit();
   }
 
@@ -73,7 +72,7 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
     return formBuilder.group({
       title: [null, [Validators.required]],
       content: [null, [Validators.required]],
-      published: [false, [Validators.required]],
+      published: [false],
       ioSet: [null, Validators.required],
       options: formBuilder.group({
         maxRealTime: [null, [Validators.required, Validators.min(1)]],
@@ -88,13 +87,13 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
     let observable: Observable<string>;
 
     if (this.contest) {
-      observable = (this.modifying ?
-        this.contestService.updateContestProblem(this.contest._id, this.model._id, m) :
-        this.contestService.createContestProblem(this.contest._id, m)).pipe(map(() => this.contest._id));
+      observable = this.modifying ?
+        this.contestService.updateContestProblem(this.contest._id, this.model._id, m).pipe(map(()=> this.contest._id)) :
+        this.contestService.createContestProblem(this.contest._id, m).pipe(map(() => this.contest._id));
     } else {
       observable = this.modifying ?
-        this.problemService.createProblem(m).pipe(map(res => res.data._id)) :
-        this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id));
+        this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id)) :
+        this.problemService.createProblem(m).pipe(map(res => res.data._id));
     }
 
     return observable;

@@ -67,6 +67,7 @@ export class ContestService extends ApiBase {
   }
 
   updateContestProblem(id: string, problemId: string, body: IProblem): Observable<IResponse<undefined>> {
+    console.log("updated!")
     return this.http.put<IResponse<undefined>>(this.url`/${id}/problem/${problemId}`, body);
   }
 
