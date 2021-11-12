@@ -27,7 +27,7 @@
          mat-flat-button color="primary"
          routerLink="/scoreboard"
          [queryParams]="{contest: contest?._id}">
-        스코어보드
+        <i class="las la-chalkboard"></i><span class="ms-2 mobile-d-none">스코어보드</span>
       </a>
         <button *ngIf="isBeforeTestPeriod"
                 (click)="unenroll()"
@@ -35,12 +35,13 @@
                 class="no-border-radius"
                 mat-flat-button
                 color="warn">
-            참가취소
+          <i class="las la-sign-out-alt"></i><span class="ms-2 mobile-d-none">참가취소</span>
         </button>
         <a *ngIf="isTestPeriod" class="no-border-radius"
-           mat-flat-button color="primary"
+           mat-flat-button color="accent"
+           style="color: white"
            [routerLink]="['/contest', contest?._id, 'problems']">
-            대회시작
+          <i class="las la-play"></i><span class="ms-2 mobile-d-none">대회시작</span>
         </a>
     </div>
 
@@ -49,7 +50,7 @@
               mat-flat-button color="primary"
               routerLink="/scoreboard"
               [queryParams]="{contest: contest?._id}">
-        스코어보드
+        <i class="las la-chalkboard"></i><span class="ms-2 mobile-d-none">스코어보드</span>
       </button>
       <button class="text-white me-2 no-border-radius"
               mat-flat-button color="accent"
@@ -78,13 +79,13 @@
                     class="no-border-radius"
                     (click)="enroll()"
                     mat-flat-button color="primary">
-                참가신청
+              <i class="las la-sign-in-alt"></i><span class="ms-2 mobile-d-none">참가신청</span>
             </button>
           <a *ngIf=" isTestPeriod && !(isWriter$ | async) || isAfterTestPeriod && !(isWriter$ | async)" class="text-white no-border-radius"
              mat-flat-button color="primary"
              routerLink="/scoreboard"
              [queryParams]="{contest: contest?._id}">
-            스코어보드
+            <i class="las la-chalkboard"></i><span class="ms-2 mobile-d-none">스코어보드</span>
           </a>
         </div>
     </ng-template>

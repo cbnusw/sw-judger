@@ -2,12 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const execSync = require("child_process").execSync;
 
-const { CODE_BASE_PATH } = require("./env");
+const { CODE_BASE_PATH, OUTPUT_PATH } = require("./env");
 
 const compile_c = function (name) {
-  out_path = path.join(CODE_BASE_PATH, name.substring(0, name.lastIndexOf(".")));
+  out_path = path.join(OUTPUT_PATH, name.substring(0, name.lastIndexOf(".")));
   try {
-    execSync(`gcc -o  ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
+    execSync(`gcc -o ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
   } catch (err) {
     console.log(err);
     out_path = 'null'
@@ -16,9 +16,9 @@ const compile_c = function (name) {
 };
 
 const compile_cpp = function (name) {
-  out_path = path.join(CODE_BASE_PATH, name.substring(0, name.lastIndexOf(".")));
+  out_path = path.join(OUTPUT_PATH, name.substring(0, name.lastIndexOf(".")));
   try {
-    execSync(`g++ -o  ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
+    execSync(`g++ -o ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
   }
   catch (err) {
     console.log(err);
@@ -50,7 +50,7 @@ const compile_kotlin = function (name, originalName) {
 };
 
 const compile_go = function (name) {
-  out_path = path.join(CODE_BASE_PATH, name.substring(0, name.lastIndexOf(".")));
+  out_path = path.join(OUTPUT_PATH, name.substring(0, name.lastIndexOf(".")));
   try {
     execSync(`go build -o ${out_path} ${path.join(CODE_BASE_PATH, name)}`);
   } catch (err) {

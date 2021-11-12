@@ -15,7 +15,7 @@ const startJudge = async (submitId) => {
   let config = base.baseconfig();
 
   config['submit_id'] = submitId;
-
+  // const default_env = ["LANG=en_US.UTF-8", "LANGUAGE=en_US:en", "LC_ALL=en_US.UTF-8"]
   const submit = await Submit.findOne({_id:submitId})
 
   if (!submit)
@@ -73,6 +73,14 @@ const startJudge = async (submitId) => {
       config['memory_limit_check_only'] = 1;
       console.log("complied language :::::: Go");
       break;
+    case 'javascript':
+      config['exe_path'] = '/usr/bin/node';
+      compiledPath = config['exe_path'];
+      config['args'] = `${path.join(base.code_base_path, config['code_name'])}`.split(' ');
+      config['env'] = ["NO_COLOR=true"]
+      config['memory_limit_check_only'] = 1;
+      console.log("complied language :::::: JavaScript");
+      break;
   }
   console.log("컴파일 완료");
   // console.log(config)
@@ -109,26 +117,26 @@ const startJudge = async (submitId) => {
   });
   console.log("삭제 시작");
 
-  let resultPath
+  // let resultPath
   let language = config['language']
-  if (language === 'java')
-  { resultPath = config['java_result_path'];
-    execSync('rm -rf /java_submit/*')
-  }
-  else if (language === 'kotlin')
-  { resultPath = config['kotlin_result_path'];
-    execSync('rm -rf /kotlin_submit/*')}
-  else
-    resultPath = path.join(OUTPUT_PATH, `${config['submit_id']}.out`);
-
-  try {
-    await promises.unlink(resultPath);
-    if (language === 'c' || language === 'c++' || language === 'go') {
-      await  promises.unlink(config['exe_path']);
-    }
+  try{
+    if (language === 'java')
+      await execSync('rm -rf /java_submit/*')
+    else if (language === 'kotlin')
+      await execSync('rm -rf /kotlin_submit/*')
+    else
+      await execSync('rm -rf /judger_submit/*')
   } catch (e) {
-    console.log(`Deletion Error : File Not Found In Path "${resultPath}"`);
+    console.log(`Deletion Error : ${e}`);
   }
+  // try {
+  //   await promises.unlink(resultPath);
+  //   if (language === 'c' || language === 'c++' || language === 'go') {
+  //     await promises.unlink(config['exe_path']);
+  //   }
+  // } catch (e) {
+  //     console.log(`Deletion Error : File Not Found In Path "${resultPath}"`);
+  // }
   console.log("삭제 완료");
   return result;
 }
@@ -141,8 +149,8 @@ const judge = async (config, submit) => {
 
   config["max_real_time"] = problem.options.maxRealTime;
 
-  if (config['language'] == "python")
-    config["max_cpu_time"] = config["max_cpu_time"] * 10;
+  // if (config['language'] == "python")
+  //   config["max_cpu_time"] = config["max_cpu_time"] * 10;
 
   config["max_memory"] = problem.options.maxMemory * 1024 * 1024;
 
@@ -154,8 +162,8 @@ const judge = async (config, submit) => {
   let result = { 'memory': 0, 'real_time': 0 };
 
   for (const io of ioSet) {
-    config['input_path'] = path.join(OUTPUT_PATH, getBasename(io.inFile.url));
-    config['answer_path'] = path.join(OUTPUT_PATH, getBasename(io.outFile.url));
+    config['input_path'] = path.join(CODE_BASE_PATH, getBasename(io.inFile.url));
+    config['answer_path'] = path.join(CODE_BASE_PATH, getBasename(io.outFile.url));
     config['output_path'] = path.join(OUTPUT_PATH, `${config['submit_id']}.out`);
 
     // console.log(config);
@@ -168,7 +176,7 @@ const judge = async (config, submit) => {
     result['real_time'] = judgerResult['real_time'];
 
     // console.log(judgerResult);
-    console.log("answer ::: ",answer,"\noutput ::: ", output);
+    // console.log("answer ::: ",answer,"\noutput ::: ", output);
     if (judgerResult['result'] != judger.RESULT_SUCCESS)
     {
       console.log("result undefined");

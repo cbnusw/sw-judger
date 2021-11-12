@@ -21,7 +21,8 @@ services:
       KAFKA_HEAP_OPTS: "-Xms8g -Xmx8g"
       KAFKA_BROKER_ID: 1
       KAFKA_CREATE_TOPICS:
-        "swjudge-submit:4:1,swjudge-result:4:1"
+        "swjudge-submit:4:1,\
+         swjudge-result:4:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:

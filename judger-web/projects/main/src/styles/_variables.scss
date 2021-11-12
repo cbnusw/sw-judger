@@ -13,6 +13,7 @@
 // hue. Available color palettes: https://material.io/design/color/
 $main-primary: mat-palette($mat-indigo);
 $main-accent: mat-palette($mat-green);
+$main-orange: mat-palette($mat-orange);
 
 // The warn palette is optional (defaults to red).
 $main-warn: mat-palette($mat-red);
@@ -25,6 +26,7 @@ $main-theme: mat-light-theme(
       primary: $main-primary,
       accent: $main-accent,
       warn: $main-warn,
+      orange: $main-orange,
     ),
   )
 );

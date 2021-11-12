@@ -25,6 +25,7 @@ const programmingLanguages = [
   'c',
   'c++',
   'java',
+  'javascript',
   'python2',
   'python3',
   'kotlin',
@@ -49,7 +50,6 @@ const centers = [
   'SW산학협력센터',
   '오픈소스SW센터'
 ];
-
 
 exports.NOT_OPERATOR_ROLES = notOperatorRoles;
 exports.ROLES = roles;

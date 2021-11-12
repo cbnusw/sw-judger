@@ -2,11 +2,11 @@ FROM ubuntu:18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 COPY build/java_policy /etc
+RUN apt update
 RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev' && \
     apt-get update && apt-get install -y curl zip python python3.8 python-pkg-resources python3-pkg-resources gcc g++ $buildDeps && \
     add-apt-repository ppa:openjdk-r/ppa && add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go openjdk-8-jdk
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt update
 RUN apt-get -y install build-essential checkinstall wget
 RUN apt-get -y install libreadline-gplv2-dev libncursesw5-dev libssl-dev \
                        libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
@@ -32,7 +32,7 @@ RUN mkdir -p /kotlin
 ADD kotlin /kotlin
 RUN mkdir -p /java_submit
 RUN mkdir -p /kotlin_submit
+RUN mkdir -p /judger_submit
 EXPOSE 5000
 EXPOSE 9092
 CMD ["npm", "run", "start"]
-

@@ -18,6 +18,7 @@ export const PROGRAMMING_LANGUAGES = [
   'c',
   'c++',
   'java',
+  'javascript',
   'python2',
   'python3',
   'kotlin',

@@ -8,6 +8,7 @@ services:
     volumes:
       - ./zookeeper/conf:/conf
 
+
   kafka:
     image: wurstmeister/kafka
     ports:
@@ -18,7 +19,7 @@ services:
       KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
       KAFKA_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_HEAP_OPTS: "-Xms4g -Xmx4g"
+      KAFKA_HEAP_OPTS: "-Xms6g -Xmx8g"
       KAFKA_BROKER_ID: 1
       KAFKA_CREATE_TOPICS:
         "swjudge-submit:4:1,\
@@ -34,10 +35,9 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - judger/envs/.env1
+      - judger/.env
     volumes:
       - ./Uploads:/source
-      - ./Uploads:/io
       - ./judger:/app
     depends_on:
       - kafka
@@ -51,10 +51,9 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - judger/envs/.env2
+      - judger/.env
     volumes:
       - ./Uploads:/source
-      - ./Uploads:/io
       - ./judger:/app
     depends_on:
       - kafka
@@ -68,10 +67,9 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - judger/envs/.env3
+      - judger/.env
     volumes:
       - ./Uploads:/source
-      - ./Uploads:/io
       - ./judger:/app
     depends_on:
       - kafka
@@ -85,10 +83,9 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - judger/envs/.env4
+      - judger/.env
     volumes:
       - ./Uploads:/source
-      - ./Uploads:/io
       - ./judger:/app
     depends_on:
       - kafka
@@ -102,10 +99,9 @@ services:
       context: ./judger
       dockerfile: Dockerfile.dev
     env_file:
-      - judger/envs/.env5
+      - judger/.env
     volumes:
       - ./Uploads:/source
-      - ./Uploads:/io
       - ./judger:/app
     depends_on:
       - kafka
@@ -119,7 +115,7 @@ services:
       context: ./judger-api
       dockerfile: Dockerfile.dev
     env_file:
-      - ./judger-api/.env
+      - judger/.env
     ports:
       - "4003:4003"
     depends_on:
