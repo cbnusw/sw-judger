@@ -38,7 +38,7 @@
 
 1. 위 개발 설정을 중 1, 2(배포용 설정 적용)를 시행한다.
 2. judger-web 내부 nginx에서 nginx설정 및 ssl폴더 설정 후 key파일을 설정, 도커파일 내부 nginx 설정을 서버 환경에 맞춘다.
-3. docker compose up으로 실행한다.
+3. docker-compose -f docker-compose_prod.yml up으로 실행한다.
 4. 개발 설정 중 5번을 시행 후 변경점이 있다면 해당 컨테이너로 접속해 pm2 reload 0 명령어로 API서버 재시작해준다.
 
 ###중요사항
