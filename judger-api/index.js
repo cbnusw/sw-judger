@@ -17,12 +17,11 @@ server.on('listening', () => {
   debug(`Server running on ${addr.address}${addr.port}`);
 });
 
-// initialize().then(() => debug(`initialization complete!`));
+initialize().then(() => debug(`initialization complete!`));
 
 socketIo(server, app);
 // initConsumer(app.get('io'))
 initConsumer()
-
 
 //카프카 consumer 코드
 // kafkaConsumer();

@@ -1,4 +1,4 @@
-const { Kafka } = require('kafkajs');
+const { Kafka, PartitionAssigners } = require('kafkajs');
 
 const judger = require('./judger')
 const resultProducer = require('./result-producer');
@@ -16,9 +16,9 @@ const kafka = new Kafka({
 });
 
 const init = async () => {
-  const consumer = kafka.consumer({ groupId: SUBMIT_GROUP_ID });
+  const consumer = kafka.consumer({ groupId: SUBMIT_GROUP_ID , allowAutoTopicCreation: true});
   await consumer.connect();
-  await consumer.subscribe({ topic: SUBMIT_TOPIC });
+  await consumer.subscribe({ topic: SUBMIT_TOPIC});
   consumer.run({
     partitionsConsumedConcurrently: 1,
     eachMessage: async ({ topic, partition, message }) => {

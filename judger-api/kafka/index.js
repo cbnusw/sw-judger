@@ -9,7 +9,9 @@ const initConsumer = () => {
   const topics = [{ topic, partition: 0 },
                   { topic, partition: 1 },
                   { topic, partition: 2 },
-                  { topic, partition: 3 }];
+                  { topic, partition: 3 },
+                  { topic, partition: 4 },
+                  { topic, partition: 5 }];
   const options = { autoCommit: true, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 1024};
   const consumer = new Consumer(client, topics, options);
 
@@ -30,7 +32,7 @@ const initConsumer = () => {
 };
 
 const createProducer = () => {
-  const producer = new Producer(client,{partitionerType:2});
+  const producer = new Producer(client,{partitionerType : 2});
   producer.on('ready', () => debug('ready producer'));
   producer.on('error', err => error('producer error', err));
   return producer;

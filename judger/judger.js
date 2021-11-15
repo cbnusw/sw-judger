@@ -15,7 +15,7 @@ const startJudge = async (submitId) => {
   let config = base.baseconfig();
 
   config['submit_id'] = submitId;
-  // const default_env = ["LANG=en_US.UTF-8", "LANGUAGE=en_US:en", "LC_ALL=en_US.UTF-8"]
+  // const default_env = ["LANG=en_US.UTF-8", "LANGUAGE=en_US:en", "LC_ALL=en_US.UTF-8"] // 글로벌 env 설정
   const submit = await Submit.findOne({_id:submitId})
 
   if (!submit)
@@ -117,26 +117,20 @@ const startJudge = async (submitId) => {
   });
   console.log("삭제 시작");
 
-  // let resultPath
   let language = config['language']
-  try{
-    if (language === 'java')
-      await execSync('rm -rf /java_submit/*')
-    else if (language === 'kotlin')
-      await execSync('rm -rf /kotlin_submit/*')
-    else
-      await execSync('rm -rf /judger_submit/*')
+  if (language === 'java')
+    await promises.unlink(config['java_result_path']);
+  else if (language === 'kotlin')
+    await promises.unlink(config['kotlin_result_path']);
+  try {
+    if (language === 'c' || language === 'c++' || language === 'go') {
+      // console.log(language, config['exe_path'], config['output_path']);
+      await promises.unlink(config['exe_path']);
+      await promises.unlink(config['output_path']);
+    }
   } catch (e) {
-    console.log(`Deletion Error : ${e}`);
+    console.log(`Deletion Error : File Not Found In Path "${config['exe_path']}"`);
   }
-  // try {
-  //   await promises.unlink(resultPath);
-  //   if (language === 'c' || language === 'c++' || language === 'go') {
-  //     await promises.unlink(config['exe_path']);
-  //   }
-  // } catch (e) {
-  //     console.log(`Deletion Error : File Not Found In Path "${resultPath}"`);
-  // }
   console.log("삭제 완료");
   return result;
 }
@@ -149,7 +143,7 @@ const judge = async (config, submit) => {
 
   config["max_real_time"] = problem.options.maxRealTime;
 
-  // if (config['language'] == "python")
+  // if (config['language'] == "python")      //파이썬 설정(미정)
   //   config["max_cpu_time"] = config["max_cpu_time"] * 10;
 
   config["max_memory"] = problem.options.maxMemory * 1024 * 1024;

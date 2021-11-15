@@ -1,3 +1,5 @@
+const { UserInfo: User } = require("./models")
+
 const {
   ADMIN_NO,
   ADMIN_PASSWORD,

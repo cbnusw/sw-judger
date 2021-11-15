@@ -8,7 +8,6 @@ services:
     volumes:
       - ./zookeeper/conf:/conf
 
-
   kafka:
     image: wurstmeister/kafka
     ports:
@@ -21,14 +20,13 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_HEAP_OPTS: "-Xms6g -Xmx8g"
       KAFKA_BROKER_ID: 1
-      KAFKA_CREATE_TOPICS:
-        "swjudge-submit:4:1,\
-         swjudge-result:4:1"
+      KAFKA_CREATE_TOPICS: "swjudge-submit:6:1,swjudge-result:6:1"
+      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.rmi.port=1099"
+      JMX_PORT: 1099
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
-
 
   judger1:
     build:
@@ -95,6 +93,22 @@ services:
       - mongodb
 
   judger5:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile.dev
+    env_file:
+      - judger/.env
+    volumes:
+      - ./Uploads:/source
+      - ./judger:/app
+    depends_on:
+      - kafka
+      - mongodb
+    links:
+      - kafka
+      - mongodb
+
+  judger6:
     build:
       context: ./judger
       dockerfile: Dockerfile.dev
