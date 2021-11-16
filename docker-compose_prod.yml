@@ -21,8 +21,6 @@ services:
       KAFKA_HEAP_OPTS: "-Xms8g -Xmx16g"
       KAFKA_BROKER_ID: 1
       KAFKA_CREATE_TOPICS: "swjudge-submit:6:1,swjudge-result:6:1"
-      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.rmi.port=1099"
-      JMX_PORT: 1099
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
