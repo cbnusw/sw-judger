@@ -39,7 +39,6 @@ services:
       - /uploads:/io
     depends_on:
       - kafka
-
     links:
       - kafka
 
@@ -55,7 +54,6 @@ services:
       - /uploads:/io
     depends_on:
       - kafka
-
     links:
       - kafka
 
@@ -71,7 +69,6 @@ services:
       - /uploads:/io
     depends_on:
       - kafka
-
     links:
       - kafka
 
@@ -87,7 +84,6 @@ services:
       - /uploads:/io
     depends_on:
       - kafka
-
     links:
       - kafka
 
@@ -103,7 +99,20 @@ services:
       - /uploads:/io
     depends_on:
       - kafka
+    links:
+      - kafka
 
+  judger6:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
+    env_file:
+      - judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
     links:
       - kafka
 
