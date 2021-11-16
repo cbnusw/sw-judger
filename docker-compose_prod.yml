@@ -114,6 +114,33 @@ services:
     links:
       - kafka
 
+  judger7:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
+    env_file:
+      - judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+  judger8:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
+    env_file:
+      - judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
 
   judger-api:
     build:

@@ -1,11 +1,11 @@
-const { promises, existsSync } = require('fs');
+const { existsSync } = require('fs');
 const path = require('path');
 const { parse } = require('url');
 
 const judger = require('/Judger/bindings/NodeJS');
 const base = require('./base.js');
 const { Submit, Problem, File } = require('./models/@main');
-const { OUTPUT_PATH, CODE_BASE_PATH } = require('./env');
+const { CODE_BASE_PATH } = require('./env');
 const { execSync } = require("child_process");
 
 const getBasename = url => path.basename(parse(url).pathname);
@@ -28,22 +28,24 @@ const startJudge = async (submitId) => {
   console.log("컴파일 시작");
   switch (config['language']) {
     case 'c':
-      compiledPath = base.compile_c(config['code_name']);
+      compiledPath = base.compile_c(config['code_name'],submitId);
       config['exe_path'] = compiledPath;
       console.log("complied language :::::: C");
       break;
     case 'c++':
-      compiledPath = base.compile_cpp(config['code_name'])
+      compiledPath = base.compile_cpp(config['code_name'],submitId)
       config['exe_path'] = compiledPath;
       console.log("complied language :::::: C++");
       break;
     case 'python2':
+      execSync(`mkdir /${submitId}`);
       config['exe_path'] = '/usr/bin/python2.7';
       compiledPath = config['exe_path'];
       config['args'] = `${path.join(base.code_base_path, config['code_name'])}`.split(' ');
       console.log("complied language :::::: Python2");
       break;
     case 'python3':
+      execSync(`mkdir /${submitId}`);
       config['exe_path'] = '/usr/local/bin/python3.9';
       compiledPath = config['exe_path'];
       config['args'] = `${path.join(base.code_base_path, config['code_name'])}`.split(' ');
@@ -51,29 +53,30 @@ const startJudge = async (submitId) => {
       break;
     case 'java':
       const originalJava = await File.findOne({url:submit.source});
-      compiledPath = base.compile_java(config['code_name'], originalJava.filename);
+      compiledPath = base.compile_java(config['code_name'], originalJava.filename,submitId);
       config['exe_path'] = '/usr/bin/java';
-      config['args'] = `-cp /java_submit ${originalJava.filename.substring(0, originalJava.filename.lastIndexOf("."))}`.split(' ');
+      config['args'] = `-cp /${submitId} ${originalJava.filename.substring(0, originalJava.filename.lastIndexOf("."))}`.split(' ');
       config['memory_limit_check_only'] = 1;
       config['java_result_path'] = compiledPath;
       console.log("complied language :::::: Java");
       break;
     case 'kotlin':
       const originalKotlin = await File.findOne({url:submit.source});
-      compiledPath = base.compile_kotlin(config['code_name'], originalKotlin.filename);
+      compiledPath = base.compile_kotlin(config['code_name'], originalKotlin.filename,submitId);
       config['exe_path'] = '/kotlin/bin/kotlin';
-      config['args'] = `/kotlin_submit/${originalKotlin.filename.substring(0, originalKotlin.filename.lastIndexOf("."))+'.jar'}`.split(' ');
+      config['args'] = `/${submitId}/${originalKotlin.filename.substring(0, originalKotlin.filename.lastIndexOf("."))+'.jar'}`.split(' ');
       config['memory_limit_check_only'] = 1;
       config['kotlin_result_path'] = compiledPath;
       console.log("complied language :::::: Kotlin");
       break;
     case 'go':
-      compiledPath = base.compile_go(config['code_name']);
+      compiledPath = base.compile_go(config['code_name'],submitId);
       config['exe_path'] = compiledPath;
       config['memory_limit_check_only'] = 1;
       console.log("complied language :::::: Go");
       break;
     case 'javascript':
+      execSync(`mkdir /${submitId}`);
       config['exe_path'] = '/usr/bin/node';
       compiledPath = config['exe_path'];
       config['args'] = `${path.join(base.code_base_path, config['code_name'])}`.split(' ');
@@ -117,19 +120,10 @@ const startJudge = async (submitId) => {
   });
   console.log("삭제 시작");
 
-  let language = config['language']
-  if (language === 'java')
-    await promises.unlink(config['java_result_path']);
-  else if (language === 'kotlin')
-    await promises.unlink(config['kotlin_result_path']);
   try {
-    if (language === 'c' || language === 'c++' || language === 'go') {
-      // console.log(language, config['exe_path'], config['output_path']);
-      await promises.unlink(config['exe_path']);
-      await promises.unlink(config['output_path']);
-    }
+    await execSync(`rm -rf /${submitId}`)
   } catch (e) {
-    console.log(`Deletion Error : File Not Found In Path "${config['exe_path']}"`);
+    console.log(`Deletion Error : Folder Not Found`);
   }
   console.log("삭제 완료");
   return result;
@@ -158,7 +152,7 @@ const judge = async (config, submit) => {
   for (const io of ioSet) {
     config['input_path'] = path.join(CODE_BASE_PATH, getBasename(io.inFile.url));
     config['answer_path'] = path.join(CODE_BASE_PATH, getBasename(io.outFile.url));
-    config['output_path'] = path.join(OUTPUT_PATH, `${config['submit_id']}.out`);
+    config['output_path'] = path.join('/'+ submit._id, `${config['submit_id']}.out`);
 
     // console.log(config);
     const judgerResult = await judger.run(config);

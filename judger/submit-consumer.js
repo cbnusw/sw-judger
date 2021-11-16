@@ -20,7 +20,7 @@ const init = async () => {
   await consumer.connect();
   await consumer.subscribe({ topic: SUBMIT_TOPIC});
   consumer.run({
-    partitionsConsumedConcurrently: 1,
+    partitionsConsumedConcurrently: 3,
     eachMessage: async ({ topic, partition, message }) => {
       const submitId = message.value.toString('utf-8');
       console.log("시작 :::::: ", `타켓 ID: ${submitId}, 파티션: ${partition}`);
