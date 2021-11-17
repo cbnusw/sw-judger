@@ -157,14 +157,14 @@ const judge = async (config, submit) => {
     // console.log(config);
     const judgerResult = await judger.run(config);
 
-    const answer = base.read_file(config['answer_path']).replace(/(^\s*)|(\s*$)/g, "");
-    const output = base.read_file(config['output_path']).replace(/(^\s*)|(\s*$)/g, "");
+    const answer = base.read_file(config['answer_path']).replace(/(^\s*)|(\s*$)/g, "").replace(/\n/g, "").replace(/\r/g, "");
+    const output = base.read_file(config['output_path']).replace(/(^\s*)|(\s*$)/g, "").replace(/\n/g, "").replace(/\r/g, "");
     result['type'] = judgerResult['result'];
     result['memory'] = judgerResult['memory'];
     result['real_time'] = judgerResult['real_time'];
 
     // console.log(judgerResult);
-    // console.log("answer ::: ",answer,"\noutput ::: ", output);
+    console.log("answer ::: ",answer,"\noutput ::: ", output);
     if (judgerResult['result'] != judger.RESULT_SUCCESS)
     {
       console.log("result undefined");
