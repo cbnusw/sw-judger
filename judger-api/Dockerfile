@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 4003:4003
 
-CMD ["pm2-docker", "index.js"]
+CMD ["pm2-docker", "index.js" , "-i", "6", "--name", "api-server"]
