@@ -22,12 +22,28 @@ services:
       KAFKA_HEAP_OPTS: "-Xms4g -Xmx6g"
       KAFKA_BROKER_ID: 1
       KAFKA_CREATE_TOPICS:
-        "swjudge-submit:4:1,\
-         swjudge-result:4:1"
+        "swjudge-submit:1:1,\
+         swjudge-result:1:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
+
+  judger1:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile.dev
+    env_file:
+      - judger/.env
+    volumes:
+      - ./Uploads:/source
+      - ./judger:/app
+    depends_on:
+      - kafka
+      - mongodb
+    links:
+      - kafka
+      - mongodb
 
   mongodb:
     build:
