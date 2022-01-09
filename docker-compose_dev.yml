@@ -31,7 +31,7 @@ services:
 
   judger:
     build:
-      context: ./judger
+      context: ./judger-backend/judger
       dockerfile: Dockerfile.dev
     env_file:
       - judger/.env
@@ -45,7 +45,7 @@ services:
 
   judger-api:
     build:
-      context: ./judger-api
+      context: ./judger-backend/judger-api
       dockerfile: Dockerfile.dev
     env_file:
       - ./judger-api/.env
