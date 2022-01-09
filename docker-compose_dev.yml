@@ -34,7 +34,7 @@ services:
       context: ./judger-backend/judger
       dockerfile: Dockerfile.dev
     env_file:
-      - judger/.env
+      - ./judger-backend/judger/.env
     volumes:
       - /uploads:/source
       - /uploads:/io
@@ -48,7 +48,7 @@ services:
       context: ./judger-backend/judger-api
       dockerfile: Dockerfile.dev
     env_file:
-      - ./judger-api/.env
+      - ./judger-backend/judger-api/.env
     depends_on:
       - mongodb
       - kafka
