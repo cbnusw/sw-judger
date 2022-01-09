@@ -1,0 +1,52 @@
+<div class="login-container mt-6 mx-auto">
+    <h2 class="none-select mb-1 page-title">
+        <span class="text-primary font-l fw-900 mobile-d-none">SW </span>
+        <span class="text-accent font-l fw-900">ONLINE JUDGE</span> 로그인
+    </h2>
+
+    <form [formGroup]="formGroup" (ngSubmit)="submit()">
+        <mat-form-field class="mb-4">
+            <mat-label class='no-drag'>학번/교번 또는 아이디</mat-label>
+            <input class='none-select'
+                   type="text"
+                   autocomplete="off"
+                   matInput
+                   formControlName="no"
+                   [errorStateMatcher]="errorMatcher"
+                   placeholder="학번/교번 또는 아이디 입력"/>
+            <mat-hint class='none-select'>본인의 학번/교번 또는 아이디를 입력하세요.</mat-hint>
+            <mat-error class='none-select' *ngIf="hasError('required', 'no')">
+                학번 또는 교번을 입력하세요.
+            </mat-error>
+            <mat-error class='none-select' *ngIf="hasSubmissionError('no')">
+                {{ submissionErrorMessage }}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mb-6">
+            <mat-label class='no-drag'>비밀번호</mat-label>
+            <input class='none-select'
+                   type="password"
+                   autocomplete="off"
+                   matInput
+                   formControlName="password"
+                   [errorStateMatcher]="errorMatcher"
+                   placeholder="Ex. 영문 대소문자, 숫자, 특수문자 조합"/>
+            <mat-hint class='none-select'>비밀번호를 입력하세요.</mat-hint>
+            <mat-error class='none-select' *ngIf="hasError('required', 'password')">
+                비밀번호를 입력하세요.
+            </mat-error>
+            <mat-error class='none-select' *ngIf="hasSubmissionError('password')">
+                {{ submissionErrorMessage }}
+            </mat-error>
+        </mat-form-field>
+
+        <div class="flex justify-end mb-2">
+            <span class="font-s">
+                <span class="me-2">계정이 없는 경우 충북대학교 SW중심대학사업단에 가입하세요.</span>
+                <a class="text-primary" [href]="joinPageUrl" target="_blank">회원가입</a>
+            </span>
+        </div>
+        <button type="submit" class="grow-1 no-border-radius" mat-flat-button color="primary">로그인</button>
+    </form>
+</div>

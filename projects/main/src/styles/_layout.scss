@@ -1,0 +1,129 @@
+@import "variables";
+@import "mixins";
+
+body {
+  min-width: $main-width;
+
+  @include mobile {
+    min-width: 100%;
+  }
+}
+
+.border-box {
+  box-sizing: border-box;
+}
+
+.block {
+  display: block !important;
+}
+
+.inline {
+  display: inline !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.relative {
+  position: relative;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.column-reverse {
+  flex-direction: column-reverse;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+@include mobile {
+  .mobile-column {
+    flex-direction: column;
+  }
+
+  .mobile-column-reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+@include mobile {
+  .mobile-d-none {
+    display: none !important;
+  }
+}
+
+@include desktop {
+  .desktop-d-none {
+    display: none !important;
+  }
+}
+
+.main-container {
+  box-sizing: border-box;
+  width: $main-width;
+  margin: 0 auto;
+  padding: 1rem;
+
+  @include mobile {
+    width: 100%;
+    padding: 0.5rem;
+  }
+}
+
+@include combine(grow, (0, 1), flex-grow);
+@include combine(shrink, (0, 1), flex-shrink);
+
+@mixin generate-width() {
+  @for $w from 1 through 100 {
+    .w-#{$w} {
+      width: 100% * $w / 100 !important;
+    }
+  }
+}
+
+@include generate-width();

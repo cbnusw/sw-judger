@@ -1,0 +1,50 @@
+@import "variables";
+@import "mixins";
+
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
+
+.main-container {
+  height: $header-height;
+  box-sizing: border-box;
+}
+
+.brand-wrapper {
+  .brand-image {
+    height: 40px;
+
+    @include mobile {
+      height: 28px;
+    }
+  }
+
+  .brand-name {
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-weight: 500;
+
+    .text-primary {
+      font-weight: 900;
+    }
+
+    @include mobile {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+sw-mobile-navigation {
+  position: fixed;
+  z-index: 100;
+  background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95));
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
