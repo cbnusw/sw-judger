@@ -1,0 +1,78 @@
+@import "~line-awesome/dist/line-awesome/css/line-awesome.css";
+@import "variables";
+@import "mixins";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($main-theme);
+/* You can add global styles to this file, and also import other style files */
+
+@import "ckeditor";
+
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  color: $default-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@import "layout";
+@import "border";
+@import "typo";
+@import "spacer";
+@import "table";
+@import "cursor";
+@import "loading";
+
+.bg-primary {
+  background-color: mat-color($main-primary);
+}
+
+.bg-accent {
+  background-color: mat-color($main-accent);
+}
+
+.bg-warn {
+  background-color: mat-color($main-warn);
+}
+
+.none-select {
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+  color: $default-color;
+}
+
+.help {
+  color: mat-color($main-primary);
+  font-size: 75%;
+}
+
+.required::after {
+  content: "*";
+  color: mat-color($main-warn);
+  margin-left: 0.4rem;
+}
+
+.error {
+  color: mat-color($main-warn);
+  font-size: 75%;
+}
+
+.hover {
+  &:hover {
+    background-color: $border-color;
+  }
+}

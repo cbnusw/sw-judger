@@ -1,0 +1,42 @@
+<div class="main-container mt-2">
+    <h2 class="page-title mb-2">
+        <span class="text-primary">{{contest?.title}}</span> 스코어보드
+    </h2>
+    <div class="flex justify-end pb-2 mb-2 border-bottom">
+        <span class="text-warn fw-900" *ngIf="(contest?.testPeriod | periodRange | async) === 0">
+            {{contest?.testPeriod.end | restTime | async}} 후 대회 종료
+        </span>
+        <span class="text-primary" *ngIf="(contest?.testPeriod | periodRange | async) === 1">
+            대회 종료
+        </span>
+    </div>
+
+    <div class="flex justify-end mb-2">
+        <button type="button"
+                class="no-border-radius"
+                mat-flat-button
+                color="primary"
+                (click)="moveListPage()">문제보기</button>
+    </div>
+
+    <div class="mb-2">총 <span class="text-warn">{{scoreboards?.length}}</span>명</div>
+    <div class="border p-2 flex mb-2 border column" *ngFor="let board of scoreboards; let i = index;">
+        <div class="mb-2">
+            <span class="text-white bg-primary fw-700 border px-1 mb-2">{{board.score > 0 ? i + 1 : '-'}}</span>
+            {{board.user.name}} ({{board.user.department}})
+        </div>
+        <div class="flex justify-center flex-wrap">
+            <div class="total-score p-1 border fw-900 flex column justify-center align-center">
+                <span>총점</span>
+                <span>점수: <span class="text-primary">{{board.score}}</span></span>
+                <span>패널티: <span class="text-warn">{{board.penalty}}</span></span>
+            </div>
+            <span class="score ms-2 p-1 border flex column justify-center align-center"
+                  [class.right]="score.right"
+                  *ngFor="let score of board.scores; let i = index;">
+            <span>{{i + 1}}번 문제</span>
+            <span>시도: {{score.tries}}</span>
+            <span>시간: {{score.time}}</span>
+        </span></div>
+    </div>
+</div>
