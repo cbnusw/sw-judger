@@ -6,9 +6,9 @@ services:
     volumes:
       - ./zookeeper/conf:/conf
     expose:
+      - "2181"
       - "2888"
       - "3888"
-      - "2181"
 
   kafka:
     image: wurstmeister/kafka
@@ -36,12 +36,14 @@ services:
     env_file:
       - ./judger-backend/judger/.env
     volumes:
-      - /uploads:/source
-      - /uploads:/io
+      - ./judger-backend/judger/Uploads:/source
+      - ./judger-backend/judger:/app
     depends_on:
       - kafka
+      - mongodb
     links:
       - kafka
+      - mongodb
 
   judger-api:
     build:
@@ -50,26 +52,23 @@ services:
     env_file:
       - ./judger-backend/judger-api/.env
     depends_on:
-      - mongodb
       - kafka
+      - mongodb
     links:
-      - mongodb
       - kafka
+      - mongodb
     ports:
-      - "9091:4003"
+      - "9001:4003"
     volumes:
-      - ./server-Logs:/usr/src/logs
-      - ./uploads:/usr/src/app/uploads
-      - ./judger-api:/usr/src/app
-      - /usr/src/app/node_modules
-    user: "node"
-    restart: always
+      - ./judger-backend/judger-api:/usr/src/app
+      - ./judger-backend/judger-api/Uploads:/usr/src/app/uploads
+      - ./judger-backend/judger-api/server-Logs:/usr/src/app/logs
 
   mongodb:
     build:
       context: ./mongo
       dockerfile: Dockerfile
     volumes:
-      - ./mongodb:/data/db
+      - ./mongo/mongodb:/data/db
     expose:
       - "27017"
