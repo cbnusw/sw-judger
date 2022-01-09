@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  zookeeper:
+    image: zookeeper
+    volumes:
+      - ./zookeeper/conf:/conf
+    expose:
+      - "2888"
+      - "3888"
+      - "2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_HEAP_OPTS: "-Xms8g -Xmx12g"
+      KAFKA_BROKER_ID: 1
+      KAFKA_CREATE_TOPICS: "swjudge-submit:1:1,\
+                            swjudge-result:1:1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    expose:
+      - "9092"
+    depends_on:
+      - zookeeper
+
+  judger:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile.dev
+    env_file:
+      - judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+  judger-api:
+    build:
+      context: ./judger-api
+      dockerfile: Dockerfile.dev
+    env_file:
+      - ./judger-api/.env
+    depends_on:
+      - mongodb
+      - kafka
+    links:
+      - mongodb
+      - kafka
+    ports:
+      - "9091:4003"
+    volumes:
+      - ./server-Logs:/usr/src/logs
+      - ./uploads:/usr/src/app/uploads
+      - ./judger-api:/usr/src/app
+      - /usr/src/app/node_modules
+    user: "node"
+    restart: always
+
+  mongodb:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    volumes:
+      - ./mongodb:/data/db
+    expose:
+      - "27017"
