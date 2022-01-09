@@ -5,6 +5,7 @@ const { initConsumer } = require('./kafka');
 const socketIo = require('./socket.io');
 const app = require('./app');
 const initialize = require('./init');
+var retry = require('retry');
 
 
 // const producer = await initKafka();
@@ -20,9 +21,9 @@ server.on('listening', () => {
 // initialize().then(() => debug(`initialization complete!`));
 
 socketIo(server, app);
-// initConsumer(app.get('io'))
-initConsumer()
 
+// initConsumer(app.get('io'))
+initConsumer();
 
 //카프카 consumer 코드
 // kafkaConsumer();

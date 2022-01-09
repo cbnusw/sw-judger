@@ -12,10 +12,9 @@ const format = winston.format.printf(
   }
 );
 
-
 const transports = [
   new winston.transports.DailyRotateFile({
-    filename: join('./', 'logs', 'api', '%DATE%.log'),
+    filename: join('/', 'usr', 'src', 'logs','%DATE%.log'),
     zippedArchive: false,
     format,
     handleExceptions: true,
