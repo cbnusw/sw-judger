@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  authHost: 'http://localhost:3000',
+  authHost: 'http://localhost:4003',
   apiHost: 'http://localhost:4003',
   apiVersion: 'v1',
   loginPageUrl: '/account/login',
