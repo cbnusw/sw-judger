@@ -1,15 +1,16 @@
 FROM node
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app    
+RUN chown -R node:node /usr/src/
 
 COPY package*.json ./
-
-COPY . .
 
 RUN npm install
 
 RUN npm install -g nodemon
 
-EXPOSE 4003:4003
+COPY . .
+
+EXPOSE 4003
 
 CMD ["npm", "run", "dev"]

@@ -18,7 +18,7 @@ const transports = [
     filename: join('./', 'logs', 'api', '%DATE%.log'),
     zippedArchive: false,
     format,
-    handleExceptions: true,
+    handleExceptions: true, 
   })
 ];
 

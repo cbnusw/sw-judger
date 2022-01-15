@@ -6,10 +6,7 @@ const { run } = require('../tools/scoreboard')
 const client = new KafkaClient({idleConnection: 24 * 60 * 60 * 1000, kafkaHost: KAFKA_BOOTSTRAP_SERVER });
 
 const initConsumer = () => {
-  const topics = [{ topic, partition: 0 },
-                  { topic, partition: 1 },
-                  { topic, partition: 2 },
-                  { topic, partition: 3 }];
+  const topics = [{ topic, partition: 0 }]; 
   const options = { autoCommit: true, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 1024};
   const consumer = new Consumer(client, topics, options);
 
@@ -44,6 +41,5 @@ const refreshMetaData = () =>{
 
 module.exports = {
   createProducer,
-  initConsumer,
-  refreshMetaData
+  initConsumer
 };

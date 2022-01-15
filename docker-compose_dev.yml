@@ -18,10 +18,9 @@ services:
       KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
       KAFKA_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_HEAP_OPTS: "-Xms8g -Xmx12g"
+      KAFKA_HEAP_OPTS: "-Xms4g -Xmx8g"
       KAFKA_BROKER_ID: 1
-      KAFKA_CREATE_TOPICS: "swjudge-submit:1:1,\
-                            swjudge-result:1:1"
+      KAFKA_CREATE_TOPICS: "swjudge-submit:1:1, swjudge-result:1:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     expose:
@@ -38,6 +37,7 @@ services:
     volumes:
       - ./judger-backend/judger/Uploads:/source
       - ./judger-backend/judger:/app
+      - /app/node_modules
     depends_on:
       - kafka
       - mongodb
@@ -63,6 +63,7 @@ services:
       - ./judger-backend/judger-api:/usr/src/app
       - ./judger-backend/judger-api/Uploads:/usr/src/app/uploads
       - ./judger-backend/judger-api/server-Logs:/usr/src/app/logs
+      - /usr/src/app/node_modules
 
   mongodb:
     build:
