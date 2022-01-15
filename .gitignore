@@ -3,6 +3,7 @@
 *.env_prod
 
 server-Logs/
+mongodb/
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,webstorm,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,webstorm,node
