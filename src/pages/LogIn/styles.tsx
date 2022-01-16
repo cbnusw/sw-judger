@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from '@emotion/styled'
 
 export const Header = styled.header`
   text-align: center;
@@ -9,13 +9,13 @@ export const Header = styled.header`
   letter-spacing: -0.75px;
   margin-top: 50px;
   margin-bottom: 50px;
-`;
+`
 
 export const Form = styled.form`
   margin: 0 auto;
   width: 400px;
   max-width: 400px;
-`;
+`
 
 export const Label = styled.label`
   margin-bottom: 16px;
@@ -29,7 +29,7 @@ export const Label = styled.label`
     line-height: 1.46666667;
     font-weight: 700;
   }
-`;
+`
 
 export const Input = styled.input`
   border-radius: 4px;
@@ -58,7 +58,7 @@ export const Input = styled.input`
     font-size: 14px;
     font-weight: 700;
   }
-`;
+`
 
 export const Button = styled.button`
   margin-bottom: 12px;
@@ -86,18 +86,18 @@ export const Button = styled.button`
     --saf-0: rgba(var(--sk_highlight, 18, 100, 163), 1);
     box-shadow: 0 0 0 1px var(--saf-0), 0 0 0 5px rgba(29, 155, 209, 0.3);
   }
-`;
+`
 
 export const Error = styled.div`
   color: #e01e5a;
   margin: 8px 0 16px;
   font-weight: bold;
-`;
+`
 
 export const Success = styled.div`
   color: #2eb67d;
   font-weight: bold;
-`;
+`
 
 export const LinkContainer = styled.p`
   font-size: 13px;
@@ -115,4 +115,4 @@ export const LinkContainer = styled.p`
       text-decoration: underline;
     }
   }
-`;
+`

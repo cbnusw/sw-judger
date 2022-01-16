@@ -1,13 +1,25 @@
-import React, { useCallback } from 'react';
-import { Header, Form, Label, Input, LinkContainer, Button } from './styles';
-import useInput from '../../hooks/useInput';
+import React, { useCallback } from 'react'
+import { Header, Form, Label, Input, LinkContainer, Button, Error } from './styles'
+import useInput from '../../hooks/useInput'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../reducers'
+import { LOG_IN_REQUEST } from '../../reducers/user'
 
 function LogIn() {
-  const [eduNumber, onChangeEduNumber] = useInput('');
-  const [password, onChangePassword] = useInput('');
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-  }, []);
+  const dispatch = useDispatch()
+  const { logInLoading, logInError } = useSelector((state: RootState) => state.user)
+  const [eduNumber, onChangeEduNumber] = useInput('')
+  const [password, onChangePassword] = useInput('')
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault()
+      dispatch({
+        type: LOG_IN_REQUEST,
+        data: { no: eduNumber, password },
+      })
+    },
+    [eduNumber, password]
+  )
   return (
     <div id="container">
       <Header>SW JUDGER 관리자 로그인</Header>
@@ -37,15 +49,15 @@ function LogIn() {
               placeholder="비밀번호 입력"
             />
           </div>
-          {/*{logInError && <Error>이메일과 비밀번호 조합이 일치하지 않습니다.</Error>}*/}
+          {logInError && <Error>이메일과 비밀번호 조합이 일치하지 않습니다.</Error>}
         </Label>
         <Button type="submit">로그인</Button>
       </Form>
       <LinkContainer>
         아직 회원이 아니신가요?&nbsp;
-        <a href="/signup">회원가입 하러가기</a>
+        <a href="https://sw7up.cbnu.ac.kr/account/join">회원가입 하러가기</a>
       </LinkContainer>
     </div>
-  );
+  )
 }
-export default LogIn;
+export default LogIn

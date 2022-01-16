@@ -1,7 +1,9 @@
 {
-  "printWidth": 120,
+  "trailingComma": "es5",
   "tabWidth": 2,
+  "semi": false,
   "singleQuote": true,
-  "trailingComma": "all",
-  "semi": true
+  "printWidth": 120,
+  "quoteProps": "consistent",
+  "endOfLine": "auto"
 }

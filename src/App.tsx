@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import LogIn from './pages/LogIn';
+import React from 'react'
+import { Route } from 'react-router-dom'
+import LogIn from './pages/LogIn'
 function App() {
   return (
     <div className="App">
@@ -8,7 +8,7 @@ function App() {
         <LogIn />
       </Route>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
