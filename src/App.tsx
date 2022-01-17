@@ -1,14 +1,15 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
 import LogIn from './pages/LogIn'
-function App() {
-  return (
-    <div className="App">
-      <Route path="/LogIn">
-        <LogIn />
-      </Route>
-    </div>
-  )
-}
+const App = () => (
+  <Switch>
+    <Route exact path="/">
+      <Redirect to="/login" />
+    </Route>
+    <Route path="/login" component={LogIn} />
+    <Route path="/dashboard/:dashboard" component={Dashboard} />
+  </Switch>
+)
 
 export default App

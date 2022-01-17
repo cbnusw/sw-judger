@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Header, Form, Label, Input, LinkContainer, Button, Error } from './styles'
 import useInput from '../../hooks/useInput'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,9 +7,13 @@ import { LOG_IN_REQUEST } from '../../reducers/user'
 
 function LogIn() {
   const dispatch = useDispatch()
-  const { logInLoading, logInError } = useSelector((state: RootState) => state.user)
+  const { logInLoading, logInDone, logInError } = useSelector((state: RootState) => state.user)
   const [eduNumber, onChangeEduNumber] = useInput('')
   const [password, onChangePassword] = useInput('')
+  // if (logInDone) {
+  //   document.location.href = '/'
+  // }
+
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
@@ -20,6 +24,7 @@ function LogIn() {
     },
     [eduNumber, password]
   )
+
   return (
     <div id="container">
       <Header>SW JUDGER 관리자 로그인</Header>
@@ -34,6 +39,7 @@ function LogIn() {
               value={eduNumber}
               onChange={onChangeEduNumber}
               placeholder="충북대 소속의 경우 학번/교번 입력, 그외 아이디 입력"
+              required
             />
           </div>
         </Label>
@@ -47,6 +53,7 @@ function LogIn() {
               value={password}
               onChange={onChangePassword}
               placeholder="비밀번호 입력"
+              required
             />
           </div>
           {logInError && <Error>이메일과 비밀번호 조합이 일치하지 않습니다.</Error>}

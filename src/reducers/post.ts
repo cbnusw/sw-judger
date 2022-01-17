@@ -37,7 +37,7 @@ const postReducer = (state = initialState, action: AnyAction): IPostState => {
         draft.addPostError = action.error
         break
       default:
-        return state
+        break
     }
   })
 }

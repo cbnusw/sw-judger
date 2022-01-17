@@ -35,7 +35,7 @@ const reducer = (state = initialState, action: AnyAction): IUserState =>
         draft.logInError = action.error.message
         break
       default:
-        return state
+        break
     }
   })
 
