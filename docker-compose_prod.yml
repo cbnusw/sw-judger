@@ -1,0 +1,175 @@
+version: "3.9"
+
+services:
+  zookeeper:
+    image: zookeeper
+    volumes:
+      - ./zookeeper/conf:/conf
+    expose:
+      - "2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    expose:
+      - "9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_HEAP_OPTS: "-Xms8g -Xmx16g"
+      KAFKA_BROKER_ID: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_CREATE_TOPICS: "swjudge-submit:4:1,\
+                            swjudge-result:4:1"
+    depends_on:
+      - zookeeper
+
+  judger-api:
+    build:
+      context: ./judger-backend/judger-api
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger-api/.env
+    expose:
+      - "4003"
+    depends_on:
+      - kafka
+    links:
+      - kafka
+    volumes:
+      - /uploads:/usr/src/app/uploads
+      - /server-Logs:/usr/src/app/logs
+
+  judger-web:
+    build:
+      context: ./judger-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./judger-web/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - judger-api
+    links:
+      - judger-api
+
+  judger1:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+
+  judger2:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+
+  judger3:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+
+  judger4:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+
+  judger5:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+  judger6:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+  judger7:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+  judger8:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    depends_on:
+      - kafka
+    links:
+      - kafka
