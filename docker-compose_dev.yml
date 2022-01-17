@@ -61,7 +61,7 @@ services:
       - "9001:4003"
     volumes:
       - ./judger-backend/judger-api:/usr/src/app
-      - ./judger-backend/judger-api/Uploads:/usr/src/app/uploads
+      - ./judger-backend/judger-api/uploads:/usr/src/app/uploads
       - ./judger-backend/judger-api/server-Logs:/usr/src/app/logs
       - /usr/src/app/node_modules
 
