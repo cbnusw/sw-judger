@@ -9,7 +9,7 @@ router.get('/', controller.getAssignments);
 router.get('/me', isAuthenticated, controller.getMyAssignments);
 router.get('/registered', isAuthenticated, controller.getRegisteredAssignments);
 //router.get('/applying', controller.getApplyingAssignments);
-router.get('/progressing', controller.getAssignmentContests);
+router.get('/progressing', controller.getProgressingAssignments);
 router.get('/:id', controller.getAssignment);
 router.get(
   '/:id/problems',
