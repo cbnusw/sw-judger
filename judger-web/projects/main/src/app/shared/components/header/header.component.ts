@@ -22,10 +22,10 @@ export class HeaderComponent implements OnInit {
       name: '대회',
       link: '/contest/list'
     },
-    // {
-    //   name: '강의',
-    //   link: '/'
-    // },
+    {
+      name: '과제',
+      link: '/'
+    },
     {
       name: '대회관리',
       link: '/contest/list/me',

@@ -9,11 +9,11 @@ import { MyContestListPageComponent } from './my-contest-list-page/my-contest-li
 
 const routes: Routes = [
   { path: 'list', component: ContestListPageComponent },
-  { path: 'list/me', canActivate: [AuthGuard], component: MyContestListPageComponent },
-  { path: 'register', canActivate: [AuthGuard], component: ContestFormPageComponent },
-  { path: 'edit/:id', canActivate: [AuthGuard], component: ContestFormPageComponent },
+  { path: 'list/me', component: MyContestListPageComponent },
+  { path: 'register',  component: ContestFormPageComponent },
+  { path: 'edit/:id',  component: ContestFormPageComponent },
   { path: 'detail/:id', component: ContestDetailPageComponent },
-  { path: ':id/problems', canActivate: [AuthGuard], component: ContestProblemListPageComponent },
+  { path: ':id/problems',  component: ContestProblemListPageComponent },
 ];
 
 @NgModule({

@@ -49,3 +49,16 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+
+### IDE
+.vscode
+.idea
+
+
