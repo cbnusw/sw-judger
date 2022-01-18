@@ -1,6 +1,7 @@
-import Nav from '../../components/nav'
+import { Switch } from 'react-router-dom'
+import Menu from '../../components/menu'
 function Dashboard() {
-  return <Nav></Nav>
+  return <Menu></Menu>
 }
 
 export default Dashboard
