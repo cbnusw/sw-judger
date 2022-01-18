@@ -21,6 +21,9 @@ const fileTypes = [
   'Submit'
 ];
 
+const parentTypes = { CONTEST: 'Contest', ASSIGNMENT: 'Assignment' };
+
+
 const programmingLanguages = [
   'c',
   'c++',
@@ -58,3 +61,4 @@ exports.CENTERS = centers;
 exports.FILE_TYPES = fileTypes;
 exports.PROGRAMMING_LANGUAGES = programmingLanguages;
 exports.SUBMIT_RESULTS = submitResults;
+exports.PARENT_TYPES = parentTypes;
