@@ -3,15 +3,13 @@ version: "3.9"
 services:
   zookeeper:
     image: zookeeper
-    volumes:
-      - ./zookeeper/conf:/conf
     expose:
       - "2181"
+    volumes:
+      - ./zookeeper/conf:/conf
 
   kafka:
     image: wurstmeister/kafka
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
     expose:
       - "9092"
     environment:
@@ -25,6 +23,8 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
       KAFKA_CREATE_TOPICS: "swjudge-submit:4:1,\
                             swjudge-result:4:1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - zookeeper
 
@@ -36,13 +36,13 @@ services:
       - ./judger-backend/judger-api/.env
     expose:
       - "4003"
+    volumes:
+      - /uploads:/usr/src/app/uploads
+      - /server-Logs:/usr/src/app/logs
     depends_on:
       - kafka
     links:
       - kafka
-    volumes:
-      - /uploads:/usr/src/app/uploads
-      - /server-Logs:/usr/src/app/logs
 
   judger-web:
     build:
