@@ -52,7 +52,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./judger-web/nginx/ssl:/etc/nginx/ssl
+      - ./judger-frontend/nginx/ssl:/etc/nginx/ssl
     depends_on:
       - judger-api
     links:
@@ -119,48 +119,6 @@ services:
 
 
   judger5:
-    build:
-      context: ./judger-backend/judger
-      dockerfile: Dockerfile
-    env_file:
-      - ./judger-backend/judger/.env
-    volumes:
-      - /uploads:/source
-      - /uploads:/io
-    depends_on:
-      - kafka
-    links:
-      - kafka
-
-  judger6:
-    build:
-      context: ./judger-backend/judger
-      dockerfile: Dockerfile
-    env_file:
-      - ./judger-backend/judger/.env
-    volumes:
-      - /uploads:/source
-      - /uploads:/io
-    depends_on:
-      - kafka
-    links:
-      - kafka
-
-  judger7:
-    build:
-      context: ./judger-backend/judger
-      dockerfile: Dockerfile
-    env_file:
-      - ./judger-backend/judger/.env
-    volumes:
-      - /uploads:/source
-      - /uploads:/io
-    depends_on:
-      - kafka
-    links:
-      - kafka
-
-  judger8:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
