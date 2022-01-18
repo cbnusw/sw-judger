@@ -46,6 +46,7 @@ const schema = createSchema({
   parentType: {
     type: String,
     enum: [...PARENT_TYPES, null],
+    index: true,
     default: null,
   },
   content: {
