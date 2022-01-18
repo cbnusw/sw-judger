@@ -17,11 +17,13 @@ import { ProblemPagesRoutingModule } from '../problem-pages/problem-pages-routin
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SecurePipeModule } from '../../pipes/secure-pipe/secure-pipe.module';
 import { MatIconModule } from '@angular/material/icon';
+import { AssignmentPagesRoutingModule } from './assignment-pages-routing.module';
 
 @NgModule({
   declarations: [AssignmentDetailPageComponent, AssignmentFormPageComponent],
   imports: [
     CommonModule,
+    AssignmentPagesRoutingModule,
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
