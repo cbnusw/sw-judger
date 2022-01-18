@@ -43,7 +43,7 @@ const getApplyingAssignments = asyncHandler(async (req, res, next) => {
   const now = new Date();
 
   const documents = await Assignment.search({}, {
-    { 'deadline': { $gt: now } }
+    deadline: { $gt: now }
   });
 
   res.json(createResponse(res, documents));
@@ -139,9 +139,9 @@ const enrollAssignment = asyncHandler(async (req, res, next) => {
   if (!assignment) return next(ASSIGNMENT_NOT_FOUND);
 
   const { deadline } = assignment;
-    const now = new Date();
-    const start = new Date(deadline);
-    if (now.getTime() > start.getTime()) return next(ENDED_ASSIGNMENT);
+  const now = new Date();
+  const start = new Date(deadline);
+  if (now.getTime() > start.getTime()) return next(ENDED_ASSIGNMENT);
 
   if (assignment.students.map(id => String(id)).includes(String(user.info))) return next(ASSIGNMENT_ENROLLED);
   assignment.students.unshift(user.info);
@@ -159,11 +159,11 @@ const unenrollAssignment = asyncHandler(async (req, res, next) => {
 
   const { deadline } = assignment;
 
-    const now = new Date();
-    const start = new Date(deadline);
+  const now = new Date();
+  const start = new Date(deadline);
 
-    if (now.getTime() > start.getTime()) return next(PROGRESSING_ASSIGNMENT);
-  }
+  if (now.getTime() > start.getTime()) return next(ENDED_ASSIGNMENT);
+
 
   const idx = assignment.students.map(id => String(id)).indexOf(String(user.info));
   if (idx !== -1) {
