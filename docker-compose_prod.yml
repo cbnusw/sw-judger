@@ -3,29 +3,40 @@ version: "3.9"
 services:
   zookeeper:
     image: zookeeper
+    
     expose:
       - "2181"
+    
     volumes:
       - ./zookeeper/conf:/conf
 
 
   kafka:
     image: wurstmeister/kafka
+    
     expose:
       - "9092"
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
-      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_HEAP_OPTS: "-Xms8g -Xmx16g"
-      KAFKA_BROKER_ID: 1
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
-      KAFKA_CREATE_TOPICS: "swjudge-submit:4:1,\
-                            swjudge-result:4:1"
+    
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+    environment:
+      KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
+      KAFKA_BROKER_ID: 1
+      
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      
+      KAFKA_CREATE_TOPICS: "swjudge-submit:4:1,\
+                            swjudge-result:4:1"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      
+      KAFKA_HEAP_OPTS: "-Xms8g -Xmx16g"
+    
     depends_on:
       - zookeeper
 
@@ -36,13 +47,16 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger-api/.env
+
     expose:
       - "4003"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
     volumes:
       - /uploads:/usr/src/app/uploads
       - /server-Logs:/usr/src/app/logs
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    
     depends_on:
       - kafka
     links:
@@ -53,11 +67,14 @@ services:
     build:
       context: ./judger-frontend
       dockerfile: Dockerfile
+
     ports:
       - "80:80"
       - "443:443"
+    
     volumes:
       - ./judger-frontend/nginx/ssl:/etc/nginx/ssl
+    
     depends_on:
       - judger-api
     links:
@@ -70,11 +87,14 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
     volumes:
       - /uploads:/source
       - /uploads:/io
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    
     depends_on:
       - kafka
     links:
@@ -87,11 +107,14 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
     volumes:
       - /uploads:/source
       - /uploads:/io
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    
     depends_on:
       - kafka
     links:
@@ -104,11 +127,14 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+     
     volumes:
       - /uploads:/source
       - /uploads:/io
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+  
     depends_on:
       - kafka
     links:
@@ -121,11 +147,14 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
     volumes:
       - /uploads:/source
       - /uploads:/io
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    
     depends_on:
       - kafka
     links:
@@ -138,11 +167,14 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
     volumes:
       - /uploads:/source
       - /uploads:/io
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    
     depends_on:
       - kafka
     links:
