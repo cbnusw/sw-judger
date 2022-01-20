@@ -21,7 +21,7 @@ const fileTypes = [
   'Submit'
 ];
 
-const parentTypes = { CONTEST: 'Contest', ASSIGNMENT: 'Assignment' };
+const parentTypes = ['Contest', 'Assignment'];
 
 
 const programmingLanguages = [

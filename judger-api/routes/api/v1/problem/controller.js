@@ -61,7 +61,7 @@ const createProblem = (parentType) => asyncHandler(async (req, res, next) => {
 
   body.writer = user.info;
   body.ioSet = (body.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
-  body.parentType = 
+  body.parentType = parentType;
   const err = validateContest(body);
   if (err) return next(err);
 

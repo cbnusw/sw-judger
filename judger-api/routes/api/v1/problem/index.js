@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { authenticate, isAuthenticated, hasPermission } = require('../../../../middlewares/auth');
+const { authenticate, isAuthenticated, hasPermission, hasRole } = require('../../../../middlewares/auth');
 const { handleAccessProblem } = require('./middlewares');
 const controller = require('./controller');
 const { PARENT_TYPES } = require('../../../../constants');
-const { CONTEST, ASSIGNMENT } = PARENT_TYPES;
+const [CONTEST, ASSIGNMENT] = PARENT_TYPES;
 const router = Router();
 
 router.get('/', controller.getProblems(null));
