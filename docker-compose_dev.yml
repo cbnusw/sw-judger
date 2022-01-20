@@ -85,6 +85,26 @@ services:
       - kafka
       - mongodb
 
+
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile.dev
+
+    ports:
+     - "9000:4000"
+    
+    volumes:
+     - ./auth/server-Logs:/usr/src/app/logs
+     - ./auth:/usr/src/app
+     - /usr/src/app/node_modules
+
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+
+
   mongodb:
     build:
       context: ./mongo
