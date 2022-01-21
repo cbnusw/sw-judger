@@ -18,9 +18,14 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SecurePipeModule } from '../../pipes/secure-pipe/secure-pipe.module';
 import { MatIconModule } from '@angular/material/icon';
 import { AssignmentPagesRoutingModule } from './assignment-pages-routing.module';
+import { AssignmentListPageComponent } from './assignment-list-page/assignment-list-page.component';
 
 @NgModule({
-  declarations: [AssignmentDetailPageComponent, AssignmentFormPageComponent],
+  declarations: [
+    AssignmentDetailPageComponent,
+    AssignmentFormPageComponent,
+    AssignmentListPageComponent,
+  ],
   imports: [
     CommonModule,
     AssignmentPagesRoutingModule,

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiBase } from '../../classes/api-base';
+import { IAssignment } from '../../models/assignment';
 import { IParams } from '../../models/params';
-import { IProblem } from '../../models/problem';
 import { IListResponse, IResponse } from '../../models/response';
 import { ISubmit } from '../../models/submit';
 
@@ -16,31 +16,34 @@ export class AssignmentService extends ApiBase {
     super(environment.apiHost, '/assignment');
   }
 
-  search(params?: IParams): Observable<IListResponse<IProblem>> {
-    return this.http.get<IListResponse<IProblem>>(this.url`/`, {
+  search(params?: IParams): Observable<IListResponse<IAssignment>> {
+    return this.http.get<IListResponse<IAssignment>>(this.url`/`, {
       params: ApiBase.params(params),
     });
   }
 
-  getAssignment(id: string): Observable<IResponse<IProblem>> {
-    return this.http.get<IResponse<IProblem>>(this.url`/${id}`);
+  getAssignment(id: string): Observable<IResponse<IAssignment>> {
+    return this.http.get<IResponse<IAssignment>>(this.url`/${id}`);
   }
 
-  getAssignments(params?: IParams): Observable<IListResponse<IProblem>> {
-    return this.http.get<IListResponse<IProblem>>(this.url`/`, {
+  getAssignments(params?: IParams): Observable<IListResponse<IAssignment>> {
+    return this.http.get<IListResponse<IAssignment>>(this.url`/`, {
       params: ApiBase.params(params),
     });
   }
 
-  createProblem(body: IProblem): Observable<IResponse<IProblem>> {
-    return this.http.post<IResponse<IProblem>>(this.url`/`, body);
+  createAssignment(body: IAssignment): Observable<IResponse<IAssignment>> {
+    return this.http.post<IResponse<IAssignment>>(this.url`/`, body);
   }
 
   submit(id: string, body: ISubmit): Observable<IResponse<undefined>> {
     return this.http.post<IResponse<undefined>>(this.url`/${id}/submit`, body);
   }
 
-  updateProblem(id: string, body: IProblem): Observable<IResponse<undefined>> {
+  updateAssignment(
+    id: string,
+    body: IAssignment
+  ): Observable<IResponse<undefined>> {
     return this.http.put<IResponse<undefined>>(this.url`/${id}`, body);
   }
 
