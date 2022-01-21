@@ -1,3 +1,8 @@
+*.key
+/logs
+/uploads
+/newsletters
+/test-files
 
 *.env
 *.env_prod
