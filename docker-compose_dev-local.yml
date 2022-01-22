@@ -59,8 +59,10 @@ services:
 
     depends_on:
       - kafka
+      - mongodb
     links:
       - kafka
+      - mongodb
 
 
   judger:
@@ -78,8 +80,10 @@ services:
     
     depends_on:
       - kafka
+      - mongodb
     links:
       - kafka
+      - mongodb
 
 
   auth:
@@ -94,3 +98,20 @@ services:
      - ./auth/server-Logs:/usr/src/app/logs
      - ./auth:/usr/src/app
      - /usr/src/app/node_modules
+
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+
+
+  mongodb:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    
+    ports:
+      - "27017:27017"
+
+    volumes:
+      - ./mongo/mongodb:/data/db
