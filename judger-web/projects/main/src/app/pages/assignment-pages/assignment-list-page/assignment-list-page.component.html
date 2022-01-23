@@ -23,7 +23,7 @@
 
       <ng-container matColumnDef="testPeriod">
         <th mat-header-cell *matHeaderCellDef>과제 제출 기한</th>
-        <td mat-cell *matCellDef="let row">{{ row.testPeriod }}</td>
+        <td mat-cell *matCellDef="let row">{{ row | testPeriod }}</td>
       </ng-container>
 
       <ng-container matColumnDef="writer">
