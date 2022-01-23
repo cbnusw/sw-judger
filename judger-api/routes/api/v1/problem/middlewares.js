@@ -6,7 +6,7 @@ const { Contest, Problem } = require('../../../../models');
 const handleAccessProblem = asyncHanlder(async (req, res, next) => {
   const { params: { id }, user } = req;
   const problem = await Problem.findById(id);
-
+  console.log(problem.writer);
   if (user && String(user.info) === String(problem.writer) || hasRole(user)) return next();
 
   const now = new Date();

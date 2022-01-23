@@ -32,28 +32,18 @@ const getRegisteredAssignments = asyncHandler(async (req, res, next) => {
   const documents = await Assignment.search(query, {
     $and: [
       { students: user.info },
-      { 'deadline': { $gt: now } }
+      { 'testPeriod.end': { $gt: now } }
     ]
   });
   res.json(createResponse(res, documents));
 });
 
 
-const getApplyingAssignments = asyncHandler(async (req, res, next) => {
-  const now = new Date();
-
-  const documents = await Assignment.search({}, {
-    deadline: { $gt: now }
-  });
-
-  res.json(createResponse(res, documents));
-});
-
 const getProgressingAssignments = asyncHandler(async (req, res, next) => {
   const now = new Date();
 
   const documents = await Assignment.search({}, {
-    'deadline': { $gt: now }
+    'testPeriod.end': { $gt: now }
   });
 
   res.json(createResponse(res, documents));
@@ -113,11 +103,10 @@ const createAssignmentProblem = asyncHandler(async (req, res, next) => {
   if (!assignment) return next(ASSIGNMENT_NOT_FOUND);
   if (String(assignment.writer) !== String(user.info)) return next(FORBIDDEN);
 
-  const { deadline } = assignment;
+  const { testPeriod } = assignment;
   const now = new Date();
-  const start = new Date(deadline);
-  if (now.getTime() > start.getTime()) return next(AFTER_TEST_START);
-
+  const end = new Date(testPeriod.end);
+  if (now.getTime() > end) return next(ENDED_ASSIGNMENT);
   body.assignment = id;
   body.writer = user.info;
 
@@ -253,7 +242,6 @@ const removeAssignment = asyncHandler(async (req, res, next) => {
 exports.getAssignments = getAssignments;
 exports.getMyAssignments = getMyAssignments;
 exports.getRegisteredAssignments = getRegisteredAssignments;
-exports.getApplyingAssignments = getApplyingAssignments;
 exports.getProgressingAssignments = getProgressingAssignments;
 exports.getAssignment = getAssignment;
 exports.getAssignmentProblems = getAssignmentProblems;

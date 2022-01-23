@@ -10,7 +10,7 @@ const {
   AFTER_TEST_START,
 } = require('../../../../errors');
 const asyncHandler = require('express-async-handler');
-const { producingSubmit } = require('./service');
+// const { producingSubmit } = require('./service');
 
 const getProblems = (parentType) => asyncHandler(async (req, res, next) => {
   const { query } = req;
@@ -44,8 +44,7 @@ const getProblem = asyncHandler(async (req, res, next) => {
 
 const createSubmit = asyncHandler(async (req, res, next) => {
   const { params: { id }, body, user } = req;
-  const producer = req.app.get('submitProducer');
-
+  // const producer = req.app.get('submitProducer');
   body.problem = id;
   body.user = user.info;
 
@@ -62,14 +61,12 @@ const createProblem = (parentType) => asyncHandler(async (req, res, next) => {
   body.writer = user.info;
   body.ioSet = (body.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
   body.parentType = parentType;
-  const err = validateContest(body);
+  const err = validateContest(parentType, body);
   if (err) return next(err);
 
   const doc = await Problem.create(body);
   const urls = [body.content];
   const ids = [...body.ioSet.map(io => io.inFile), ...body.ioSet.map(io => io.outFile)];
-  console.log(urls);
-  console.log(ids)
   await Promise.all([
     updateFilesByUrls(req, doc._id, 'Problem', urls),
     updateFilesByIds(req, doc._id, 'Problem', ids)
@@ -138,7 +135,7 @@ const removeProblem = asyncHandler(async (req, res, next) => {
 
 
 // utility functions
-async function validateContest(problem) {
+async function validateContest(parentType, problem) {
   if (problem.contest) {
     const contest = await Contest.findById(problem.contest);
     if (!contest) return CONTEST_NOT_FOUND;

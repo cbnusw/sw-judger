@@ -17,14 +17,6 @@ const periodSchema = createSchema({
 }, false);
 
 
-
-const contentSchema = createSchema({
-  text: {
-    type: String,
-    trim: true,
-  }
-}, false)
-
 const schema = createSchema({
   numId: { type: Number, index: true },
   course: String,
@@ -39,17 +31,14 @@ const schema = createSchema({
     ref: 'Problem',
     required: true,
   }],
-  content: contentSchema,
+  content: String,
   writer: {
     type: Schema.Types.ObjectId,
     ref: 'UserInfo',
     required: true,
     index: true,
   },
-  deadline: {
-    type: Date,
-    required: true,
-  },
+  testPeriod: periodSchema,
   students: [{
     type: Schema.Types.ObjectId,
     ref: 'UserInfo',
@@ -58,21 +47,9 @@ const schema = createSchema({
 });
 
 schema.index({ createdAt: -1 });
-
-schema.plugin(searchPlugin({
-  sort: '-createdAt',
-  populate: [{ path: 'writer' }],
-  mapper: {
-    title: toRegEx,
-    writer: toRef('UserInfo', {
-      name: toRegEx
-    }),
-  }
-}));
-
 schema.pre('save', async next => {
   const record = this;
-  if (post.isNew) record.numId = getCounter();
+  if (this.isNew) record.numId = getCounter();
   return next();
   async function getCounter() {
     counter = await Counter.findOne({ name: 'Assignment' }).exec();
@@ -82,3 +59,16 @@ schema.pre('save', async next => {
     return counter.count;
   }
 })
+
+schema.plugin(searchPlugin({
+  sort: '-no',
+  populate: [{ path: 'writer' }],
+  mapper: {
+    title: toRegEx,
+    writer: toRef('UserInfo', {
+      name: toRegEx
+    }),
+  }
+}));
+
+module.exports = schema;

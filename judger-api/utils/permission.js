@@ -1,4 +1,4 @@
-const hasRole = (user, role) => user && (role ? ['admin', 'operator', role] : ['admin', 'operator']).some(r => r === user.role);
+const hasRole = (user, role) => user && (role ? ['admin', 'operator', role] : ['admin', 'operator']).some(r => { console.log(user.role); return r === user.role });
 
 const hasRoles = (user, ...roles) => user && ['admin', 'operator', ...roles].some(role => role === user.role);
 
