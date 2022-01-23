@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const { createSchema } = require('../../helpers');
 const { searchPlugin } = require('../../plugins');
 const { toRegEx, toRef } = require('../../mappers');
-
+const { PARENT_TYPES } = require('../../../constants');
 const ioSchema = createSchema({
   // input file url
   inFile: {
@@ -37,15 +37,21 @@ const schema = createSchema({
     required: true,
     index: true
   },
+  contest: {
+    type: Schema.Types.ObjectId,
+    refPath: 'parentType',
+    index: true,
+    default: null,
+  },
+  parentType: {
+    type: String,
+    enum: [...PARENT_TYPES, null],
+    index: true,
+    default: null,
+  },
   content: {
     type: String,
     required: true,
-  },
-  contest: {
-    type: Schema.Types.ObjectId,
-    ref: 'Contest',
-    index: true,
-    default: null,
   },
   published: {
     type: Date,

@@ -10,6 +10,6 @@ RUN npm install -g pm2
 
 COPY . .
 
-EXPOSE 4003:4003
-
+EXPOSE 4000
+PORTa: 
 CMD ["pm2-docker", "index.js"]
