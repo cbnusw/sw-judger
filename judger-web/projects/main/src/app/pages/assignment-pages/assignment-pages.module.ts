@@ -19,6 +19,7 @@ import { SecurePipeModule } from '../../pipes/secure-pipe/secure-pipe.module';
 import { MatIconModule } from '@angular/material/icon';
 import { AssignmentPagesRoutingModule } from './assignment-pages-routing.module';
 import { AssignmentListPageComponent } from './assignment-list-page/assignment-list-page.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AssignmentListPageComponent } from './assignment-list-page/assignment-l
     MatIconModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    CKEditorModule,
   ],
 })
 export class AssignmentPagesModule {}

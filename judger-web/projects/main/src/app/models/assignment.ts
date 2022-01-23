@@ -1,21 +1,17 @@
 import { IUserInfo } from './user-info';
-import { IFile } from './file';
-
-export interface IAssignmentOptions {
-  maxRealTime: number;
-  maxMemory: number;
-}
-
-export interface IInputOutput {
-  inFile: IFile;
-  outFile: IFile;
-}
+import { IPeriod } from './contest';
+import { IProblem } from './problem';
 
 export interface IAssignment {
   _id?: string;
-  title?: string;
   course?: string;
-  ioSet?: Array<IInputOutput>;
-  deadline?: Date;
+  title?: string;
+  content?: string;
   writer?: IUserInfo;
+  problems?: Array<IProblem>;
+  applyingPeriod?: IPeriod;
+  testPeriod: IPeriod;
+  contestants?: Array<IUserInfo>;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

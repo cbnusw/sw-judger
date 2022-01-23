@@ -1,16 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
+import { UploadService } from '../../../services/upload.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { AbstractFormDirective } from '../../../classes/abstract-form.directive';
 import { ErrorMatcher } from '../../../classes/error-matcher';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import { Observable } from 'rxjs';
 import { IAssignment } from '../../../models/assignment';
-import { IProblem } from '../../../models/problem';
 import { AssignmentService } from '../../../services/apis/assignment.service';
-import { AuthService } from '../../../services/auth.service';
-import { LayoutService } from '../../../services/layout.service';
 
+export class UploadAdapter {
+  constructor(private loader, private uploadService: UploadService) {}
+
+  upload(): Promise<any> {
+    return this.loader.file
+      .then((file) => this.uploadService.upload(file).toPromise())
+      .then((res) => ({ ...res.data, default: res.data.url }));
+  }
+}
 @Component({
   selector: 'sw-assignment-form-page',
   templateUrl: './assignment-form-page.component.html',
@@ -20,124 +29,175 @@ export class AssignmentFormPageComponent
   extends AbstractFormDirective<IAssignment, string>
   implements OnInit
 {
-  protected submitObservable(m: IAssignment): Observable<string> {
-    throw new Error('Method not implemented.');
-  }
-  assignment: IAssignment;
   errorMatcher = new ErrorMatcher(this.submitted$, this.submissionError$);
+
+  Editor = DecoupledEditor;
+
+  config = {
+    placeholder: '여기에 과제 내용 입력',
+    language: 'ko',
+  };
 
   constructor(
     public auth: AuthService,
-    public layout: LayoutService,
     private route: ActivatedRoute,
     private router: Router,
-    private AssignmentService: AssignmentService,
+    private uploadService: UploadService,
+    private assignmentService: AssignmentService,
     fb: FormBuilder
   ) {
     super(fb);
   }
 
-  cancel(): void {
-    if (this.modifying) {
-      this.assignment
-        ? this.router.navigate(['/assignment/detail', this.model._id], {
-            queryParams: { asssignment: this.assignment._id },
-          })
-        : this.router.navigate(['/assignment/detail', this.model._id]);
-    } else {
-      this.assignment
-        ? this.router.navigate([
-            '/assignment',
-            this.assignment._id,
-            'assignments',
-          ])
-        : this.router.navigateByUrl('/assignment/list/me');
-    }
+  get isApplyingPeriod(): boolean {
+    return this.formGroup.get('isApplyingPeriod').value;
   }
 
-  async submit(): Promise<void> {
-    await super.submit();
+  onReady(editor: any): void {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+      return new UploadAdapter(loader, this.uploadService);
+    };
+
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+      );
   }
 
-  protected async processAfterSubmission(s: string): Promise<void> {
-    if (this.assignment) {
-      await this.router.navigate([
-        '/assignment',
-        this.assignment._id,
-        'problems',
-      ]);
-    } else {
-      await this.router.navigateByUrl('/problem/list/me');
+  protected async mapToModel(m: IAssignment): Promise<IAssignment> {
+    if (!(m as any).isApplyingPeriod) {
+      m.applyingPeriod = null;
     }
-  }
 
-  protected async mapToModel(m: IProblem): Promise<IProblem> {
-    if (m.published) {
-      m.published = this.assignment ? this.assignment.deadline : new Date();
-    } else {
-      m.published = null;
-    }
+    delete (m as any).isApplyingPeriod;
 
     return m;
   }
 
-  protected initFormGroup(formBuilder: FormBuilder): FormGroup {
-    return formBuilder.group({
-      title: [null, [Validators.required]],
-      content: [null, [Validators.required]],
-      published: [false],
-      ioSet: [null, Validators.required],
-      options: formBuilder.group({
-        maxRealTime: [null, [Validators.required, Validators.min(1)]],
-        maxMemory: [null, [Validators.required, Validators.min(1)]],
-      }),
-      score: [1, [Validators.required, Validators.min(0)]],
-    });
+  protected async processAfterSubmission(id: string): Promise<void> {
+    alert(`과제${this.modifying ? '수정' : '등록'}을 완료하였습니다.`);
+    await this.router.navigate(['/assignment/detail', id]);
   }
 
-  // protected submitObservable(m: IProblem): Observable<string> {
-  //   let observable: Observable<string>;
+  protected patchFormGroup(m: IAssignment): void {
+    if (m.applyingPeriod) {
+      (m as any).isApplyingPeriod = true;
+    }
+    super.patchFormGroup(m);
+  }
 
-  //   if (this.assignment) {
-  //     observable = this.modifying
-  //       ? this.AssignmnetService.updateAssignmentProblem(
-  //           this.assignment._id,
-  //           this.model._id,
-  //           m
-  //         ).pipe(map(() => this.assignment._id))
-  //       : this.contestService
-  //           .createContestProblem(this.contest._id, m)
-  //           .pipe(map(() => this.contest._id));
-  //   } else {
-  //     observable = this.modifying
-  //       ? this.problemService
-  //           .updateProblem(this.model._id, m)
-  //           .pipe(map(() => this.model._id))
-  //       : this.problemService.createProblem(m).pipe(map((res) => res.data._id));
-  //   }
+  protected initFormGroup(formBuilder: FormBuilder): FormGroup {
+    const formGroup = formBuilder.group({
+      title: [null, [Validators.required]],
+      course: [null, [Validators.required]],
+      content: [null, [Validators.required]],
+      testPeriod: [
+        null,
+        [
+          Validators.required,
+          (control) => {
+            let { start, end } = control.value || {};
+            if (start && end) {
+              start = new Date(start);
+              end = new Date(end);
+              return start.getTime() >= end.getTime()
+                ? { invalidPeriod: true }
+                : null;
+            }
+            return null;
+          },
+        ],
+      ],
+      isApplyingPeriod: [false],
+      applyingPeriod: [null],
+    });
 
-  //   return observable;
-  // }
+    formGroup.setValidators([
+      (form) => {
+        const testPeriod = form.get('testPeriod').value;
+        const applyingPeriod = form.get('applyingPeriod').value;
+        const isApplyingPeriod = form.get('isApplyingPeriod').value;
+
+        if (!isApplyingPeriod) {
+          return null;
+        }
+
+        if (!applyingPeriod) {
+          return { requiredApplyingPeriod: true };
+        }
+
+        let { start, end } = applyingPeriod;
+
+        start = new Date(start);
+        end = new Date(end);
+
+        if (start.getTime() >= end.getTime()) {
+          return { invalidApplyingPeriod: true };
+        }
+
+        if (testPeriod) {
+          let { start: testStart } = testPeriod;
+
+          testStart = new Date(testStart);
+
+          if (end.getTime() > testStart.getTime()) {
+            return { overlapApplyingPeriod: true };
+          }
+        }
+
+        return null;
+      },
+    ]);
+
+    return formGroup;
+  }
+
+  protected submitObservable(m: IAssignment): Observable<string> {
+    return this.modifying
+      ? this.assignmentService
+          .updateAssignment(this.model._id, m)
+          .pipe(map(() => this.model._id))
+      : this.assignmentService
+          .createAssignment(m)
+          .pipe(map((res) => res.data._id));
+  }
+
+  cancel(): void {
+    if (this.modifying) {
+      this.router.navigate(['/assignment/detail', this.model._id]);
+    } else {
+      this.router.navigateByUrl('/contest/list/me');
+    }
+  }
 
   ngOnInit(): void {
     super.ngOnInit();
 
-    // this.addSubcription(
-    //   this.route.params
-    //     .pipe(
-    //       map((params) => params.id),
-    //       filter((id) => !!id),
-    //       switchMap((id) => this.AssignmentService.get(id))
-    //     )
-    //     .subscribe((res) => (this.model = res.data)),
-
-    //   this.route.queryParams
-    //     .pipe(
-    //       map((params) => params.AssignmentListPageComponent),
-    //       filter((id) => !!id),
-    //       switchMap((id) => this.AssignmentService.getAssignment(id))
-    //     )
-    //     .subscribe((res) => (this.Assignment = res.data))
-    // );
+    this.addSubcription(
+      this.auth.me$
+        .pipe(
+          filter((me) => !!me),
+          switchMap(() => this.route.params),
+          map((params) => params.id),
+          filter((id) => !!id),
+          switchMap((id) => this.assignmentService.getAssignment(id))
+        )
+        .subscribe(
+          (res) => {
+            if (res.data.writer._id !== this.auth.me._id) {
+              alert('수정 권한이 없습니다.');
+              this.router.navigateByUrl('/');
+            } else {
+              this.model = res.data;
+            }
+          },
+          (err) => {
+            alert(`${(err.error && err.error.message) || err.message}`);
+            this.router.navigateByUrl('/');
+          }
+        )
+    );
   }
 }
