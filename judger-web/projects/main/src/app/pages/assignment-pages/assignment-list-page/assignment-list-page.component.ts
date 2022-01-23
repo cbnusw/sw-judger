@@ -13,7 +13,7 @@ import { AssignmentService } from '../../../services/apis/assignment.service';
   styleUrls: ['./assignment-list-page.component.scss'],
 })
 export class AssignmentListPageComponent extends AbstractSearchDirective<IAssignment> {
-  columns = ['no', 'title', 'course', 'writer', 'deadline'];
+  columns = ['no', 'title', 'course', 'writer', 'testPeriod', 'createdAt'];
 
   constructor(private AssignmentService: AssignmentService) {
     super({ limit: 10, sort: 'no' });
