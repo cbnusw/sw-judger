@@ -66,26 +66,9 @@ export class AssignmentFormPageComponent
       );
   }
 
-  protected async mapToModel(m: IAssignment): Promise<IAssignment> {
-    if (!(m as any).isApplyingPeriod) {
-      m.applyingPeriod = null;
-    }
-
-    delete (m as any).isApplyingPeriod;
-
-    return m;
-  }
-
   protected async processAfterSubmission(id: string): Promise<void> {
     alert(`과제${this.modifying ? '수정' : '등록'}을 완료하였습니다.`);
     await this.router.navigate(['/assignment/detail', id]);
-  }
-
-  protected patchFormGroup(m: IAssignment): void {
-    if (m.applyingPeriod) {
-      (m as any).isApplyingPeriod = true;
-    }
-    super.patchFormGroup(m);
   }
 
   protected initFormGroup(formBuilder: FormBuilder): FormGroup {
@@ -110,46 +93,7 @@ export class AssignmentFormPageComponent
           },
         ],
       ],
-      isApplyingPeriod: [false],
-      applyingPeriod: [null],
     });
-
-    formGroup.setValidators([
-      (form) => {
-        const testPeriod = form.get('testPeriod').value;
-        const applyingPeriod = form.get('applyingPeriod').value;
-        const isApplyingPeriod = form.get('isApplyingPeriod').value;
-
-        if (!isApplyingPeriod) {
-          return null;
-        }
-
-        if (!applyingPeriod) {
-          return { requiredApplyingPeriod: true };
-        }
-
-        let { start, end } = applyingPeriod;
-
-        start = new Date(start);
-        end = new Date(end);
-
-        if (start.getTime() >= end.getTime()) {
-          return { invalidApplyingPeriod: true };
-        }
-
-        if (testPeriod) {
-          let { start: testStart } = testPeriod;
-
-          testStart = new Date(testStart);
-
-          if (end.getTime() > testStart.getTime()) {
-            return { overlapApplyingPeriod: true };
-          }
-        }
-
-        return null;
-      },
-    ]);
 
     return formGroup;
   }

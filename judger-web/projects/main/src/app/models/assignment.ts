@@ -9,7 +9,6 @@ export interface IAssignment {
   content?: string;
   writer?: IUserInfo;
   problems?: Array<IProblem>;
-  applyingPeriod?: IPeriod;
   testPeriod: IPeriod;
   contestants?: Array<IUserInfo>;
   createdAt?: Date;
