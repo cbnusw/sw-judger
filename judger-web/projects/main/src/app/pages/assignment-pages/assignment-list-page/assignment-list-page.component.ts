@@ -6,7 +6,6 @@ import { IAssignment } from '../../../models/assignment';
 import { IParams } from '../../../models/params';
 import { IListResponse } from '../../../models/response';
 import { AssignmentService } from '../../../services/apis/assignment.service';
-import { ProblemService } from '../../../services/apis/problem.service';
 
 @Component({
   selector: 'sw-assignment-list-page',
@@ -14,10 +13,10 @@ import { ProblemService } from '../../../services/apis/problem.service';
   styleUrls: ['./assignment-list-page.component.scss'],
 })
 export class AssignmentListPageComponent extends AbstractSearchDirective<IAssignment> {
-  columns = ['no', 'content', 'title', 'writer', 'createdAt'];
+  columns = ['no', 'title', 'course', 'writer', 'deadline'];
 
   constructor(private AssignmentService: AssignmentService) {
-    super({ limit: 10, sort: '-createdAt' });
+    super({ limit: 10, sort: 'no' });
   }
 
   protected requestObservable(
