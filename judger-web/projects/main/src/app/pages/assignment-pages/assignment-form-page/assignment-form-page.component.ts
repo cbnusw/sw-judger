@@ -168,7 +168,7 @@ export class AssignmentFormPageComponent
     if (this.modifying) {
       this.router.navigate(['/assignment/detail', this.model._id]);
     } else {
-      this.router.navigateByUrl('/contest/list/me');
+      this.router.navigateByUrl('/assignment/list/me');
     }
   }
 

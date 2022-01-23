@@ -65,37 +65,6 @@
     >
   </div>
 
-  <div class="mb-4">
-    <mat-checkbox color="primary" formControlName="isApplyingPeriod"
-      >신청기간 설정</mat-checkbox
-    >
-    <span class="help block">
-      <i class="las la-info-circle me-1"></i>
-      신청기간을 설정하지 않은 경우 대회가 시작하기 전까지 언제든 신청이
-      가능합니다.
-    </span>
-    <sw-period-control
-      *ngIf="isApplyingPeriod"
-      [errorStateMatcher]="errorMatcher"
-      formControlName="applyingPeriod"
-    ></sw-period-control>
-    <span
-      class="error block relative period-error"
-      *ngIf="hasError('requiredApplyingPeriod')"
-      >신청기간을 설정해주세요.</span
-    >
-    <span
-      class="error block relative period-error"
-      *ngIf="hasError('invalidApplyingPeriod')"
-      >시작시간은 종료시간 이전이어야 합니다.</span
-    >
-    <span
-      class="error block relative period-error"
-      *ngIf="hasError('overlapApplyingPeriod')"
-      >신청기간은 대회 시작 시간 이전이어야 합니다.</span
-    >
-  </div>
-
   <div class="flex justify-end">
     <a class="me-2" mat-flat-button (click)="cancel()">취소</a>
     <button mat-flat-button color="primary">
