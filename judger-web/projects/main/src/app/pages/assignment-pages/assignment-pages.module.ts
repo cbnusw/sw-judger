@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AssignmentPagesRoutingModule } from './assignment-pages-routing.module';
 import { AssignmentListPageComponent } from './assignment-list-page/assignment-list-page.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PeriodPipeModule } from '../../pipes/period-pipe/period-pipe.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MatButtonModule,
     PdfUploaderControlModule,
     PeriodControlModule,
+    PeriodPipeModule,
     ProblemPagesRoutingModule,
     PdfViewerModule,
     SecurePipeModule,
