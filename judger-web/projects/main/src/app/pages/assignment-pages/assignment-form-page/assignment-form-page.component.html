@@ -1,5 +1,5 @@
 <div class="main-container mt-2">
-  <ng-container *ngIf="!contest; else contestProblemTemplate">
+  <ng-container *ngIf="!assignment; else contestProblemTemplate">
     <h2 class="page-title mb-2">과제 {{ modifying ? "수정" : "등록" }}</h2>
     <div class="flex justify-end pb-2 mb-2 border-bottom">
       <span class="font-s">작성자: {{ auth.me?.name }}</span>
@@ -8,13 +8,13 @@
 
   <ng-template #contestProblemTemplate>
     <h2 class="page-title mb-2 flex mobile-column">
-      <span class="text-primary me-1">{{ contest.title }}</span>
+      <span class="text-primary me-1">{{ assignment.title }}</span>
       <span [class.mt-2]="layout.mobile$ | async"
         >문제 {{ modifying ? "수정" : "등록" }}</span
       >
     </h2>
     <div class="flex pb-2 mb-2 border-bottom mobile-column">
-      <span class="font-s me-auto" [class.mb  -1]="layout.mobile$ | async"
+      <span class="font-s me-auto" [class.mb -1]="layout.mobile$ | async"
         >과제제출기간: {{ contest | testPeriod }}</span
       >
       <span class="font-s me-2" [class.mb-1]="layout.mobile$ | async"
@@ -118,7 +118,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field
-        *ngIf="!!contest"
+        *ngIf="!!assignment"
         class="w-100"
         [class.grow-1]="layout.desktop$ | async"
         [class.shrink-1]="layout.desktop$ | async"

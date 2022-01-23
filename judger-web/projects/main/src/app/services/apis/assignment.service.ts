@@ -47,7 +47,7 @@ export class AssignmentService extends ApiBase {
     return this.http.put<IResponse<undefined>>(this.url`/${id}`, body);
   }
 
-  removeProblem(id: string): Observable<IResponse<undefined>> {
+  removeAssignment(id: string): Observable<IResponse<undefined>> {
     return this.http.delete<IResponse<undefined>>(this.url`/${id}`);
   }
 }
