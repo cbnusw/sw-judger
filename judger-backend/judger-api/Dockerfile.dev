@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /usr/src/app    
+WORKDIR /usr/src/app
 RUN chown -R node:node /usr/src/
 
 COPY package*.json ./
