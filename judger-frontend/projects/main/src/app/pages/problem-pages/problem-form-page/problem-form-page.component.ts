@@ -64,7 +64,6 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
     } else {
       m.published = null;
     }
-
     return m;
   }
 
