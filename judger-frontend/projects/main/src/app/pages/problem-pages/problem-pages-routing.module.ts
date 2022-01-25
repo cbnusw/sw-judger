@@ -9,9 +9,9 @@ import { ProblemListPageComponent } from './problem-list-page/problem-list-page.
 const routes: Routes = [
   { path: '', redirectTo: '/problem/list', pathMatch: 'full' },
   { path: 'list', component: ProblemListPageComponent },
-  { path: 'list/me', canActivate: [AuthGuard], component: MyProblemListPageComponent },
-  { path: 'new', canActivate: [AuthGuard], component: ProblemFormPageComponent },
-  { path: 'edit/:id', canActivate: [AuthGuard], component: ProblemFormPageComponent },
+  { path: 'list/me',  component: MyProblemListPageComponent },
+  { path: 'new',  component: ProblemFormPageComponent },
+  { path: 'edit/:id', component: ProblemFormPageComponent },
   { path: 'detail/:id', component: ProblemDetailPageComponent },
 ];
 
