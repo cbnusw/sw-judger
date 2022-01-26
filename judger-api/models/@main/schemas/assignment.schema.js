@@ -19,6 +19,7 @@ const periodSchema = createSchema({
 
 const schema = createSchema({
   no: { type: Number, index: true },
+
   course: String,
   title: {
     type: String,
@@ -47,7 +48,9 @@ const schema = createSchema({
 });
 
 schema.index({ createdAt: -1 });
+
 schema.pre('save', async next => {
+
   const record = this;
   record.no = await getCounter();
   console.log(`record.no ${record.no} ${record.isNew} ${record}`)
