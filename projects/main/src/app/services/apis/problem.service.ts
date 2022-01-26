@@ -9,10 +9,9 @@ import { IListResponse, IResponse } from '../../models/response';
 import { ISubmit } from '../../models/submit';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProblemService extends ApiBase {
-
   constructor(private http: HttpClient) {
     super(environment.apiHost, '/problem');
   }
@@ -30,6 +29,10 @@ export class ProblemService extends ApiBase {
   }
 
   createProblem(body: IProblem): Observable<IResponse<IProblem>> {
+    return this.http.post<IResponse<IProblem>>(this.url`/`, body);
+  }
+
+  createAssignmentProblem(body: IProblem): Observable<IResponse<IProblem>> {
     return this.http.post<IResponse<IProblem>>(this.url`/`, body);
   }
 
