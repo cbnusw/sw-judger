@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { hasRole, isAuthenticated } = require('../../../../middlewares/auth');
-const { handleAccessContestProblem } = require('./middlewares');
+const { handleAccessAssignmentProblem } = require('./middlewares');
 const controller = require('./controller');
 
 const router = Router();
@@ -14,7 +14,7 @@ router.get('/:id', controller.getAssignment);
 router.get(
   '/:id/problems',
   isAuthenticated,
-  handleAccessContestProblem,
+  handleAccessAssignmentProblem,
   controller.getAssignmentProblems
 );
 

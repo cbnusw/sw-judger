@@ -2,7 +2,7 @@ const { Schema } = require('mongoose');
 const { createSchema } = require('../../helpers');
 const { searchPlugin } = require('../../plugins');
 const { toRegEx, toRef } = require('../../mappers');
-
+const Counter = require('./counter.schema.js');
 const periodSchema = createSchema({
   start: {
     type: Date,
@@ -18,7 +18,7 @@ const periodSchema = createSchema({
 
 
 const schema = createSchema({
-  numId: { type: Number, index: true },
+  no: { type: Number, index: true },
   course: String,
   title: {
     type: String,
@@ -47,15 +47,16 @@ const schema = createSchema({
 });
 
 schema.index({ createdAt: -1 });
-schema.pre('save', async next => {
+schema.pre('save', next => {
   const record = this;
-  if (this.isNew) record.numId = getCounter();
+  record.no = await getCounter();
+  console.log(`record.no ${record.no} ${record.isNew} ${record}`)
   return next();
   async function getCounter() {
     counter = await Counter.findOne({ name: 'Assignment' }).exec();
     if (!counter) await Counter.create({ name: 'Assignment' });
     counter.count++;
-    counter.save();
+    await counter.save();
     return counter.count;
   }
 })
