@@ -47,7 +47,7 @@ const schema = createSchema({
 });
 
 schema.index({ createdAt: -1 });
-schema.pre('save', next => {
+schema.pre('save', async next => {
   const record = this;
   record.no = await getCounter();
   console.log(`record.no ${record.no} ${record.isNew} ${record}`)
