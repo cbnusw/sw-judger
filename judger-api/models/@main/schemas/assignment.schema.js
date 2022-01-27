@@ -49,7 +49,7 @@ const schema = createSchema({
 schema.index({ createdAt: -1 });
 
 schema.plugin(searchPlugin({
-  sort: '-no',
+  sort: '-createdAt',
   populate: [{ path: 'writer' }],
   mapper: {
     title: toRegEx,
