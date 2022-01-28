@@ -2,7 +2,6 @@ const { Schema } = require('mongoose');
 const { createSchema } = require('../../helpers');
 const { searchPlugin } = require('../../plugins');
 const { toRegEx, toRef } = require('../../mappers');
-
 const periodSchema = createSchema({
   start: {
     type: Date,
@@ -18,7 +17,8 @@ const periodSchema = createSchema({
 
 
 const schema = createSchema({
-  numId: { type: Number, index: true },
+  no: { type: Number, index: true },
+
   course: String,
   title: {
     type: String,
@@ -47,21 +47,9 @@ const schema = createSchema({
 });
 
 schema.index({ createdAt: -1 });
-schema.pre('save', async next => {
-  const record = this;
-  if (this.isNew) record.numId = getCounter();
-  return next();
-  async function getCounter() {
-    counter = await Counter.findOne({ name: 'Assignment' }).exec();
-    if (!counter) await Counter.create({ name: 'Assignment' });
-    counter.count++;
-    counter.save();
-    return counter.count;
-  }
-})
 
 schema.plugin(searchPlugin({
-  sort: '-no',
+  sort: '-createdAt',
   populate: [{ path: 'writer' }],
   mapper: {
     title: toRegEx,

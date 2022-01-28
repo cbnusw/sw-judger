@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { ApiBase } from '../../classes/api-base';
 import { IAssignment } from '../../models/assignment';
 import { IParams } from '../../models/params';
+import { IProblem } from '../../models/problem';
 import { IListResponse, IResponse } from '../../models/response';
 import { ISubmit } from '../../models/submit';
 
@@ -40,14 +41,28 @@ export class AssignmentService extends ApiBase {
     return this.http.post<IResponse<undefined>>(this.url`/${id}/submit`, body);
   }
 
-  updateAssignment(
-    id: string,
-    body: IAssignment
-  ): Observable<IResponse<undefined>> {
+  updateAssignment(id: string, body: IAssignment): Observable<IResponse<undefined>> {
     return this.http.put<IResponse<undefined>>(this.url`/${id}`, body);
   }
 
   removeAssignment(id: string): Observable<IResponse<undefined>> {
     return this.http.delete<IResponse<undefined>>(this.url`/${id}`);
+  }
+
+  getAssignmentProblems(id: string): Observable<IResponse<IAssignment>> {
+    return this.http.get<IResponse<IAssignment>>(this.url`/${id}/problems`);
+  }
+
+  reorderAssignmentProblems(id: string, problems: IProblem[]): Observable<IResponse<undefined>> {
+    return this.http.patch<IResponse<undefined>>(this.url`/${id}/problem/reorder`, { problems });
+  }
+
+  createAssignmentProblem(id: string, body: IProblem): Observable<IResponse<IProblem>> {
+    return this.http.post<IResponse<IProblem>>(this.url`/${id}/problem`, body);
+  }
+
+  updateAssignmentProblem(id: string, problemId: string, body: IProblem): Observable<IResponse<undefined>> {
+    console.log('updated!');
+    return this.http.put<IResponse<undefined>>(this.url`/${id}/problem/${problemId}`, body);
   }
 }
