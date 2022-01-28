@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer/public_api';
-import { error } from 'protractor';
 import { Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IContest } from '../../../models/contest';
@@ -9,6 +8,7 @@ import { IProblem } from '../../../models/problem';
 import { IAssignment } from '../../../models/assignment';
 import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
+import { AssignmentService } from '../../../services/apis/assignment.service';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -30,7 +30,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private auth: AuthService,
     private problemService: ProblemService,
-    private contestService: ContestService
+    private contestService: ContestService,
+    private assignmentService: AssignmentService
   ) {}
 
   get isWriter(): boolean {
@@ -79,6 +80,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   editProblem(): void {
     if (this.contest) {
       this.router.navigate(['/problem/edit', this.problem._id], { queryParams: { contest: this.contest._id } });
+    } else if (this.assignment) {
+      this.router.navigate(['/problem/edit', this.problem._id], { queryParams: { assignment: this.assignment._id } });
     } else {
       this.router.navigate(['/problem/edit', this.problem._id]);
     }
@@ -95,6 +98,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       (res) => {
         if (this.contest) {
           this.router.navigate(['/contest', this.contest._id, 'problems']);
+        } else if (this.assignment) {
+          this.router.navigate(['/assignment', this.assignment._id, 'problems']);
         } else {
           this.router.navigateByUrl('/problem/list/me');
         }
@@ -106,6 +111,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   moveListPage(): void {
     if (this.contest) {
       this.router.navigate(['/contest', this.contest._id, 'problems']);
+    } else if (this.assignment) {
+      this.router.navigate(['/assignment', this.assignment._id, 'problems']);
     } else {
       this.router.navigateByUrl('/problem/list');
     }
@@ -115,6 +122,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     const queryParams: Params = {};
     if (this.contest) {
       queryParams.contest = this.contest._id;
+    } else if (this.assignment) {
+      queryParams.assignment = this.assignment._id;
     }
     if (this.problem) {
       queryParams.problem = this.problem._id;
@@ -127,7 +136,9 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     if (this.contest) {
       queryParams.contest = this.contest._id;
     }
-
+    if (this.assignment) {
+      queryParams.assignment = this.assignment._id;
+    }
     if (this.problem) {
       queryParams.problem = this.problem._id;
     }
@@ -145,18 +156,33 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
         (res) => (this.problem = res.data),
         (err) => {}
       );
+    if (this.contest) {
+      this.subscription.add(
+        this.route.queryParams
+          .pipe(
+            map((params) => params.contest),
+            switchMap((id) => this.contestService.getContest(id))
+          )
+          .subscribe(
+            (res) => (this.contest = res.data),
+            (err) => {}
+          )
+      );
+    }
 
-    this.subscription.add(
-      this.route.queryParams
-        .pipe(
-          map((params) => params.contest),
-          switchMap((id) => this.contestService.getContest(id))
-        )
-        .subscribe(
-          (res) => (this.contest = res.data),
-          (err) => {}
-        )
-    );
+    if (this.assignment) {
+      this.subscription.add(
+        this.route.queryParams
+          .pipe(
+            map((params) => params.assignment),
+            switchMap((id) => this.assignmentService.getAssignment(id))
+          )
+          .subscribe(
+            (res) => (this.assignment = res.data),
+            (err) => {}
+          )
+      );
+    }
   }
 
   ngOnDestroy(): void {

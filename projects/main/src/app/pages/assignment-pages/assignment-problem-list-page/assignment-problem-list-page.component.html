@@ -6,8 +6,8 @@
     <span class="font-s">
       과제 제출 기한:
       <span class="text-primary fw-900" *ngIf="(assignment?.testPeriod | periodRange | async) == -1">
-        {{ contest | testPeriod }}
-        ({{ contest?.testPeriod?.start | restTime | async }})
+        {{ assignment | testPeriod }}
+        ({{ assignment?.testPeriod?.start | restTime | async }})
       </span>
       <span class="text-warn fw-900" *ngIf="(assignment?.testPeriod | periodRange | async) == 0">
         진행 중 - {{ assignment?.testPeriod?.end | restTime | async }} 후 종료
