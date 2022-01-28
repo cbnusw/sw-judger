@@ -9,10 +9,9 @@ import { IListResponse, IResponse } from '../../models/response';
 import { ISubmit } from '../../models/submit';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProblemService extends ApiBase {
-
   constructor(private http: HttpClient) {
     super(environment.apiHost, '/problem');
   }
@@ -39,6 +38,11 @@ export class ProblemService extends ApiBase {
 
   updateProblem(id: string, body: IProblem): Observable<IResponse<undefined>> {
     return this.http.put<IResponse<undefined>>(this.url`/${id}`, body);
+  }
+
+  updateContestProblem(problemId: string, body: IProblem): Observable<IResponse<undefined>> {
+    console.log('updated!');
+    return this.http.put<IResponse<undefined>>(this.url`/${problemId}`, body);
   }
 
   removeProblem(id: string): Observable<IResponse<undefined>> {

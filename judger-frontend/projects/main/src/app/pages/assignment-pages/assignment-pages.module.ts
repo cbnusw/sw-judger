@@ -21,13 +21,12 @@ import { AssignmentPagesRoutingModule } from './assignment-pages-routing.module'
 import { AssignmentListPageComponent } from './assignment-list-page/assignment-list-page.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PeriodPipeModule } from '../../pipes/period-pipe/period-pipe.module';
+import { InnerHtmlModule } from '../../directives/inner-html/inner-html.module';
+import { RestTimePipeModule } from '../../pipes/rest-time-pipe/rest-time-pipe.module';
+import { AssignmentProblemListPageComponent } from './assignment-problem-list-page/assignment-problem-list-page.component';
 
 @NgModule({
-  declarations: [
-    AssignmentDetailPageComponent,
-    AssignmentFormPageComponent,
-    AssignmentListPageComponent,
-  ],
+  declarations: [AssignmentDetailPageComponent, AssignmentFormPageComponent, AssignmentListPageComponent, AssignmentProblemListPageComponent],
   imports: [
     CommonModule,
     AssignmentPagesRoutingModule,
@@ -54,6 +53,8 @@ import { PeriodPipeModule } from '../../pipes/period-pipe/period-pipe.module';
     MatProgressSpinnerModule,
     MatTableModule,
     CKEditorModule,
+    InnerHtmlModule,
+    RestTimePipeModule,
   ],
 })
 export class AssignmentPagesModule {}
