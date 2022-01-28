@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { relativeTimeThreshold } from 'moment';
 import { Observable } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { AbstractFormDirective } from '../../../classes/abstract-form.directive';
 import { ErrorMatcher } from '../../../classes/error-matcher';
 import { IContest } from '../../../models/contest';
 import { IProblem } from '../../../models/problem';
+import { AssignmentService } from '../../../services/apis/assignment.service';
 import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
 import { AuthService } from '../../../services/auth.service';
@@ -27,6 +29,7 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
     private route: ActivatedRoute,
     private router: Router,
     private contestService: ContestService,
+    private assignmentService: AssignmentService,
     private problemService: ProblemService,
     fb: FormBuilder
   ) {
@@ -85,12 +88,23 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
     let assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
     let contestId: string = new URL(window.location.href).searchParams.get('contest');
     console.log(assignmentId, contestId);
-    if (this.contest) {
+    console.log(m);
+    if (contestId) {
       observable = this.modifying
-        ? this.contestService
-            .updateContestProblem(this.contest._id, this.model._id, m)
+        ? this.problemService
+            .updateProblem(this.model._id, { ...m, parentType: 'Contest', parentId: this.contest._id })
             .pipe(map(() => this.contest._id))
-        : this.contestService.createContestProblem(this.contest._id, m).pipe(map(() => this.contest._id));
+        : this.problemService
+            .createProblem({ ...m, parentType: 'Contest', parentId: this.contest._id })
+            .pipe(map(() => this.contest._id));
+    } else if (assignmentId) {
+      observable = this.modifying
+        ? this.problemService
+            .updateProblem(this.model._id, { ...m, parentType: 'Assignment', parentId: assignmentId })
+            .pipe(map(() => assignmentId))
+        : this.problemService
+            .createProblem({ ...m, parentType: 'Assignment', parentId: assignmentId })
+            .pipe(map(() => assignmentId));
     } else {
       observable = this.modifying
         ? this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id))

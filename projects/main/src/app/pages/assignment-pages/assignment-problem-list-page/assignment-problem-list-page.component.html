@@ -6,8 +6,8 @@
     <span class="font-s">
       과제 제출 기한:
       <span class="text-primary fw-900" *ngIf="(assignment?.testPeriod | periodRange | async) == -1">
-        {{ contest | testPeriod }}
-        ({{ contest?.testPeriod?.start | restTime | async }})
+        {{ assignment | testPeriod }}
+        ({{ assignment?.testPeriod?.start | restTime | async }})
       </span>
       <span class="text-warn fw-900" *ngIf="(assignment?.testPeriod | periodRange | async) == 0">
         진행 중 - {{ assignment?.testPeriod?.end | restTime | async }} 후 종료
@@ -19,7 +19,7 @@
   <h3 class="mb-2">문제 목록</h3>
   <div *ngIf="(isWriter$ | async) && !orderableProblems" class="flex justify-end mb-2">
     <button
-      *ngIf="contest?.problems.length > 1"
+      *ngIf="assignment?.problems.length > 1"
       class="no-border-radius text-white"
       mat-flat-button
       color="accent"
@@ -40,7 +40,7 @@
   <div *ngIf="isWriter$ && orderableProblems" class="flex justify-end mb-2">
     <button
       class="no-border-radius text-white"
-      *ngIf="contest?.problems.length > 1"
+      *ngIf="assignment?.problems.length > 1"
       mat-flat-button
       color="accent"
       (click)="reorder()"
@@ -51,9 +51,9 @@
   <div *ngIf="assignment?.problems.length === 0" class="border px-2 py-1 text-50">등록된 문제가 없습니다.</div>
   <ng-container *ngIf="!orderableProblems; else orderingTemplete">
     <a
-      *ngFor="let problem of contest?.problems; let i = index"
+      *ngFor="let problem of assignment?.problems; let i = index"
       [routerLink]="['/problem/detail', problem._id]"
-      [queryParams]="{ contest: contest._id }"
+      [queryParams]="{ assignment: assignment._id }"
       class="block border cursor pointer px-2 py-1 hover mb-2 line-ellipsis"
     >
       <span class="me-auto">{{ i + 1 }}) {{ problem.title }}</span>
