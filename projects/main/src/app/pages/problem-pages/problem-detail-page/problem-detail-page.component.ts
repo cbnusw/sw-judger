@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IContest } from '../../../models/contest';
 import { IProblem } from '../../../models/problem';
+import { IAssignment } from '../../../models/assignment';
 import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
 import { AuthService } from '../../../services/auth.service';
@@ -13,23 +14,24 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'sw-problem-detail-page',
   templateUrl: './problem-detail-page.component.html',
-  styleUrls: ['./problem-detail-page.component.scss']
+  styleUrls: ['./problem-detail-page.component.scss'],
 })
 export class ProblemDetailPageComponent implements OnInit, OnDestroy {
-
   private subscription: Subscription;
 
   contest: IContest;
+  assignment: IAssignment;
   problem: IProblem;
   lastPage = 1;
   page = 1;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private auth: AuthService,
-              private problemService: ProblemService,
-              private contestService: ContestService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private auth: AuthService,
+    private problemService: ProblemService,
+    private contestService: ContestService
+  ) {}
 
   get isWriter(): boolean {
     if (!this.problem || !this.auth.me) {
@@ -42,7 +44,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     const now = new Date();
 
     if (this.contest) {
-      if (!this.contest.contestants.some(contestant => contestant._id === (this.auth.me && this.auth.me._id))) {
+      if (!this.contest.contestants.some((contestant) => contestant._id === (this.auth.me && this.auth.me._id))) {
         return false;
       }
 
@@ -90,14 +92,14 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     }
 
     this.problemService.removeProblem(this.problem._id).subscribe(
-      res => {
+      (res) => {
         if (this.contest) {
           this.router.navigate(['/contest', this.contest._id, 'problems']);
         } else {
           this.router.navigateByUrl('/problem/list/me');
         }
       },
-      err => alert(`${err.error && err.error.message || err.message}`)
+      (err) => alert(`${(err.error && err.error.message) || err.message}`)
     );
   }
 
@@ -133,27 +135,27 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/submit'], { queryParams });
   }
 
-
-
   ngOnInit(): void {
-    this.subscription = this.route.params.pipe(
-      map(params => params.id),
-      switchMap(id => this.problemService.getProblem(id))
-    ).subscribe(
-      res => this.problem = res.data,
-      err => {
-      }
-    );
+    this.subscription = this.route.params
+      .pipe(
+        map((params) => params.id),
+        switchMap((id) => this.problemService.getProblem(id))
+      )
+      .subscribe(
+        (res) => (this.problem = res.data),
+        (err) => {}
+      );
 
     this.subscription.add(
-      this.route.queryParams.pipe(
-        map(params => params.contest),
-        switchMap(id => this.contestService.getContest(id)),
-      ).subscribe(
-        res => this.contest = res.data,
-        err => {
-        }
-      )
+      this.route.queryParams
+        .pipe(
+          map((params) => params.contest),
+          switchMap((id) => this.contestService.getContest(id))
+        )
+        .subscribe(
+          (res) => (this.contest = res.data),
+          (err) => {}
+        )
     );
   }
 

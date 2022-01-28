@@ -102,7 +102,9 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
         ? this.problemService
             .updateProblem(this.model._id, { ...m, parentType: 'Assignment', parentId: assignmentId })
             .pipe(map(() => assignmentId))
-        : this.problemService.createProblem({ ...m, parentId: assignmentId }).pipe(map(() => assignmentId));
+        : this.problemService
+            .createProblem({ ...m, parentType: 'Assignment', parentId: assignmentId })
+            .pipe(map(() => assignmentId));
     } else {
       observable = this.modifying
         ? this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id))
