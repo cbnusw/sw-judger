@@ -32,16 +32,17 @@ export class ProblemService extends ApiBase {
     return this.http.post<IResponse<IProblem>>(this.url`/`, body);
   }
 
-  createAssignmentProblem(body: IProblem): Observable<IResponse<IProblem>> {
-    return this.http.post<IResponse<IProblem>>(this.url`/`, body);
-  }
-
   submit(id: string, body: ISubmit): Observable<IResponse<undefined>> {
     return this.http.post<IResponse<undefined>>(this.url`/${id}/submit`, body);
   }
 
   updateProblem(id: string, body: IProblem): Observable<IResponse<undefined>> {
     return this.http.put<IResponse<undefined>>(this.url`/${id}`, body);
+  }
+
+  updateContestProblem(problemId: string, body: IProblem): Observable<IResponse<undefined>> {
+    console.log('updated!');
+    return this.http.put<IResponse<undefined>>(this.url`/${problemId}`, body);
   }
 
   removeProblem(id: string): Observable<IResponse<undefined>> {

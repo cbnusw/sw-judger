@@ -15,7 +15,9 @@ export interface IProblem {
   _id?: string;
   title?: string;
   content?: string;
-  contest?: string;
+  // contest?: string;
+  parentType?: string;
+  parentId?: string;
   published?: Date;
   ioSet?: Array<IInputOutput>;
   options?: IProblemOptions;
