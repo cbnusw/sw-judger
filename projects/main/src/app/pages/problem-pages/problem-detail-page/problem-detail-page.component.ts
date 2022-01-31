@@ -10,6 +10,7 @@ import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
 import { AssignmentService } from '../../../services/apis/assignment.service';
 import { AuthService } from '../../../services/auth.service';
+import { ContestProblemListPageComponent } from '../../contest-pages/contest-problem-list-page/contest-problem-list-page.component';
 
 @Component({
   selector: 'sw-problem-detail-page',
@@ -52,12 +53,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       const { testPeriod } = this.contest;
       const start = new Date(testPeriod.start);
       const end = new Date(testPeriod.end);
-
       return start.getTime() <= now.getTime() && now.getTime() <= end.getTime();
     }
 
     if (this.problem) {
-      return this.problem.published && new Date(this.problem.published).getTime() < now.getTime();
+      return new Date(this.problem.published).getTime() < now.getTime();
     }
 
     return false;
@@ -142,7 +142,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     if (this.problem) {
       queryParams.problem = this.problem._id;
     }
-
+    console.log(queryParams);
     this.router.navigate(['/submit'], { queryParams });
   }
 
@@ -156,33 +156,30 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
         (res) => (this.problem = res.data),
         (err) => {}
       );
-    if (this.contest) {
-      this.subscription.add(
-        this.route.queryParams
-          .pipe(
-            map((params) => params.contest),
-            switchMap((id) => this.contestService.getContest(id))
-          )
-          .subscribe(
-            (res) => (this.contest = res.data),
-            (err) => {}
-          )
-      );
-    }
 
-    if (this.assignment) {
-      this.subscription.add(
-        this.route.queryParams
-          .pipe(
-            map((params) => params.assignment),
-            switchMap((id) => this.assignmentService.getAssignment(id))
-          )
-          .subscribe(
-            (res) => (this.assignment = res.data),
-            (err) => {}
-          )
-      );
-    }
+    this.subscription.add(
+      this.route.queryParams
+        .pipe(
+          map((params) => params.contest),
+          switchMap((id) => this.contestService.getContest(id))
+        )
+        .subscribe(
+          (res) => (this.contest = res.data),
+          (err) => console.error(err)
+        )
+    );
+
+    // this.subscription.add(
+    //   this.route.queryParams
+    //     .pipe(
+    //       map((params) => params.assignment),
+    //       switchMap((id) => this.assignmentService.getAssignment(id))
+    //     )
+    //     .subscribe(
+    //       (res) => (this.assignment = res.data),
+    //       (err) => console.error(err)
+    //     )
+    // );
   }
 
   ngOnDestroy(): void {

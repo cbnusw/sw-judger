@@ -6,10 +6,12 @@ import { map, switchMap } from 'rxjs/operators';
 import { AbstractFormDirective } from '../../../classes/abstract-form.directive';
 import { ErrorMatcher } from '../../../classes/error-matcher';
 import { PROGRAMMING_LANGUAGES } from '../../../constants';
+import { IAssignment } from '../../../models/assignment';
 import { IContest } from '../../../models/contest';
 import { IFile } from '../../../models/file';
 import { IProblem } from '../../../models/problem';
 import { ISubmit } from '../../../models/submit';
+import { AssignmentService } from '../../../services/apis/assignment.service';
 import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
 import { AuthService } from '../../../services/auth.service';
@@ -19,25 +21,28 @@ import { UploadService } from '../../../services/upload.service';
 @Component({
   selector: 'sw-submit-page',
   templateUrl: './submit-page.component.html',
-  styleUrls: ['./submit-page.component.scss']
+  styleUrls: ['./submit-page.component.scss'],
 })
 export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean> implements OnInit {
-
   contest: IContest;
+  assignment: IAssignment;
   problem: IProblem;
   selectedFile: IFile;
   languages = PROGRAMMING_LANGUAGES;
 
   errorMatcher = new ErrorMatcher(this.submitted$, this.submissionError$);
 
-  constructor(public auth: AuthService,
-              public layout: LayoutService,
-              private problemService: ProblemService,
-              private contestService: ContestService,
-              private uploadSerivce: UploadService,
-              private route: ActivatedRoute,
-              private router: Router,
-              fb: FormBuilder) {
+  constructor(
+    public auth: AuthService,
+    public layout: LayoutService,
+    private problemService: ProblemService,
+    private contestService: ContestService,
+    private assignmentService: AssignmentService,
+    private uploadSerivce: UploadService,
+    private route: ActivatedRoute,
+    private router: Router,
+    fb: FormBuilder
+  ) {
     super(fb);
   }
 
@@ -66,12 +71,10 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
       alert('파일을 선택해주세요.');
       return;
     }
-    this.uploadSerivce.upload(file).subscribe(
-      res => {
-        this.selectedFile = res.data;
-        this.formGroup.get('source').setValue(res.url);
-      }
-    );
+    this.uploadSerivce.upload(file).subscribe((res) => {
+      this.selectedFile = res.data;
+      this.formGroup.get('source').setValue(res.url);
+    });
   }
 
   cancel(): void {
@@ -92,39 +95,51 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
   }
 
   protected submitObservable(m: ISubmit): Observable<boolean> {
-    return this.problemService.submit(this.problem._id, m).pipe(map(res => res.success));
+    return this.problemService.submit(this.problem._id, m).pipe(map((res) => res.success));
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
-
     this.addSubcription(
-      this.route.queryParams.pipe(
-        map(params => params.contest),
-        switchMap(id => id ? this.contestService.getContest(id) : of({ data: null })),
-      ).subscribe(
-        res => {
+      this.route.queryParams
+        .pipe(
+          map((params) => params.contest),
+          switchMap((id) => (id ? this.contestService.getContest(id) : of({ data: null })))
+        )
+        .subscribe((res) => {
           this.contest = res.data;
           if (this.contest) {
             this.formGroup.get('contest').setValue(this.contest._id);
           }
-        }
-      ),
-      this.route.queryParams.pipe(
-        map(params => params.problem),
-        switchMap(id => id ? this.problemService.getProblem(id) : of({ data: null }))
-      ).subscribe(
-        res => {
-          this.problem = res.data;
-          if (this.problem) {
-            this.formGroup.get('problem').setValue(this.problem._id);
+        }),
+      this.route.queryParams
+        .pipe(
+          map((params) => params.assignment),
+          switchMap((id) => (id ? this.assignmentService.getAssignment(id) : of({ data: null })))
+        )
+        .subscribe((res) => {
+          this.contest = res.data;
+          if (this.assignment) {
+            this.formGroup.get('assignment').setValue(this.assignment._id);
           }
-        },
-        err => {
-          alert(`문제에 접근할 제출 권한이 없습니다.\n${err.error && err.error.message || err.message}`);
-          this.router.navigateByUrl('/');
-        }
-      )
+        }),
+
+      this.route.queryParams
+        .pipe(
+          map((params) => params.problem),
+          switchMap((id) => (id ? this.problemService.getProblem(id) : of({ data: null })))
+        )
+        .subscribe(
+          (res) => {
+            this.problem = res.data;
+            if (this.problem) {
+              this.formGroup.get('problem').setValue(this.problem._id);
+            }
+          },
+          (err) => {
+            alert(`문제에 접근할 제출 권한이 없습니다.\n${(err.error && err.error.message) || err.message}`);
+            this.router.navigateByUrl('/');
+          }
+        )
     );
   }
 }
