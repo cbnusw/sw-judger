@@ -11,9 +11,7 @@
         placeholder="Ex. 응용컴퓨터프로그래밍(3)"
       />
       <mat-hint>수업명을 입력해주세요.</mat-hint>
-      <mat-error *ngIf="hasError('required', 'course')">
-        수업명은 필수 입력 항목입니다.</mat-error
-      >
+      <mat-error *ngIf="hasError('required', 'course')"> 수업명은 필수 입력 항목입니다.</mat-error>
     </mat-form-field>
   </div>
   <div class="py-2 border-bottom">
@@ -27,9 +25,7 @@
         placeholder="Ex. 응용컴퓨터프로그래밍 2주차 과제"
       />
       <mat-hint>과제명을 입력해주세요.</mat-hint>
-      <mat-error *ngIf="hasError('required', 'title')">
-        과제명은 필수 입력 항목입니다.</mat-error
-      >
+      <mat-error *ngIf="hasError('required', 'title')"> 과제명은 필수 입력 항목입니다.</mat-error>
     </mat-form-field>
     <div class="flex justify-end font-s">작성자: {{ auth.me?.name }}</div>
   </div>
@@ -42,25 +38,16 @@
       [config]="config"
       (ready)="onReady($event)"
     ></ckeditor>
-    <span class="error block" *ngIf="hasError('required', 'content')">
-      대회의 내용은 필수 입력 항목입니다.</span
-    >
+    <span class="error block" *ngIf="hasError('required', 'content')"> 과제의 내용은 필수 입력 항목입니다.</span>
   </div>
 
   <div class="mb-4">
     <label class="mb-1">과제 제출 기한</label>
-    <sw-period-control
-      [errorStateMatcher]="errorMatcher"
-      formControlName="testPeriod"
-    ></sw-period-control>
-    <span
-      class="error block relative period-error"
-      *ngIf="hasError('required', 'testPeriod')"
+    <sw-period-control [errorStateMatcher]="errorMatcher" formControlName="testPeriod"></sw-period-control>
+    <span class="error block relative period-error" *ngIf="hasError('required', 'testPeriod')"
       >과제 기간을 설정해주세요.</span
     >
-    <span
-      class="error block relative period-error"
-      *ngIf="hasError('invalidPeriod', 'testPeriod')"
+    <span class="error block relative period-error" *ngIf="hasError('invalidPeriod', 'testPeriod')"
       >시작기간은 종료기간 이전이어야 합니다.</span
     >
   </div>
@@ -68,7 +55,7 @@
   <div class="flex justify-end">
     <a class="me-2" mat-flat-button (click)="cancel()">취소</a>
     <button mat-flat-button color="primary">
-      {{ modifying ? "수정" : "등록" }}
+      {{ modifying ? '수정' : '등록' }}
     </button>
   </div>
 </form>

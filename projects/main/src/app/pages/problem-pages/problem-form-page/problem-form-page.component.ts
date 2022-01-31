@@ -85,10 +85,8 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
 
   protected submitObservable(m: IProblem): Observable<string> {
     let observable: Observable<string>;
-    let assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
-    let contestId: string = new URL(window.location.href).searchParams.get('contest');
-    console.log(assignmentId, contestId);
-    console.log(m);
+    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
+    const contestId: string = new URL(window.location.href).searchParams.get('contest');
     if (contestId) {
       observable = this.modifying
         ? this.problemService

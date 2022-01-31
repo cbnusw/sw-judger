@@ -52,6 +52,9 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
     if (this.contest) {
       queryParams.contest = this.contest._id;
     }
+    if (this.assignment) {
+      queryParams.assignment = this.assignment._id;
+    }
     if (this.problem) {
       queryParams.problem = this.problem._id;
     }
@@ -81,6 +84,9 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
     const queryParams: Params = {};
     if (this.contest) {
       queryParams.contest = this.contest._id;
+    }
+    if (this.assignment) {
+      queryParams.assignment = this.assignment._id;
     }
     this.router.navigate(['/problem/detail', this.problem._id], { queryParams });
   }
