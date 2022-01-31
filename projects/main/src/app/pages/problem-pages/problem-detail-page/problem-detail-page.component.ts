@@ -52,12 +52,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       const { testPeriod } = this.contest;
       const start = new Date(testPeriod.start);
       const end = new Date(testPeriod.end);
-
       return start.getTime() <= now.getTime() && now.getTime() <= end.getTime();
     }
 
     if (this.problem) {
-      return this.problem.published && new Date(this.problem.published).getTime() < now.getTime();
+      return new Date(this.problem.published).getTime() < now.getTime();
     }
 
     return false;
@@ -142,11 +141,13 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     if (this.problem) {
       queryParams.problem = this.problem._id;
     }
-
     this.router.navigate(['/submit'], { queryParams });
   }
 
   ngOnInit(): void {
+    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
+    const contestId: string = new URL(window.location.href).searchParams.get('contest');
+    console.log(assignmentId, contestId);
     this.subscription = this.route.params
       .pipe(
         map((params) => params.id),
@@ -156,7 +157,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
         (res) => (this.problem = res.data),
         (err) => {}
       );
-    if (this.contest) {
+    if (contestId) {
       this.subscription.add(
         this.route.queryParams
           .pipe(
@@ -165,12 +166,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
           )
           .subscribe(
             (res) => (this.contest = res.data),
-            (err) => {}
+            (err) => console.error(err)
           )
       );
     }
-
-    if (this.assignment) {
+    if (assignmentId) {
       this.subscription.add(
         this.route.queryParams
           .pipe(
@@ -179,7 +179,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
           )
           .subscribe(
             (res) => (this.assignment = res.data),
-            (err) => {}
+            (err) => console.error(err)
           )
       );
     }

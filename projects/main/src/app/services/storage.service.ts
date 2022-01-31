@@ -9,7 +9,7 @@ export const TOKEN_SHARE_EVENT = 'TOKEN_SHARE';
 export const TOKEN_FLUSH_EVENT = 'TOKEN_FLUSH';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
   storage = sessionStorage;
@@ -51,21 +51,25 @@ export class StorageService {
   }
 
   private init(): void {
-    window.addEventListener('storage', (event: StorageEvent) => {
-      const refreshToken = this.get(REFRESH_TOKEN_KEY);
-      const accessToken = this.get(ACCESS_TOKEN_KEY);
+    window.addEventListener(
+      'storage',
+      (event: StorageEvent) => {
+        const refreshToken = this.get(REFRESH_TOKEN_KEY);
+        const accessToken = this.get(ACCESS_TOKEN_KEY);
 
-      if (event.key === REQUEST_SHARE_TOKEN_EVENT && refreshToken && accessToken) {
-        this.emit(TOKEN_SHARE_EVENT, { accessToken, refreshToken });
-      } else if (event.key === TOKEN_SHARE_EVENT && !(refreshToken || accessToken)) {
-        const data = JSON.parse(event.newValue);
-        this.set(REFRESH_TOKEN_KEY, data.refreshToken);
-        this.set(ACCESS_TOKEN_KEY, data.accessToken);
-        location.reload();
-      } else if (event.key === TOKEN_FLUSH_EVENT) {
-        this.clear();
-      }
-    }, false);
+        if (event.key === REQUEST_SHARE_TOKEN_EVENT && refreshToken && accessToken) {
+          this.emit(TOKEN_SHARE_EVENT, { accessToken, refreshToken });
+        } else if (event.key === TOKEN_SHARE_EVENT && !(refreshToken || accessToken)) {
+          const data = JSON.parse(event.newValue);
+          this.set(REFRESH_TOKEN_KEY, data.refreshToken);
+          this.set(ACCESS_TOKEN_KEY, data.accessToken);
+          location.reload();
+        } else if (event.key === TOKEN_FLUSH_EVENT) {
+          this.clear();
+        }
+      },
+      false
+    );
 
     this.emit(REQUEST_SHARE_TOKEN_EVENT);
   }

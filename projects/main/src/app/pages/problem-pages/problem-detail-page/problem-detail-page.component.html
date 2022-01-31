@@ -8,13 +8,6 @@
     <span class="font-s ms-auto">작성자: {{ problem?.writer.name }}</span>
   </div>
 
-  <div class="flex justify-end" *ngIf="isWriter">
-    <button type="button" class="no-border-radius me-2" mat-flat-button color="warn" (click)="removeProblem()">
-      삭제
-    </button>
-    <button type="button" class="no-border-radius" mat-flat-button color="primary" (click)="editProblem()">수정</button>
-  </div>
-
   <div class="flex justify-end" *ngIf="submitable">
     <button
       type="button"
@@ -57,5 +50,11 @@
     <button type="button" [disabled]="page >= (lastPage || 1)" (click)="nextPage()" mat-icon-button>
       <mat-icon>arrow_forward_ios</mat-icon>
     </button>
+  </div>
+  <div class="flex justify-end" *ngIf="isWriter">
+    <button type="button" class="no-border-radius me-2" mat-flat-button color="primary" (click)="editProblem()">
+      수정
+    </button>
+    <button type="button" class="no-border-radius" mat-flat-button color="warn" (click)="removeProblem()">삭제</button>
   </div>
 </div>

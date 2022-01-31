@@ -4,11 +4,11 @@
     <span class="font-s me-auto">
       과제시간:&nbsp;
       <span *ngIf="(assignment?.testPeriod | periodRange | async) === -1" class="fw-700">
-        {{ contest | testPeriod }}
+        {{ assignment | testPeriod }}
         <span class="text-accent fw-700">({{ assignment.testPeriod.start | restTime | async }} 전)</span>
       </span>
       <span *ngIf="(assignment?.testPeriod | periodRange | async) === 0" class="text-warn fw-900">
-        <span class="text-warn fw-900">{{ contest.testPeriod.end | restTime | async }} 남음</span>
+        <span class="text-warn fw-900">{{ assignment.testPeriod.end | restTime | async }} 남음</span>
       </span>
       <span *ngIf="(assignment?.testPeriod | periodRange | async) === 1" class="text-primary"> 종료 </span>
     </span>
@@ -19,7 +19,7 @@
     <div class="border-box" [swInnerHtml]="assignment?.content"></div>
   </div>
 
-  <div class="flex justify-end">
+  <div class="flex justify-end" style="padding-bottom: 10px">
     <a
       *ngIf="isTestPeriod"
       class="no-border-radius"
