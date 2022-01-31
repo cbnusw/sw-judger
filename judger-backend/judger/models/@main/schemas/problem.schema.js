@@ -1,8 +1,9 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 const { createSchema } = require('../../helpers');
 const { searchPlugin } = require('../../plugins');
 const { toRegEx, toRef } = require('../../mappers');
-
+const { PARENT_TYPES } = require('../../../constants');
 const ioSchema = createSchema({
   // input file url
   inFile: {
@@ -10,7 +11,7 @@ const ioSchema = createSchema({
     ref: 'File',
     required: true,
   },
-  // output file url
+  // input file url
   outFile: {
     type: Schema.Types.ObjectId,
     ref: 'File',
@@ -36,15 +37,21 @@ const schema = createSchema({
     required: true,
     index: true
   },
+  parent: {
+    type: Schema.Types.ObjectId,
+    refPath: 'parentType',
+    index: true,
+    default: null,
+  },
+  parentType: {
+    type: String,
+    enum: [...PARENT_TYPES, null],
+    index: true,
+    default: null,
+  },
   content: {
     type: String,
     required: true,
-  },
-  contest: {
-    type: Schema.Types.ObjectId,
-    ref: 'Contest',
-    index: true,
-    default: null,
   },
   published: {
     type: Date,
@@ -66,9 +73,10 @@ const schema = createSchema({
 
 schema.plugin(searchPlugin({
   sort: '-createdAt',
+  populate: [{ path: 'parentId', select: 'title'}],
   mapper: {
     title: toRegEx,
-    contest: toRef('Contest', {
+    parentId: toRef('Contest', {
       title: toRegEx
     }),
     writer: toRef('UserInfo', {
@@ -78,3 +86,4 @@ schema.plugin(searchPlugin({
 }));
 
 module.exports = schema;
+

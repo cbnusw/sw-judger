@@ -1,7 +1,7 @@
 const http = require('http');
 const { debug, error } = require('./utils/logger');
 const { JUDGE_APP_PORT: PORT, IS_DEV } = require('./env');
-// const { initConsumer } = require('./kafka');
+const { initConsumer } = require('./kafka');
 // const socketIo = require('./socket.io');
 const app = require('./app');
 const initialize = require('./init');
@@ -21,7 +21,7 @@ server.on('listening', () => {
 
 // socketIo(server, app);
 // initConsumer(app.get('io'))
-//initConsumer()
+initConsumer()
 
 
 //카프카 consumer 코드
