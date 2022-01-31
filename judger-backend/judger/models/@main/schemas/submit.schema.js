@@ -3,7 +3,7 @@ const { createSchema } = require('../../helpers');
 const { searchPlugin } = require('../../plugins');
 const { toRegEx, toRef } = require('../../mappers');
 const { PROGRAMMING_LANGUAGES, SUBMIT_RESULTS } = require('../../../constants');
-
+const { PARENT_TYPES } = require('../../../constants');
 const resultSchema = createSchema({
   type: {
     type: String,
@@ -21,9 +21,15 @@ const resultSchema = createSchema({
 }, false);
 
 const schema = createSchema({
-  contest: {
+  parent: {
     type: Schema.Types.ObjectId,
-    ref: 'Contest',
+    refPath: 'parentType',
+    index: true,
+    default: null,
+  },
+  parentType: {
+    type: String,
+    enum: [...PARENT_TYPES, null],
     index: true,
     default: null,
   },
@@ -57,10 +63,15 @@ const schema = createSchema({
   updatedAt: false,
 });
 
-schema.index({ createdAt: 1 });
+schema.index({ createdAt: -1 });
 
 schema.plugin(searchPlugin({
-  sort: '-score',
+  sort: '-createdAt',
+  populate: [
+    { path: 'parentId', select: 'title' },
+    { path: 'problem', select: 'title' },
+    { path: 'user', select: 'name' }
+  ],
   mapper: {
     title: toRegEx,
     user: toRef('UserInfo', {

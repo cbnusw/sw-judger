@@ -19,12 +19,13 @@ router.get(
 );
 
 router.post('/', ...hasRole(), controller.createContest);
-router.post('/:id/problem', ...hasRole(), controller.createContestProblem);
+
 router.post('/:id/enroll', isAuthenticated, controller.enrollContest);
 router.post('/:id/unenroll', isAuthenticated, controller.unenrollContest);
 router.put('/:id', ...hasRole(), controller.updateContest);
-router.put('/:id/problem/:problemId', ...hasRole(), controller.updateContestProblem);
+
 router.patch('/:id/problem/reorder', ...hasRole(), controller.reorderContestProblems);
 router.delete('/:id', ...hasRole(), controller.removeContest);
-
+// router.post('/:id/problem', ...hasRole(), controller.createContestProblem);
+// router.put('/:id/problem/:problemId', ...hasRole(), controller.updateContestProblem);
 module.exports = router;

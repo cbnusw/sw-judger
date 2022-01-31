@@ -10,16 +10,11 @@ const { execSync } = require("child_process");
 
 const getBasename = url => path.basename(parse(url).pathname);
 
-const startJudge = async (submitId) => {
+const startJudge = async (submit) => {
 
   let config = base.baseconfig();
 
-  config['submit_id'] = submitId;
-
-  const submit = await Submit.findOne({_id:submitId})
-
-  if (!submit)
-    return;
+  config['submit_id'] = submit._Id;
 
   config['language'] = submit.language;
   config['code_name'] = getBasename(submit.source);

@@ -54,10 +54,19 @@ const hasRoles = (...roles) => [
   (req, res, next) => _hasRoles(req.user, ...roles) ? next() : next(FORBIDDEN)
 ];
 
+
+const hasProblemPermission = [
+  isAuthenticated,
+  (req, res, next) => _hasPermission(req.user, req.parentType ? req.parentType : 'Problem') ? next() : next(FORBIDDEN)
+];
 const hasPermission = permission => [
   isAuthenticated,
   (req, res, next) => _hasPermission(req.user, permission) ? next() : next(FORBIDDEN)
 ];
+
+
+
+
 const attended = permission => [
   isAuthenticated,
   (req, res, next) => _hasPermission(req.user, permission) ? next() : next(FORBIDDEN)
@@ -95,5 +104,6 @@ exports.isAttended = isAttended
 exports.hasRole = hasRole;
 exports.hasRoles = hasRoles;
 exports.hasPermission = hasPermission;
+exports.hasProblemPermission = hasProblemPermission;
 exports.hasSomePermissions = hasSomePermissions;
 exports.hasEveryPermissions = hasEveryPermissions;
