@@ -14,12 +14,12 @@ const uploadRouter = require("./routes/upload");
 const authRouter = require("./routes/auth");
 const { stream } = require("./utils/logger");
 const { authenticate } = require("./middlewares/auth");
-// const { createProducer } = require("./kafka");
+const { createProducer } = require("./kafka");
 
 const app = express();
-// const submitProducer = createProducer();
+const submitProducer = createProducer();
 
-// app.set("submitProducer", submitProducer);
+app.set("submitProducer", submitProducer);
 
 app.use(helmet());
 app.use(compression());
