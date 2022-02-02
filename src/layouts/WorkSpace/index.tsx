@@ -10,7 +10,7 @@ function WorkSpace() {
         <Route path="/workspace/enroll" component={Enroll}></Route>
         <Route path="/workspace/content"></Route>
       </Switch>
-    </div>
+    </div>  
   )
 }
 export default WorkSpace
