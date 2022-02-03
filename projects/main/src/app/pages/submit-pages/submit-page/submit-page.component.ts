@@ -82,6 +82,7 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
 
   cancel(): void {
     const queryParams: Params = {};
+    console.log(this.contest, this.problem);
     if (this.contest) {
       queryParams.contest = this.contest._id;
     }
@@ -93,7 +94,8 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
 
   protected initFormGroup(formBuilder: FormBuilder): FormGroup {
     return formBuilder.group({
-      contest: [null],
+      parent: [null],
+      parentType: [null],
       problem: [null, [Validators.required]],
       source: [null, [Validators.required]],
       language: [null, [Validators.required]],
@@ -105,47 +107,57 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
   }
 
   ngOnInit(): void {
-    this.addSubcription(
-      this.route.queryParams
-        .pipe(
-          map((params) => params.contest),
-          switchMap((id) => (id ? this.contestService.getContest(id) : of({ data: null })))
-        )
-        .subscribe((res) => {
-          this.contest = res.data;
-          if (this.contest) {
-            this.formGroup.get('contest').setValue(this.contest._id);
-          }
-        }),
-      this.route.queryParams
-        .pipe(
-          map((params) => params.assignment),
-          switchMap((id) => (id ? this.assignmentService.getAssignment(id) : of({ data: null })))
-        )
-        .subscribe((res) => {
-          this.contest = res.data;
-          if (this.assignment) {
-            this.formGroup.get('assignment').setValue(this.assignment._id);
-          }
-        }),
-
-      this.route.queryParams
-        .pipe(
-          map((params) => params.problem),
-          switchMap((id) => (id ? this.problemService.getProblem(id) : of({ data: null })))
-        )
-        .subscribe(
-          (res) => {
-            this.problem = res.data;
-            if (this.problem) {
-              this.formGroup.get('problem').setValue(this.problem._id);
+    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
+    const contestId: string = new URL(window.location.href).searchParams.get('contest');
+    if (contestId) {
+      this.addSubcription(
+        this.route.queryParams
+          .pipe(
+            map((params) => params.contest),
+            switchMap((id) => (id ? this.contestService.getContest(id) : of({ data: null })))
+          )
+          .subscribe((res) => {
+            this.contest = res.data;
+            if (this.contest) {
+              this.formGroup.get('parent').setValue(this.contest._id);
+              this.formGroup.get('parentType').setValue('Contest');
             }
-          },
-          (err) => {
-            alert(`문제에 접근할 제출 권한이 없습니다.\n${(err.error && err.error.message) || err.message}`);
-            this.router.navigateByUrl('/');
+          })
+      );
+    }
+    if (assignmentId) {
+      this.addSubcription(
+        this.route.queryParams
+          .pipe(
+            map((params) => params.assignment),
+            switchMap((id) => (id ? this.assignmentService.getAssignment(id) : of({ data: null })))
+          )
+          .subscribe((res) => {
+            this.assignment = res.data;
+            if (this.assignment) {
+              this.formGroup.get('parent').setValue(this.assignment._id);
+              this.formGroup.get('parentType').setValue('Assignment');
+            }
+          })
+      );
+    }
+
+    this.route.queryParams
+      .pipe(
+        map((params) => params.problem),
+        switchMap((id) => (id ? this.problemService.getProblem(id) : of({ data: null })))
+      )
+      .subscribe(
+        (res) => {
+          this.problem = res.data;
+          if (this.problem) {
+            this.formGroup.get('problem').setValue(this.problem._id);
           }
-        )
-    );
+        },
+        (err) => {
+          alert(`문제에 접근할 제출 권한이 없습니다.\n${(err.error && err.error.message) || err.message}`);
+          this.router.navigateByUrl('/');
+        }
+      );
   }
 }
