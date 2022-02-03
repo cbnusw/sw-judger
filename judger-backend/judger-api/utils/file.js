@@ -33,9 +33,7 @@ const createUpload = (uploadDir = UPLOAD_DIR) => {
   return multer({ storage });
 };
 
-const removeFileByUrl = async (req, url, baseDir = UPLOAD_DIR) => {
-  const { user } = req;
-
+const removeFileByUrl = async (user, url, baseDir = UPLOAD_DIR) => {
   if (!user) throw LOGIN_REQUIRED;
   if (!url) return;
 
@@ -51,8 +49,7 @@ const removeFileByUrl = async (req, url, baseDir = UPLOAD_DIR) => {
   return filePath
 };
 
-const removeFileById = async (req, id, baseDir = UPLOAD_DIR) => {
-  const { user } = req;
+const removeFileById = async (user, id, baseDir = UPLOAD_DIR) => {
   if (!user) throw LOGIN_REQUIRED;
   if (!id) return;
   const file = await File.findById(id);
@@ -67,8 +64,7 @@ const removeFilesByUrls = async (req, urls, baseDir = UPLOAD_DIR) => await Promi
 
 const removeFilesByIds = async (req, ids, baseDir = UPLOAD_DIR) => await Promise.all(ids.map(id => removeFileById(req, id, baseDir)));
 
-const updateFilesByUrls = async (req, ref, refModel, urls) => {
-  const { user } = req;
+const updateFilesByUrls = async (user, ref, refModel, urls) => {
   const files = await File.find({ ref, refModel });
 
   if (!hasRole(user) && files.some(file => String(user.info) !== String(file.uploader)))
@@ -79,11 +75,10 @@ const updateFilesByUrls = async (req, ref, refModel, urls) => {
   const additions = difference(urls, inDB);
 
   if (additions.length > 0) await File.updateMany({ url: { $in: additions } }, { $set: { ref, refModel } });
-  if (deletions.length > 0) await removeFilesByUrls(req, deletions);
+  // if (deletions.length > 0) await removeFilesByUrls(user, deletions);
 };
 
-const updateFilesByIds = async (req, ref, refModel, ids) => {
-  const { user } = req;
+const updateFilesByIds = async (user, ref, refModel, ids) => {
   const files = await File.find({ ref, refModel });
 
   if (!hasRole(user) && files.some(file => String(user.info) !== String(file.uploader)))
@@ -95,7 +90,7 @@ const updateFilesByIds = async (req, ref, refModel, ids) => {
   const additions = difference(ids, inDB);
 
   if (additions.length > 0) await File.updateMany({ _id: { $in: additions } }, { $set: { ref, refModel } });
-  if (deletions.length > 0) await removeFilesByIds(req, deletions);
+  // if (deletions.length > 0) await removeFilesByIds(user, deletions);
 };
 
 const findImageUrlsFromHtml = html => {

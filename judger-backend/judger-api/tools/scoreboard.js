@@ -53,18 +53,18 @@ async function run(submitId) {
   const { testPeriod } = parent;
   const start = new Date(testPeriod.start);
   const submittedAt = new Date(createdAt);
-  let scoreBoard = await ScoreBoard.findOne({ contest, user });
+  let scoreBoard = await ScoreBoard.findOne({ contest: parent, user });
   if (!scoreBoard) {
     const problems = parent.problems;
-    scoreBoard = await ScoreBoard.create({ parent: parent._id, user, scores: problems.map(problem => ({ problem })) });
+    scoreBoard = await ScoreBoard.create({ contest: parent._id, user, scores: problems.map(problem => ({ problem })) });
   }
-  const score = scoreBoard.scores.find(elem => elem.problem.toString() === problem.toString());
+  const score = scoreBoard.scores.find(elem => { console.log(elem);  return elem.problem.toString() === problem._id.toString()});
   score.right = result.type === 'done';
   score.tries++;
   score.time = Math.floor((submittedAt.getTime() - start.getTime()) / 60000); // 대회 시작 후 걸린 시간(분)
   if (result.type === 'done')
   {
-    score.score = problemData.score;
+    score.score = problem.score;
   } else {
     score.score = 0;
   }

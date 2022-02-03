@@ -73,8 +73,8 @@ services:
       - ./judger-backend/judger/.env
 
     volumes:
-      - ./judger-backend/judger/uploads:/source
-      - ./judger-backend/judger/uploads:/io
+      - ./judger-backend/judger-api/uploads:/source
+      - ./judger-backend/judger-api/uploads:/io
       - ./judger-backend/judger:/app
       - /app/node_modules
     

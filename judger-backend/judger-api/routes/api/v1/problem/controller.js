@@ -44,27 +44,28 @@ const createSubmit = asyncHandler(async (req, res, next) => {
   const { params: { id }, body, user } = req;
   const producer = req.app.get('submitProducer');
   body.problem = id;
+  const problem = await Problem.findById(id);
+  body.parent = problem.parent;
+  body.parentType = problem.parentType;
   body.user = user.info;
   const submit = await Submit.create(body);
   await producingSubmit(producer, String(submit._id));
-  await updateFilesByUrls(req, submit._id, 'Submit', [submit.source])
+  await updateFilesByUrls(user, submit._id, 'Submit', [submit.source])
   res.json(createResponse(res, submit));
 });
 
 
 const createProblem = asyncHandler(async (req, res, next) => {
-  const { body, user, body: {parentType, parent} } = req;
+  const { body, user, body: {parentType, parent:parentId} } = req;
   body.writer = user.info;
   body.ioSet = (body.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
-  parent = await parentModels[parentType].findById(parent);
+  const parent = await parentModels[parentType].findById(parentId);
   const err = validateParentOf(body, parent);
   if (err) return next(err);
-  if (published && !validatePublishingTimeOf(body, parent))
-    return ({ err: INVALID_PROBLEM_PUBLISH });
   const problem = await Problem.create(body);
-  await updateFilesOf(body);
+  await updateFilesOf(body, user);
   if (parent) await assignTo(parent, problem);
-  res.json(createResponse(res, doc));
+  res.json(createResponse(res, problem));
 });
 
 
@@ -74,7 +75,7 @@ const updateProblem = asyncHandler(async (req, res, next) => {
   if (err) return next(err);
   if (!hasRole(user) && !checkOwnerOf(problem, user)) return next(FORBIDDEN);
   $set.ioSet = ($set.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
-  await Promise.all([problem.updateOne({ $set }), updateFilesOf($set)]);
+  await Promise.all([problem.updateOne({ $set }), updateFilesOf($set, user)]);
   res.json(createResponse(res));
 });
 
@@ -86,7 +87,7 @@ const removeProblem = asyncHandler(async (req, res, next) => {
   if (parent) await removeProblemAt(parent, id);
   await Promise.all([
     problem.deleteOne(),
-    removeFilesOf(problem)
+    removeFilesOf(problem, user)
   ]);
   res.json(createResponse(res));
 });

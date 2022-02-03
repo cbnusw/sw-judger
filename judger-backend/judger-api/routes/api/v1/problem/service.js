@@ -5,21 +5,20 @@ const {
   PROBLEM_NOT_FOUND,
   ASSIGNMENT_NOT_FOUND,
   CONTEST_NOT_FOUND,
-  IS_NOT_TEST_PERIOD
 } = require('../../../../errors');
-
-exports.parentModels = {
+const { updateFilesByUrls } = require('../../../../utils/file');
+const parentModels = {
   'Assignment': Assignment,
   'Contest': Contest,
 }
 
 
-exports.parentAssignees = {
+const parentAssignees = {
   'Assignment': 'students',
   'Contest': 'contestants'
 }
 
-exports.parentNotFoundErrors = {
+const parentNotFoundErrors = {
   'Assignment': ASSIGNMENT_NOT_FOUND,
   'Contest': CONTEST_NOT_FOUND
 }
@@ -46,7 +45,7 @@ exports.isPublished = (problem) => {
   return now.getTime() > published.getTime();
 }
 
-exports.isAssigned = (user, parent) => {
+exports.isAssigned = (user, {parent, parentType}) => {
   return parent[parentAssignees[parentType]].map(assignee => String(assignee)).includes(String(user.info))
 }
 exports.checkTestPeriodOf = ({testPeriod}) => {
@@ -68,7 +67,7 @@ exports.assignTo = async (parent, problem) => {
   parent.problems.push(problem._id);
   await parent.save();
 }
-exports.validateParentOf = ({ parentType }, parent) => {
+const validateParentOf = ({ parentType }, parent) => {
   if (!parentType) return null;
   if (!parent) return parentNotFoundErrors[parentType];
   // if (!hasRole(user) && !checkTestPeriodOf(parent)) return IS_NOT_TEST_PERIOD;
@@ -92,27 +91,27 @@ exports.checkPublishingTime = ({published}, {testPeriod}) => {
   return false;
 }
 
-exports.updateFilesOf = async (problem) => {
-  const urls = [problem.content]
-  const ids = [...problem.ioSet.map(io => io.inFile), ...$set.ioSet.map(io => io.outFile)];
+exports.updateFilesOf = async (problem, user) => {
+  const urls = [problem.content, ...(problem.ioSet || []).map(io => io.inFile.url), ...(problem.ioSet || []).map(io => io.outFile.url)];
   await Promise.all([
-    updateFilesByUrls(req, problem._id, 'Problem', urls),
-    updateFilesByIds(req, problem._id, 'Problem', ids),
+    updateFilesByUrls(user, problem._id, 'Problem', urls),
   ]);
 } 
 
-exports.removeFilesOf = async (problem) => {
-  const urls = [problem.content];
-  const ids = [...problem.ioSet.map(io => io.inFile), ...problem.ioSet.map(io => io.outFile)];
+exports.removeFilesOf = async (problem, user) => {
+  const urls = [problem.content, ...(problem.ioSet || []).map(io => io.inFile.url), ...(problem.ioSet || []).map(io => io.outFile.url)];
   await Promise.all([
-    removeFilesByUrls(req, urls),
-    removeFilesByIds(req, ids),
+    removeFilesByUrls(user, urls),
   ])
 }
 
 
-exports.checkOwnerOf = (target, user) => {
+const checkOwnerOf = (target, user) => {
   return String(target.writer) === String(user.info);
 }
 
-
+exports.parentModels = parentModels;
+exports.parentAssignees = parentAssignees;
+exports.parentNotFoundErrors = parentNotFoundErrors;
+exports.validateParentOf = validateParentOf;
+exports.checkOwnerOf = checkOwnerOf;

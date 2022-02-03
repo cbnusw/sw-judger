@@ -31,7 +31,9 @@ app.use(
   authenticate,
   asyncHandler(async (req, res, next) => {
     const url = `${HOST}${req.originalUrl}`;
+    console.log(url);
     const file = await File.findOne({ url });
+    console.log(file);
     if (!file.validatePermission(req.user)) {
       return next(FORBIDDEN);
     }

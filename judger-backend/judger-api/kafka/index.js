@@ -41,5 +41,6 @@ const refreshMetaData = () =>{
 
 module.exports = {
   createProducer,
-  initConsumer
+  initConsumer,
+  refreshMetaData
 };
