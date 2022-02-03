@@ -7,15 +7,12 @@ import { ISubmit } from '../../../models/submit';
 import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
 import { SubmitService } from '../../../services/apis/submit.service';
-import { SocketService } from '../../../services/socket.service';
-
 @Component({
   selector: 'sw-submit-list-page',
   templateUrl: './submit-list-page.component.html',
-  styleUrls: ['./submit-list-page.component.scss']
+  styleUrls: ['./submit-list-page.component.scss'],
 })
 export class SubmitListPageComponent implements OnInit, OnDestroy {
-
   private subscription: Subscription;
 
   contest: IContest;
@@ -23,23 +20,19 @@ export class SubmitListPageComponent implements OnInit, OnDestroy {
 
   submits: ISubmit[] = [];
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private socketService: SocketService,
-              private contestService: ContestService,
-              private problemService: ProblemService,
-              private submitService: SubmitService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private contestService: ContestService,
+    private problemService: ProblemService,
+    private submitService: SubmitService
+  ) {}
 
   getSubmits(problemId?: string, contestId?: string): void {
     if (problemId) {
-      this.submitService.getMyProblemSubmits(problemId).subscribe(
-        res => this.submits = res.data.documents
-      );
+      this.submitService.getMyProblemSubmits(problemId).subscribe((res) => (this.submits = res.data.documents));
     } else if (contestId) {
-      this.submitService.getMyContestSubmits(contestId).subscribe(
-        res => this.submits = res.data.documents
-      );
+      this.submitService.getMyContestSubmits(contestId).subscribe((res) => (this.submits = res.data.documents));
     }
   }
 
@@ -47,21 +40,18 @@ export class SubmitListPageComponent implements OnInit, OnDestroy {
     const { contest, problem } = this.route.snapshot.queryParams;
 
     if (contest) {
-      this.contestService.getContest(contest).subscribe(res => this.contest = res.data);
+      this.contestService.getContest(contest).subscribe((res) => (this.contest = res.data));
     }
 
     if (problem) {
-      this.problemService.getProblem(problem).subscribe(res => this.problem = res.data);
+      this.problemService.getProblem(problem).subscribe((res) => (this.problem = res.data));
     }
     this.getSubmits(problem, contest);
 
-    this.subscription = this.socketService.myResult$.subscribe(
-      () => this.getSubmits(problem, contest)
-    );
+    // this.subscription = this.socketService.myResult$.subscribe(() => this.getSubmits(problem, contest));
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }

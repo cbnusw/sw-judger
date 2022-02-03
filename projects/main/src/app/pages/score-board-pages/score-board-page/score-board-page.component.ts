@@ -6,48 +6,47 @@ import { IContest } from '../../../models/contest';
 import { IScore, IScoreBoard } from '../../../models/score-board';
 import { ContestService } from '../../../services/apis/contest.service';
 import { ScoreService } from '../../../services/apis/score.service';
-import { SocketService } from '../../../services/socket.service';
+// import { SocketService } from '../../../services/socket.service';
 
 @Component({
   selector: 'sw-score-board-page',
   templateUrl: './score-board-page.component.html',
-  styleUrls: ['./score-board-page.component.scss']
+  styleUrls: ['./score-board-page.component.scss'],
 })
 export class ScoreBoardPageComponent implements OnInit, OnDestroy {
-
   private subscription: Subscription;
 
   scoreboards: IScoreBoard[] = [];
   contest: IContest;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private socketService: SocketService,
-              private scoreService: ScoreService,
-              private contestService: ContestService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private scoreService: ScoreService,
+    private contestService: ContestService
+  ) {}
 
   getPenalty(score: IScore): number {
     return score.time + score.time * 20;
   }
 
   getScoreboards(id: string): void {
-    let score = 0
+    let score = 0;
     if (id) {
-      this.scoreService.getContestScoreBoards(id).subscribe(res => {
-        const boards = res.data.map(b => {
+      this.scoreService.getContestScoreBoards(id).subscribe((res) => {
+        const boards = res.data.map((b) => {
           // b.score = b.scores.reduce((acc, cur) => {
           //   if (cur.right) {
           //     score += cur.score;
           //   }
           //   return acc;
           // }, 0);
-          b.scores.forEach(function (elem, index){
-            if(elem.right) {
-              score += elem.score
+          b.scores.forEach(function (elem, index) {
+            if (elem.right) {
+              score += elem.score;
             }
             b.score = score;
-          })
+          });
           score = 0;
           b.penalty = b.scores.reduce((acc, cur) => {
             if (cur.right) {
@@ -68,14 +67,14 @@ export class ScoreBoardPageComponent implements OnInit, OnDestroy {
         });
 
         this.scoreboards = boards;
-        console.log(this.scoreboards)
+        console.log(this.scoreboards);
       });
     }
   }
 
   getContest(id: string): void {
     if (id) {
-      this.contestService.getContest(id).subscribe(res => this.contest = res.data);
+      this.contestService.getContest(id).subscribe((res) => (this.contest = res.data));
     }
   }
 
@@ -84,18 +83,14 @@ export class ScoreBoardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.route.queryParams.pipe(
-      map(params => params.contest),
-    ).subscribe(
-      id => {
-        this.getScoreboards(id);
-        this.getContest(id);
-      }
-    );
+    this.subscription = this.route.queryParams.pipe(map((params) => params.contest)).subscribe((id) => {
+      this.getScoreboards(id);
+      this.getContest(id);
+    });
 
-    this.subscription.add(
-      this.socketService.message$.subscribe(() => this.scoreService.getContestScoreBoards((this.contest || {})._id))
-    );
+    // this.subscription.add(
+    //   this.socketService.message$.subscribe(() => this.scoreService.getContestScoreBoards((this.contest || {})._id))
+    // );
   }
 
   ngOnDestroy(): void {

@@ -1,45 +1,49 @@
 <div class="main-container mt-2">
-    <h2 class="page-title mb-2">
-        <span class="text-primary">{{problem?.title}}</span> 제출 내역
-    </h2>
-    <div class="flex justify-between pb-2 mb-2 border-bottom">
-      <div>
-        <span type="button"
-              class="no-border-radius text-primary"
-              style="cursor:pointer; margin-right: 30px;"
-              mat-flat-button
-              routerLink="/scoreboard"
-              [queryParams]="{contest: contest?._id}">스코어보드</span>
-        <span type="button"
-              class="no-border-radius text-primary"
-              style="cursor:pointer"
-              mat-flat-button
-              [routerLink]="['/problem/detail', problem._id]"
-              [queryParams]="{ contest: contest._id }">문제로 돌아가기</span>
-      </div>
-      <div>
-        <span class="me-2" *ngIf="contest">대회: {{contest?.title}}</span>
-        <span class="text-warn fw-900" *ngIf="(contest?.testPeriod | periodRange | async) === 0">
-            ({{contest?.testPeriod.end | restTime | async}} 후 종료)
-        </span>
-      </div>
+  <h2 class="page-title mb-2">
+    <span class="text-primary">{{ problem?.title }}</span> 제출 내역
+  </h2>
+  <div class="flex justify-between pb-2 mb-2 border-bottom">
+    <div>
+      <span
+        type="button"
+        class="no-border-radius text-primary"
+        style="cursor: pointer; margin-right: 30px"
+        mat-flat-button
+        routerLink="/scoreboard"
+        [queryParams]="{ contest: contest?._id }"
+        >스코어보드</span
+      >
+      <span
+        type="button"
+        class="no-border-radius text-primary"
+        style="cursor: pointer"
+        mat-flat-button
+        [routerLink]="['/problem/detail', problem._id]"
+        [queryParams]="{ contest: contest?._id }"
+        >문제로 돌아가기</span
+      >
     </div>
+    <div>
+      <span class="me-2" *ngIf="contest">대회: {{ contest?.title }}</span>
+      <span class="text-warn fw-900" *ngIf="(contest?.testPeriod | periodRange | async) === 0">
+        ({{ contest?.testPeriod.end | restTime | async }} 후 종료)
+      </span>
+    </div>
+  </div>
 
-    <div class="flex p-2 border" *ngFor="let submit of submits">
-        <span *ngIf="!submit.result" class="text-accent me-auto">채점 중</span>
-        <ng-container *ngIf="submit.result">
-            <span class="me-2"
-                  [class.text-warn]="submit.result.type !== 'done'"
-                  [class.text-primary]="submit.result.type === 'done'">
-                {{submit.result.type | submitResultType}}
-            </span>
-            <span class="me-2">
-                {{submit.result.time}}ms
-            </span>
-            <span class="me-auto">
-                {{submit.result.memory / (1024 * 1024)}}MB
-            </span>
-        </ng-container>
-        <span>{{submit.language}}</span>
-    </div>
+  <div class="flex p-2 border" *ngFor="let submit of submits">
+    <span *ngIf="!submit.result" class="text-accent me-auto">채점 중</span>
+    <ng-container *ngIf="submit.result">
+      <span
+        class="me-2"
+        [class.text-warn]="submit.result.type !== 'done'"
+        [class.text-primary]="submit.result.type === 'done'"
+      >
+        {{ submit.result.type | submitResultType }}
+      </span>
+      <span class="me-2"> {{ submit.result.time }}ms </span>
+      <span class="me-auto"> {{ submit.result.memory / (1024 * 1024) }}MB </span>
+    </ng-container>
+    <span>{{ submit.language }}</span>
+  </div>
 </div>
