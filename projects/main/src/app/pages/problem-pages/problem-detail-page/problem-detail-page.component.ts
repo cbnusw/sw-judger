@@ -121,11 +121,13 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     const queryParams: Params = {};
     if (this.contest) {
       queryParams.contest = this.contest._id;
-    } else if (this.assignment) {
+    }
+    if (this.assignment) {
       queryParams.assignment = this.assignment._id;
     }
     if (this.problem) {
       queryParams.problem = this.problem._id;
+      ('pr');
     }
     this.router.navigate(['/submit/list'], { queryParams });
   }

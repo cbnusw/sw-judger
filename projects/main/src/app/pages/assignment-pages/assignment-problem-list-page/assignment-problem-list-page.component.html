@@ -75,9 +75,4 @@
       </div>
     </div>
   </ng-template>
-  <div class="flex justify-end" *ngIf="(assignment?.testPeriod | periodRange | async) !== -1">
-    <button type="button" class="no-border-radius text-primary" mat-flat-button (click)="moveScoreBoard()">
-      스코어보드
-    </button>
-  </div>
 </div>
