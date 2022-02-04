@@ -1,6 +1,4 @@
 
-
-
 const notOperatorRoles = [
   'staff',    // 교직원(충북대 소속만)
   'student',  // 학생(충북대 소속만)
