@@ -7,6 +7,7 @@
       <span
         type="button"
         class="no-border-radius text-primary"
+        *ngIf="contest"
         style="cursor: pointer; margin-right: 30px"
         mat-flat-button
         routerLink="/scoreboard"
@@ -18,19 +19,26 @@
         class="no-border-radius text-primary"
         style="cursor: pointer"
         mat-flat-button
-        [routerLink]="['/problem/detail', problem._id]"
-        [queryParams]="{ contest: contest?._id }"
+        [routerLink]="['/problem/detail', problem?._id]"
+        [queryParams]="{ assignment: problem?.parent }"
         >문제로 돌아가기</span
       >
     </div>
     <div>
       <span class="me-2" *ngIf="contest">대회: {{ contest?.title }}</span>
+      <span class="me-2" *ngIf="assignment">과제: {{ assignment?.title }}</span>
       <span class="text-warn fw-900" *ngIf="(contest?.testPeriod | periodRange | async) === 0">
         ({{ contest?.testPeriod.end | restTime | async }} 후 종료)
+      </span>
+      <span class="text-warn fw-900" *ngIf="(assignment?.testPeriod | periodRange | async) === 0">
+        ({{ assignment?.testPeriod.end | restTime | async }} 후 종료)
       </span>
     </div>
   </div>
 
+  <div class="flex p-2 border" *ngIf="!submits">
+    <span>제출 내역이 없습니다.</span>
+  </div>
   <div class="flex p-2 border" *ngFor="let submit of submits">
     <span *ngIf="!submit.result" class="text-accent me-auto">채점 중</span>
     <ng-container *ngIf="submit.result">

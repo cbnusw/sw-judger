@@ -7,10 +7,9 @@ import { IListResponse } from '../../models/response';
 import { ISubmit } from '../../models/submit';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubmitService extends ApiBase {
-
   constructor(private http: HttpClient) {
     super(environment.apiHost, '/submit');
   }
@@ -30,7 +29,9 @@ export class SubmitService extends ApiBase {
   getMyContestSubmits(id: string): Observable<IListResponse<ISubmit>> {
     return this.http.get<IListResponse<ISubmit>>(this.url`/contest/${id}/me`);
   }
-
+  getMyAssignmentSubmits(id: string): Observable<IListResponse<ISubmit>> {
+    return this.http.get<IListResponse<ISubmit>>(this.url`/assignment/${id}/me`);
+  }
   getProblemSubmits(id: string): Observable<IListResponse<ISubmit>> {
     return this.http.get<IListResponse<ISubmit>>(this.url`/problem/${id}`);
   }
