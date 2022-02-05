@@ -29,16 +29,16 @@ export class HeaderComponent implements OnInit {
       link: '/contest/list/me',
       condition$: this.auth.isOperator$,
     },
+    {
+      name: '과제 등록',
+      link: '/assignment/form',
+      condition$: this.auth.isOperator$,
+    },
     // {
-    //   name: '시험/과제관리',
-    //   link: '/',
+    //   name: '문제관리',
+    //   link: '/problem/list/me',
     //   condition$: this.auth.hasJudgePermission$,
     // },
-    {
-      name: '문제관리',
-      link: '/problem/list/me',
-      condition$: this.auth.hasJudgePermission$,
-    },
   ];
 
   @ViewChild(MobileNavigationComponent) mobileNav: MobileNavigationComponent;
