@@ -6,16 +6,15 @@ import { authUrl } from '../config/config'
 
 axios.defaults.baseURL = authUrl
 
-function logInAPI(data: any): object {
+export function logInAPI(data: any): object {
   return axios.post('/login', data)
 }
 
-function* logIn(action: AnyAction): any {
+export function* logIn(action: AnyAction): any {
   try {
     const result = yield call(logInAPI, action.data)
     yield put({
       type: LOG_IN_SUCCESS,
-      data: result.data.data,
     })
     axios.defaults.headers.common['x-access-token'] = result.data.data.accessToken
     localStorage.setItem('accessToken', result.data.data.accessToken)
