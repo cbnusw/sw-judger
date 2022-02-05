@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { Header, Form, Label, Input, LinkContainer, Button, Error } from './styles'
+import { Redirect } from 'react-router-dom'
 import useInput from '../../hooks/useInput'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../reducers'
@@ -10,10 +11,13 @@ function LogIn() {
   const { logInLoading, logInDone, logInError } = useSelector((state: RootState) => state.user)
   const [eduNumber, onChangeEduNumber] = useInput('')
   const [password, onChangePassword] = useInput('')
+  const accessToken = localStorage.getItem('accessToken')
   // if (logInDone) {
   //   document.location.href = '/'
   // }
-
+  if (!logInError && accessToken) {
+    return <Redirect to="/workspace" />
+  }
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
