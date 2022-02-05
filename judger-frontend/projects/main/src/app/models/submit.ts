@@ -12,8 +12,9 @@ export interface ISubmitResult {
 
 export interface ISubmit {
   _id?: string;
-  contest?: string;
   problem?: string;
+  parent?: string;
+  parentType?: string;
   user?: IUserInfo;
   source?: string;
   language?: TProgrammingLanguage;

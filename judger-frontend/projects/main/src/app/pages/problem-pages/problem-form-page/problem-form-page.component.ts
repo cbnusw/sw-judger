@@ -85,25 +85,23 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
 
   protected submitObservable(m: IProblem): Observable<string> {
     let observable: Observable<string>;
-    let assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
-    let contestId: string = new URL(window.location.href).searchParams.get('contest');
-    console.log(assignmentId, contestId);
-    console.log(m);
+    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
+    const contestId: string = new URL(window.location.href).searchParams.get('contest');
     if (contestId) {
       observable = this.modifying
         ? this.problemService
-            .updateProblem(this.model._id, { ...m, parentType: 'Contest', parentId: this.contest._id })
+            .updateProblem(this.model._id, { ...m, parentType: 'Contest', parent: this.contest._id })
             .pipe(map(() => this.contest._id))
         : this.problemService
-            .createProblem({ ...m, parentType: 'Contest', parentId: this.contest._id })
+            .createProblem({ ...m, parentType: 'Contest', parent: this.contest._id })
             .pipe(map(() => this.contest._id));
     } else if (assignmentId) {
       observable = this.modifying
         ? this.problemService
-            .updateProblem(this.model._id, { ...m, parentType: 'Assignment', parentId: assignmentId })
+            .updateProblem(this.model._id, { ...m, parentType: 'Assignment', parent: assignmentId })
             .pipe(map(() => assignmentId))
         : this.problemService
-            .createProblem({ ...m, parentType: 'Assignment', parentId: assignmentId })
+            .createProblem({ ...m, parentType: 'Assignment', parent: assignmentId })
             .pipe(map(() => assignmentId));
     } else {
       observable = this.modifying
