@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const { Submit } = require('../../../../models');
 const { createResponse } = require('../../../../utils/response');
+const { getMyAssignments } = require("../assignment/controller");
 
 const getSubmits = asyncHandler(async (req, res, next) => {
   const documents = await Submit.search({ limit: 100 });
@@ -16,6 +17,18 @@ const getMySubmits = asyncHandler(async (req, res, next) => {
 const getContestSubmits = asyncHandler(async (req, res, next) => {
   const { params: { id } } = req;
   const documents = await Submit.search({ limit: 100 }, { contest: id });
+  res.json(createResponse(res, documents));
+});
+
+const getMyAssignmentSubmits = asyncHandler(async (req, res) => {
+  const { params: { id }, user } = req;
+  const documents = await Submit.search({ limit: 100 }, { assignment: id, user: user.info });
+  res.json(createResponse(res, documents));
+});
+
+const getAssignmentSubmits = asyncHandler(async (req, res) => {
+  const { params: { id } } = req;
+  const documents = await Submit.search({ limit: 100 }, { assignment: id });
   res.json(createResponse(res, documents));
 });
 
@@ -44,3 +57,5 @@ exports.getContestSubmits = getContestSubmits;
 exports.getMyContestSubmits = getMyContestSubmits;
 exports.getProblemSubmits = getProblemSubmits;
 exports.getMyProblemSubmits = getMyProblemSubmits;
+exports.getAssignmentSubmits = getAssignmentSubmits;
+exports.getMyAssignmentSubmits = getMyAssignmentSubmits;
