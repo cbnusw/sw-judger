@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  authHost: 'http://localhost:3000',
-  apiHost: 'http://localhost:4003',
+  authHost: 'http://localhost:9000',
+  apiHost: 'http://localhost:9001',
   apiVersion: 'v1',
   loginPageUrl: '/account/login',
   joinPageUrl: 'http://localhost:8080/account/join',
