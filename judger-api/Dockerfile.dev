@@ -1,0 +1,16 @@
+FROM node
+
+WORKDIR /usr/src/app
+RUN chown -R node:node /usr/src/
+
+COPY package*.json ./
+
+RUN npm install
+
+RUN npm install -g nodemon
+
+COPY . .
+
+EXPOSE 4003
+
+CMD ["npm", "run", "dev"]

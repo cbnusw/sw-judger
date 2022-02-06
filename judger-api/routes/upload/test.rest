@@ -1,0 +1,40 @@
+###
+# 관리자 로그인
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "no": "admin",
+  "password": "asdf1234"
+}
+
+
+###
+# 파일 업로드 테스트
+POST http://localhost:3002
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+x-Access-Token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUxNjBmNTI2OTU2NDVhNjAwNGVmYmUiLCJyb2xlcyI6WyJhZG1pbiJdLCJwZXJtaXNzaW9ucyI6WyJhbGwiXSwiaW5mbyI6IjYwNTE2MGY1MjY5NTY0NWE2MDA0ZWZiZiIsImlhdCI6MTYxNTk2MzcwNSwiZXhwIjoxNjE1OTY0MzA1LCJhdWQiOiJodHRwczovL3N3N3VwLmNibnUuYWMua3IiLCJpc3MiOiLstqnrtoHrjIDtlZnqtZAgU1fspJHsi6zrjIDtlZnsgqzsl4Xri6giLCJzdWIiOiJrbWFobkBjYm51LmFjLmtyIn0.oUZvdAVNPnaIDwNWq5Zp8T7C5XDb2sHR8E2KJU2jhO2riplsX6_OhWiTgW3xzFq-e1F-ypDqx8OafBvLleuXDg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="upload"; filename="01.jpg"
+
+< ../test-files/01.jpg
+--WebAppBoundary--
+
+###
+# 업로드된 파일 보기
+GET http://localhost:3002/bcf764b6-7be2-4bf9-8ed7-d6f93ae5f4cb.jpg
+
+###
+# 파일 다운로드
+GET http://localhost:3002/6051a643c156bc3a20af1ac4/download
+
+###
+# URL로 파일 삭제
+DELETE http://localhost:3002/?url=http://localhost:3002/bcf764b6-7be2-4bf9-8ed7-d6f93ae5f4cb.jpg
+x-Access-Token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDNlZGEzODUyNTBlMzA0OWNmN2UyYzIiLCJyb2xlcyI6WyJhZG1pbiJdLCJwZXJtaXNzaW9ucyI6WyJhbGwiXSwiaW5mbyI6IjYwM2VkYTM4NTI1MGUzMDQ5Y2Y3ZTJjMyIsImlhdCI6MTYxNDc1NTI4NiwiZXhwIjoxNjE0NzU1ODg2LCJhdWQiOiJodHRwczovL3N3N3VwLmNibnUuYWMua3IiLCJpc3MiOiLstqnrtoHrjIDtlZnqtZAgU1fspJHsi6zrjIDtlZnsgqzsl4Xri6giLCJzdWIiOiJrbWFobkBjYm51LmFjLmtyIn0.e05P5iWCcsgpgOAwb2qMimeX8sFhACvpw3z0H31Nk3XDbcFiL1CJLD_AXbdgi2D060cCr1OvjjO1o1TpLRcX4A
+
+###
+# id로 파일 삭제
+DELETE http://localhost:3002/6051a643c156bc3a20af1ac4
+x-Access-Token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUxNjBmNTI2OTU2NDVhNjAwNGVmYmUiLCJyb2xlcyI6WyJhZG1pbiJdLCJwZXJtaXNzaW9ucyI6WyJhbGwiXSwiaW5mbyI6IjYwNTE2MGY1MjY5NTY0NWE2MDA0ZWZiZiIsImlhdCI6MTYxNTk2NDI5MiwiZXhwIjoxNjE1OTY0ODkyLCJhdWQiOiJodHRwczovL3N3N3VwLmNibnUuYWMua3IiLCJpc3MiOiLstqnrtoHrjIDtlZnqtZAgU1fspJHsi6zrjIDtlZnsgqzsl4Xri6giLCJzdWIiOiJrbWFobkBjYm51LmFjLmtyIn0.k-9ovWUophKsdnnWV0i59sZdJF83lhXzCNxqJwm02CElvdnT-QxbuBjODlaydwphS7GEX3w6CeNhBq13KjCP-w
