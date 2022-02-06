@@ -1,0 +1,39 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+.main-container {
+  height: $header-height;
+  box-sizing: border-box;
+}
+
+.brand-wrapper {
+  .brand-image {
+    height: 28px;
+  }
+
+  .brand-name {
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-weight: 500;
+    font-size: 0.875rem;
+
+    .text-primary {
+      font-weight: 900;
+    }
+  }
+}
+
+.nav-body {
+  box-sizing: border-box;
+  height: calc(100vh - 64px);
+  overflow-y: scroll;
+
+  .menus {
+    height: 150vh;
+    width: 100%;
+    border: 1px solid grey;
+    margin: 1rem;
+  }
+}

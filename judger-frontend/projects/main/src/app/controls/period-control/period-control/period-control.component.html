@@ -1,0 +1,68 @@
+<div class="start">
+    <mat-form-field class="me-1">
+        <mat-label>시작일</mat-label>
+        <input matInput
+               required
+               [errorStateMatcher]="errorStateMatcher"
+               [matDatepicker]="startPicker"
+               [ngModel]="start.date"
+               (ngModelChange)="changeStartDate($event)"
+               autocomplete="off">
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="me-1 time-select">
+        <mat-label>시</mat-label>
+        <select matNativeControl
+                required
+                [errorStateMatcher]="errorStateMatcher"
+                [ngModel]="start.hours"
+                (ngModelChange)="changeStartHours($event)"
+                autocomplete="off">
+            <option [value]="hours" *ngFor="let hours of hoursOptions">{{hours}}시</option>
+        </select>
+    </mat-form-field>
+    <mat-form-field class="time-select">
+        <mat-label>분</mat-label>
+        <select matNativeControl required
+                [errorStateMatcher]="errorStateMatcher"
+                [ngModel]="start.minutes"
+                (ngModelChange)="changeStartMinutes($event)">
+            <option [value]="minutes" *ngFor="let minutes of minutesOptions">{{minutes}}분</option>
+        </select>
+    </mat-form-field>
+</div>
+
+<span class="mx-4">~</span>
+
+<div class="end">
+    <mat-form-field class="me-1">
+        <mat-label>종료일</mat-label>
+        <input matInput required
+               [errorStateMatcher]="errorStateMatcher"
+               [matDatepicker]="endPicker"
+               [ngModel]="end.date"
+               (ngModelChange)="changeEndDate($event)"
+               autocomplete="off">
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="me-1 time-select">
+        <mat-label>시</mat-label>
+        <select matNativeControl required
+                [errorStateMatcher]="errorStateMatcher"
+                [ngModel]="end.hours"
+                (ngModelChange)="changeEndHours($event)">
+            <option [value]="hours" *ngFor="let hours of hoursOptions">{{hours}}시</option>
+        </select>
+    </mat-form-field>
+    <mat-form-field class="time-select">
+        <mat-label>분</mat-label>
+        <select matNativeControl required
+                [errorStateMatcher]="errorStateMatcher"
+                [ngModel]="end.minutes"
+                (ngModelChange)="changeEndMinute($event)">
+            <option [value]="minutes" *ngFor="let minutes of minutesOptions">{{minutes}}분</option>
+        </select>
+    </mat-form-field>
+</div>

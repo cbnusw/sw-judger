@@ -1,0 +1,14 @@
+<div class="p-1 border" *ngIf="emptyDocuments">참가신청 중인 대회가 없습니다.</div>
+
+<a class="flex column p-2 border hover"
+   [class.mb-1]="i !== documents.length - 1"
+   [routerLink]="['/contest/detail', doc._id]"
+   *ngFor="let doc of documents; let i = index">
+  <h4 class="mb-2">{{doc.title}}</h4>
+  <div class="font-s flex mobile-column">
+    <span class="me-auto">신청 기간: {{doc | applyingPeriod}}</span>
+    <span>대회시작:
+      <span class="text-warn">{{doc.testPeriod.start | date: 'yyyy.MM.dd. HH:mm'}}</span>
+    </span>
+  </div>
+</a>

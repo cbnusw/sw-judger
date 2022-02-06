@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "files.eol": "\n",
+  "files.autoSave": "onFocusChange"
+}

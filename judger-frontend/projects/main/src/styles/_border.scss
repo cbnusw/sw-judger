@@ -1,0 +1,25 @@
+@import "variables";
+
+@mixin generate-border() {
+  $directions: (top, bottom, left, right);
+
+  @each $direction in $directions {
+    .border-#{$direction} {
+      border-#{$direction}: 1px solid $border-color;
+    }
+  }
+}
+
+.border {
+  border: 1px solid $border-color;
+}
+
+@include generate-border();
+
+.circle {
+  border-radius: 50%;
+}
+
+.no-border-radius {
+  border-radius: 0 !important;
+}

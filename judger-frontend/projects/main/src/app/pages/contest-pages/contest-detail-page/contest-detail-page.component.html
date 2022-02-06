@@ -1,0 +1,131 @@
+<div class="main-container mt-2">
+  <h2 class="mb-2 page-title">{{ contest?.title }}</h2>
+  <span class="flex border-bottom pb-2 mobile-column">
+    <span class="font-s me-2">참가신청기간: {{ contest | applyingPeriod }}</span>
+    <span class="font-s me-auto">
+      대회시간:&nbsp;
+      <span *ngIf="(contest?.testPeriod | periodRange | async) === -1" class="fw-700">
+        {{ contest | testPeriod }}
+        <span class="text-accent fw-700">({{ contest.testPeriod.start | restTime | async }} 전)</span>
+      </span>
+      <span *ngIf="(contest?.testPeriod | periodRange | async) === 0" class="text-warn fw-900">
+        <span class="text-warn fw-900">{{ contest.testPeriod.end | restTime | async }} 남음</span>
+      </span>
+      <span *ngIf="(contest?.testPeriod | periodRange | async) === 1" class="text-primary"> 종료 </span>
+    </span>
+    <span class="font-s">작성자: {{ contest?.writer.name }}</span>
+  </span>
+
+  <div class="py-2 border-bottom mb-2">
+    <div class="border-box" [swInnerHtml]="contest?.content"></div>
+  </div>
+
+  <div class="flex justify-end" *ngIf="isContestant$ | async; else notContestantTemplate">
+    <a
+      *ngIf="isTestPeriod || isAfterTestPeriod"
+      class="text-white me-2 no-border-radius"
+      mat-flat-button
+      color="primary"
+      routerLink="/scoreboard"
+      [queryParams]="{ contest: contest?._id }"
+    >
+      <i class="las la-chalkboard"></i><span class="ms-2 mobile-d-none">스코어보드</span>
+    </a>
+    <button
+      *ngIf="isBeforeTestPeriod"
+      (click)="unenroll()"
+      type="button"
+      class="no-border-radius"
+      mat-flat-button
+      color="warn"
+    >
+      <i class="las la-sign-out-alt"></i><span class="ms-2 mobile-d-none">참가취소</span>
+    </button>
+    <a
+      *ngIf="isTestPeriod"
+      class="no-border-radius"
+      mat-flat-button
+      color="accent"
+      style="color: white"
+      [routerLink]="['/contest', contest?._id, 'problems']"
+    >
+      <i class="las la-play"></i><span class="ms-2 mobile-d-none">대회시작</span>
+    </a>
+  </div>
+
+  <div *ngIf="isWriter$ | async" class="flex justify-end">
+    <button
+      *ngIf="(isWriter$ | async) && (isTestPeriod || isAfterTestPeriod)"
+      class="text-white me-2 no-border-radius"
+      mat-flat-button
+      color="primary"
+      routerLink="/scoreboard"
+      [queryParams]="{ contest: contest?._id }"
+    >
+      <i class="las la-chalkboard"></i><span class="ms-2 mobile-d-none">스코어보드</span>
+    </button>
+    <button
+      class="text-white me-2 no-border-radius"
+      mat-flat-button
+      color="accent"
+      [routerLink]="['/contest/edit', contest?._id]"
+    >
+      <i class="las la-edit"></i><span class="ms-2 mobile-d-none">대회 수정</span>
+    </button>
+    <button
+      class="text-white me-2 no-border-radius"
+      *ngIf="isBeforeTestPeriod"
+      mat-flat-button
+      color="primary"
+      [routerLink]="['/contest', contest?._id, 'problems']"
+    >
+      <i class="las la-folder-plus"></i><span class="ms-2 mobile-d-none">문제 등록/수정</span>
+    </button>
+    <button
+      class="text-white me-2 no-border-radius"
+      *ngIf="isTestPeriod"
+      mat-flat-button
+      color="primary"
+      [routerLink]="['/contest', contest?._id, 'problems']"
+    >
+      <i class="las la-folder-plus"></i><span class="ms-2 mobile-d-none">문제 수정</span>
+    </button>
+    <button type="button" class="text-white no-border-radius" (click)="removeContest()" mat-flat-button color="warn">
+      <i class="las la-trash-alt"></i><span class="ms-2 mobile-d-none">대회 삭제</span>
+    </button>
+  </div>
+
+  <ng-template #notContestantTemplate>
+    <div class="flex justify-end">
+      <button
+        *ngIf="isApplyingPeriod && !(isWriter$ | async)"
+        class="no-border-radius"
+        (click)="enroll()"
+        mat-flat-button
+        color="primary"
+      >
+        <i class="las la-sign-in-alt"></i><span class="ms-2 mobile-d-none">참가신청</span>
+      </button>
+      <a
+        *ngIf="(isTestPeriod && !(isWriter$ | async)) || (isAfterTestPeriod && !(isWriter$ | async))"
+        class="text-white no-border-radius"
+        mat-flat-button
+        color="primary"
+        routerLink="/scoreboard"
+        [queryParams]="{ contest: contest?._id }"
+      >
+        <i class="las la-chalkboard"></i><span class="ms-2 mobile-d-none">스코어보드</span>
+      </a>
+    </div>
+  </ng-template>
+</div>
+
+<div class="main-container">
+  <h2 class="mb-2">참가자</h2>
+  <sw-contestants-list
+    [contestTitle]="contest?.title"
+    [contestants]="contest?.contestants"
+    [contestWriter]="contest?.writer._id"
+  >
+  </sw-contestants-list>
+</div>
