@@ -21,6 +21,7 @@ const {
 
 const getProblems = asyncHandler(async (req, res, next) => {
   const { query, query : { parentType }} = req;
+  const now = Date.now()
   const documents = await Problem.search(query, {
     $and: [{ published: { $ne: null } }, { published: { $lte: now } }, { parentType: parentType }]
   }, [{ path: 'parentId'}, { path: 'writer', model: UserInfo }])
