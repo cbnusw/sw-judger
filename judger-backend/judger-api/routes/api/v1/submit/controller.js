@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const { Submit } = require('../../../../models');
 const { createResponse } = require('../../../../utils/response');
-const { getMyAssignments } = require('../assignment/controller');
+const { getMyAssignments } = require("../assignment/controller");
 
 const getSubmits = asyncHandler(async (req, res, next) => {
   const documents = await Submit.search({ limit: 100 });
@@ -20,18 +20,21 @@ const getContestSubmits = asyncHandler(async (req, res, next) => {
   res.json(createResponse(res, documents));
 });
 
-const getMyContestSubmits = asyncHandler(async (req, res, next) => {
+const getMyAssignmentSubmits = asyncHandler(async (req, res) => {
   const { params: { id }, user } = req;
-  const documents = await Submit.search({ limit: 100 }, { parent: id, parentType: "Contest", user: user.info });
+  const documents = await Submit.search({ limit: 100 }, { assignment: id, user: user.info });
   res.json(createResponse(res, documents));
 });
 
-const getMyAssignmentSubmits = asyncHandler(async (req, res) => {
-  const {
-    params: { id },
-    user,
-  } = req;
-  const documents = await Submit.search({ limit: 100 }, { parent: id, user: user.info, parentType: 'Assignment' });
+const getAssignmentSubmits = asyncHandler(async (req, res) => {
+  const { params: { id } } = req;
+  const documents = await Submit.search({ limit: 100 }, { assignment: id });
+  res.json(createResponse(res, documents));
+});
+
+const getMyContestSubmits = asyncHandler(async (req, res, next) => {
+  const { params: { id }, user } = req;
+  const documents = await Submit.search({ limit: 100 }, { parent: id, parentType: "Contest", user: user.info });
   res.json(createResponse(res, documents));
 });
 
@@ -48,21 +51,17 @@ const getMyAssignmentSubmits = asyncHandler(async (req, res) =>{
 })
 
 const getProblemSubmits = asyncHandler(async (req, res, next) => {
-  const {
-    params: { id },
-  } = req;
+  const { params: { id } } = req;
   const documents = await Submit.search({ limit: 100 }, { problem: id });
   res.json(createResponse(res, documents));
 });
 
 const getMyProblemSubmits = asyncHandler(async (req, res, next) => {
-  const {
-    params: { id },
-    user,
-  } = req;
+  const { params: { id }, user } = req;
   const documents = await Submit.search({ limit: 100 }, { problem: id, user: user.info });
   res.json(createResponse(res, documents));
 });
+
 
 exports.getSubmits = getSubmits;
 exports.getMySubmits = getMySubmits;
