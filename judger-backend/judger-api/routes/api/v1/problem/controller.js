@@ -4,6 +4,7 @@ const { hasRole } = require('../../../../utils/permission');
 const { updateFilesByUrls } = require('../../../../utils/file');
 const {
   PROBLEM_NOT_FOUND,
+  CONTEST_NOT_FOUND
 } = require('../../../../errors');
 const asyncHandler = require('express-async-handler');
 const {
@@ -20,6 +21,7 @@ const {
 
 const getProblems = asyncHandler(async (req, res, next) => {
   const { query, query : { parentType }} = req;
+  const now = Date.now()
   const documents = await Problem.search(query, {
     $and: [{ published: { $ne: null } }, { published: { $lte: now } }, { parentType: parentType }]
   }, [{ path: 'parentId'}, { path: 'writer', model: UserInfo }])
@@ -44,9 +46,7 @@ const createSubmit = asyncHandler(async (req, res, next) => {
   const { params: { id }, body, user } = req;
   const producer = req.app.get('submitProducer');
   body.problem = id;
-  const problem = await Problem.findById(id);
-  body.parent = problem.parent;
-  body.parentType = problem.parentType;
+  if (!body.parent || !body.parentId) next(CONTEST_NOT_FOUND);
   body.user = user.info;
   const submit = await Submit.create(body);
   await producingSubmit(producer, String(submit._id));

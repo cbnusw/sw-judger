@@ -8,6 +8,8 @@ router.get('/', controller.getSubmits);
 router.get('/me', isAuthenticated, controller.getMySubmits);
 router.get('/contest/:id', controller.getContestSubmits);
 router.get('/contest/:id/me', isAuthenticated, controller.getMyContestSubmits);
+router.get('/assignment/:id', controller.getAssignmentSubmits);
+router.get('/assignment/:id/me', controller.getMyAssignmentSubmits);
 router.get('/problem/:id', controller.getProblemSubmits);
 router.get('/problem/:id/me', isAuthenticated, controller.getMyProblemSubmits);
 router.get('/assignment/:id', controller.getAssignmentSubmits)
