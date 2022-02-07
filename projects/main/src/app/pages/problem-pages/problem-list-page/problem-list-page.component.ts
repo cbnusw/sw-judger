@@ -10,11 +10,10 @@ import { ProblemService } from '../../../services/apis/problem.service';
 @Component({
   selector: 'sw-problem-list-page',
   templateUrl: './problem-list-page.component.html',
-  styleUrls: ['./problem-list-page.component.scss']
+  styleUrls: ['./problem-list-page.component.scss'],
 })
 export class ProblemListPageComponent extends AbstractSearchDirective<IProblem> {
-
-  columns = ['no', 'content', 'title', 'writer', 'createdAt'];
+  columns = ['no', 'title', 'writer', 'createdAt'];
 
   constructor(private problemService: ProblemService) {
     super({ limit: 10, sort: '-createdAt' });
@@ -28,5 +27,4 @@ export class ProblemListPageComponent extends AbstractSearchDirective<IProblem> 
     this.limit = event.pageSize;
     super.pagination(event.pageIndex + 1);
   }
-
 }

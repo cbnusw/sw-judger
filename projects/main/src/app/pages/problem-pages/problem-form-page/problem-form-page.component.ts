@@ -56,7 +56,7 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
     if (this.contest) {
       await this.router.navigate(['/contest', this.contest._id, 'problems']);
     } else {
-      await this.router.navigateByUrl('/problem/list/me');
+      await this.router.navigateByUrl('/problem/list');
     }
   }
 
