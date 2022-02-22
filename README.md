@@ -13,4 +13,4 @@
 
 ## 📑 System 정보
 - version : 2.0.0
-- Judger Link : [충북대학교 온라인 젓저 시스템](https://swjudge.cbnu.ac.kr/main, "CBNU online judger system link")
+- Judger Link : [충북대학교 온라인 젓저 시스템](https://swjudge.cbnu.ac.kr/main)
