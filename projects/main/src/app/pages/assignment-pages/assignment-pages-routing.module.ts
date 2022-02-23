@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/assignment/list', pathMatch: 'full' },
   { path: 'list', component: AssignmentListPageComponent },
   { path: 'form', component: AssignmentFormPageComponent },
+  { path: 'edit/:id', component: AssignmentFormPageComponent },
   { path: 'detail/:id', component: AssignmentDetailPageComponent },
   { path: ':id/problems', component: AssignmentProblemListPageComponent },
 ];
