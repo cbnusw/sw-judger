@@ -53,8 +53,12 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
   }
 
   protected async processAfterSubmission(s: string): Promise<void> {
-    if (this.contest) {
-      await this.router.navigate(['/contest', this.contest._id, 'problems']);
+    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
+    const contestId: string = new URL(window.location.href).searchParams.get('contest');
+    if (contestId) {
+      await this.router.navigate(['/contest', contestId, 'problems']);
+    } else if (assignmentId) {
+      await this.router.navigate(['/assignment', assignmentId, 'problems']);
     } else {
       await this.router.navigateByUrl('/problem/list');
     }
