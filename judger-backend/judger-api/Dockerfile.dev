@@ -1,7 +1,10 @@
 FROM node
 
+RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
+RUN mkdir -p  /usr/src/app/logs/api
 RUN chown -R node:node /usr/src/
+RUN chmod -R 777 /usr/src/app
 
 COPY package*.json ./
 
