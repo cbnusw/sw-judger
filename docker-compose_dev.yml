@@ -41,6 +41,20 @@ services:
       - zookeeper
 
 
+  judger-web:
+    build:
+      context: ./judger-frontend
+      dockerfile: Dockerfile.dev
+  
+    ports:
+      - "8999:4200"
+    
+    depends_on:
+      - judger-api 
+    links:
+      - judger-api
+
+
   judger-api:
     build:
       context: ./judger-backend/judger-api
@@ -50,7 +64,9 @@ services:
 
     ports:
       - "9001:4003"
-    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"    
+
     volumes:
       - ./judger-backend/judger-api/uploads:/usr/src/app/uploads
       - ./judger-backend/judger-api/server-Logs:/usr/src/app/logs
@@ -70,9 +86,12 @@ services:
     env_file:
       - ./judger-backend/judger/.env
 
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
     volumes:
-      - ./judger-backend/judger/uploads:/source
-      - ./judger-backend/judger/uploads:/io
+      - ./judger-backend/judger-api/uploads:/source
+      - ./judger-backend/judger-api/uploads:/io
       - ./judger-backend/judger:/app
       - /app/node_modules
     
@@ -89,6 +108,8 @@ services:
 
     ports:
      - "9000:4000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     
     volumes:
      - ./auth/server-Logs:/usr/src/app/logs
