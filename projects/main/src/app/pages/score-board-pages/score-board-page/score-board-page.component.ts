@@ -67,7 +67,6 @@ export class ScoreBoardPageComponent implements OnInit, OnDestroy {
         });
 
         this.scoreboards = boards;
-        console.log(this.scoreboards);
       });
     }
   }
