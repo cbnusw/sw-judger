@@ -1,6 +1,6 @@
-FROM node
+FROM node:14
 
-RUN mkdir /usr/src/app
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 RUN mkdir -p  /usr/src/app/logs/api
 RUN chown -R node:node /usr/src/

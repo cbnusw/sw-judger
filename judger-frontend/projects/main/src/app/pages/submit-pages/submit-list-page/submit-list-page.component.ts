@@ -58,7 +58,5 @@ export class SubmitListPageComponent implements OnInit {
     if (assignment) {
       this.getSubmits(problem, null, assignment);
     }
-
-    // this.subscription = this.socketService.myResult$.subscribe(() => this.getSubmits(problem, contest));
   }
 }
