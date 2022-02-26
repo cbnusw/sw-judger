@@ -125,6 +125,7 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
           })
       );
     }
+
     if (assignmentId) {
       this.addSubcription(
         this.route.queryParams
