@@ -6,7 +6,7 @@ import { RequestBase } from '../classes/request-base';
 import { IResponse, IUploadResponse } from '../models/response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UploadService extends RequestBase {
   constructor(private http: HttpClient) {
@@ -16,7 +16,7 @@ export class UploadService extends RequestBase {
   upload(file: File): Observable<IUploadResponse> {
     const formData = new FormData();
     formData.append('upload', file);
-
+    console.log(this.url);
     return this.http.post(this.url`/upload`, formData);
   }
 
