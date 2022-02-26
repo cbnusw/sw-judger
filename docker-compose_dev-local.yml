@@ -52,8 +52,8 @@ services:
       - "9001:4003"
     
     volumes:
-      - ./judger-backend/judger-api/uploads:/usr/src/app/uploads
-      - ./judger-backend/judger-api/server-Logs:/usr/src/app/logs
+      - ./uploads:/usr/src/app/uploads
+      - ./server-Logs:/usr/src/app/logs
       - ./judger-backend/judger-api:/usr/src/app
       - /usr/src/app/node_modules
 
@@ -73,8 +73,8 @@ services:
       - ./judger-backend/judger/.env
 
     volumes:
-      - ./judger-backend/judger-api/uploads:/source
-      - ./judger-backend/judger-api/uploads:/io
+      - ./uploads:/source
+      - ./uploads:/io
       - ./judger-backend/judger:/app
       - /app/node_modules
     
@@ -95,7 +95,7 @@ services:
      - "9000:4000"
     
     volumes:
-     - ./auth/server-Logs:/usr/src/app/logs
+     - ./server-Logs:/usr/src/app/logs
      - ./auth:/usr/src/app
      - /usr/src/app/node_modules
 
