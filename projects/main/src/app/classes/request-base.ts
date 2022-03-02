@@ -10,7 +10,7 @@ export class RequestBase {
   }
 
   protected url(s: any, ...args: any): string {
-    console.log(s, args, this.baseUrl);
+    console.log(s, args);
     return s.reduce((p, c, i) => p + s[i] + (args[i] || ''), this.baseUrl);
   }
 }

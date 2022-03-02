@@ -38,15 +38,9 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
 
   cancel(): void {
     if (this.modifying) {
-      const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
-      const contestId: string = new URL(window.location.href).searchParams.get('contest');
-      if (contestId) {
-        this.router.navigate(['/problem/detail', this.model._id], { queryParams: { contest: this.contest._id } });
-      } else if (assignmentId) {
-        this.router.navigate(['/problem/detail', this.model._id], { queryParams: { assignment: assignmentId } });
-      } else {
-        this.router.navigate(['/problem/detail', this.model._id]);
-      }
+      this.contest
+        ? this.router.navigate(['/problem/detail', this.model._id], { queryParams: { contest: this.contest._id } })
+        : this.router.navigate(['/problem/detail', this.model._id]);
     } else {
       this.contest
         ? this.router.navigate(['/contest', this.contest._id, 'problems'])

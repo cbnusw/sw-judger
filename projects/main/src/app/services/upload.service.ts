@@ -16,6 +16,7 @@ export class UploadService extends RequestBase {
   upload(file: File): Observable<IUploadResponse> {
     const formData = new FormData();
     formData.append('upload', file);
+    console.log(this.url);
     return this.http.post(this.url`/upload`, formData);
   }
 
