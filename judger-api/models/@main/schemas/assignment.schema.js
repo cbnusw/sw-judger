@@ -17,8 +17,10 @@ const periodSchema = createSchema({
 
 
 const schema = createSchema({
-  no: { type: Number, index: true },
-
+  no: {
+    type: Number,
+    index: true
+  },
   course: String,
   title: {
     type: String,
