@@ -50,6 +50,9 @@ const schema = createSchema({
     type: String,
     required: true,
   },
+  code: {
+    type: String,
+  },
   language: {
     type: String,
     enum: PROGRAMMING_LANGUAGES,
