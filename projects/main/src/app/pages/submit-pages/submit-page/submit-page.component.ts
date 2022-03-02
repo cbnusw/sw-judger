@@ -107,9 +107,11 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
   }
 
   ngOnInit(): void {
-    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
-    const contestId: string = new URL(window.location.href).searchParams.get('contest');
-    if (contestId) {
+
+    let params: any;
+    this.route.queryParams.subscribe(res => {params = res; });
+
+    if (params.contest) {
       this.addSubcription(
         this.route.queryParams
           .pipe(
@@ -126,7 +128,7 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
       );
     }
 
-    if (assignmentId) {
+    if (params.assignment) {
       this.addSubcription(
         this.route.queryParams
           .pipe(
