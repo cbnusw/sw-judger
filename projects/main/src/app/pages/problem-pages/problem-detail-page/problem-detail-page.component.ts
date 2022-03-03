@@ -10,6 +10,7 @@ import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
 import { AssignmentService } from '../../../services/apis/assignment.service';
 import { AuthService } from '../../../services/auth.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'sw-problem-detail-page',
@@ -127,13 +128,14 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     }
     if (this.problem) {
       queryParams.problem = this.problem._id;
-      ('pr');
     }
     this.router.navigate(['/submit/list'], { queryParams });
   }
 
   submitSource(): void {
     const queryParams: Params = {};
+    let params
+    this.route.paramMap.subscribe(res => {params = res})
     if (this.contest) {
       queryParams.contest = this.contest._id;
     }
@@ -147,9 +149,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
-    const contestId: string = new URL(window.location.href).searchParams.get('contest');
-    console.log(assignmentId, contestId);
+    let params: any;
+    this.route.queryParams.subscribe(res => { params = res; });
     this.subscription = this.route.params
       .pipe(
         map((params) => params.id),
@@ -157,9 +158,10 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (res) => (this.problem = res.data),
-        (err) => {}
+        (err) => (console.log(err))
       );
-    if (contestId) {
+
+    if (params.contest) {
       this.subscription.add(
         this.route.queryParams
           .pipe(
@@ -167,12 +169,13 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
             switchMap((id) => this.contestService.getContest(id))
           )
           .subscribe(
+            
             (res) => (this.contest = res.data),
             (err) => console.error(err)
           )
       );
     }
-    if (assignmentId) {
+    if (params.assignment) {
       this.subscription.add(
         this.route.queryParams
           .pipe(
