@@ -2,7 +2,8 @@ const asyncHanlder = require('express-async-handler');
 const { IS_NOT_TEST_PERIOD, LOGIN_REQUIRED, IS_NOT_CONTESTANT } = require('../../../../errors');
 const { hasRole } = require('../../../../utils/permission');
 const { Problem } = require('../../../../models');
-const { checkTestPeriodOf, isPublished, isAssigned, parentNotFoundErrors, checkOwnerOf } = require('./service.js');
+const { isAssigned, parentNotFoundErrors, checkOwnerOf } = require('./service.js');
+
 const handleAccessProblem = asyncHanlder(async (req, res, next) => {
   const { params: { id }, user } = req;
   const problem = await Problem.findById(id).populate('parent');

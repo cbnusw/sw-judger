@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { Problem, Submit, UserInfo } = require('../../../../models');
 const { createResponse } = require('../../../../utils/response');
 const { hasRole } = require('../../../../utils/permission');
