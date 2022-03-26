@@ -41,6 +41,20 @@ services:
       - zookeeper
 
 
+  judger-web:
+    build:
+      context: ./judger-frontend
+      dockerfile: Dockerfile.dev
+  
+    ports:
+      - "8999:4200"
+    
+    depends_on:
+      - judger-api 
+    links:
+      - judger-api
+
+
   judger-api:
     build:
       context: ./judger-backend/judger-api
