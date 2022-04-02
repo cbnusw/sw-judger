@@ -6,7 +6,7 @@ const {
   ASSIGNMENT_NOT_FOUND,
   CONTEST_NOT_FOUND,
 } = require('../../../../errors');
-const { updateFilesByUrls } = require('../../../../utils/file');
+const { updateFilesByUrls, removeFilesByUrls } = require('../../../../utils/file');
 const parentModels = {
   'Assignment': Assignment,
   'Contest': Contest,
@@ -48,6 +48,7 @@ exports.isPublished = (problem) => {
 exports.isAssigned = (user, {parent, parentType}) => {
   return parent[parentAssignees[parentType]].map(assignee => String(assignee)).includes(String(user.info))
 }
+
 exports.checkTestPeriodOf = ({testPeriod}) => {
   const now = new Date();
   const start = new Date(testPeriod.start);
@@ -67,8 +68,11 @@ exports.assignTo = async (parent, problem) => {
   parent.problems.push(problem._id);
   await parent.save();
 }
+
 const validateParentOf = ({ parentType }, parent) => {
+
   if (!parentType) return null;
+  
   if (!parent) return parentNotFoundErrors[parentType];
   // if (!hasRole(user) && !checkTestPeriodOf(parent)) return IS_NOT_TEST_PERIOD;
   return null;
@@ -78,8 +82,8 @@ const validateParentOf = ({ parentType }, parent) => {
 exports.validateByProblem = async (id) => {
   const problem = await Problem.findById(id).populate('parentId');
   if (!problem) return ({ err: PROBLEM_NOT_FOUND });
-  const { parent } = problem;
-  const err = validateParentOf(problem, parent);
+  const { parentId } = problem;
+  const err = validateParentOf(problem, parentId);
   if (err) return ({ err });
   return ({ problem });
 }

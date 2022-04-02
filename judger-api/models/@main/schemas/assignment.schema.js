@@ -55,6 +55,7 @@ schema.plugin(searchPlugin({
   populate: [{ path: 'writer' }],
   mapper: {
     title: toRegEx,
+    course: toRegEx,
     writer: toRef('UserInfo', {
       name: toRegEx
     }),

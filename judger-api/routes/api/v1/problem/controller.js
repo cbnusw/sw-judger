@@ -63,14 +63,17 @@ const createSubmit = asyncHandler(async (req, res, next) => {
 
 
 const createProblem = asyncHandler(async (req, res, next) => {
-  const { body, user, body: {parentType, parent:parentId} } = req;
+  const { body, user } = req;
   body.writer = user.info;
   body.ioSet = (body.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
-  const parent = await parentModels[parentType].findById(parentId);
+  const parent = await parentModels[body.parentType].findById(body.parentId);
+
   const err = validateParentOf(body, parent);
   if (err) return next(err);
+
   const problem = await Problem.create(body);
   await updateFilesOf(body, user);
+
   if (parent) await assignTo(parent, problem);
   res.json(createResponse(res, problem));
 });
@@ -87,11 +90,11 @@ const updateProblem = asyncHandler(async (req, res, next) => {
 });
 
 const removeProblem = asyncHandler(async (req, res, next) => {
-  const { params: { id }} = req;
-  const {err, problem, problem: {parent}} = await validateByProblem(id);
+  const { params: { id }, user} = req;
+  const {err, problem, problem: {parentId}} = await validateByProblem(id);
   if (err) return next(err);
   if (!hasRole(user) && !checkOwnerOf(problem, user)) return next(FORBIDDEN);
-  if (parent) await removeProblemAt(parent, id);
+  if (parentId) await removeProblemAt(parentId, id);
   await Promise.all([
     problem.deleteOne(),
     removeFilesOf(problem, user)

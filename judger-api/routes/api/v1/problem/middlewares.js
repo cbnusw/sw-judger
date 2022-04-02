@@ -6,11 +6,11 @@ const { isAssigned, parentNotFoundErrors, checkOwnerOf } = require('./service.js
 
 const handleAccessProblem = asyncHanlder(async (req, res, next) => {
   const { params: { id }, user } = req;
-  const problem = await Problem.findById(id).populate('parent');
+  const problem = await Problem.findById(id).populate('parentId');
   // if (problem.published && isPublished(problem)) next();
   if (!user) return next(LOGIN_REQUIRED);
-  const { parent, parentType } = problem;
-  if (parentType && !parent) return next(parentNotFoundErrors[parentType]);
+  const { parentId, parentType } = problem;
+  if (parentType && !parentId) return next(parentNotFoundErrors[parentType]);
   if (checkOwnerOf(problem, user) || hasRole(user)) return next();
   // if (!checkTestPeriodOf(parent)) return next(IS_NOT_TEST_PERIOD);
   if (parentType === "Contest" && !isAssigned(user, problem)) return next(IS_NOT_CONTESTANT);
