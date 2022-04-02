@@ -60,5 +60,6 @@ import { HidePhonePipe } from './pipes/hide-phone.pipe';
     DragDropModule,
   ]
 })
+
 export class ContestPagesModule {
 }

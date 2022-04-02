@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,9 +25,16 @@ import { PeriodPipeModule } from '../../pipes/period-pipe/period-pipe.module';
 import { InnerHtmlModule } from '../../directives/inner-html/inner-html.module';
 import { RestTimePipeModule } from '../../pipes/rest-time-pipe/rest-time-pipe.module';
 import { AssignmentProblemListPageComponent } from './assignment-problem-list-page/assignment-problem-list-page.component';
+import { MyAssignmentListPageComponent } from './my-assignment-list-page/my-assignment-list-page.component';
 
 @NgModule({
-  declarations: [AssignmentDetailPageComponent, AssignmentFormPageComponent, AssignmentListPageComponent, AssignmentProblemListPageComponent],
+  declarations: [
+    AssignmentDetailPageComponent, 
+    AssignmentFormPageComponent, 
+    AssignmentListPageComponent, 
+    AssignmentProblemListPageComponent, 
+    MyAssignmentListPageComponent
+  ],
   imports: [
     CommonModule,
     AssignmentPagesRoutingModule,
@@ -55,6 +63,7 @@ import { AssignmentProblemListPageComponent } from './assignment-problem-list-pa
     CKEditorModule,
     InnerHtmlModule,
     RestTimePipeModule,
+    DragDropModule
   ],
 })
 export class AssignmentPagesModule {}

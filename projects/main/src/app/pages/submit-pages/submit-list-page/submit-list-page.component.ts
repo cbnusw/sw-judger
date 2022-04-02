@@ -26,13 +26,13 @@ export class SubmitListPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const { problem } = this.route.snapshot.queryParams;
+    const { problem } = this.route.snapshot.queryParamMap['params'];
     this.submitService.getMyProblemSubmits(problem).subscribe(res => { this.submits = res.data.documents });
     this.problemService.getProblem(problem).subscribe((res) => {
       this.problem = res.data;
-      const { parentType, parent } = res.data;
+      const { parentType, parentId } = res.data;
       this.queryParams = {};
-      this.queryParams[parentType.toLowerCase()] = parent;
+      this.queryParams[parentType.toLowerCase()] = parentId;
     });
   }
 }

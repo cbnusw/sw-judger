@@ -8,7 +8,7 @@
         autocomplete="off"
         formControlName="course"
         [errorStateMatcher]="errorMatcher"
-        placeholder="Ex. 응용컴퓨터프로그래밍(3)"
+        placeholder="Ex. 응용컴퓨터프로그래밍"
       />
       <mat-hint>수업명을 입력해주세요.</mat-hint>
       <mat-error *ngIf="hasError('required', 'course')"> 수업명은 필수 입력 항목입니다.</mat-error>
@@ -22,7 +22,7 @@
         autocomplete="off"
         formControlName="title"
         [errorStateMatcher]="errorMatcher"
-        placeholder="Ex. 응용컴퓨터프로그래밍 2주차 과제"
+        placeholder="Ex. 1주차 과제"
       />
       <mat-hint>과제명을 입력해주세요.</mat-hint>
       <mat-error *ngIf="hasError('required', 'title')"> 과제명은 필수 입력 항목입니다.</mat-error>

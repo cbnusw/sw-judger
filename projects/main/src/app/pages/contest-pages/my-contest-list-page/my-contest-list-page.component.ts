@@ -15,6 +15,7 @@ import { ContestService } from '../../../services/apis/contest.service';
   styleUrls: ['./my-contest-list-page.component.scss'],
   providers: [DatePipe]
 })
+
 export class MyContestListPageComponent extends AbstractSearchDirective<IContest> implements AfterViewInit {
 
   columns = ['no', 'title', 'testPeriod', 'applyingPeriod', 'writer', 'contestants', 'createdAt'];

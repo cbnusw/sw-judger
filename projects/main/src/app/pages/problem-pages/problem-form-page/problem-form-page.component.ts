@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { relativeTimeThreshold } from 'moment';
 import { Observable } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { AbstractFormDirective } from '../../../classes/abstract-form.directive';
 import { ErrorMatcher } from '../../../classes/error-matcher';
 import { IAssignment } from '../../../models/assignment';
@@ -71,12 +70,13 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
     let params: any;
     this.route.queryParams.subscribe(res => { params = res; });
     if (params.contest) {
-      await this.router.navigate(['/contest', params.contest._id, 'problems']);
+      await this.router.navigate(['/contest', params.contest, 'problems']);
     } else if (params.assignment) {
-      await this.router.navigate(['/assignment', params.assignment._id, 'problems']);
-    } else {
-      await this.router.navigateByUrl('/problem/list');
-    }
+      await this.router.navigate(['/assignment', params.assignment, 'problems']);
+    } 
+    // else {
+    //   await this.router.navigateByUrl('/problem/list');
+    // }
   }
 
   protected async mapToModel(m: IProblem): Promise<IProblem> {
@@ -109,24 +109,25 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
     if (params.contest) {
       observable = this.modifying
         ? this.problemService
-            .updateProblem(this.model._id, { ...m, parentType: 'Contest', parent: params.contest._id })
-          .pipe(map(() => params.contest._id))
+            .updateProblem(this.model._id, { ...m, parentType: 'Contest', parentId: params.contest })
+          .pipe(map(() => params.contest))
         : this.problemService
-          .createProblem({ ...m, parentType: 'Contest', parent: params.contest._id })
-          .pipe(map(() => params.contest._id));
+          .createProblem({ ...m, parentType: 'Contest', parentId: params.contest })
+          .pipe(map(() => params.contest));
     } else if (params.assignment) {
       observable = this.modifying
         ? this.problemService
-            .updateProblem(this.model._id, { ...m, parentType: 'Assignment', parent: params.assignment._id })
-          .pipe(map(() => params.assignment._id))
+            .updateProblem(this.model._id, { ...m, parentType: 'Assignment', parentId: params.assignment })
+          .pipe(map(() => params.assignment))
         : this.problemService
-          .createProblem({ ...m, parentType: 'Assignment', parent: params.assignment._id })
-          .pipe(map(() => params.assignment._id));
-    } else {
-      observable = this.modifying
-        ? this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id))
-        : this.problemService.createProblem(m).pipe(map((res) => res.data._id));
-    }
+          .createProblem({ ...m, parentType: 'Assignment', parentId: params.assignment })
+          .pipe(map(() => params.assignment));
+    } 
+    // else {
+    //   observable = this.modifying
+    //     ? this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id))
+    //     : this.problemService.createProblem(m).pipe(map((res) => res.data._id));
+    // }
     return observable;
   }
 
@@ -157,8 +158,6 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
           switchMap((id) => this.assignmentService.getAssignment(id))
         )
         .subscribe((res) => (this.assignment = res.data))
-      
-      
     );
   }
 }

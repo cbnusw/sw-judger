@@ -35,6 +35,15 @@ export class AssignmentDetailPageComponent implements OnInit {
     );
   }
 
+  get isStudent(): Observable<boolean> {
+    return this.auth.me$.pipe(
+      map((me) => {
+        if(me.role === "student") return true;
+        else return false;
+      })
+    );
+  }
+
   get isBeforeTestPeriod(): boolean {
     if (!this.assignment) {
       return false;
@@ -73,7 +82,7 @@ export class AssignmentDetailPageComponent implements OnInit {
   }
 
   removeAssignment(): void {
-    const yes = confirm('대회를 삭제하시겠습니까?');
+    const yes = confirm('과제를 삭제하시겠습니까? \n이 작업은 되돌릴 수 없습니다.');
 
     if (!yes) {
       return;
@@ -81,7 +90,7 @@ export class AssignmentDetailPageComponent implements OnInit {
 
     this.assignmentService.removeAssignment(this.assignment._id).subscribe(
       () => {
-        alert('대회를 삭제하였습니다.');
+        alert('과제를 삭제하였습니다.');
         this.router.navigateByUrl('/assignment/list');
       },
       (err) => alert(`${(err.error && err.error.message) || err.message}`)

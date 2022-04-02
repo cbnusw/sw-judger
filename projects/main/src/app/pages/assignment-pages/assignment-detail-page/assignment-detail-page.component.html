@@ -12,16 +12,16 @@
       </span>
       <span *ngIf="(assignment?.testPeriod | periodRange | async) === 1" class="text-primary"> 종료 </span>
     </span>
-    <span class="font-s">작성자: {{ assignment?.writer.name }}</span>
+    <span class="font-s me-2">과목명: {{assignment?.course}}</span>
+    <span class="font-s">교수명: {{assignment?.writer.name }}</span>
   </span>
 
   <div class="py-2 border-bottom mb-2">
     <div class="border-box" [swInnerHtml]="assignment?.content"></div>
   </div>
 
-  <div class="flex justify-end" style="padding-bottom: 10px">
-    <a
-      *ngIf="isTestPeriod"
+  <div *ngIf="isStudent | async" class="flex justify-end" style="padding-bottom: 10px">
+    <button
       class="no-border-radius"
       mat-flat-button
       color="accent"
@@ -29,7 +29,7 @@
       [routerLink]="['/assignment', assignment?._id, 'problems']"
     >
       <i class="las la-play"></i><span class="ms-2 mobile-d-none">문제 페이지</span>
-    </a>
+    </button>
   </div>
 
   <div *ngIf="isWriter$ | async" class="flex justify-end">
@@ -41,49 +41,18 @@
     >
       <i class="las la-edit"></i><span class="ms-2 mobile-d-none">과제 수정</span>
     </button>
+
     <button
       class="text-white me-2 no-border-radius"
-      *ngIf="isBeforeTestPeriod"
       mat-flat-button
       color="primary"
       [routerLink]="['/assignment', assignment?._id, 'problems']"
     >
       <i class="las la-folder-plus"></i><span class="ms-2 mobile-d-none">문제 등록/수정</span>
     </button>
-    <button
-      class="text-white me-2 no-border-radius"
-      *ngIf="isTestPeriod"
-      mat-flat-button
-      color="primary"
-      [routerLink]="['/assignment', assignment?._id, 'problems']"
-    >
-      <i class="las la-folder-plus"></i><span class="ms-2 mobile-d-none">문제 목록</span>
-    </button>
+
     <button type="button" class="text-white no-border-radius" (click)="removeAssignment()" mat-flat-button color="warn">
       <i class="las la-trash-alt"></i><span class="ms-2 mobile-d-none">과제 삭제</span>
     </button>
   </div>
-
-  <ng-template #notContestantTemplate>
-    <div class="flex justify-end">
-      <button
-        *ngIf="isApplyingPeriod && !(isWriter$ | async)"
-        class="no-border-radius"
-        (click)="enroll()"
-        mat-flat-button
-        color="primary"
-      >
-        <i class="las la-sign-in-alt"></i><span class="ms-2 mobile-d-none">참가신청</span>
-      </button>
-      <a
-        *ngIf="(isTestPeriod && !(isWriter$ | async)) || (isAfterTestPeriod && !(isWriter$ | async))"
-        class="text-white no-border-radius"
-        mat-flat-button
-        color="primary"
-        routerLink="/scoreboard"
-        [queryParams]="{ assignment: assignment?._id }"
-      >
-      </a>
-    </div>
-  </ng-template>
 </div>

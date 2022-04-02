@@ -1,0 +1,67 @@
+<div class="main-container mt-2">
+    <h2 class="mb-2">과제 관리</h2>
+
+    <div class="flex align-center mb-2">
+        <mat-form-field class="w-60">
+            <mat-label>검색</mat-label>
+            <span matPrefix style="margin-right: 1rem;"><i class="las la-search"></i></span>
+            <input matInput [formControl]="keywordControl" autocomplete="off" placeholder="Ex. 응용컴퓨터프로그래밍" />
+            <mat-hint>과제명, 수업명으로 검색</mat-hint>
+        </mat-form-field>
+
+        <div class="ms-auto">
+            <button type="button" mat-flat-button routerLink="/assignment/register" color="primary">과제 등록
+            </button>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <div class="loading" *ngIf="loading">
+            <mat-spinner></mat-spinner>
+        </div>
+            <table mat-table [dataSource]="documents">
+                <ng-container matColumnDef="no">
+                    <th mat-header-cell *matHeaderCellDef>#</th>
+                    <td mat-cell *matCellDef="let row; let i = index">{{ getNo(i) }}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>과제명</th>
+                    <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="course">
+                    <th mat-header-cell *matHeaderCellDef>수업명</th>
+                    <td mat-cell *matCellDef="let row">{{ row.course }}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="testPeriod">
+                    <th mat-header-cell *matHeaderCellDef>과제 제출 기한</th>
+                    <td mat-cell *matCellDef="let row">{{ row | testPeriod }}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="writer">
+                    <th mat-header-cell *matHeaderCellDef>작성자</th>
+                    <td mat-cell *matCellDef="let row">{{ row.writer?.name }}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef>등록일</th>
+                    <td mat-cell *matCellDef="let row">
+                        {{ row.createdAt | date: 'yyyy.MM.dd.' }}
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns" [routerLink]="['/assignment/detail', row._id]"
+                    class="cursor pointer"></tr>
+            
+                <tr class="mat-row empty-row" *matNoDataRow>
+                    <td [attr.colspan]="columns.length" class="px-2">
+                        <span>등록된 과제가 없습니다.</span>
+                    </td>
+                </tr>
+            </table>
+        <mat-paginator [length]="total" [pageIndex]="page - 1" [pageSize]="limit" [pageSizeOptions]="limitOptions"
+            *ngIf="limit < total" (page)="changePage($event)"></mat-paginator>
+    </div>
+</div>

@@ -16,7 +16,7 @@ export interface IProblem {
   title?: string;
   content?: string;
   parentType?: string;
-  parent?: string;
+  parentId?: string;
   published?: Date;
   ioSet?: Array<IInputOutput>;
   options?: IProblemOptions;

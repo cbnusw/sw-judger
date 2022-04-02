@@ -10,13 +10,13 @@ import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
 import { AssignmentService } from '../../../services/apis/assignment.service';
 import { AuthService } from '../../../services/auth.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'sw-problem-detail-page',
   templateUrl: './problem-detail-page.component.html',
   styleUrls: ['./problem-detail-page.component.scss'],
 })
+
 export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
@@ -42,6 +42,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     return this.problem.writer._id === this.auth.me._id;
   }
 
+  get isStudent(): boolean {
+    if(this.auth.me.role === "student") return true;
+    else return false;
+  }
+
   get submitable(): boolean {
     const now = new Date();
 
@@ -56,8 +61,12 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       return start.getTime() <= now.getTime() && now.getTime() <= end.getTime();
     }
 
-    if (this.problem) {
-      return new Date(this.problem.published).getTime() < now.getTime();
+    if (this.assignment) {
+
+      const { testPeriod } = this.assignment;
+      const start = new Date(testPeriod.start);
+      const end = new Date(testPeriod.end);
+      return start.getTime() <= now.getTime() && now.getTime() <= end.getTime();
     }
 
     return false;

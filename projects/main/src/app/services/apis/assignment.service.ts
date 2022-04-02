@@ -23,6 +23,12 @@ export class AssignmentService extends ApiBase {
     });
   }
 
+  searchMyAssignments(params?: IParams): Observable<IListResponse<IAssignment>> {
+    return this.http.get<IListResponse<IAssignment>>(this.url`/me`, {
+      params: ApiBase.params(params),
+    });
+  }
+
   getAssignment(id: string): Observable<IResponse<IAssignment>> {
     return this.http.get<IResponse<IAssignment>>(this.url`/${id}`);
   }

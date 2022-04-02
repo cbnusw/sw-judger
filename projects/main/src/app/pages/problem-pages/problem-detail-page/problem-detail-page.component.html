@@ -4,11 +4,11 @@
     <span *ngIf="contest" class="font-s me-2">대회: {{ contest?.title }}</span>
     <span *ngIf="contest" class="font-s">점수: {{ problem?.score }}</span>
     <span *ngIf="assignment" class="font-s me-2">과제: {{ assignment?.title }}</span>
-    <span *ngIf="assignment" class="font-s">점수: {{ problem?.score }}</span>
-    <span class="font-s ms-auto">작성자: {{ problem?.writer.name }}</span>
+    <span *ngIf="contest" class="font-s ms-auto">작성자: {{ problem?.writer.name }}</span>
+    <span *ngIf="assignment" class="font-s ms-auto">교수명: {{ problem?.writer.name }}</span>
   </div>
 
-  <div class="flex justify-end" *ngIf="submitable">
+  <div class="flex justify-end" *ngIf="submitable && isStudent">
     <button
       type="button"
       class="no-border-radius text-white me-2"
@@ -16,7 +16,7 @@
       color="accent"
       (click)="moveListPage()"
     >
-      목록
+      문제목록
     </button>
     <button
       type="button"
@@ -52,9 +52,14 @@
     </button>
   </div>
   <div class="flex justify-end" *ngIf="isWriter">
+    <button type="button" class="no-border-radius text-white me-2" mat-flat-button color="accent" (click)="moveListPage()">
+      문제목록
+    </button>
     <button type="button" class="no-border-radius me-2" mat-flat-button color="primary" (click)="editProblem()">
       수정
     </button>
-    <button type="button" class="no-border-radius" mat-flat-button color="warn" (click)="removeProblem()">삭제</button>
+    <button type="button" class="no-border-radius" mat-flat-button color="warn" (click)="removeProblem()"
+    >삭제
+  </button>
   </div>
 </div>
