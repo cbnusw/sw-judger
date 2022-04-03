@@ -19,8 +19,8 @@ router.get(
 );
 router.post('/', ...hasRole(), controller.createAssignment);
 router.post('/:id/problem', ...hasRole(), controller.createAssignmentProblem);
-// router.post('/:id/enroll', isAuthenticated, controller.enrollAssignment);
-// router.post('/:id/unenroll', isAuthenticated, controller.unenrollAssignment);
+router.post('/:id/enroll', isAuthenticated, controller.enrollAssignment);
+router.post('/:id/unenroll', isAuthenticated, controller.unenrollAssignment);
 router.put('/:id', ...hasRole(), controller.updateAssignment);
 router.put('/:id/problem/:problemId', ...hasRole(), controller.updateAssignmentProblem);
 router.patch('/:id/problem/reorder', ...hasRole(), controller.reorderAssignmentProblems);

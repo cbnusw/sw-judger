@@ -7,6 +7,7 @@ const {
   CONTEST_NOT_FOUND,
 } = require('../../../../errors');
 const { updateFilesByUrls, removeFilesByUrls } = require('../../../../utils/file');
+
 const parentModels = {
   'Assignment': Assignment,
   'Contest': Contest,
@@ -45,7 +46,8 @@ exports.isPublished = (problem) => {
   return now.getTime() > published.getTime();
 }
 
-exports.isAssigned = (user, {parent, parentType}) => {
+exports.isAssigned = async (user, parentId, parentType) => {
+  const parent = await parentModels[parentType].findById(parentId);
   return parent[parentAssignees[parentType]].map(assignee => String(assignee)).includes(String(user.info))
 }
 
