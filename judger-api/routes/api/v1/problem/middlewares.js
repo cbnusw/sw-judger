@@ -13,7 +13,7 @@ const handleAccessProblem = asyncHanlder(async (req, res, next) => {
   if (parentType && !parentId) return next(parentNotFoundErrors[parentType]);
   if (checkOwnerOf(problem, user) || hasRole(user)) return next();
   // if (!checkTestPeriodOf(parent)) return next(IS_NOT_TEST_PERIOD);
-  if (parentType === "Contest" && !isAssigned(user, problem)) return next(IS_NOT_CONTESTANT);
+  if ((parentType === "Assignment" || parentType === "Contest") && !await isAssigned(user, parentId, parentType)) return next(IS_NOT_CONTESTANT);
   next();
 });
 
