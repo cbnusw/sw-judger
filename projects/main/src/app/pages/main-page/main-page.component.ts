@@ -16,16 +16,15 @@ export class MainPageComponent implements OnInit {
   constructor( public auth: AuthService,
                public layout: LayoutService ) {
   }
-  
+
   get isStudent(): boolean {
-    return this.me.role === "student";
+    return this.auth.me?.role === 'student';
   }
 
   get isAdmin(): boolean {
-    return (this.me.role === "admin" || this.me.role == "operator");
+    return this.auth.isOperator;
   }
 
   ngOnInit(): void {
-    this.auth.me$.subscribe(res => this.me = res);
   }
 }

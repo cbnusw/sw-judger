@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiBase } from '../../classes/api-base';
+import { IParams } from '../../models/params';
 import { IListResponse } from '../../models/response';
 import { ISubmit } from '../../models/submit';
 
@@ -14,8 +15,10 @@ export class SubmitService extends ApiBase {
     super(environment.apiHost, '/submit');
   }
 
-  getSubmits(): Observable<IListResponse<ISubmit>> {
-    return this.http.get<IListResponse<ISubmit>>(this.url`/`);
+  getSubmits(params?: IParams): Observable<IListResponse<ISubmit>> {
+    return this.http.get<IListResponse<ISubmit>>(this.url`/`, {
+      params: ApiBase.params(params),
+    });
   }
 
   getMySubmits(): Observable<IListResponse<ISubmit>> {
@@ -30,8 +33,20 @@ export class SubmitService extends ApiBase {
     return this.http.get<IListResponse<ISubmit>>(this.url`/contest/${id}/me`);
   }
   getMyAssignmentSubmits(id: string): Observable<IListResponse<ISubmit>> {
-    return this.http.get<IListResponse<ISubmit>>(this.url`/assignment/${id}/me`);
+    return this.http.get<IListResponse<ISubmit>>(
+      this.url`/assignment/${id}/me`
+    );
   }
+
+  getAssignmentSubmits(
+    id: string,
+    params?: IParams
+  ): Observable<IListResponse<ISubmit>> {
+    return this.http.get<IListResponse<ISubmit>>(this.url`/assignment/${id}`, {
+      params: ApiBase.params(params),
+    });
+  }
+
   getProblemSubmits(id: string): Observable<IListResponse<ISubmit>> {
     return this.http.get<IListResponse<ISubmit>>(this.url`/problem/${id}`);
   }

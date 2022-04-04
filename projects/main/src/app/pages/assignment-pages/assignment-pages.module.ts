@@ -27,6 +27,8 @@ import { InnerHtmlModule } from '../../directives/inner-html/inner-html.module';
 import { RestTimePipeModule } from '../../pipes/rest-time-pipe/rest-time-pipe.module';
 import { AssignmentProblemListPageComponent } from './assignment-problem-list-page/assignment-problem-list-page.component';
 import { MyAssignmentListPageComponent } from './my-assignment-list-page/my-assignment-list-page.component';
+import { AssignmentSubmitListPageComponent } from './assignment-submit-list-page/assignment-submit-list-page.component';
+import { ResultPipe } from './pipe/result.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MyAssignmentListPageComponent } from './my-assignment-list-page/my-assi
     AssignmentFormPageComponent,
     AssignmentListPageComponent,
     AssignmentProblemListPageComponent,
-    MyAssignmentListPageComponent
+    MyAssignmentListPageComponent,
+    AssignmentSubmitListPageComponent,
+    ResultPipe
   ],
   imports: [
     CommonModule,
