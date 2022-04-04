@@ -1,7 +1,7 @@
 const { Schema } = require('mongoose');
 const { createSchema } = require('../../helpers');
 const { searchPlugin } = require('../../plugins');
-const { toRegEx, toRef } = require('../../mappers');
+const { toRegEx, toRef, toId } = require('../../mappers');
 const { PROGRAMMING_LANGUAGES, SUBMIT_RESULTS } = require('../../../constants');
 const { PARENT_TYPES } = require('../../../constants');
 const resultSchema = createSchema({
@@ -73,15 +73,13 @@ schema.plugin(searchPlugin({
   populate: [
     { path: 'parentId', select: 'title' },
     { path: 'problem', select: 'title' },
-    { path: 'user', select: 'name' }
+    { path: 'user', select: 'name no'}
   ],
   mapper: {
-    title: toRegEx,
+    language: toRegEx,
     user: toRef('UserInfo', {
-      name: toRegEx
-    }),
-    problem: toRef('Problem', {
-      title: toRegEx
+      name: toRegEx,
+      no: toRegEx,
     }),
   }
 }));

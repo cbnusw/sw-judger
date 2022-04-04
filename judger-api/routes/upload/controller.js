@@ -21,7 +21,7 @@ const uploadMiddleware = asyncHandler(async (req, res, next) => {
   if (!req.file) return next(FILE_NOT_UPLOADED);
 
   const { access = [] } = req.body || req.query || {};
-
+  
   req.file = await File.create({
     url: `${HOST}/${UPLOAD_DIR}/${req.file.filename}`,
     filename: req.file.originalname,
