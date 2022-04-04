@@ -60,7 +60,7 @@ const getAssignment = asyncHandler(async (req, res, next) => {
   if (!doc) return next(ASSIGNMENT_NOT_FOUND);
 
   res.json(createResponse(res, doc));
-})
+});
 
 
 const getAssignmentProblems = asyncHandler(async (req, res, next) => {
@@ -228,11 +228,7 @@ const removeAssignment = asyncHandler(async (req, res, next) => {
 
   if (!doc) return next(ASSIGNMENT_NOT_FOUND);
 
-  const { deadline } = doc;
-  const now = new Date();
-  const start = new Date(deadline);
-  if (now.getTime() > start.getTime()) return next(AFTER_TEST_START);
-
+  if (String(doc.writer) !== String(user.info)) return next(FORBIDDEN);
   await doc.deleteOne();
 
   res.json(createResponse(res));

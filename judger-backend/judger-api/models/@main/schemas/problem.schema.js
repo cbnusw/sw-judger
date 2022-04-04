@@ -37,7 +37,7 @@ const schema = createSchema({
     required: true,
     index: true
   },
-  parent: {
+  parentId: {
     type: Schema.Types.ObjectId,
     refPath: 'parentType',
     index: true,

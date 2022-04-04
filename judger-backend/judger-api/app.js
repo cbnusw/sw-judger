@@ -27,13 +27,11 @@ app.use(compression());
 app.use(morgan(IS_DEV ? "dev" : "combined", { stream }));
 app.use(cors());
 app.use(
-  `/${UPLOAD_DIR}`,
+  `${UPLOAD_DIR}`, //${UPLOAD_DIR}로 변경할 것
   authenticate,
   asyncHandler(async (req, res, next) => {
-    const url = `${HOST}${req.originalUrl}`;
-    console.log(url);
+    const url = `${HOST}${req.originalUrl}`; //나중에 api 뺼것
     const file = await File.findOne({ url });
-    console.log(file);
     if (!file.validatePermission(req.user)) {
       return next(FORBIDDEN);
     }
@@ -41,7 +39,7 @@ app.use(
   }),
   express.static(join(__dirname, UPLOAD_DIR))
 );
-// if (staticOptions) staticOptions.forEach(options => app.use(...options));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRouter);

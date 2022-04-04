@@ -14,7 +14,7 @@ server.listen(+PORT);
 server.on('error', error);
 server.on('listening', () => {
   const addr = server.address();
-  debug(`Server running on ${addr.address}${addr.port}`);
+  debug(`Server running on ${addr.address} ${addr.port}`);
 });
 
 // initialize().then(() => debug(`initialization complete!`));

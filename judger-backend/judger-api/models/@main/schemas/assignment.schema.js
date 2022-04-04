@@ -40,6 +40,10 @@ const schema = createSchema({
     required: true,
     index: true,
   },
+  password: {
+    type: String,
+    required : true,
+  },
   testPeriod: periodSchema,
   students: [{
     type: Schema.Types.ObjectId,
@@ -55,6 +59,7 @@ schema.plugin(searchPlugin({
   populate: [{ path: 'writer' }],
   mapper: {
     title: toRegEx,
+    course: toRegEx,
     writer: toRef('UserInfo', {
       name: toRegEx
     }),

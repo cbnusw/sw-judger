@@ -5,9 +5,13 @@ const notOperatorRoles = [
   'member',   // 충북대 소속 외 회원
 ];
 
-const roles = [
+const operatorRoles = [
   'admin',
   'operator',
+];
+
+const roles = [
+  ...operatorRoles,
   ...notOperatorRoles,
 ];
 
@@ -59,6 +63,7 @@ const centers = [
 ];
 
 
+exports.OPERATOR_ROLES = operatorRoles;
 exports.NOT_OPERATOR_ROLES = notOperatorRoles;
 exports.ROLES = roles;
 exports.PERMISSIONS = permissions;
