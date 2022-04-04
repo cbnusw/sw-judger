@@ -16,7 +16,7 @@ export class AssignmentListPageComponent extends AbstractSearchDirective<IAssign
   columns = ['no', 'title', 'course', 'writer', 'testPeriod', 'createdAt'];
 
   constructor(private AssignmentService: AssignmentService) {
-    super({ limit: 10, sort: '-createtdAt' });
+    super({ limit: 10, sort: '-createdAt' }, ['title', 'course', 'writer']);
   }
 
   protected requestObservable(

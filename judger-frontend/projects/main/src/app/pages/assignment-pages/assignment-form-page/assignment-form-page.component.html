@@ -8,26 +8,29 @@
         autocomplete="off"
         formControlName="course"
         [errorStateMatcher]="errorMatcher"
-        placeholder="Ex. 응용컴퓨터프로그래밍(3)"
+        placeholder="Ex. 응용컴퓨터프로그래밍"
       />
       <mat-hint>수업명을 입력해주세요.</mat-hint>
       <mat-error *ngIf="hasError('required', 'course')"> 수업명은 필수 입력 항목입니다.</mat-error>
     </mat-form-field>
   </div>
   <div class="py-2 border-bottom">
-    <mat-form-field class="w-75">
-      <mat-label>과제명</mat-label>
-      <input
-        matInput
-        autocomplete="off"
-        formControlName="title"
-        [errorStateMatcher]="errorMatcher"
-        placeholder="Ex. 응용컴퓨터프로그래밍 2주차 과제"
-      />
-      <mat-hint>과제명을 입력해주세요.</mat-hint>
-      <mat-error *ngIf="hasError('required', 'title')"> 과제명은 필수 입력 항목입니다.</mat-error>
-    </mat-form-field>
-    <div class="flex justify-end font-s">작성자: {{ auth.me?.name }}</div>
+    <span class="flex justify-between w-75">
+      <mat-form-field class="w-70">
+        <mat-label>과제명</mat-label>
+        <input matInput autocomplete="off" formControlName="title" [errorStateMatcher]="errorMatcher"
+          placeholder="Ex. 1주차 과제" />
+        <mat-hint>과제명을 입력해주세요.</mat-hint>
+        <mat-error *ngIf="hasError('required', 'title')"> 과제명은 필수 입력 항목입니다.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-20">
+        <mat-label>비밀번호</mat-label>
+        <input matInput autocomplete="off" formControlName="password" [errorStateMatcher]="errorMatcher"
+          placeholder="Ex. 1234" />
+        <mat-hint>과제 비밀번호를 입력해주세요.</mat-hint>
+        <mat-error *ngIf="hasError('required', 'title')"> 과제 비밀번호는 필수 입력 항목입니다.</mat-error>
+      </mat-form-field>
+    </span>
   </div>
 
   <div class="mb-2">

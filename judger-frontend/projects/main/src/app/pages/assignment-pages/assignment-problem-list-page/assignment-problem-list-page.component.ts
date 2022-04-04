@@ -86,11 +86,11 @@ export class AssignmentProblemListPageComponent implements OnInit, OnDestroy {
               break;
             case ERROR_CODES.IS_NOT_TEST_PERIOD:
               alert('과제 시간이 아닙니다.');
-              this.router.navigate(['/contest/detail', this.route.snapshot.params.id]);
+              this.router.navigate(['/assignment/detail', this.route.snapshot.params.id]);
               break;
             case ERROR_CODES.IS_NOT_CONTESTANT:
-              alert('대회 참가자가 아닙니다.');
-              this.router.navigate(['/contest/detail', this.route.snapshot.params.id]);
+              alert('과제 참여자가 아닙니다.');
+              this.router.navigate(['/assignment/detail', this.route.snapshot.params.id]);
               break;
             default:
               alert((err.error && err.error.message) || err.message);

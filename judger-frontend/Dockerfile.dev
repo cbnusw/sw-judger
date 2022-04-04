@@ -12,7 +12,6 @@ RUN npm install
 
 COPY . /app/
 
-CMD ["ng","serve","--host", "0.0.0.0", "--disable-host-check"]
+CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
 
 EXPOSE 4200
-EXPOSE 4500

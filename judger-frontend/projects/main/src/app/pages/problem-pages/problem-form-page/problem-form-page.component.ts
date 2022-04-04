@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { relativeTimeThreshold } from 'moment';
 import { Observable } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { AbstractFormDirective } from '../../../classes/abstract-form.directive';
 import { ErrorMatcher } from '../../../classes/error-matcher';
+import { IAssignment } from '../../../models/assignment';
 import { IContest } from '../../../models/contest';
 import { IProblem } from '../../../models/problem';
 import { AssignmentService } from '../../../services/apis/assignment.service';
@@ -21,6 +21,7 @@ import { LayoutService } from '../../../services/layout.service';
 })
 export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, string> implements OnInit {
   contest: IContest;
+  assignment: IAssignment;
   errorMatcher = new ErrorMatcher(this.submitted$, this.submissionError$);
 
   constructor(
@@ -37,14 +38,27 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
   }
 
   cancel(): void {
-    if (this.modifying) {
-      this.contest
-        ? this.router.navigate(['/problem/detail', this.model._id], { queryParams: { contest: this.contest._id } })
-        : this.router.navigate(['/problem/detail', this.model._id]);
+    
+    if (this.modifying) {  
+      if(this.contest){
+        this.contest
+          ? this.router.navigate(['/problem/detail', this.model._id], { queryParams: { contest: this.contest._id } })
+          : this.router.navigate(['/problem/detail', this.model._id]);
+      } else if(this.assignment) {
+        this.contest
+          ? this.router.navigate(['/problem/detail', this.model._id], { queryParams: { contest: this.assignment._id } })
+          : this.router.navigate(['/problem/detail', this.model._id]);
+      }
     } else {
-      this.contest
-        ? this.router.navigate(['/contest', this.contest._id, 'problems'])
-        : this.router.navigateByUrl('/problem/list/me');
+      if(this.contest) {
+        this.contest
+          ? this.router.navigate(['/contest', this.contest._id, 'problems'])
+          : this.router.navigateByUrl('/problem/list/me');
+      } else if(this.assignment) {
+        this.contest
+          ? this.router.navigate(['/assignment', this.contest._id, 'problems'])
+          : this.router.navigateByUrl('/problem/list/me');
+      }
     }
   }
 
@@ -53,15 +67,16 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
   }
 
   protected async processAfterSubmission(s: string): Promise<void> {
-    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
-    const contestId: string = new URL(window.location.href).searchParams.get('contest');
-    if (contestId) {
-      await this.router.navigate(['/contest', contestId, 'problems']);
-    } else if (assignmentId) {
-      await this.router.navigate(['/assignment', assignmentId, 'problems']);
-    } else {
-      await this.router.navigateByUrl('/problem/list');
-    }
+    let params: any;
+    this.route.queryParams.subscribe(res => { params = res; });
+    if (params.contest) {
+      await this.router.navigate(['/contest', params.contest, 'problems']);
+    } else if (params.assignment) {
+      await this.router.navigate(['/assignment', params.assignment, 'problems']);
+    } 
+    // else {
+    //   await this.router.navigateByUrl('/problem/list');
+    // }
   }
 
   protected async mapToModel(m: IProblem): Promise<IProblem> {
@@ -89,30 +104,30 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
 
   protected submitObservable(m: IProblem): Observable<string> {
     let observable: Observable<string>;
-    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
-    const contestId: string = new URL(window.location.href).searchParams.get('contest');
-    if (contestId) {
+    let params: any;
+    this.route.queryParams.subscribe(res => {params = res})
+    if (params.contest) {
       observable = this.modifying
         ? this.problemService
-            .updateProblem(this.model._id, { ...m, parentType: 'Contest', parent: this.contest._id })
-            .pipe(map(() => this.contest._id))
+            .updateProblem(this.model._id, { ...m, parentType: 'Contest', parentId: params.contest })
+          .pipe(map(() => params.contest))
         : this.problemService
-            .createProblem({ ...m, parentType: 'Contest', parent: this.contest._id })
-            .pipe(map(() => this.contest._id));
-    } else if (assignmentId) {
+          .createProblem({ ...m, parentType: 'Contest', parentId: params.contest })
+          .pipe(map(() => params.contest));
+    } else if (params.assignment) {
       observable = this.modifying
         ? this.problemService
-            .updateProblem(this.model._id, { ...m, parentType: 'Assignment', parent: assignmentId })
-            .pipe(map(() => assignmentId))
+            .updateProblem(this.model._id, { ...m, parentType: 'Assignment', parentId: params.assignment })
+          .pipe(map(() => params.assignment))
         : this.problemService
-            .createProblem({ ...m, parentType: 'Assignment', parent: assignmentId })
-            .pipe(map(() => assignmentId));
-    } else {
-      observable = this.modifying
-        ? this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id))
-        : this.problemService.createProblem(m).pipe(map((res) => res.data._id));
-    }
-
+          .createProblem({ ...m, parentType: 'Assignment', parentId: params.assignment })
+          .pipe(map(() => params.assignment));
+    } 
+    // else {
+    //   observable = this.modifying
+    //     ? this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id))
+    //     : this.problemService.createProblem(m).pipe(map((res) => res.data._id));
+    // }
     return observable;
   }
 
@@ -127,14 +142,22 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
           switchMap((id) => this.problemService.getProblem(id))
         )
         .subscribe((res) => (this.model = res.data)),
-
+      
       this.route.queryParams
         .pipe(
           map((params) => params.contest),
           filter((id) => !!id),
           switchMap((id) => this.contestService.getContest(id))
         )
-        .subscribe((res) => (this.contest = res.data))
+        .subscribe((res) => (this.contest = res.data)),
+
+      this.route.queryParams
+        .pipe(
+          map((params) => params.assignment),
+          filter((id) => !!id),
+          switchMap((id) => this.assignmentService.getAssignment(id))
+        )
+        .subscribe((res) => (this.assignment = res.data))
     );
   }
 }

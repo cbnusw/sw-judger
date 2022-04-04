@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../services/auth.service';
 import { INavMenu } from '../../models/nav-menu';
 import { MobileNavigationComponent } from '../mobile-navigation/mobile-navigation.component';
@@ -30,15 +29,10 @@ export class HeaderComponent implements OnInit {
       condition$: this.auth.isOperator$,
     },
     {
-      name: '과제 등록',
-      link: '/assignment/form',
+      name: '과제관리',
+      link: '/assignment/list/me',
       condition$: this.auth.isOperator$,
     },
-    // {
-    //   name: '문제관리',
-    //   link: '/problem/list/me',
-    //   condition$: this.auth.hasJudgePermission$,
-    // },
   ];
 
   @ViewChild(MobileNavigationComponent) mobileNav: MobileNavigationComponent;

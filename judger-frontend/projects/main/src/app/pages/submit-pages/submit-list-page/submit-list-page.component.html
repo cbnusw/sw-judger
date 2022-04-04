@@ -20,7 +20,7 @@
         style="cursor: pointer"
         mat-flat-button
         [routerLink]="['/problem/detail', problem?._id]"
-        [queryParams]="{ assignment: problem?.parent }"
+        [queryParams]="queryParams"
         >문제로 돌아가기</span
       >
     </div>

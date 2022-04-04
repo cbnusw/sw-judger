@@ -23,6 +23,12 @@ export class AssignmentService extends ApiBase {
     });
   }
 
+  searchMyAssignments(params?: IParams): Observable<IListResponse<IAssignment>> {
+    return this.http.get<IListResponse<IAssignment>>(this.url`/me`, {
+      params: ApiBase.params(params),
+    });
+  }
+
   getAssignment(id: string): Observable<IResponse<IAssignment>> {
     return this.http.get<IResponse<IAssignment>>(this.url`/${id}`);
   }
@@ -55,6 +61,14 @@ export class AssignmentService extends ApiBase {
 
   reorderAssignmentProblems(id: string, problems: IProblem[]): Observable<IResponse<undefined>> {
     return this.http.patch<IResponse<undefined>>(this.url`/${id}/problem/reorder`, { problems });
+  }
+
+  enrollAssignment(id: string): Observable<IResponse<undefined>> {
+    return this.http.post<IResponse<undefined>>(this.url`/${id}/enroll`, null);
+  }
+
+  unenrollAssignment(id: string): Observable<IResponse<undefined>> {
+    return this.http.post<IResponse<undefined>>(this.url`/${id}/unenroll`, null);
   }
 
   createAssignmentProblem(id: string, body: IProblem): Observable<IResponse<IProblem>> {

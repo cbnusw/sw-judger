@@ -2,7 +2,8 @@
   <h2 class="page-title mb-2">{{ assignment?.title }}</h2>
   <div class="flex pb-2 mb-2 border-bottom">
     <span class="font-s me-2">작성일: {{ assignment?.createdAt | date: 'yyyy.MM.dd.' }}</span>
-    <span class="font-s me-auto">작성자: {{ assignment?.writer.name }}</span>
+    <span class="font-s me-2">교수명: {{ assignment?.writer.name }}</span>
+    <span class="font-s me-auto">과목명: {{assignment?.course}}</span>
     <span class="font-s">
       과제 제출 기한:
       <span class="text-primary fw-900" *ngIf="(assignment?.testPeriod | periodRange | async) == -1">
@@ -27,15 +28,15 @@
     >
       순서변경
     </button>
-    <a
+    <button
       class="no-border-radius ms-2"
-      *ngIf="isBeforeTestPeriod"
       mat-flat-button
       routerLink="/problem/new"
       [queryParams]="{ assignment: assignment?._id }"
       color="primary"
-      >문제등록</a
-    >
+      >
+      문제등록
+      </button>
   </div>
   <div *ngIf="isWriter$ && orderableProblems" class="flex justify-end mb-2">
     <button

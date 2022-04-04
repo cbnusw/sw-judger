@@ -16,6 +16,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './problem-detail-page.component.html',
   styleUrls: ['./problem-detail-page.component.scss'],
 })
+
 export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
@@ -41,6 +42,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     return this.problem.writer._id === this.auth.me._id;
   }
 
+  get isStudent(): boolean {
+    if(this.auth.me.role === "student") return true;
+    else return false;
+  }
+
   get submitable(): boolean {
     const now = new Date();
 
@@ -55,8 +61,12 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       return start.getTime() <= now.getTime() && now.getTime() <= end.getTime();
     }
 
-    if (this.problem) {
-      return new Date(this.problem.published).getTime() < now.getTime();
+    if (this.assignment) {
+
+      const { testPeriod } = this.assignment;
+      const start = new Date(testPeriod.start);
+      const end = new Date(testPeriod.end);
+      return start.getTime() <= now.getTime() && now.getTime() <= end.getTime();
     }
 
     return false;
@@ -127,13 +137,14 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     }
     if (this.problem) {
       queryParams.problem = this.problem._id;
-      ('pr');
     }
     this.router.navigate(['/submit/list'], { queryParams });
   }
 
   submitSource(): void {
     const queryParams: Params = {};
+    let params
+    this.route.paramMap.subscribe(res => {params = res})
     if (this.contest) {
       queryParams.contest = this.contest._id;
     }
@@ -147,9 +158,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const assignmentId: string = new URL(window.location.href).searchParams.get('assignment');
-    const contestId: string = new URL(window.location.href).searchParams.get('contest');
-    console.log(assignmentId, contestId);
+    let params: any;
+    this.route.queryParams.subscribe(res => { params = res; });
     this.subscription = this.route.params
       .pipe(
         map((params) => params.id),
@@ -157,9 +167,10 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (res) => (this.problem = res.data),
-        (err) => {}
+        (err) => (console.log(err))
       );
-    if (contestId) {
+
+    if (params.contest) {
       this.subscription.add(
         this.route.queryParams
           .pipe(
@@ -167,12 +178,13 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
             switchMap((id) => this.contestService.getContest(id))
           )
           .subscribe(
+            
             (res) => (this.contest = res.data),
             (err) => console.error(err)
           )
       );
     }
-    if (assignmentId) {
+    if (params.assignment) {
       this.subscription.add(
         this.route.queryParams
           .pipe(

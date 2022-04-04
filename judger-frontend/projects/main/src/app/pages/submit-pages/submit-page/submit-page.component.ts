@@ -110,7 +110,6 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
 
     let params: any;
     this.route.queryParams.subscribe(res => {params = res; });
-
     if (params.contest) {
       this.addSubcription(
         this.route.queryParams

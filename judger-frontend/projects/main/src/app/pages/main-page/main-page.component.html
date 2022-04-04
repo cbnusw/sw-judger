@@ -31,8 +31,13 @@
                 </span>님 로그인 중</span>
                 <button mat-button (click)="auth.logout()">로그아웃</button>
             </p>
-            <h3 class="mb-2">참가 신청한 대회</h3>
-            <sw-my-registered-contest></sw-my-registered-contest>
+            <div *ngIf="isStudent">
+                <h3 class="mb-2">참가 신청한 대회</h3>
+                <sw-my-registered-contest></sw-my-registered-contest>
+            </div>
+            <div *ngIf="isAdmin">
+                <h3 class="text-center">관리자 권한으로 로그인중입니다</h3>
+            </div>
         </ng-container>
         <ng-template #loginTamplate>
             <h3 class="mb-3">
