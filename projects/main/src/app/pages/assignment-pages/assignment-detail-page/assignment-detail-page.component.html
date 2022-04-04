@@ -21,13 +21,31 @@
   </div>
 
   <div *ngIf="isStudent | async" class="flex justify-end" style="padding-bottom: 10px">
-    <button
-      class="no-border-radius"
-      mat-flat-button
-      color="accent"
-      style="color: white"
-      [routerLink]="['/assignment', assignment?._id, 'problems']"
-    >
+
+    <button class="no-border-radius me-2"
+                  mat-flat-button
+                  color="primary"
+                  style="color: white"
+                  *ngIf="!(isContestant | async)"
+                  (click)="enroll()"
+                  >
+      <i class="las la-play"></i><span class="ms-2 mobile-d-none">과제 참여</span>
+    </button>
+
+    <button class="no-border-radius me-2"
+            mat-flat-button color="warn"
+            style="color: white"
+            (click)="unenroll()"
+            *ngIf="isContestant | async"
+            >
+      <i class="las la-play"></i><span class="ms-2 mobile-d-none">참여 취소</span>
+    </button>
+
+    <button class="no-border-radius"
+            mat-flat-button color="accent"
+            style="color: white"
+            *ngIf="isContestant | async"
+            [routerLink]="['/assignment', assignment?._id, 'problems']">
       <i class="las la-play"></i><span class="ms-2 mobile-d-none">문제 페이지</span>
     </button>
   </div>

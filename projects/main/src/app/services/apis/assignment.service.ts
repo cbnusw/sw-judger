@@ -63,6 +63,14 @@ export class AssignmentService extends ApiBase {
     return this.http.patch<IResponse<undefined>>(this.url`/${id}/problem/reorder`, { problems });
   }
 
+  enrollAssignment(id: string): Observable<IResponse<undefined>> {
+    return this.http.post<IResponse<undefined>>(this.url`/${id}/enroll`, null);
+  }
+
+  unenrollAssignment(id: string): Observable<IResponse<undefined>> {
+    return this.http.post<IResponse<undefined>>(this.url`/${id}/unenroll`, null);
+  }
+
   createAssignmentProblem(id: string, body: IProblem): Observable<IResponse<IProblem>> {
     return this.http.post<IResponse<IProblem>>(this.url`/${id}/problem`, body);
   }

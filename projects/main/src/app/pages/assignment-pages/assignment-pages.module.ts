@@ -6,6 +6,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { AssignmentDetailPageComponent } from './assignment-detail-page/assignment-detail-page.component';
@@ -29,10 +30,10 @@ import { MyAssignmentListPageComponent } from './my-assignment-list-page/my-assi
 
 @NgModule({
   declarations: [
-    AssignmentDetailPageComponent, 
-    AssignmentFormPageComponent, 
-    AssignmentListPageComponent, 
-    AssignmentProblemListPageComponent, 
+    AssignmentDetailPageComponent,
+    AssignmentFormPageComponent,
+    AssignmentListPageComponent,
+    AssignmentProblemListPageComponent,
     MyAssignmentListPageComponent
   ],
   imports: [
@@ -63,7 +64,8 @@ import { MyAssignmentListPageComponent } from './my-assignment-list-page/my-assi
     CKEditorModule,
     InnerHtmlModule,
     RestTimePipeModule,
-    DragDropModule
+    DragDropModule,
+    MatDialogModule
   ],
 })
 export class AssignmentPagesModule {}

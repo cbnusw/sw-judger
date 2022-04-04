@@ -76,6 +76,7 @@ export class AssignmentFormPageComponent
       title: [null, [Validators.required]],
       course: [null, [Validators.required]],
       content: [null, [Validators.required]],
+      password: [null, [Validators.required]],
       testPeriod: [
         null,
         [
