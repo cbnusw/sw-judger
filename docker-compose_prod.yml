@@ -31,8 +31,8 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       
-      KAFKA_CREATE_TOPICS: "swjudge-submit:4:1,\
-                            swjudge-result:4:1"
+      KAFKA_CREATE_TOPICS: "swjudge-submit:6:1,\
+                            swjudge-result:6:1"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
       
       KAFKA_HEAP_OPTS: "-Xms8g -Xmx16g"
@@ -162,6 +162,46 @@ services:
 
 
   judger5:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+
+  judger6:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile
+    env_file:
+      - ./judger-backend/judger/.env
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
+    volumes:
+      - /uploads:/source
+      - /uploads:/io
+    
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+
+  judger7:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
