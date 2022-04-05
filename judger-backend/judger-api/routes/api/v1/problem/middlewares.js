@@ -20,14 +20,18 @@ const handleAccessProblem = asyncHanlder(async (req, res, next) => {
     if (!isPublished(problem)) {
       if (!checkTestPeriodOf(parentId)) return next(IS_NOT_TEST_PERIOD);
       if (
-        (parentType === "Assignment" || parentType === "Contest") && !(await isAssigned(user, parentId, parentType)))
-          return next(IS_NOT_CONTESTANT);
-      }
-  } else if (!problem.published)
+      (parentType === "Assignment" || parentType === "Contest") &&
+      !(await isAssigned(user, parentId, parentType))
+        ) return next(IS_NOT_CONTESTANT);
+    }
+  } else if (!problem.published) {
     if (!checkTestPeriodOf(parentId)) return next(IS_NOT_TEST_PERIOD);
-  if (
-    (parentType === "Assignment" || parentType === "Contest") &&!(await isAssigned(user, parentId, parentType)))
+    if (
+      (parentType === "Assignment" || parentType === "Contest") &&
+      !(await isAssigned(user, parentId, parentType))
+    )
       return next(IS_NOT_CONTESTANT);
+  }
   next();
 });
 
