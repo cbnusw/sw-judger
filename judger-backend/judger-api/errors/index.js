@@ -36,6 +36,7 @@ const errors = {
   NOT_FOUND: [404, '찾을 수 없는 요청입니다.'],
   PROBLEM_NOT_FOUND: [404, '찾을 수 없는 문제입니다.'],
   SUBMIT_NOT_FOUND: [404, '찾을 수 없는 채점결과입니다.'],
+  RESULT_NOT_FOUND: [404, '찾을 수 없는 결과입니다.'],
   SERVER_ERROR: [500, '서버 에러.'],
 };
 

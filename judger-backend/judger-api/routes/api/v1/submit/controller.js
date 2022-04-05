@@ -1,12 +1,37 @@
 const asyncHandler = require("express-async-handler");
-const { Submit, UserInfo, Assignment } = require("../../../../models");
-const { FORBIDDEN } = require('../../../../errors')
+const { Submit, UserInfo, Assignment, Contest } = require("../../../../models");
+const { 
+  FORBIDDEN,
+  SUBMIT_NOT_FOUND,
+  RESULT_NOT_FOUND
+ } = require('../../../../errors')
 const { createResponse } = require("../../../../utils/response");
 
 const getSubmits = asyncHandler(async (req, res, next) => {
   const documents = await Submit.search(query);
   res.json(createResponse(res, documents));
 });
+
+const getSubmit = asyncHandler(async (req, res) =>{
+  const { params: { id }, user} = req;
+  let varifyDoc;
+  const exSubmit = await Submit.findById(id)
+    .populate({path:'parent', select: '-password', populate: {path: 'writer', select: 'name'}})
+    .populate({path:'problem'});
+  if(!exSubmit) throw SUBMIT_NOT_FOUND;
+  if(exSubmit.parentType === "Assignment") varifyDoc = await Assignment.findById(exSubmit.parent);
+  else if(exSubmit.parentType === "Contest") varifyDoc = await Contest.findById(exSubmit.parent);
+  else throw RESULT_NOT_FOUND
+  switch(user.info.toString()) {
+    case(varifyDoc.writer.toString()):
+    break;
+    case(exSubmit.user.toString()):
+    break;
+    default:
+      throw FORBIDDEN
+  };
+  res.json(createResponse(res, exSubmit));
+})
 
 const getMySubmits = asyncHandler(async (req, res, next) => {
   const { user } = req;
@@ -86,6 +111,7 @@ const getMyProblemSubmits = asyncHandler(async (req, res, next) => {
 });
 
 exports.getSubmits = getSubmits;
+exports.getSubmit = getSubmit;
 exports.getMySubmits = getMySubmits;
 exports.getContestSubmits = getContestSubmits;
 exports.getMyContestSubmits = getMyContestSubmits;
