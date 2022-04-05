@@ -29,35 +29,16 @@ export class AssignmentDetailPageComponent implements OnInit{
     private assignmentService: AssignmentService,
   ) {}
 
-  get isWriter$(): Observable<boolean> {
-    return this.auth.me$.pipe(
-      map((me) => {
-        if (me && this.assignment) {
-          return this.assignment.writer._id === me._id;
-        }
-        return false;
-      })
-    );
+  get isWriter$(): boolean {
+    return this.assignment?.writer._id === this.auth.me?._id;
   }
 
-  get isStudent(): Observable<boolean> {
-    return this.auth.me$.pipe(
-      map((me) => {
-        if(me.role === "student") return true;
-        else return false;
-      })
-    );
+  get isStudent(): boolean {
+    return (this.auth.me?.role === "student");
   }
 
-  get isContestant(): Observable<boolean> {
-    return this.auth.me$.pipe(
-      map(me => {
-        if (me && this.assignment) {
-          return this.assignment.students.map(student => student._id).includes(me._id)
-        }
-        return false;
-      })
-    );
+  get isContestant(): boolean {
+      return this.assignment?.students.map(student => student._id).includes(this.auth.me?._id)
   }
 
   get isBeforeTestPeriod(): boolean {
@@ -167,7 +148,7 @@ export class AssignmentDetailPageComponent implements OnInit{
         (res) => {
           this.assignment = res.data
           this.auth.me$.subscribe(res => {
-            switch(res._id) {
+            switch(res?._id) {
               case this.assignment.writer._id:
                 this.pwInput = this.assignment.password;
                 break;

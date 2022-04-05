@@ -8,14 +8,15 @@ import { FileModule } from '../../directives/file/file.module';
 import { PeriodPipeModule } from '../../pipes/period-pipe/period-pipe.module';
 import { RestTimePipeModule } from '../../pipes/rest-time-pipe/rest-time-pipe.module';
 import { SubmitResultPipeModule } from '../../pipes/submit-result-pipe/submit-result-pipe.module';
-
+import { InnerHtmlModule } from '../../directives/inner-html/inner-html.module';
 import { SubmitPagesRoutingModule } from './submit-pages-routing.module';
 import { SubmitListPageComponent } from './submit-list-page/submit-list-page.component';
 import { SubmitPageComponent } from './submit-page/submit-page.component';
+import { SubmitDetailPageComponent } from './submit-detail-page/submit-detail-page.component';
 
 
 @NgModule({
-  declarations: [SubmitListPageComponent, SubmitPageComponent],
+  declarations: [SubmitListPageComponent, SubmitPageComponent, SubmitDetailPageComponent],
   imports: [
     CommonModule,
     SubmitPagesRoutingModule,
@@ -26,7 +27,8 @@ import { SubmitPageComponent } from './submit-page/submit-page.component';
     FileModule,
     PeriodPipeModule,
     RestTimePipeModule,
-    SubmitResultPipeModule
+    SubmitResultPipeModule,
+    InnerHtmlModule,
   ]
 })
 export class SubmitPagesModule { }

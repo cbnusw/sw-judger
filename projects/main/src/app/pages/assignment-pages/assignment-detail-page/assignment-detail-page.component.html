@@ -20,13 +20,13 @@
     <div class="border-box" [swInnerHtml]="assignment?.content"></div>
   </div>
 
-  <div *ngIf="isStudent | async" class="flex justify-end" style="padding-bottom: 10px">
+  <div *ngIf="isStudent" class="flex justify-end" style="padding-bottom: 10px">
 
     <button class="no-border-radius"
                   mat-flat-button
                   color="primary"
                   style="color: white"
-                  *ngIf="!(isContestant | async)"
+                  *ngIf="!isContestant"
                   (click)="enroll()"
                   >
       <i class="las la-play"></i><span class="ms-2 mobile-d-none">과제 참여</span>
@@ -36,7 +36,7 @@
             mat-flat-button color="warn"
             style="color: white"
             (click)="unenroll()"
-            *ngIf="isContestant | async"
+            *ngIf="isContestant"
             >
       <i class="las la-play"></i><span class="ms-2 mobile-d-none">참여 취소</span>
     </button>
@@ -44,13 +44,13 @@
     <button class="no-border-radius"
             mat-flat-button color="accent"
             style="color: white"
-            *ngIf="isContestant | async"
+            *ngIf="isContestant"
             [routerLink]="['/assignment', assignment?._id, 'problems']">
       <i class="las la-play"></i><span class="ms-2 mobile-d-none">문제 페이지</span>
     </button>
   </div>
 
-  <div *ngIf="isWriter$ | async" class="flex justify-end">
+  <div *ngIf="isWriter$" class="flex justify-end">
     <button
       class="text-white me-2 no-border-radius"
       mat-flat-button

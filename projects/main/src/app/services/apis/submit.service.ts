@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiBase } from '../../classes/api-base';
 import { IParams } from '../../models/params';
-import { IListResponse } from '../../models/response';
+import { IListResponse, IResponse } from '../../models/response';
 import { ISubmit } from '../../models/submit';
 
 @Injectable({
@@ -19,6 +19,10 @@ export class SubmitService extends ApiBase {
     return this.http.get<IListResponse<ISubmit>>(this.url`/`, {
       params: ApiBase.params(params),
     });
+  }
+
+  getSubmit(id: string): Observable<IResponse<ISubmit>> {
+    return this.http.get<IResponse<ISubmit>>(this.url`/${id}`);
   }
 
   getMySubmits(): Observable<IListResponse<ISubmit>> {

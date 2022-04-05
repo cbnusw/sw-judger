@@ -150,7 +150,6 @@ export abstract class AbstractFormDirective<M, S> implements OnInit, OnDestroy {
   }
 
   protected async processAfterSubmission(s: S): Promise<void> {
-    console.log(s);
     this.reset();
   }
 

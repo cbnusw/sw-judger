@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
       link: '/contest/list',
     },
     {
-      name: '과제',
+      name: '교과목',
       link: '/assignment/list',
     },
     {
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
       condition$: this.auth.isOperator$,
     },
     {
-      name: '과제관리',
+      name: '교과목관리',
       link: '/assignment/list/me',
       condition$: this.auth.isOperator$,
     },
