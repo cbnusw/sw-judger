@@ -11,10 +11,10 @@
         <td mat-cell *matCellDef="let row; let i = index">{{ getNo(i) }}</td>
       </ng-container>
 
-      <!-- <ng-container matColumnDef="content">
-        <th mat-header-cell *matHeaderCellDef>대회 혹은 과제명</th>
-        <td mat-cell *matCellDef="let row">{{ row.parent.title }}</td>
-      </ng-container> -->
+      <ng-container matColumnDef="contest">
+        <th mat-header-cell *matHeaderCellDef>대회명</th>
+        <td mat-cell *matCellDef="let row">{{ row.parentId.title }}</td>
+      </ng-container>
 
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>문제명</th>
@@ -28,7 +28,7 @@
 
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>등록일</th>
-        <td mat-cell *matCellDef="let row">{{ row.createdAt | date: 'yyyy.MM.dd.' }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.createdAt | date: 'yyyy년 MM월 dd일' }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
@@ -36,7 +36,6 @@
         mat-row
         *matRowDef="let row; columns: columns"
         [routerLink]="['/problem/detail', row._id]"
-        [queryParams]="{ contest: row.contest._id }"
         class="cursor pointer"
       ></tr>
 

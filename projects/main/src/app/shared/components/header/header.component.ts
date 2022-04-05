@@ -33,6 +33,10 @@ export class HeaderComponent implements OnInit {
       link: '/assignment/list/me',
       condition$: this.auth.isOperator$,
     },
+    {
+      name: '공지사항',
+      link: '/notice',
+    }
   ];
 
   @ViewChild(MobileNavigationComponent) mobileNav: MobileNavigationComponent;
