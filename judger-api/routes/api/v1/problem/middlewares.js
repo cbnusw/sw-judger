@@ -16,7 +16,7 @@ const handleAccessProblem = asyncHanlder(async (req, res, next) => {
   const { parentId, parentType } = problem;
   if (parentType && !parentId) return next(parentNotFoundErrors[parentType]);
   if (checkOwnerOf(problem, user) || hasRole(user)) return next();
-  if (problem.published) {
+  if (problem.published && problem.parentType === "Contest") {
     if (!isPublished(problem)) {
       if (!checkTestPeriodOf(parentId)) return next(IS_NOT_TEST_PERIOD);
       if (
