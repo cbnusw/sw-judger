@@ -42,6 +42,7 @@ exports.producingSubmit = (producer, submitId) => {
 };
 
 exports.isPublished = (problem) => {
+  const now = new Date();
   const published = new Date(problem.published);
   return now.getTime() > published.getTime();
 }
