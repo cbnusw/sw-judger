@@ -81,6 +81,7 @@ schema.plugin(searchPlugin({
       name: toRegEx,
       no: toRegEx,
     }),
+    'result.type': toRegEx
   }
 }));
 
