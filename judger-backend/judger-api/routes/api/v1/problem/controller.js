@@ -23,9 +23,11 @@ const {
 const getProblems = asyncHandler(async (req, res, next) => {
   const { query } = req;
   const now = Date.now()
-  const documents = await Problem.search(query, {
-    $and: [{ published: { $ne: null } }, { published: { $lte: now } }]
-  }, [{ path: 'parentId'}, { path: 'writer'}]);
+  const documents = await Problem.search(
+    query,
+    {$and: [{ published: { $ne: null } }, { published: { $lte: now } }]},
+    [{ path: "parentId"}, { path: "writer" }]
+  );
   res.json(createResponse(res, documents));
 });
 
@@ -33,7 +35,9 @@ const getProblem = asyncHandler(async (req, res, next) => {
   const { params: { id }, user } = req;
   const problem = await Problem.findById(id);
   if (!problem) return next(PROBLEM_NOT_FOUND);
-  const query = Problem.findById(id).populate({ path: 'writer' });
+  const query = Problem.findById(id)
+    .populate({ path: 'writer' })
+    .populate({ path: 'parentId' });
   if (hasRole(user) || checkOwnerOf(problem, user)){
     query.populate({ path: 'ioSet.inFile' })
       .populate({ path: 'ioSet.outFile' });
