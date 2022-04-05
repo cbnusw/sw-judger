@@ -3,8 +3,11 @@
   <div class="flex pb-2 mb-2 border-bottom">
     <span *ngIf="contest" class="font-s me-2">대회: {{ contest?.title }}</span>
     <span *ngIf="contest" class="font-s">점수: {{ problem?.score }}</span>
+    <span *ngIf="!contest && !assignment" class="font-s me-2">대회: {{problem?.parentId?.title}}</span>
+    <span *ngIf="!contest && !assignment" class="font-s">점수: {{problem?.score}}</span>
     <span *ngIf="assignment" class="font-s me-2">과제: {{ assignment?.title }}</span>
     <span *ngIf="contest" class="font-s ms-auto">작성자: {{ problem?.writer.name }}</span>
+    <span *ngIf="!contest && !assignment" class="font-s ms-auto">작성자: {{problem?.writer.name}}</span>
     <span *ngIf="assignment" class="font-s ms-auto">교수명: {{ problem?.writer.name }}</span>
   </div>
 

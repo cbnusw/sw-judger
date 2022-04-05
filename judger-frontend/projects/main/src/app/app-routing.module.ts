@@ -45,6 +45,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'notice',
+    loadChildren: () =>
+      import('./pages/notice-pages/notice-pages.module').then(
+        (m) => m.NoticePagesModule
+      ),
+  },
+  {
     path: 'account',
     canActivate: [NotAuthGuard],
     loadChildren: () =>

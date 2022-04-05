@@ -13,7 +13,7 @@ import { ProblemService } from '../../../services/apis/problem.service';
   styleUrls: ['./problem-list-page.component.scss'],
 })
 export class ProblemListPageComponent extends AbstractSearchDirective<IProblem> {
-  columns = ['no', 'title', 'writer', 'createdAt'];
+  columns = ['no', 'contest', 'title', 'writer', 'createdAt'];
 
   constructor(private problemService: ProblemService) {
     super({ limit: 10, sort: '-createdAt' });
