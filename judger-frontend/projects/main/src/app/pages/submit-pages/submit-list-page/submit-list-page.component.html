@@ -39,14 +39,13 @@
   <div class="flex p-2 border" *ngIf="!submits">
     <span>제출 내역이 없습니다.</span>
   </div>
-  <div class="flex p-2 border" *ngFor="let submit of submits">
+  <div class="flex p-2 border cursor pointer"
+      [routerLink]="['/submit/detail', submit._id]"
+      *ngFor="let submit of submits">
     <span *ngIf="!submit.result" class="text-accent me-auto">채점 중</span>
     <ng-container *ngIf="submit.result">
-      <span
-        class="me-2"
-        [class.text-warn]="submit.result.type !== 'done'"
-        [class.text-primary]="submit.result.type === 'done'"
-      >
+      <span class="me-2" [class.text-warn]="submit.result.type !== 'done'"
+        [class.text-primary]="submit.result.type === 'done'">
         {{ submit.result.type | submitResultType }}
       </span>
       <span class="me-2"> {{ submit.result.time }}ms </span>

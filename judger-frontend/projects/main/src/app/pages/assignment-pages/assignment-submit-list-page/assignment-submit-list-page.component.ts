@@ -12,12 +12,14 @@ import { ERROR_CODES } from '../../../constants/error-codes';
 import { AssignmentService } from '../../../services/apis/assignment.service';
 import * as XLSX from 'xlsx';
 import { IAssignment } from '../../../models/assignment';
-import { formatDate } from '@angular/common';
+import { formatDate, formatNumber, Location } from '@angular/common';
+import { ResultPipe } from '../pipe/result.pipe';
 
 @Component({
   selector: 'sw-assignment-submit-list-page',
   templateUrl: './assignment-submit-list-page.component.html',
   styleUrls: ['./assignment-submit-list-page.component.scss'],
+  providers: [ResultPipe]
 })
 export class AssignmentSubmitListPageComponent extends AbstractSearchDirective<ISubmit> {
   isRender: boolean = false;
@@ -27,6 +29,7 @@ export class AssignmentSubmitListPageComponent extends AbstractSearchDirective<I
     'no',
     'number',
     'student',
+    'title',
     'language',
     'memory',
     'time',
@@ -41,9 +44,11 @@ export class AssignmentSubmitListPageComponent extends AbstractSearchDirective<I
     private submitService: SubmitService,
     private auth: AuthService,
     private assignmentService: AssignmentService,
+    private result: ResultPipe,
+    private location: Location,
     injector: Injector
   ) {
-    super({ limit: 10, sort: '-createdAt' }, ['no', 'name', 'language']);
+    super({ limit: 10, sort: '-createdAt' }, ['user', 'language']);
     this.activateRoute = injector.get(ActivatedRoute);
     this.anchorEle = document.createElement('a');
   }
@@ -62,8 +67,12 @@ export class AssignmentSubmitListPageComponent extends AbstractSearchDirective<I
       return;
     }
 
+    const yes = confirm('제출목록을 엑셀파일로 다운로드합니다.')
+
+    if(!yes) return;
+
     const getExcelData = () => {
-      const header = ['#', '학번', '이름', '언어', '메모리', '실행시간', '실행결과', '제출시간'];
+      const header = ['#', '학번', '이름', '문제명', '언어', '메모리', '실행시간', '실행결과', '제출시간'];
 
       return [
         header,
@@ -71,10 +80,11 @@ export class AssignmentSubmitListPageComponent extends AbstractSearchDirective<I
           i + 1,
           doc.user.no,
           doc.user.name,
+          doc.problem.title,
           doc.language,
-          doc.result.memory / (1024 * 1024) + 'MB',
+          formatNumber(doc.result.memory / (1024 * 1024), 'en-US', '1.0-3') + 'MB',
           doc.result.time + 'ms',
-          doc.result.type,
+          this.result.transform(doc.result.type),
           formatDate(doc.createdAt, 'yyyy/MM/dd, hh:mm a', 'en-US', '+0900'),
         ]),
       ];

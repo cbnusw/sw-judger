@@ -12,8 +12,8 @@
         <input matInput [formControl]="keywordControl" autocomplete="off" placeholder="Ex. 2020001001" />
         <mat-hint>학생명, 학생번호, 언어로 검색</mat-hint>
       </mat-form-field>
-      <!-- <div class="ms-auto">
-        <button
+      <div class="ms-auto">
+        <!-- <button
           (click)="getDone()"
           type="button"
           mat-flat-button
@@ -21,8 +21,8 @@
           >
           <span *ngIf="!done">정답만 가져오기</span>
           <span *ngIf="done">전체 가져오기</span>
-        </button>
-      </div> -->
+        </button> -->
+      </div>
       <div class="ms-auto">
         <button (click)="downloadExcel()" type="button" mat-flat-button color="primary">
           제출목록 다운로드
@@ -44,6 +44,11 @@
       <ng-container matColumnDef="student">
         <th mat-header-cell *matHeaderCellDef>이름</th>
         <td mat-cell *matCellDef="let row">{{ row.user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>문제명</th>
+        <td mat-cell *matCellDef="let row">{{ row.problem.title }}</td>
       </ng-container>
 
       <ng-container matColumnDef="language">
@@ -80,7 +85,7 @@
       <tr
       mat-row
       *matRowDef="let row; columns: columns"
-      [routerLink]="['', row._id]"
+      [routerLink]="['/submit/detail', row._id]"
       class="cursor pointer">
     </tr>
       <tr class="mat-row empty-row" *matNoDataRow>

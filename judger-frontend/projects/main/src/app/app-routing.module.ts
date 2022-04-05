@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/not-auth.guard';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'submit',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/submit-pages/submit-pages.module').then(
         (m) => m.SubmitPagesModule
@@ -36,6 +38,7 @@ const routes: Routes = [
   },
   {
     path: 'scoreboard',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/score-board-pages/score-board-pages.module').then(
         (m) => m.ScoreBoardPagesModule
