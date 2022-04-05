@@ -51,7 +51,7 @@ schema.methods.validatePermission = async function (user) {
 
   // 파일이 문제 셋과 관련된 파일일 경우
   if (this.refModel === 'Problem') {
-    const { Contest, Problem } = require('../');
+    const { Contest, Problem, Assignment } = require('../');
     const problem = await Problem.findById(this.ref);
 
     if (!problem) return false;
@@ -60,8 +60,8 @@ schema.methods.validatePermission = async function (user) {
     if (problem.ioSet.map(io => io.inFile).includes(this.url)) return false;
     if (problem.ioSet.map(io => io.outFile).includes(this.url)) return false;
 
-    if (problem.contest) {
-      const contest = await Contest.findById(problem.contest);
+    if (problem.parentType === "Contest") {
+      const contest = await Contest.findById(problem.parentId);
       if (!contest) return false;
 
       if (!userInfo) return false;
@@ -73,17 +73,31 @@ schema.methods.validatePermission = async function (user) {
         end = new Date(end);
         return now.getTime() >= start.getTime() && now.getTime() <= end.getTime();
       }
+    }   
+  
+    if (problem.parentType === "Assignment") {
+      const assignment = await Assignment.findById(problem.parentId);
+      if (!assignment) return false;
+
+      if (!userInfo) return false;
+      if (!assignment.students.map((id) => String(id)).includes(String(userInfo._id))) return false;
+      if (assignment.testPeriod) {
+        let { start, end } = assignment.testPeriod;
+        const now = new Date();
+        start = new Date(start);
+        end = new Date(end);
+        return (
+          now.getTime() >= start.getTime() && now.getTime() <= end.getTime()
+        );
+      }
     }
 
     if (problem.published) {
       const published = new Date(problem.published);
       return now.getTime() > published.getTime();
     }
-
     return false;
-
   }
-
   return true;
 };
 
