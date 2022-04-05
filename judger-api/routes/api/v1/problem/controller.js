@@ -21,11 +21,11 @@ const {
 } = require('./service');
 
 const getProblems = asyncHandler(async (req, res, next) => {
-  const { query, query : { parentType }} = req;
+  const { query } = req;
   const now = Date.now()
   const documents = await Problem.search(query, {
-    $and: [{ published: { $ne: null } }, { published: { $lte: now } }, { parentType: parentType }]
-  }, [{ path: 'parentId'}])
+    $and: [{ published: { $ne: null } }, { published: { $lte: now } }]
+  }, [{ path: 'parentId'}, { path: 'writer'}]);
   res.json(createResponse(res, documents));
 });
 

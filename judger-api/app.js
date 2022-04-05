@@ -27,10 +27,10 @@ app.use(compression());
 app.use(morgan(IS_DEV ? "dev" : "combined", { stream }));
 app.use(cors());
 app.use(
-  `${UPLOAD_DIR}`, //${UPLOAD_DIR}로 변경할 것
+  `/${UPLOAD_DIR}`,
   authenticate,
   asyncHandler(async (req, res, next) => {
-    const url = `${HOST}${req.originalUrl}`; //나중에 api 뺼것
+    const url = `${HOST}${req.originalUrl}`;
     const file = await File.findOne({ url });
     if (!file.validatePermission(req.user)) {
       return next(FORBIDDEN);
