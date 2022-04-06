@@ -181,7 +181,10 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (res) => (this.problem = res.data),
-        (err) => console.log(err)
+        (err) => {
+          alert(`오류가 발생했습니다.\n${err.error}`)
+          this.router.navigateByUrl('/')
+        }
       );
 
     if (params.contest) {
