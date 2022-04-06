@@ -10,12 +10,28 @@ the Kotlin IntelliJ IDEA plugin:
  - Path: compiler/backend/src/org/jetbrains/kotlin/codegen/inline/MaxStackFrameSizeAndLocalsCalculator.java
      - License: BSD ([license/third_party/asm_license.txt][asm])
      - Origin: Derived from ASM: a very small and fast Java bytecode manipulation framework, Copyright (c) 2000-2011 INRIA, France Telecom
-
+   
  - Path: compiler/backend/src/org/jetbrains/kotlin/codegen/inline/MaxLocalsCalculator.java
      - License: BSD ([license/third_party/asm_license.txt][asm])
      - Origin: Derived from ASM: a very small and fast Java bytecode manipulation framework, Copyright (c) 2000-2011 INRIA, France Telecom
 
- - Path: compiler/backend/src/org/jetbrains/kotlin/codegen/optimization/common/MethodAnalyzer.kt
+ - Path: compiler/backend/src/org/jetbrains/kotlin/codegen/optimization/common/FastMethodAnalyzer.kt
+     - License: BSD ([license/third_party/asm_license.txt][asm])
+     - Origin: Derived from ASM: a very small and fast Java bytecode manipulation framework, Copyright (c) 2000-2011 INRIA, France Telecom
+
+ - Path: compiler/backend/src/org/jetbrains/kotlin/codegen/optimization/common/InstructionLivenessAnalyzer.kt
+     - License: BSD ([license/third_party/asm_license.txt][asm])
+     - Origin: Derived from ASM: a very small and fast Java bytecode manipulation framework, Copyright (c) 2000-2011 INRIA, France Telecom 
+
+ - Path: compiler/backend/src/org/jetbrains/kotlin/codegen/optimization/common/ControlFlowGraph.kt
+     - License: BSD ([license/third_party/asm_license.txt][asm])
+     - Origin: Derived from ASM: a very small and fast Java bytecode manipulation framework, Copyright (c) 2000-2011 INRIA, France Telecom
+
+ - Path: compiler/backend/src/org/jetbrains/kotlin/codegen/optimization/fixStack/FastStackAnalyzer.kt
+     - License: BSD ([license/third_party/asm_license.txt][asm])
+     - Origin: Derived from ASM: a very small and fast Java bytecode manipulation framework, Copyright (c) 2000-2011 INRIA, France Telecom
+
+ - Path: compiler/backend/src/org/jetbrains/kotlin/codegen/optimization/temporaryVals/FastStoreLoadAnalyzer.kt
      - License: BSD ([license/third_party/asm_license.txt][asm])
      - Origin: Derived from ASM: a very small and fast Java bytecode manipulation framework, Copyright (c) 2000-2011 INRIA, France Telecom
 
@@ -65,6 +81,10 @@ the Kotlin IntelliJ IDEA plugin:
       - License: Apache 2 ([license/third_party/gwt_license.txt][gwt])
       - Origin: Derived from GWT, (C) 2007-08 Google Inc.
 
+ - Path: libraries/stdlib/native-wasm/src/kotlin/collections
+      - License: Apache 2 ([license/third_party/gwt_license.txt][gwt])
+      - Origin: Derived from GWT, (C) 2007-08 Google Inc.
+
  - Path: libraries/stdlib/js-v1/src/js/long.js
       - License: Apache 2 ([license/third_party/closure-compiler_LICENSE.txt][closure-compiler])
       - Origin: Google Closure Library, Copyright 2009 The Closure Library Authors
@@ -72,6 +92,10 @@ the Kotlin IntelliJ IDEA plugin:
  - Path: libraries/stdlib/js-v1/src/js/polyfills.js
       - License: Boost Software License 1.0 ([license/third_party/boost_LICENSE.txt][boost])
       - Origin: Derived from boost special math functions, Copyright Eric Ford & Hubert Holin 2001.
+
+ - Path: libraries/stdlib/wasm/internal/kotlin/wasm/internal/Number2String.kt
+      - License: Apache 2 ([third_party/assemblyscript_license.txt][assemblyscript])
+      - Origin: Derived from assemblyscript standard library
 
  - Path: plugins/lint/android-annotations
       - License: Apache 2 ([license/third_party/aosp_license.txt][aosp])
@@ -96,6 +120,10 @@ the Kotlin IntelliJ IDEA plugin:
  - Path: compiler/tests-common/tests/org/jetbrains/kotlin/codegen/ir/ComposeLikeGenerationExtension.kt
       - License: Apache 2 ([license/third_party/aosp_license.txt][aosp])
       - Origin: Derived from JetPack Compose compiler plugin code, Copyright 2019 The Android Open Source Project
+
+ - Path: libraries/stdlib/wasm/src/kotlin/text/FloatingPointConverter.kt
+   - License: MIT ([license/third_party/asmble_license.txt][asmble])
+   - Origin: Copyright (C) 2018 Chad Retz
 
 ## Kotlin Test Data
 
@@ -249,3 +277,4 @@ any distributions of the compiler, libraries or plugin:
 [rhino]: third_party/rhino_LICENSE.txt
 [rxjava]: third_party/testdata/rxjava_license.txt
 [spring]: third_party/testdata/spring_license.txt
+[assemblyscript]: third_party/assemblyscript_license.txt

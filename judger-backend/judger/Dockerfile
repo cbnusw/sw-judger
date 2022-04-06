@@ -30,8 +30,11 @@ COPY . .
 RUN gcc -shared -fPIC -o unbuffer.so unbuffer.c
 RUN mkdir -p /kotlin
 ADD kotlin /kotlin
+RUN chmod 777 -R /kotlin
 RUN mkdir -p /java_submit
+RUN chmod 777 -R /java_submit
 RUN mkdir -p /kotlin_submit
+RUN chmod 777 -R /kotlin_submit
 EXPOSE 5000
 EXPOSE 9092
 CMD ["npm", "run", "start"]
