@@ -41,6 +41,7 @@ const programmingLanguages = [
   'python3',
   'kotlin',
   'go',
+  'javascript'
 ];
 
 const submitResults = [
