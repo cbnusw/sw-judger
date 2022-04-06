@@ -74,6 +74,15 @@
         <button type="button"
                 class="no-border-radius text-primary"
                 mat-flat-button
-                (click)="moveScoreBoard()">스코어보드</button>
+                (click)="moveScoreBoard()"
+                >
+                스코어보드
+              </button>
+         <button type="button"
+                 mat-flat-button
+                 color="primary"
+                 [routerLink]="['/contest/detail', contest?._id]">
+                뒤로가기
+              </button>
     </div>
 </div>
