@@ -10,6 +10,11 @@
     "tool:scoreboard": "node tools/scoreboard.js",
     "clear:log": "rimraf logs"
   },
+    "nodemonConfig": {
+    "ignore": [
+      "**/uploads/*"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

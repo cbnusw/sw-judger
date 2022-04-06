@@ -40,11 +40,25 @@ const compile_java = function (name, originalName) {
 
 const compile_kotlin = function (name, originalName) {
   try {
-    execSync(`cp ${path.join(CODE_BASE_PATH,name)} ${path.join('/kotlin_submit', originalName)} && /kotlin/bin/kotlinc-jvm ${path.join('/kotlin_submit', originalName)} -include-runtime -d ${path.join('/kotlin_submit',originalName.substring(0, originalName.lastIndexOf("."))+'.jar')}&& rm -rf ${path.join('/kotlin_submit', originalName)}`);
-    out_path = path.join('/kotlin_submit',originalName.substring(0, originalName.lastIndexOf("."))+'.jar');
+    execSync(
+      `cp ${path.join(CODE_BASE_PATH, name)} ${path.join(
+        "/kotlin_submit",
+        originalName
+      )} && /kotlin/bin/kotlinc-jvm ${path.join(
+        "/kotlin_submit",
+        originalName
+      )} -include-runtime -d ${path.join(
+        "/kotlin_submit",
+        originalName.substring(0, originalName.lastIndexOf(".")) + ".jar"
+      )}&& rm -rf ${path.join("/kotlin_submit", originalName)}`
+    );
+    out_path = path.join(
+      "/kotlin_submit",
+      originalName.substring(0, originalName.lastIndexOf(".")) + ".jar"
+    );
   } catch (err) {
     console.log(err);
-    out_path='null'
+    out_path = "null";
   }
   return out_path;
 };

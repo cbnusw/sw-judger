@@ -23,6 +23,5 @@ server.on('listening', () => {
 // initConsumer(app.get('io'))
 initConsumer()
 
-
 //카프카 consumer 코드
 // kafkaConsumer();
