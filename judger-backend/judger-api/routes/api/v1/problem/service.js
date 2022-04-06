@@ -55,7 +55,8 @@ exports.isAssigned = async (user, parentId, parentType) => {
 exports.checkTestPeriodOf = ({testPeriod}) => {
   const now = new Date();
   const start = new Date(testPeriod.start);
-  if (now.getTime() < start.getTime() || now.getTime() > start.getTime()) return false;
+  const end = new Date(testPeriod.end);
+  if (now.getTime() > end.getTime() || now.getTime() < start.getTime()) return false;
   return true;
 }
 
