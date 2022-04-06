@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IAssignment } from '../../../models/assignment';
 import { IContest } from '../../../models/contest';
 import { IProblem } from '../../../models/problem';
@@ -12,7 +12,6 @@ import { SubmitService } from '../../../services/apis/submit.service';
   styleUrls: ['./submit-list-page.component.scss'],
 })
 export class SubmitListPageComponent implements OnInit {
-
   contest: IContest;
   assignment: IAssignment;
   problem: IProblem;
@@ -21,18 +20,22 @@ export class SubmitListPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private problemService: ProblemService,
-    private submitService: SubmitService,
-  ) { }
+    private submitService: SubmitService
+  ) {}
+
 
   ngOnInit(): void {
     const { problem } = this.route.snapshot.queryParamMap['params'];
-    this.submitService.getMyProblemSubmits(problem).subscribe(res => { this.submits = res.data.documents });
+    this.submitService.getMyProblemSubmits(problem).subscribe((res) => {
+      this.submits = res.data.documents;
+    });
     this.problemService.getProblem(problem).subscribe((res) => {
       this.problem = res.data;
       const { parentType, parentId } = res.data;
       this.queryParams = {};
-      this.queryParams[parentType.toLowerCase()] = parentId;
+      this.queryParams[parentType.toLowerCase()] = parentId['_id'];
     });
   }
 }

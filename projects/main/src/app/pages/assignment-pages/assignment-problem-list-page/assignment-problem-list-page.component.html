@@ -60,6 +60,14 @@
       <span class="me-auto">{{ i + 1 }}) {{ problem.title }}</span>
     </a>
   </ng-container>
+  <button
+    type="button"
+    mat-flat-button
+    color="primary"
+    [routerLink]="['/assignment/detail', assignment?._id]"
+  >
+    뒤로가기
+  </button>
   <ng-template #orderingTemplete>
     <div cdkDropList (cdkDropListDropped)="drop($event)">
       <div

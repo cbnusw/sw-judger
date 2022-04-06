@@ -82,7 +82,6 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
 
   cancel(): void {
     const queryParams: Params = {};
-    console.log(this.contest, this.problem);
     if (this.contest) {
       queryParams.contest = this.contest._id;
     }

@@ -16,7 +16,6 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './problem-detail-page.component.html',
   styleUrls: ['./problem-detail-page.component.scss'],
 })
-
 export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
@@ -43,7 +42,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   }
 
   get isStudent(): boolean {
-    if(this.auth.me.role === "student") return true;
+    if (this.auth.me.role === 'student') return true;
     else return false;
   }
 
@@ -51,7 +50,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     const now = new Date();
 
     if (this.contest) {
-      if (!this.contest.contestants.some((contestant) => contestant._id === (this.auth.me && this.auth.me._id))) {
+      if (
+        !this.contest.contestants.some(
+          (contestant) => contestant._id === (this.auth.me && this.auth.me._id)
+        )
+      ) {
         return false;
       }
 
@@ -62,7 +65,6 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     }
 
     if (this.assignment) {
-
       const { testPeriod } = this.assignment;
       const start = new Date(testPeriod.start);
       const end = new Date(testPeriod.end);
@@ -88,9 +90,13 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
 
   editProblem(): void {
     if (this.contest) {
-      this.router.navigate(['/problem/edit', this.problem._id], { queryParams: { contest: this.contest._id } });
+      this.router.navigate(['/problem/edit', this.problem._id], {
+        queryParams: { contest: this.contest._id },
+      });
     } else if (this.assignment) {
-      this.router.navigate(['/problem/edit', this.problem._id], { queryParams: { assignment: this.assignment._id } });
+      this.router.navigate(['/problem/edit', this.problem._id], {
+        queryParams: { assignment: this.assignment._id },
+      });
     } else {
       this.router.navigate(['/problem/edit', this.problem._id]);
     }
@@ -108,7 +114,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
         if (this.contest) {
           this.router.navigate(['/contest', this.contest._id, 'problems']);
         } else if (this.assignment) {
-          this.router.navigate(['/assignment', this.assignment._id, 'problems']);
+          this.router.navigate([
+            '/assignment',
+            this.assignment._id,
+            'problems',
+          ]);
         } else {
           this.router.navigateByUrl('/problem/list/me');
         }
@@ -143,8 +153,10 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
 
   submitSource(): void {
     const queryParams: Params = {};
-    let params
-    this.route.paramMap.subscribe(res => {params = res})
+    let params;
+    this.route.paramMap.subscribe((res) => {
+      params = res;
+    });
     if (this.contest) {
       queryParams.contest = this.contest._id;
     }
@@ -159,7 +171,9 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     let params: any;
-    this.route.queryParams.subscribe(res => { params = res; });
+    this.route.queryParams.subscribe((res) => {
+      params = res;
+    });
     this.subscription = this.route.params
       .pipe(
         map((params) => params.id),
@@ -167,7 +181,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (res) => (this.problem = res.data),
-        (err) => (console.log(err))
+        (err) => console.log(err)
       );
 
     if (params.contest) {
@@ -178,7 +192,6 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
             switchMap((id) => this.contestService.getContest(id))
           )
           .subscribe(
-            
             (res) => (this.contest = res.data),
             (err) => console.error(err)
           )
