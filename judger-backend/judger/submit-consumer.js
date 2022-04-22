@@ -25,7 +25,7 @@ const init = async () => {
       const submitId = message.value.toString('utf-8');
       const submit = await Submit.findOne({ _id: submitId });
       console.log("시작 :::::: ", `타켓 ID: ${submitId}, 파티션: ${partition}`);
-      await judger.startJudge(submit);
+      await judger.startJudge(submitId);
       console.log("프로듀서 동작 :::::: ", `타겟 ID: ${submitId}`);
       await resultProducer.init();
       if(submit.parentType === 'Contest')await resultProducer.sendMessage(submitId);
