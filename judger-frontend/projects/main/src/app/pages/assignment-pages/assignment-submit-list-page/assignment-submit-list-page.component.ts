@@ -6,7 +6,7 @@ import { IParams } from '../../../models/params';
 import { SubmitService } from '../../../services/apis/submit.service';
 import { AuthService } from '../../../services/auth.service';
 import { Observable } from 'rxjs';
-import { IListResponse } from '../../../models/response';
+import { IListResponse, IResponse } from '../../../models/response';
 import { ActivatedRoute } from '@angular/router';
 import { ERROR_CODES } from '../../../constants/error-codes';
 import { AssignmentService } from '../../../services/apis/assignment.service';
@@ -14,6 +14,8 @@ import * as XLSX from 'xlsx';
 import { IAssignment } from '../../../models/assignment';
 import { formatDate, formatNumber, Location } from '@angular/common';
 import { ResultPipe } from '../pipe/result.pipe';
+import { async } from '@angular/core/testing';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'sw-assignment-submit-list-page',
@@ -24,7 +26,6 @@ import { ResultPipe } from '../pipe/result.pipe';
 export class AssignmentSubmitListPageComponent extends AbstractSearchDirective<ISubmit> {
   isRender: boolean = false;
   id: string;
-  // done: boolean = false;
   columns = [
     'no',
     'number',
@@ -72,64 +73,70 @@ export class AssignmentSubmitListPageComponent extends AbstractSearchDirective<I
     if(!yes) return;
 
     const getExcelData = () => {
-      const header = ['#', '학번', '이름', '문제명', '언어', '메모리', '실행시간', '실행결과', '제출시간'];
-
-      return [
-        header,
-        ...this.documents.map((doc, i) => [
-          i + 1,
-          doc.user.no,
-          doc.user.name,
-          doc.problem.title,
-          doc.language,
-          formatNumber(doc.result.memory / (1024 * 1024), 'en-US', '1.0-3') + 'MB',
-          doc.result.time + 'ms',
-          this.result.transform(doc.result.type),
-          formatDate(doc.createdAt, 'yyyy/MM/dd, hh:mm a', 'en-US', '+0900'),
-        ]),
+      const header = [
+        '#',
+        '학번',
+        '이름',
+        '문제명',
+        '언어',
+        '메모리',
+        '실행시간',
+        '실행결과',
+        '제출시간',
       ];
-    };
 
-    const excelHandler = {
-      getExcelFileName: () => `${this.assignment.course}_${this.assignment.title}_제출내역.xlsx`,
-      getSheetName: () => '제출내역',
-      getExcelData,
-      getWorksSheet: () => XLSX.utils.aoa_to_sheet(getExcelData()),
+      return this.submitService
+        .getAssignmentSubmits(this.id)
+        .pipe(
+          map((response) => [
+            header,
+            ...response.data.documents.map((doc, i) => [
+              i + 1,
+              doc.user.no,
+              doc.user.name,
+              doc.problem.title,
+              doc.language,
+              formatNumber(
+                doc.result.memory / (1024 * 1024),
+                'en-US',
+                '1.0-3'
+              ) + 'MB',
+              doc.result.time + 'ms',
+              this.result.transform(doc.result.type),
+              formatDate(
+                doc.createdAt,
+                'yyyy/MM/dd, hh:mm a',
+                'en-US',
+                '+0900'
+              ),
+            ]),
+          ])
+        );
     };
 
     const s2ab = (s: any) => {
       const buf = new ArrayBuffer(s.length);
       const view = new Uint8Array(buf);
       for (let i = 0; i < s.length; i++) {
-        // tslint:disable-next-line:no-bitwise
         view[i] = s.charCodeAt(i) & 0xff;
       }
       return buf;
     };
 
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    const ws: XLSX.WorkSheet = excelHandler.getWorksSheet();
-    XLSX.utils.book_append_sheet(wb, ws, excelHandler.getSheetName());
-    const out = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-    const blob = new Blob([s2ab(out)], {
-      type: 'application/octet-stream',
+    getExcelData().subscribe(data => {
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+      XLSX.utils.book_append_sheet(wb, ws, '제출 목록');
+      const out = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+      const blob = new Blob([s2ab(out)], {
+        type: 'application/octet-stream',
+      });
+      this.anchorEle.href = URL.createObjectURL(blob);
+      this.anchorEle.download =`${this.assignment.course}_${this.assignment.title}_제출내역.xlsx`;
+      this.anchorEle.click();
     });
-    this.anchorEle.href = URL.createObjectURL(blob);
-    this.anchorEle.download = excelHandler.getExcelFileName();
-    this.anchorEle.click();
-  }
 
-  // protected getDone(): void {
-  //   if(this.done === true) {
-  //     delete this.params.type;
-  //     this.done = false;
-  //     this.search()
-  //   } else {
-  //     this.params['type'] = 'done';
-  //     this.done = true;
-  //     this.search();
-  //   }
-  // }
+  }
 
   changePage(event: PageEvent): void {
     this.limit = event.pageSize;
@@ -142,7 +149,7 @@ export class AssignmentSubmitListPageComponent extends AbstractSearchDirective<I
     super.ngOnInit();
     this.addSubscriptions(
       this.submitService.getAssignmentSubmits(this.id).subscribe(
-        (res) => (this.isRender = true),
+        (res) => {(this.isRender = true)},
         (err) => {
           const { code } = (err && err.error) || {};
           switch (code) {
