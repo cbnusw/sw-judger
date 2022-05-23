@@ -16,7 +16,7 @@ export class ContestantsListComponent implements AfterViewInit, OnDestroy {
   private _contestants: IUserInfo[];
   private anchorEle: HTMLAnchorElement;
 
-  columns = ['no', 'name', 'department', 'email', 'phone'];
+  columns = ['no', 'name', 'university' ,'department', 'email', 'phone'];
   @Input() contestTitle: string;
   @Input() contestWriter: string;
   @ViewChild(MatSort) sort: MatSort;
@@ -49,10 +49,10 @@ export class ContestantsListComponent implements AfterViewInit, OnDestroy {
     }
 
     const getExcelData = () => {
-      const header = ['#', '학번', '이름', '소속', '이메일', '연락처'];
+      const header = ['#', '학번', '이름', '소속대학' ,'소속학과', '이메일', '연락처'];
 
       return [header, ...this.contestants.map((contestant, i) => [
-        i + 1, contestant.no, contestant.name, contestant.department, contestant.email, contestant.phone
+        i + 1, contestant.no, contestant.name, contestant.university ,contestant.department, contestant.email, contestant.phone
       ])];
     };
 
