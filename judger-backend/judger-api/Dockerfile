@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 4000
 
-CMD ["pm2-docker", "index.js"]
+CMD ["npm", "run", "start"]

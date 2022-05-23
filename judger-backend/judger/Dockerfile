@@ -25,14 +25,12 @@ RUN apt-get purge -y --auto-remove $buildDeps && \
 WORKDIR /app
 COPY package*.json ./
 RUN npm i
-RUN npm install -g nodemon
+RUN npm install -g pm2
 COPY . .
 RUN gcc -shared -fPIC -o unbuffer.so unbuffer.c
 RUN mkdir -p /kotlin
 ADD kotlin /kotlin
-RUN mkdir -p /java_submit
-RUN mkdir -p /kotlin_submit
 RUN mkdir -p /judger_submit
 EXPOSE 5000
 EXPOSE 9092
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
