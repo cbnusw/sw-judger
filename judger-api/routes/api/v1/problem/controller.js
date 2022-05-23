@@ -54,11 +54,6 @@ const createSubmit = asyncHandler(async (req, res, next) => {
   if (!body.parent || !body.parentType) return next(CONTEST_NOT_FOUND);
   body.user = user.info;
 
-  const codeFileName = body.source.substring(body.source.lastIndexOf('/') + 1);
-  const codeFilePath = '/usr/src/app/uploads/' + codeFileName;
-  const code = fs.readFileSync(codeFilePath, 'utf8');
-  body.code = code;
-
   const submit = await Submit.create(body);
   await producingSubmit(producer, String(submit._id));
   await updateFilesByUrls(user, submit._id, 'Submit', [submit.source])

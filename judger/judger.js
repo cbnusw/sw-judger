@@ -1,4 +1,5 @@
 const { existsSync } = require("fs");
+const fs = require("fs");
 const path = require("path");
 const { parse } = require("url");
 const judger = require("/Judger/bindings/NodeJS");
@@ -15,6 +16,11 @@ const startJudge = async (submitId) => {
   // const default_env = ["LANG=en_US.UTF-8", "LANGUAGE=en_US:en", "LC_ALL=en_US.UTF-8"] // 글로벌 env 설정
   const submit = await Submit.findOne({ _id: submitId });
   if (!submit) return;
+
+  const codeFileName = submit.source.substring(submit.source.lastIndexOf("/") + 1);
+  const codeFilePath = "/source/" + codeFileName;
+  const code = await fs.readFileSync(codeFilePath, "utf8");
+  await submit.updateOne({$set:{code:code}});
 
   config["language"] = submit.language;
   config["code_name"] = getBasename(submit.source);

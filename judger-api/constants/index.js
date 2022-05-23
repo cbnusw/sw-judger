@@ -30,6 +30,15 @@ const fileTypes = [
   'Submit'
 ];
 
+const universities = [
+  "충북대학교",
+  "한국교통대학교",
+  "건국대학교",
+  "서원대학교",
+  "청주대학교",
+  "공군사관학교",
+];
+
 const parentTypes = ['Contest', 'Assignment'];
 
 
@@ -73,3 +82,4 @@ exports.FILE_TYPES = fileTypes;
 exports.PROGRAMMING_LANGUAGES = programmingLanguages;
 exports.SUBMIT_RESULTS = submitResults;
 exports.PARENT_TYPES = parentTypes;
+exports.UNIVERSITIES = universities;
