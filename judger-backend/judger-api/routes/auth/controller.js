@@ -6,7 +6,6 @@ const { createResponse } = require('../../utils/response');
 
 const getMe = asyncHandler(async (req, res, next) => {
   const { user } = req;
-
   const info = await UserInfo.findById(user.info);
   res.json(createResponse(res, info));
 });

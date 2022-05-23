@@ -20,48 +20,54 @@ const resultSchema = createSchema({
   }
 }, false);
 
-const schema = createSchema({
-  parent: {
-    type: Schema.Types.ObjectId,
-    refPath: 'parentType',
-    index: true,
-    default: null,
+const schema = createSchema(
+  {
+    parent: {
+      type: Schema.Types.ObjectId,
+      refPath: "parentType",
+      index: true,
+      default: null,
+    },
+    parentType: {
+      type: String,
+      enum: [...PARENT_TYPES, null],
+      index: true,
+      default: null,
+    },
+    problem: {
+      type: Schema.Types.ObjectId,
+      ref: "Problem",
+      required: true,
+      index: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "UserInfo",
+      required: true,
+      index: true,
+    },
+    source: {
+      // https://swjudgeapi.cbnu.ac.kr/uploads/~~~~.c
+      type: String,
+      required: true,
+    },
+    code: {
+      type: String,
+    },
+    language: {
+      type: String,
+      enum: PROGRAMMING_LANGUAGES,
+      required: true,
+    },
+    result: {
+      type: resultSchema,
+      default: null,
+    },
   },
-  parentType: {
-    type: String,
-    enum: [...PARENT_TYPES, null],
-    index: true,
-    default: null,
-  },
-  problem: {
-    type: Schema.Types.ObjectId,
-    ref: 'Problem',
-    required: true,
-    index: true,
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'UserInfo',
-    required: true,
-    index: true,
-  },
-  source: {
-    // https://swjudgeapi.cbnu.ac.kr/uploads/~~~~.c
-    type: String,
-    required: true,
-  },
-  language: {
-    type: String,
-    enum: PROGRAMMING_LANGUAGES,
-    required: true,
-  },
-  result: {
-    type: resultSchema,
-    default: null,
+  {
+    updatedAt: false,
   }
-}, {
-  updatedAt: false,
-});
+);
 
 schema.index({ createdAt: -1 });
 
