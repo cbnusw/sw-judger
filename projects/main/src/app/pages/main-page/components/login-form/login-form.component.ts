@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ERROR_CODES } from 'projects/main/src/app/constants/error-codes';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { AbstractFormDirective } from '../../../../classes/abstract-form.directive';
@@ -29,6 +30,20 @@ export class LoginFormComponent extends AbstractFormDirective<ILoginObject, bool
   }
 
   protected processSubmissionError(error: HttpErrorResponse): void {
+        switch (error.error.code) {
+          case ERROR_CODES.USER_NOT_FOUND:
+            this.submissionError = {
+              path: 'no',
+              message: '등록되지 않은 사용자입니다.',
+            };
+            break;
+          case ERROR_CODES.INVALID_PASSWORD:
+            this.submissionError = {
+              path: 'password',
+              message: '잘못된 비밀번호입니다.',
+            };
+            break;
+        }
   }
 
   protected initFormGroup(formBuilder: FormBuilder): FormGroup {

@@ -10,6 +10,9 @@
                placeholder="학번/교번 또는 아이디 입력">
         <mat-hint>충북대학교 SW중심대학사업단 계정</mat-hint>
         <mat-error *ngIf="hasError('required', 'no')">필수 입력항목입니다.</mat-error>
+        <mat-error class='none-select' *ngIf="hasSubmissionError('no')">
+          {{ submissionErrorMessage }}
+        </mat-error>
     </mat-form-field>
     <mat-form-field class="w-100 mb-4">
         <mat-label>비밀번호</mat-label>
@@ -22,6 +25,9 @@
                placeholder="비밀번호 입력"/>
         <mat-hint>충북대학교 SW중심대학사업단 비밀번호</mat-hint>
         <mat-error *ngIf="hasError('required', 'password')">필수 입력항목입니다.</mat-error>
+        <mat-error class='none-select' *ngIf="hasSubmissionError('password')">
+          {{ submissionErrorMessage }}
+        </mat-error>
     </mat-form-field>
     <div class="flex mb-2">
         <span class="font-s">

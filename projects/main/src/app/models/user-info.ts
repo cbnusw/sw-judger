@@ -9,6 +9,7 @@ export interface IUserInfo {
   phone?: string;
   center?: string;
   department?: string;
+  university?: string;
   position?: string;
   permissions?: Array<typeof PERMISSIONS[number]>;
   role?: typeof ROLES[number];
