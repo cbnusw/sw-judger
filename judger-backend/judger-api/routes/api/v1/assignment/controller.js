@@ -173,7 +173,7 @@ const updateAssignment = asyncHandler(async (req, res, next) => {
 
   if ($set.content) {
     const urls = findImageUrlFromHtml($set.content);
-    await updateFilesByUrls(req, doc._id, 'Contest', urls);
+    await updateFilesByUrls(req, doc._id, 'Assignment', urls);
   }
   await doc.updateOne({ $set });
 

@@ -99,17 +99,17 @@ exports.checkPublishingTime = ({published}, {testPeriod}) => {
   return false;
 }
 
-exports.updateFilesOf = async (problem, user) => {
+exports.updateFilesOf = async (problem, req) => {
   const urls = [problem.content, ...(problem.ioSet || []).map(io => io.inFile.url), ...(problem.ioSet || []).map(io => io.outFile.url)];
   await Promise.all([
-    updateFilesByUrls(user, problem._id, 'Problem', urls),
+    updateFilesByUrls(req, problem._id, 'Problem', urls),
   ]);
 } 
 
-exports.removeFilesOf = async (problem, user) => {
+exports.removeFilesOf = async (problem, req) => {
   const urls = [problem.content, ...(problem.ioSet || []).map(io => io.inFile.url), ...(problem.ioSet || []).map(io => io.outFile.url)];
   await Promise.all([
-    removeFilesByUrls(user, urls),
+    removeFilesByUrls(req, urls),
   ])
 }
 

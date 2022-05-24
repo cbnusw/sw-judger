@@ -56,7 +56,7 @@ const createSubmit = asyncHandler(async (req, res, next) => {
 
   const submit = await Submit.create(body);
   await producingSubmit(producer, String(submit._id));
-  await updateFilesByUrls(user, submit._id, 'Submit', [submit.source])
+  await updateFilesByUrls(req, submit._id, 'Submit', [submit.source])
   res.json(createResponse(res, submit));
 });
 
@@ -71,7 +71,7 @@ const createProblem = asyncHandler(async (req, res, next) => {
   if (err) return next(err);
 
   const problem = await Problem.create(body);
-  await updateFilesOf(body, user);
+  await updateFilesOf(body, req);
 
   if (parent) await assignTo(parent, problem);
   res.json(createResponse(res, problem));
@@ -84,7 +84,7 @@ const updateProblem = asyncHandler(async (req, res, next) => {
   if (err) return next(err);
   if (!hasRole(user) && !checkOwnerOf(problem, user)) return next(FORBIDDEN);
   $set.ioSet = ($set.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
-  await Promise.all([problem.updateOne({ $set }), updateFilesOf($set, user)]);
+  await Promise.all([problem.updateOne({ $set }), updateFilesOf($set, req)]);
   res.json(createResponse(res));
 });
 
@@ -96,7 +96,7 @@ const removeProblem = asyncHandler(async (req, res, next) => {
   if (parentId) await removeProblemAt(parentId, id);
   await Promise.all([
     problem.deleteOne(),
-    removeFilesOf(problem, user)
+    removeFilesOf(problem, req)
   ]);
   res.json(createResponse(res));
 });
