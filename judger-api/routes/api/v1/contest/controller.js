@@ -200,11 +200,11 @@ const updateContest = asyncHandler(async (req, res, next) => {
   const doc = await Contest.findById(id);
 
   if (!doc) return next(CONTEST_NOT_FOUND);
-  if (doc.writer.toString() != user.info.toString()) return next(FORBIDDEN);
+  if (String(doc.writer) !== String(user.info)) return next(FORBIDDEN);
 
   if ($set.content) {
     const urls = findImageUrlFromHtml($set.content);
-    await updateFilesByUrls(req, doc._id, 'Content', urls);
+    await updateFilesByUrls(req, doc._id, 'Contest', urls);
   }
   await doc.updateOne({ $set });
 
