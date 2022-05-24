@@ -48,6 +48,10 @@ export class HeaderComponent implements OnInit {
     return false;
   }
 
+  get isStudent(): boolean {
+    return (this.auth.me?.role === "student");
+  }
+
   openMobileNav(): void {
     this.isOpenMobileNav = true;
   }

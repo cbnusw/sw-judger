@@ -5,7 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-
 import { HeaderComponent } from './components/header/header.component';
 import { MobileNavigationComponent } from './components/mobile-navigation/mobile-navigation.component';
 
@@ -20,6 +19,8 @@ import { MobileNavigationComponent } from './components/mobile-navigation/mobile
     MatSidenavModule,
     MatToolbarModule,
   ],
-  exports: [HeaderComponent],
+  exports: [
+    HeaderComponent,
+  ],
 })
 export class SharedModule { }
