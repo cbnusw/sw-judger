@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  authHost: 'https://swauthdev.cbnu.ac.kr',
-  apiHost: 'https://swjudgerdev.cbnu.ac.kr/api',
+  authHost: 'https://swauth.cbnu.ac.kr',
+  apiHost: 'http://localhost:4003',
   apiVersion: 'v1',
   loginPageUrl: '/account/login',
   joinPageUrl: 'http://localhost:8080/account/join',

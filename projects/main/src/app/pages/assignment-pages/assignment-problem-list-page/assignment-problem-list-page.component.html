@@ -21,7 +21,7 @@
   <div *ngIf="(isWriter$ | async) && !orderableProblems" class="flex justify-end mb-2">
     <button
       *ngIf="assignment?.problems.length > 1"
-      class="no-border-radius text-white"
+      class="text-white"
       mat-flat-button
       color="accent"
       (click)="setReorderMode()"
@@ -29,7 +29,7 @@
       순서변경
     </button>
     <button
-      class="no-border-radius ms-2"
+      class="ms-2"
       mat-flat-button
       routerLink="/problem/new"
       [queryParams]="{ assignment: assignment?._id }"
@@ -40,7 +40,7 @@
   </div>
   <div *ngIf="isWriter$ && orderableProblems" class="flex justify-end mb-2">
     <button
-      class="no-border-radius text-white"
+      class="text-white"
       *ngIf="assignment?.problems.length > 1"
       mat-flat-button
       color="accent"

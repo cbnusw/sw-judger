@@ -1,5 +1,5 @@
 <div class="main-container mt-2" *ngIf="isRender">
-  <h2 class="mb-2">과제 제출 목록</h2>
+  <h2 class="mb-2">{{contest?.title}} 제출 목록</h2>
   <div class="table-wrapper">
     <div class="loading" *ngIf="loading">
       <mat-spinner></mat-spinner>
@@ -36,6 +36,16 @@
         <td mat-cell *matCellDef="let row; let i = index">{{ getNo(i) }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="university">
+        <th mat-header-cell *matHeaderCellDef>대학</th>
+        <td mat-cell *matCellDef="let row">{{ row.user.university}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef>학과(부)</th>
+        <td mat-cell *matCellDef="let row">{{ row.user.department}}</td>
+      </ng-container>
+
       <ng-container matColumnDef="number">
         <th mat-header-cell *matHeaderCellDef>학번</th>
         <td mat-cell *matCellDef="let row">{{ row.user.no }}</td>
@@ -56,24 +66,15 @@
         <td mat-cell *matCellDef="let row">{{ row.language }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="memory">
-        <th mat-header-cell *matHeaderCellDef>메모리</th>
-        <td mat-cell *matCellDef="let row">{{ row.result?.memory / (1024 * 1024) | number: '1.0-2' }} MB</td>
-      </ng-container>
-
-      <ng-container matColumnDef="time">
-        <th mat-header-cell *matHeaderCellDef>실행시간</th>
-        <td mat-cell *matCellDef="let row">{{ row.result?.time || '-'}} ms</td>
-      </ng-container>
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>체점 결과</th>
         <td
-        mat-cell
-        *matCellDef="let row"
-        [class.text-warn]="row.result?.type !== 'done'"
-        [class.text-primary]="row.result?.type === 'done'">
-        {{ row.result?.type | result}}</td>
+          mat-cell
+          *matCellDef="let row"
+          [class.text-warn]="row.result?.type !== 'done'"
+          [class.text-primary]="row.result?.type === 'done'">
+          {{ row.result?.type | result}}</td>
       </ng-container>
 
       <ng-container matColumnDef="createdAt">
@@ -83,14 +84,14 @@
 
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
       <tr
-      mat-row
-      *matRowDef="let row; columns: columns"
-      [routerLink]="['/submit/detail', row._id]"
-      class="cursor pointer">
-    </tr>
+        mat-row
+        *matRowDef="let row; columns: columns"
+        [routerLink]="['/submit/detail', row._id]"
+        class="cursor pointer">
+      </tr>
       <tr class="mat-row empty-row" *matNoDataRow>
         <td [attr.colspan]="columns.length" class="px-2">
-          <span>제출된 과제가 없습니다.</span>
+          <span>제출목록이 없습니다.</span>
         </td>
       </tr>
     </table>

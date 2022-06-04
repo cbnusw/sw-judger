@@ -4,41 +4,43 @@
   </h2>
   <div class="flex justify-between pb-2 mb-2 border-bottom">
     <div>
-      <span
+      <button
         type="button"
-        class="no-border-radius text-primary"
+        class="mat-primary"
         *ngIf="contest"
         style="cursor: pointer; margin-right: 30px"
         mat-flat-button
         routerLink="/scoreboard"
         [queryParams]="{ contest: contest?._id }"
-        >스코어보드</span
+        >스코어보드</button
       >
-      <span
+      <button
         type="button"
-        class="no-border-radius text-primary"
-        style="cursor: pointer"
+        class="mat-primary"
         mat-flat-button
         [routerLink]="['/problem/detail', problem?._id]"
         [queryParams]="queryParams"
-        >문제로 돌아가기</span
+        >문제로 돌아가기</button
       >
     </div>
-    <div>
-      <span class="me-2" *ngIf="contest">대회: {{ contest?.title }}</span>
-      <span class="me-2" *ngIf="assignment">과제: {{ assignment?.title }}</span>
-      <span class="text-warn fw-900" *ngIf="(contest?.testPeriod | periodRange | async) === 0">
-        ({{ contest?.testPeriod.end | restTime | async }} 후 종료)
-      </span>
-      <span class="text-warn fw-900" *ngIf="(assignment?.testPeriod | periodRange | async) === 0">
-        ({{ assignment?.testPeriod.end | restTime | async }} 후 종료)
-      </span>
-    </div>
+<!--    <div>-->
+<!--      <span class="me-2" *ngIf="contest">대회: {{ contest?.title }}</span>-->
+<!--      <span class="me-2" *ngIf="assignment">과제: {{ assignment?.title }}</span>-->
+<!--      <span class="text-warn fw-900" *ngIf="(contest?.testPeriod | periodRange | async) === 0">-->
+<!--        ({{ contest?.testPeriod.end | restTime | async }} 후 종료)-->
+<!--      </span>-->
+<!--      <span class="text-warn fw-900" *ngIf="(assignment?.testPeriod | periodRange | async) === 0">-->
+<!--        ({{ assignment?.testPeriod.end | restTime | async }} 후 종료)-->
+<!--      </span>-->
+<!--    </div>-->
   </div>
 
-  <div class="flex p-2 border" *ngIf="!submits">
+  <div class="text-50 my-2">제출 내역을 누르면 상세정보를 볼 수 있습니다.</div>
+
+  <div class="flex p-2 border" *ngIf="submits.length === 0">
     <span>제출 내역이 없습니다.</span>
   </div>
+
   <div class="flex p-2 border cursor pointer"
       [routerLink]="['/submit/detail', submit._id]"
       *ngFor="let submit of submits">

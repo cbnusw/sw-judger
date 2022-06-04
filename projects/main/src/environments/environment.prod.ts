@@ -6,3 +6,4 @@ export const environment = {
   loginPageUrl: '/account/login',
   joinPageUrl: 'https://sw7up.cbnu.ac.kr/account/join'
 };
+

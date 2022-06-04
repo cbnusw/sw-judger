@@ -17,9 +17,11 @@ import { AuthService } from '../../../services/auth.service';
 export class ContestProblemListPageComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
+  isLoading: boolean = true;
 
   contest: IContest;
   orderableProblems: IProblem[];
+
   dragIndex = -1;
 
   constructor(private auth: AuthService,
@@ -79,7 +81,10 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
       map(params => params.id),
       switchMap(id => this.contestService.getContestProblems(id))
     ).subscribe(
-      res => this.contest = res.data,
+      res => {
+        this.contest = res.data;
+        this.isLoading = false;
+      },
       err => {
         const { code } = err && err.error || {};
         switch (code) {

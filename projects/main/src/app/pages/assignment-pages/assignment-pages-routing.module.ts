@@ -17,11 +17,13 @@ const routes: Routes = [
   { path: 'detail/:id',
       canActivate: [AuthGuard],
       component: AssignmentDetailPageComponent },
-  { path: ':id/problems', 
+  { path: ':id/problems',
       canActivate: [AuthGuard],
       component: AssignmentProblemListPageComponent },
   { path: 'list/me', component: MyAssignmentListPageComponent },
-  { path: ':id/submits', component: AssignmentSubmitListPageComponent }
+  { path: ':id/submits',
+    canActivate: [AuthGuard],
+    component: AssignmentSubmitListPageComponent }
 ];
 
 @NgModule({

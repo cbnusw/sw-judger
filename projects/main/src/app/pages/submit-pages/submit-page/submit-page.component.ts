@@ -93,7 +93,7 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
 
   protected initFormGroup(formBuilder: FormBuilder): FormGroup {
     return formBuilder.group({
-      parent: [null],
+      parentId: [null],
       parentType: [null],
       problem: [null, [Validators.required]],
       source: [null, [Validators.required]],
@@ -119,7 +119,7 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
           .subscribe((res) => {
             this.contest = res.data;
             if (this.contest) {
-              this.formGroup.get('parent').setValue(this.contest._id);
+              this.formGroup.get('parentId').setValue(this.contest._id);
               this.formGroup.get('parentType').setValue('Contest');
             }
           })
@@ -136,7 +136,7 @@ export class SubmitPageComponent extends AbstractFormDirective<ISubmit, boolean>
           .subscribe((res) => {
             this.assignment = res.data;
             if (this.assignment) {
-              this.formGroup.get('parent').setValue(this.assignment._id);
+              this.formGroup.get('parentId').setValue(this.assignment._id);
               this.formGroup.get('parentType').setValue('Assignment');
             }
           })

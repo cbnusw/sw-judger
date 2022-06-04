@@ -14,7 +14,7 @@ export interface ISubmitResult {
 export interface ISubmit {
   _id?: string;
   problem?: IProblem;
-  parent?: string;
+  parentId?: string;
   parentType?: string;
   user?: IUserInfo;
   source?: string;

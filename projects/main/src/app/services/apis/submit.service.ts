@@ -29,23 +29,23 @@ export class SubmitService extends ApiBase {
     return this.http.get<IListResponse<ISubmit>>(this.url`/me`);
   }
 
-  getContestSubmits(id: string): Observable<IListResponse<ISubmit>> {
-    return this.http.get<IListResponse<ISubmit>>(this.url`/contest/${id}`);
+  getContestSubmits(id: string, params?: IParams): Observable<IListResponse<ISubmit>> {
+    return this.http.get<IListResponse<ISubmit>>(this.url`/contest/${id}`, {
+      params: ApiBase.params(params),
+    });
   }
 
   getMyContestSubmits(id: string): Observable<IListResponse<ISubmit>> {
     return this.http.get<IListResponse<ISubmit>>(this.url`/contest/${id}/me`);
   }
+
   getMyAssignmentSubmits(id: string): Observable<IListResponse<ISubmit>> {
     return this.http.get<IListResponse<ISubmit>>(
       this.url`/assignment/${id}/me`
     );
   }
 
-  getAssignmentSubmits(
-    id: string,
-    params?: IParams
-  ): Observable<IListResponse<ISubmit>> {
+  getAssignmentSubmits(id: string, params?: IParams): Observable<IListResponse<ISubmit>> {
     return this.http.get<IListResponse<ISubmit>>(this.url`/assignment/${id}`, {
       params: ApiBase.params(params),
     });

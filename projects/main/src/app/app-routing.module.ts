@@ -38,7 +38,6 @@ const routes: Routes = [
   },
   {
     path: 'scoreboard',
-    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/score-board-pages/score-board-pages.module').then(
         (m) => m.ScoreBoardPagesModule

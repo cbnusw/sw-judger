@@ -12,6 +12,7 @@ import { SubmitService } from '../../../services/apis/submit.service';
   styleUrls: ['./submit-list-page.component.scss'],
 })
 export class SubmitListPageComponent implements OnInit {
+
   contest: IContest;
   assignment: IAssignment;
   problem: IProblem;
