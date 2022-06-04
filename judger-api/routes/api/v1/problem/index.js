@@ -7,7 +7,6 @@ const router = Router();
 router.get('/', controller.getProblems);
 router.get('/:id', authenticate, handleAccessProblem, controller.getProblem);
 router.post('/', ...hasProblemPermission, controller.createProblem);
-// router.post('/:id/submit', controller.createSubmit);
 router.post('/:id/submit', isAuthenticated, handleAccessProblem, controller.createSubmit);
 router.put('/:id', ...hasProblemPermission, controller.updateProblem);
 router.delete('/:id', ...hasProblemPermission, handleAccessProblem, controller.removeProblem);

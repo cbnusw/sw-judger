@@ -10,99 +10,107 @@ const { File } = require('../models/@main');
 const { hasRole } = require('./permission');
 const { difference } = require('./functions')
 const {
-  FORBIDDEN,
-  LOGIN_REQUIRED
+   FORBIDDEN,
+   LOGIN_REQUIRED
 } = require('../errors');
 
 const getBasename = url => basename(parse(url).pathname);
 
 const createUpload = (uploadDir = UPLOAD_DIR) => {
 
-  const dir = join(ROOT_DIR, uploadDir);
-  if (!existsSync(dir)) sync(dir);
+   const dir = join(ROOT_DIR, uploadDir);
+   if (!existsSync(dir)) sync(dir);
 
-  const storage = multer.diskStorage({
-    destination(req, file, cb) {
-      cb(null, dir);
-    },
-    filename(req, file, cb) {
-      cb(null, `${v4()}${extname(file.originalname)}`);
-    }
-  });
+   const storage = multer.diskStorage({
+      destination(req, file, cb) {
+         cb(null, dir);
+      },
+      filename(req, file, cb) {
+         cb(null, `${v4()}${extname(file.originalname)}`);
+      }
+   });
 
-  return multer({ storage });
+   return multer({ storage });
 };
 
-const removeFileByUrl = async (user, url, baseDir = UPLOAD_DIR) => {
-  if (!user) throw LOGIN_REQUIRED;
-  if (!url) return;
+const removeFileByUrl = async (req, url, baseDir = UPLOAD_DIR) => {
+   const { user } = req;
 
-  const file = await File.findOne({ url });
+   if (!user) throw LOGIN_REQUIRED;
+   if (!url) return;
 
-  if (!file) return;
-  if (!hasRole(user) && String(user.info) !== String(file.uploader)) throw FORBIDDEN;
+   const file = await File.findOne({ url });
 
-  const filePath = join(ROOT_DIR, '/', baseDir, '/', getBasename(url));
+   if (!file) return;
+   if (!hasRole(user) && String(user.info) !== String(file.uploader)) throw FORBIDDEN;
 
-  await Promise.all([file.deleteOne(), promises.unlink(filePath)]);
+   const filePath = join(ROOT_DIR, '/', baseDir, '/', getBasename(url));
 
-  return filePath
+   await Promise.all([file.deleteOne(), promises.unlink(filePath)]);
+
+   return filePath
 };
 
-const removeFileById = async (user, id, baseDir = UPLOAD_DIR) => {
-  if (!user) throw LOGIN_REQUIRED;
-  if (!id) return;
-  const file = await File.findById(id);
-  if (!file) return;
-  if (!hasRole(user) && String(user.info) !== String(file.uploader)) throw FORBIDDEN;
-  const filePath = join(ROOT_DIR, '/', baseDir, '/', getBasename(file.url));
-  await Promise.all([file.deleteOne(), promises.unlink(filePath)]);
-  return filePath
+const removeFileById = async (req, id, baseDir = UPLOAD_DIR) => {
+   const { user } = req;
+   if (!user) throw LOGIN_REQUIRED;
+   if (!id) return;
+   const file = await File.findById(id);
+   if (!file) return;
+   if (!hasRole(user) && String(user.info) !== String(file.uploader)) throw FORBIDDEN;
+   const filePath = join(ROOT_DIR, '/', baseDir, '/', getBasename(file.url));
+   await Promise.all([file.deleteOne(), promises.unlink(filePath)]);
+   return filePath
 };
 
-const removeFilesByUrls = async (req, urls, baseDir = UPLOAD_DIR) => await Promise.all(urls.map(url => removeFileByUrl(req.user, url, baseDir)));
+const removeFilesByUrls = async (req, urls, baseDir = UPLOAD_DIR) => await Promise.all(urls.map(url => removeFileByUrl(req, url, baseDir)));
 
-const removeFilesByIds = async (req, ids, baseDir = UPLOAD_DIR) => await Promise.all(ids.map(id => removeFileById(req.user, id, baseDir)));
+const removeFilesByIds = async (req, ids, baseDir = UPLOAD_DIR) => await Promise.all(ids.map(id => removeFileById(req, id, baseDir)));
 
 const updateFilesByUrls = async (req, ref, refModel, urls) => {
-  const files = await File.find({ ref, refModel });
+   const { user } = req;
+   const files = await File.find({ ref, refModel });
 
-  if (!hasRole(req.user) && files.some(file => String(req.user.info) !== String(file.uploader)))
-    throw FORBIDDEN;
+   if (!hasRole(user) && files.some(file => String(user.info) !== String(file.uploader)))
+      throw FORBIDDEN;
 
-  const inDB = files.map(file => file.url);
-  const deletions = difference(inDB, urls);
-  const additions = difference(urls, inDB);
+   const inDB = files.map(file => file.url);
+   const deletions = difference(inDB, urls);
+   const additions = difference(urls, inDB);
 
-  if (additions.length > 0) await File.updateMany({ url: { $in: additions } }, { $set: { ref, refModel } });
-  if (deletions.length > 0) await removeFilesByUrls(req, deletions);
+   if (additions.length > 0) await File.updateMany({ url: { $in: additions } }, { $set: { ref, refModel } });
+   if (deletions.length > 0) await removeFilesByUrls(req, deletions);
 };
 
 const updateFilesByIds = async (req, ref, refModel, ids) => {
-  const files = await File.find({ ref, refModel });
+   const { user } = req;
+   const files = await File.find({ ref, refModel });
 
-  if (!hasRole(req.user) && files.some(file => String(req.user.info) !== String(file.uploader)))
-    throw FORBIDDEN;
+   if (!hasRole(user) && files.some(file => String(user.info) !== String(file.uploader)))
+      throw FORBIDDEN;
 
-  ids = ids.map(id => String(id));
-  const inDB = files.map(file => String(file._id));
-  const deletions = difference(inDB, ids);
-  const additions = difference(ids, inDB);
+   ids = ids.map(id => String(id));
+   const inDB = files.map(file => String(file._id));
+   console.log("inDB ::: ", inDB)
+   const deletions = difference(inDB, ids);
+   console.log("deletion ::: " , deletions);
+   const additions = difference(ids, inDB);
+   console.log("addition ::: ", additions)
 
-  if (additions.length > 0) await File.updateMany({ _id: { $in: additions } }, { $set: { ref, refModel } });
-  if (deletions.length > 0) await removeFilesByIds(req, deletions);
+   if (additions.length > 0) await File.updateMany({ _id: { $in: additions } }, { $set: { ref, refModel } });
+   if (deletions.length > 0) await removeFilesByIds(req, deletions);
 };
 
 const findImageUrlsFromHtml = html => {
-  const $ = cheerio.load(html || '');
-  const urls = [];
+   const $ = cheerio.load(html || '');
+   const urls = [];
 
-  $('img').each(function () {
-    const url = $(this).attr('src');
-    urls.push(url);
-  });
+   $('img').each(function () {
+      const url = $(this).attr('src');
+      urls.push(url);
+   });
 
-  return urls;
+   return urls;
 };
 
 exports.getBasename = getBasename;

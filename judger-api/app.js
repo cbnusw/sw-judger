@@ -5,7 +5,10 @@ const asyncHandler = require("express-async-handler");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const { join } = require("path");
-const { FORBIDDEN } = require("./errors");
+const {
+   FORBIDDEN,
+   FILE_NOT_FOUND
+} = require("./errors");
 const { File } = require("./models");
 const { IS_DEV, JUDGE_APP_HOST: HOST, UPLOAD_DIR } = require("./env");
 const { notFound, errorHandler } = require("./errors/handlers");
@@ -27,17 +30,16 @@ app.use(compression());
 app.use(morgan(IS_DEV ? "dev" : "combined", { stream }));
 app.use(cors());
 app.use(
-  `/${UPLOAD_DIR}`,
-  authenticate,
-  asyncHandler(async (req, res, next) => {
-    const url = `${HOST}${req.originalUrl}`;
-    const file = await File.findOne({ url });
-    if (!file.validatePermission(req.user)) {
-      return next(FORBIDDEN);
-    }
-    next();
-  }),
-  express.static(join(__dirname, UPLOAD_DIR))
+   `/${UPLOAD_DIR}`,
+   authenticate,
+   asyncHandler(async (req, res, next) => {
+      const url = `${HOST}${req.originalUrl}`;
+      const file = await File.findOne({ url });
+      if (!file) throw FILE_NOT_FOUND;
+      if (!file.validatePermission(req.user)) throw FORBIDDEN;
+      next();
+   }),
+   express.static(join(__dirname, UPLOAD_DIR))
 );
 
 app.use(express.json());

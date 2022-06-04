@@ -32,6 +32,7 @@ const errors = {
   // 404 Errors
   CONTEST_NOT_FOUND: [404, '찾을 수 없는 대회입니다.'],
   ASSIGNMENT_NOT_FOUND: [404, '찾을 수 없는 과제입니다.'],
+  PARENT_NOT_FOUND: [404, '부모 객체를 찾을 수 없습니다.'],
   FILE_NOT_FOUND: [404, '찾을 수 없는 파일입니다.'],
   NOT_FOUND: [404, '찾을 수 없는 요청입니다.'],
   PROBLEM_NOT_FOUND: [404, '찾을 수 없는 문제입니다.'],
