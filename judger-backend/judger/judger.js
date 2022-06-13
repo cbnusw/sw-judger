@@ -4,7 +4,7 @@ const path = require("path");
 const { parse } = require("url");
 const judger = require("/Judger/bindings/NodeJS");
 const base = require("./base.js");
-const { Submit, Problem, File } = require("./models/@main");
+const { Submit, Problem, File } = require("./models");
 const { CODE_BASE_PATH } = require("./env");
 const { execSync } = require("child_process");
 const getBasename = (url) => path.basename(parse(url).pathname);

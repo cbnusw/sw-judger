@@ -18,7 +18,7 @@ const { hasRoles } = require('../../utils/permission');
 
 
 const uploadMiddleware = asyncHandler(async (req, res, next) => {
-  if (!req.file) return next(FILE_NOT_UPLOADED);
+  if (!req.file) throw FILE_NOT_UPLOADED;
 
   const { access = [] } = req.body || req.query || {};
   
@@ -39,8 +39,8 @@ const download = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
   const file = await File.findById(id);
-  if (!file) return next(FILE_NOT_FOUND);
-  if (!file.access.includes('nonmember') && !hasRoles(req.user, ...file.access)) return next(FORBIDDEN);
+  if (!file) throw FILE_NOT_FOUND;
+  if (!file.access.includes('nonmember') && !hasRoles(req.user, ...file.access)) throw FORBIDDEN;
   const filePath = join(ROOT_DIR, UPLOAD_DIR, basename(parse(file.url).pathname));
 
   res.download(filePath, file.filename);

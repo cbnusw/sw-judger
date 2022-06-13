@@ -11,7 +11,7 @@ const handleAccessContestProblems = asyncHandler(async (req, res, next) => {
   const { params: { id }, user } = req;
   const contest = await Contest.findById(id);
 
-  if (!contest) return next(CONTEST_NOT_FOUND);
+  if (!contest) throw CONTEST_NOT_FOUND;
   if (String(contest.writer) === String(user.info) || hasRole(user)) return next();
 
   const { testPeriod } = contest;
@@ -19,9 +19,8 @@ const handleAccessContestProblems = asyncHandler(async (req, res, next) => {
   const start = new Date(testPeriod.start);
   const end = new Date(testPeriod.end);
 
-  if (now.getTime() < start.getTime() || now.getTime() > end.getTime()) return next(IS_NOT_TEST_PERIOD);
-  if (!contest.contestants.map(contestant => String(contestant)).includes(String(user.info)))
-    return next(IS_NOT_CONTESTANT);
+  if (now.getTime() < start.getTime() || now.getTime() > end.getTime()) throw IS_NOT_TEST_PERIOD;
+  if (!contest.contestants.map(contestant => String(contestant)).includes(String(user.info))) throw IS_NOT_CONTESTANT;
   next();
 });
 

@@ -21,7 +21,7 @@ const resultSchema = createSchema({
 }, false);
 
 const schema = createSchema({
-  parent: {
+  parentId: {
     type: Schema.Types.ObjectId,
     refPath: 'parentType',
     index: true,
@@ -73,7 +73,7 @@ schema.plugin(searchPlugin({
   populate: [
     { path: 'parentId', select: 'title' },
     { path: 'problem', select: 'title' },
-    { path: 'user', select: 'name no'}
+    { path: 'user'}
   ],
   mapper: {
     language: toRegEx,
