@@ -19,6 +19,7 @@ import { AuthService } from '../../../services/auth.service';
 export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
+  isLoading: boolean = true;
   contest: IContest;
   assignment: IAssignment;
   problem: IProblem;
@@ -32,7 +33,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     private problemService: ProblemService,
     private contestService: ContestService,
     private assignmentService: AssignmentService
-  ) {}
+  ) {
+  }
 
   get isWriter(): boolean {
     if (!this.problem || !this.auth.me) {
@@ -195,8 +197,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
             switchMap((id) => this.contestService.getContest(id))
           )
           .subscribe(
-            (res) => (this.contest = res.data),
-            (err) => console.error(err)
+            res => {
+              this.contest = res.data;
+              this.isLoading = false;
+            },
+            err => console.error(err)
           )
       );
     }
@@ -208,8 +213,11 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
             switchMap((id) => this.assignmentService.getAssignment(id))
           )
           .subscribe(
-            (res) => (this.assignment = res.data),
-            (err) => console.error(err)
+            res => {
+              this.assignment = res.data;
+              this.isLoading = false;
+            },
+            err => console.error(err)
           )
       );
     }

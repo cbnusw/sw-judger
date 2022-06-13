@@ -14,6 +14,7 @@ import { PeriodControlModule } from '../../controls/period-control/period-contro
 import { InnerHtmlModule } from '../../directives/inner-html/inner-html.module';
 import { PeriodPipeModule } from '../../pipes/period-pipe/period-pipe.module';
 import { RestTimePipeModule } from '../../pipes/rest-time-pipe/rest-time-pipe.module';
+import { AssignmentPagesModule } from '../assignment-pages/assignment-pages.module';
 import { ContestantsListComponent } from './components/contestants-list/contestants-list.component';
 import { ContestDetailPageComponent } from './contest-detail-page/contest-detail-page.component';
 import { ContestFormPageComponent } from './contest-form-page/contest-form-page.component';
@@ -25,6 +26,7 @@ import { HideEmailPipe } from './pipes/hide-email.pipe';
 import { HideNamePipe } from './pipes/hide-name.pipe';
 import { HideNoPipe } from './pipes/hide-no.pipe';
 import { HidePhonePipe } from './pipes/hide-phone.pipe';
+import { ContestSubmitListPageComponent } from './contest-submit-list-page/contest-submit-list-page.component';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { HidePhonePipe } from './pipes/hide-phone.pipe';
     HideEmailPipe,
     HidePhonePipe,
     HideNoPipe,
-    HideNamePipe
+    HideNamePipe,
+    ContestSubmitListPageComponent
   ],
   imports: [
     CKEditorModule,
@@ -58,6 +61,7 @@ import { HidePhonePipe } from './pipes/hide-phone.pipe';
     InnerHtmlModule,
     RestTimePipeModule,
     DragDropModule,
+    AssignmentPagesModule,
   ]
 })
 

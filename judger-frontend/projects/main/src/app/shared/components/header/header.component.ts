@@ -12,10 +12,6 @@ export class HeaderComponent implements OnInit {
   isOpenMobileNav = false;
   menus: INavMenu[] = [
     {
-      name: '공개문제',
-      link: '/problem/list',
-    },
-    {
       name: '대회',
       link: '/contest/list',
     },

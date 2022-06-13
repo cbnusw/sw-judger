@@ -1,4 +1,4 @@
-<div class="main-container mt-2">
+<div class="main-container mt-2" *ngIf="!isLoading">
   <h2 class="page-title mb-2">{{ problem?.title }}</h2>
   <div class="flex pb-2 mb-2 border-bottom">
     <span *ngIf="contest" class="font-s me-2">대회: {{ contest?.title }}</span>
@@ -14,7 +14,7 @@
   <div class="flex justify-end" *ngIf="submitable && isStudent">
     <button
       type="button"
-      class="no-border-radius text-white me-2"
+      class="text-white me-2"
       mat-flat-button
       color="accent"
       (click)="moveListPage()"
@@ -23,14 +23,17 @@
     </button>
     <button
       type="button"
-      class="no-border-radius text-white me-2"
+      class="text-white me-2"
       mat-flat-button
       color="primary"
       (click)="mySubmitStatus()"
     >
-      채점현황
+      내 제출현황
     </button>
-    <button type="button" class="no-border-radius" mat-flat-button color="primary" (click)="submitSource()">
+    <button
+      type="button"
+      mat-flat-button color="primary"
+      (click)="submitSource()">
       소스제출
     </button>
   </div>
@@ -55,14 +58,15 @@
     </button>
   </div>
   <div class="flex justify-end" *ngIf="isWriter">
-    <button type="button" class="no-border-radius text-white me-2" mat-flat-button color="accent" (click)="moveListPage()">
+    <button type="button" class="text-white me-2" mat-flat-button color="accent"
+            (click)="moveListPage()">
       문제목록
     </button>
-    <button type="button" class="no-border-radius me-2" mat-flat-button color="primary" (click)="editProblem()">
+    <button type="button" class="me-2" mat-flat-button color="primary" (click)="editProblem()">
       수정
     </button>
-    <button type="button" class="no-border-radius" mat-flat-button color="warn" (click)="removeProblem()"
+    <button type="button" mat-flat-button color="warn" (click)="removeProblem()"
     >삭제
-  </button>
+    </button>
   </div>
 </div>

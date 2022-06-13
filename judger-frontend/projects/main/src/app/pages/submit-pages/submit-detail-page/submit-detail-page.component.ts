@@ -32,7 +32,7 @@ export class SubmitDetailPageComponent implements OnInit {
       switchMap(id => this.submitService.getSubmit(id))
     ).subscribe(
       res => {
-        this.submit = res.data,
+        this.submit = res.data;
         this.isRender = true;
       },
       err =>  {

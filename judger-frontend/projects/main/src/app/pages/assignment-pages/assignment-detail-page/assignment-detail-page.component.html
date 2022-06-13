@@ -22,37 +22,37 @@
 
   <div *ngIf="isStudent" class="flex justify-end" style="padding-bottom: 10px">
 
-    <button class="no-border-radius"
-                  mat-flat-button
-                  color="primary"
-                  style="color: white"
-                  *ngIf="!isContestant"
-                  (click)="enroll()"
-                  >
+    <button
+      mat-flat-button
+      color="primary"
+      style="color: white"
+      *ngIf="!isContestant"
+      (click)="enroll()"
+    >
       <i class="las la-play"></i><span class="ms-2 mobile-d-none">과제 참여</span>
     </button>
 
-    <button class="no-border-radius me-2"
+    <button class="me-2"
             mat-flat-button color="warn"
             style="color: white"
             (click)="unenroll()"
             *ngIf="isContestant"
-            >
+    >
       <i class="las la-play"></i><span class="ms-2 mobile-d-none">참여 취소</span>
     </button>
 
-    <button class="no-border-radius"
-            mat-flat-button color="accent"
-            style="color: white"
-            *ngIf="isContestant"
-            [routerLink]="['/assignment', assignment?._id, 'problems']">
+    <button
+      mat-flat-button color="accent"
+      style="color: white"
+      *ngIf="isContestant"
+      [routerLink]="['/assignment', assignment?._id, 'problems']">
       <i class="las la-play"></i><span class="ms-2 mobile-d-none">문제 페이지</span>
     </button>
   </div>
 
   <div *ngIf="isWriter$" class="flex justify-end">
     <button
-      class="text-white me-2 no-border-radius"
+      class="text-white me-2"
       mat-flat-button
       color="accent"
       [routerLink]="['/assignment/edit', assignment?._id]"
@@ -60,15 +60,15 @@
       <i class="las la-edit"></i><span class="ms-2 mobile-d-none">과제 수정</span>
     </button>
 
-        <button
-          class="text-white me-2 no-border-radius"
-          mat-flat-button color="accent"
-          [routerLink]="['/assignment', assignment?._id, 'submits']">
-          <i class="las la-edit"></i><span class="ms-2 mobile-d-none">과제 제출 목록</span>
-        </button>
+    <button
+      class="text-white me-2"
+      mat-flat-button color="accent"
+      [routerLink]="['/assignment', assignment?._id, 'submits']">
+      <i class="las la-edit"></i><span class="ms-2 mobile-d-none">과제 제출 목록</span>
+    </button>
 
     <button
-      class="text-white me-2 no-border-radius"
+      class="text-white me-2"
       mat-flat-button
       color="primary"
       [routerLink]="['/assignment', assignment?._id, 'problems']"
@@ -76,7 +76,7 @@
       <i class="las la-folder-plus"></i><span class="ms-2 mobile-d-none">문제 등록/수정</span>
     </button>
 
-    <button type="button" class="text-white no-border-radius" (click)="removeAssignment()" mat-flat-button color="warn">
+    <button type="button" class="text-white" (click)="removeAssignment()" mat-flat-button color="warn">
       <i class="las la-trash-alt"></i><span class="ms-2 mobile-d-none">과제 삭제</span>
     </button>
   </div>

@@ -5,15 +5,21 @@ import { ContestDetailPageComponent } from './contest-detail-page/contest-detail
 import { ContestFormPageComponent } from './contest-form-page/contest-form-page.component';
 import { ContestListPageComponent } from './contest-list-page/contest-list-page.component';
 import { ContestProblemListPageComponent } from './contest-problem-list-page/contest-problem-list-page.component';
+import { ContestSubmitListPageComponent } from './contest-submit-list-page/contest-submit-list-page.component';
 import { MyContestListPageComponent } from './my-contest-list-page/my-contest-list-page.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/contest/list', pathMatch: 'full' },
   { path: 'list', component: ContestListPageComponent },
   { path: 'list/me', component: MyContestListPageComponent },
   { path: 'register',  component: ContestFormPageComponent },
   { path: 'edit/:id',  component: ContestFormPageComponent },
   { path: 'detail/:id', component: ContestDetailPageComponent },
   { path: ':id/problems',  component: ContestProblemListPageComponent },
+  { path: ':id/submits',
+    canActivate: [AuthGuard],
+    component: ContestSubmitListPageComponent
+  },
 ];
 
 @NgModule({

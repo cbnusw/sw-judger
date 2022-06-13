@@ -71,5 +71,8 @@ import { ResultPipe } from './pipe/result.pipe';
     DragDropModule,
     MatDialogModule
   ],
+  exports: [
+    ResultPipe
+  ]
 })
 export class AssignmentPagesModule {}

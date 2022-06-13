@@ -20,7 +20,7 @@ export class MainPageComponent implements OnInit {
   get isStudent(): boolean {
     return this.auth.me?.role === 'student';
   }
-
+  
   get isAdmin(): boolean {
     return this.auth.isOperator;
   }

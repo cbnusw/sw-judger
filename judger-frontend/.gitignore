@@ -1,5 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 /projects/main/src/environments/environment.prod.ts
+/projects/main/src/environments/environment.ts
 
 /projects/main/src/assets/test
 /nginx/default.conf

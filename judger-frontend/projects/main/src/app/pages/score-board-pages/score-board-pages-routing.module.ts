@@ -4,7 +4,7 @@ import { AuthGuard } from '../../guards/auth.guard';
 import { ScoreBoardPageComponent } from './score-board-page/score-board-page.component';
 
 const routes: Routes = [
-  { path: '', canActivate: [AuthGuard], component: ScoreBoardPageComponent },
+  { path: '', component: ScoreBoardPageComponent },
 ];
 
 @NgModule({
