@@ -11,10 +11,12 @@ const handleAccessProblem = asyncHanlder(async (req, res, next) => {
    const { params: { id }, user } = req;
    const problem = await Problem.findById(id).populate('parentId');
 
+   const { parentType, parentId } = problem;
+
    if (!user) throw LOGIN_REQUIRED;
 
    if (String(problem.writer) === String(user.info) || hasRole(user)) return next();
-   if (!checkTestPeriodOf(parentId)) throw IS_NOT_TEST_PERIOD;
+   if (!checkTestPeriodOf(parentId, parentType)) throw IS_NOT_TEST_PERIOD;
    if ((parentType === "Assignment" || parentType === "Contest") && !(await isAssigned(user, parentId, parentType))) throw IS_NOT_CONTESTANT;
 
    // if (problem.published && problem.parentType === "Contest") {

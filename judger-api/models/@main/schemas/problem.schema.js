@@ -73,7 +73,8 @@ const schema = createSchema({
 
 schema.plugin(searchPlugin({
   sort: '-createdAt',
-  populate: [{ path: 'parentId', select: 'title'}],
+  // populate: [{ path: 'parentId', select: 'title'}],
+  populate: [],
   mapper: {
     title: toRegEx,
     parentId: toRef('Contest', {
@@ -81,7 +82,8 @@ schema.plugin(searchPlugin({
     }),
     writer: toRef('UserInfo', {
       name: toRegEx
-    })
+    }),
+    parentType: toRegEx,
   }
 }));
 

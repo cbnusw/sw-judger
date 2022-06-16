@@ -50,10 +50,12 @@ exports.isAssigned = async (user, parentId, parentType) => {
    return parent[parentAssignees[parentType]].map(assignee => String(assignee)).includes(String(user.info))
 };
 
-exports.checkTestPeriodOf = ({ testPeriod }) => {
+exports.checkTestPeriodOf = async (parentId, parentType) => {
+   const parent = await parentModels[parentType].findById(parentId);
+
    const now = new Date();
-   const start = new Date(testPeriod.start);
-   const end = new Date(testPeriod.end);
+   const start = new Date(parent.testPeriod.start);
+   const end = new Date(parent.testPeriod.end);
    if (now.getTime() > end.getTime() || now.getTime() < start.getTime()) return false;
    return true;
 };
