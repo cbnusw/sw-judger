@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { IAssignment } from '../../../models/assignment';
-import { IContest } from '../../../models/contest';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IProblem } from '../../../models/problem';
 import { ISubmit } from '../../../models/submit';
 import { ProblemService } from '../../../services/apis/problem.service';
@@ -13,8 +11,6 @@ import { SubmitService } from '../../../services/apis/submit.service';
 })
 export class SubmitListPageComponent implements OnInit {
 
-  contest: IContest;
-  assignment: IAssignment;
   problem: IProblem;
   submits: ISubmit[];
   queryParams: any = {};

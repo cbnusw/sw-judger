@@ -1,0 +1,53 @@
+<div class="main-container" *ngIf="isRender">
+  <h2 class="mb-2 page-title"></h2>
+  <span class="flex border-bottom pb-2 border-top pt-2 mobile-column">
+
+    <span class="font-s me-auto px-2">
+      제출시간: {{submit.createdAt | date: " yyyy년 MM월 dd일 hh:mm:ss"}}
+      <span class="fw-700">
+        <span class="text-accent fw-700">
+        </span>
+      </span>
+      <span>
+        <span class="text-warn fw-900"></span>
+      </span>
+      <span></span>
+    </span>
+
+    <span *ngIf="submit.parentType === 'Assignment'" class="px-2">
+      <span class="font-s me-2">과목명: {{submit.parentId.course}}</span>
+      <span class="font-s me-2">과제명: {{submit.parentId.title}}</span>
+      <span class="font-s me-2">문제명: {{submit.problem.title}}</span>
+      <span class="font-s">교수명: {{submit.parentId.writer.name}}</span>
+    </span>
+
+    <span *ngIf="submit.parentType === 'Contest'" class="px-2">
+      <span class="font-s me-2">대회명: {{submit.parentId.title}}</span>
+      <span class="font-s me-2">문제명: {{submit.problem.title}}</span>
+      <span class="font-s me-2">작성자: {{submit.parentId.writer.name}}</span>
+      <span class="font-s">제출자: {{submit.user.university}} {{submit.user.department}} {{submit.user.name}}</span>
+    </span>
+
+  </span>
+
+  <div class="py-2 border-bottom mb-2">
+
+    <div class="border-box min-h-150 fw-700 px-2"
+         style="white-space: pre-wrap;">
+      {{submit.code || '결과가 없습니다'}}
+    </div>
+  </div>
+  <span class="flex justify-between border-bottom pb-2" style="font-weight: bold;">
+    <span class="px-2 border-right"
+          [class.text-warn]="submit?.result?.type !== 'done'"
+          [class.text-primary]="submit?.result?.type === 'done'"
+    >
+        채점결과: {{(submit?.result?.type | submitResultType) || "채점중"}}
+    </span>
+    <span>
+      <span class="px-2 border-right border-left">언어: {{submit?.language || "-"}}</span>
+      <span class="px-2 border-right">실행시간: {{submit?.result?.time || "-" }}ms</span>
+      <span class="ms-2 pe-2">사용메모리: {{submit?.result?.memory / (1024 * 1024) | number:'1.0-4' || "-" }}MB</span>
+    </span>
+  </span>
+</div>

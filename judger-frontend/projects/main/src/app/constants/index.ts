@@ -1,5 +1,9 @@
 export const FILE_TYPES = [
-  'Problem',
+  "Contest",
+  "Assignment",
+  "Problem",
+  "Practice",
+  "Submit"
 ];
 
 export const ROLES = [

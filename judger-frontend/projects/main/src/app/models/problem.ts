@@ -1,7 +1,5 @@
 import { IFile } from './file';
 import { IUserInfo } from './user-info';
-import { IAssignment } from './assignment';
-import { IContest } from './contest';
 
 export interface IProblemOptions {
   maxRealTime: number;

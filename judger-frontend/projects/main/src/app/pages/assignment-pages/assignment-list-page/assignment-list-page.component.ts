@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { AbstractSearchDirective } from '../../../classes/abstract-search.directive';
@@ -15,14 +15,14 @@ import { AssignmentService } from '../../../services/apis/assignment.service';
 export class AssignmentListPageComponent extends AbstractSearchDirective<IAssignment> {
   columns = ['no', 'course', 'title', 'writer', 'testPeriod'];
 
-  constructor(private AssignmentService: AssignmentService) {
+  constructor(private assignmentService: AssignmentService) {
     super({ limit: 10, sort: '-createdAt' }, ['title', 'course', 'writer']);
   }
 
   protected requestObservable(
     params: IParams | undefined
   ): Observable<IListResponse<IAssignment>> {
-    return this.AssignmentService.getAssignments(params);
+    return this.assignmentService.getAssignments(params);
   }
 
   changePage(event: PageEvent): void {
