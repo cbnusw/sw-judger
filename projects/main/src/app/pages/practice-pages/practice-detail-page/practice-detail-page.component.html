@@ -1,0 +1,101 @@
+<div class="main-container mt-2" *ngIf="!isLoading">
+  <h2 class="page-title mb-2">{{ problem?.title }}</h2>
+  <div class="flex pb-2 mb-2 border-bottom">
+    <span class="font-s me-2">난이도: {{ problem?.score }}</span>
+    <span class="font-s me-2">시간 제한: {{ problem?.options.maxRealTime}}ms</span>
+    <span class="font-s me-2">메모리 제한: {{ problem?.options.maxMemory}}mb</span>
+    <span class="font-s ms-auto">작성자: {{ problem?.writer.name }}</span>
+  </div>
+
+  <div class="flex justify-end" *ngIf="isStudent">
+    <button
+      type="button"
+      class="text-white me-2"
+      mat-flat-button
+      color="accent"
+      (click)="moveListPage()"
+    >
+      문제목록
+    </button>
+    <button
+      type="button"
+      class="text-white me-2"
+      mat-flat-button
+      color="primary"
+      (click)="mySubmitStatus()"
+    >
+      내 제출현황
+    </button>
+    <button
+      type="button"
+      class="text-white me-2"
+      mat-flat-button
+      color="accent"
+      (click)="userSubmitStatus()"
+    >
+      유저들의 제출기록
+    </button>
+    <button
+      type="button"
+      mat-flat-button color="primary"
+      (click)="submitSource()">
+      소스제출
+    </button>
+  </div>
+
+  <div class="flex justify-end" *ngIf="isWriter">
+    <button
+      type="button"
+      class="text-white me-2"
+      mat-flat-button
+      color="primary"
+      (click)="userSubmitStatus()"
+    >
+      유저들의 제출기록
+    </button>
+    <button
+      type="button"
+      class="text-white me-2"
+      mat-flat-button
+      color="accent"
+      (click)="moveListPage()"
+    >
+      문제목록
+    </button>
+    <button
+      type="button"
+      class="me-2"
+      mat-flat-button
+      color="primary"
+      (click)="editProblem()">
+      수정
+    </button>
+    <button
+      type="button"
+      mat-flat-button
+      color="warn"
+      (click)="removeProblem()"
+    >삭제
+    </button>
+  </div>
+
+  <pdf-viewer
+    *ngIf="problem"
+    class="w-100"
+    [(page)]="page"
+    (after-load-complete)="loadPdf($event)"
+    [show-all]="false"
+    [original-size]="false"
+    [src]="problem?.content | secure | async"
+    [render-text]="true"
+  ></pdf-viewer>
+
+  <div class="flex justify-between mb-4 relative paginator">
+    <button type="button" [disabled]="(page || 1) <= 1" (click)="prevPage()" mat-icon-button>
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+    <button type="button" [disabled]="page >= (lastPage || 1)" (click)="nextPage()" mat-icon-button>
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+</div>

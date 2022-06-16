@@ -38,8 +38,8 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
   }
 
   cancel(): void {
-    
-    if (this.modifying) {  
+
+    if (this.modifying) {
       if(this.contest){
         this.contest
           ? this.router.navigate(['/problem/detail', this.model._id], { queryParams: { contest: this.contest._id } })
@@ -73,7 +73,7 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
       await this.router.navigate(['/contest', params.contest, 'problems']);
     } else if (params.assignment) {
       await this.router.navigate(['/assignment', params.assignment, 'problems']);
-    } 
+    }
     // else {
     //   await this.router.navigateByUrl('/problem/list');
     // }
@@ -122,7 +122,7 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
         : this.problemService
           .createProblem({ ...m, parentType: 'Assignment', parentId: params.assignment })
           .pipe(map(() => params.assignment));
-    } 
+    }
     // else {
     //   observable = this.modifying
     //     ? this.problemService.updateProblem(this.model._id, m).pipe(map(() => this.model._id))
@@ -141,15 +141,23 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
           filter((id) => !!id),
           switchMap((id) => this.problemService.getProblem(id))
         )
-        .subscribe((res) => (this.model = res.data)),
-      
+        .subscribe((res) => (this.model = res.data),
+          err =>{
+            alert(`오류가 발생했습니다.\n${err.error}`)
+            console.error(err)
+          }),
+
       this.route.queryParams
         .pipe(
           map((params) => params.contest),
           filter((id) => !!id),
           switchMap((id) => this.contestService.getContest(id))
         )
-        .subscribe((res) => (this.contest = res.data)),
+        .subscribe((res) => (this.contest = res.data),
+          err =>{
+            alert(`오류가 발생했습니다.\n${err.error}`)
+            console.error(err)
+          }),
 
       this.route.queryParams
         .pipe(
@@ -157,7 +165,11 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
           filter((id) => !!id),
           switchMap((id) => this.assignmentService.getAssignment(id))
         )
-        .subscribe((res) => (this.assignment = res.data))
+        .subscribe((res) => (this.assignment = res.data),
+          err =>{
+            alert(`오류가 발생했습니다.\n${err.error}`)
+            console.error(err)
+          })
     );
   }
 }

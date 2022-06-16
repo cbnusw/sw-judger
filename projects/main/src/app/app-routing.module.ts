@@ -8,6 +8,13 @@ const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainPageComponent },
   {
+    path: 'practice',
+    loadChildren: () =>
+      import('./pages/practice-pages/practice-pages.module').then(
+        (m) => m.PracticePagesModule
+      )
+  },
+  {
     path: 'contest',
     loadChildren: () =>
       import('./pages/contest-pages/contest-pages.module').then(
@@ -64,4 +71,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

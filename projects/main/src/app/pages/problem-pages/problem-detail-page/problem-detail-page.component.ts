@@ -44,8 +44,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
   }
 
   get isStudent(): boolean {
-    if (this.auth.me.role === 'student') return true;
-    else return false;
+    return this.auth.me.role === 'student';
   }
 
   get submitable(): boolean {
@@ -116,10 +115,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
         if (this.contest) {
           this.router.navigate(['/contest', this.contest._id, 'problems']);
         } else if (this.assignment) {
-          this.router.navigate([
-            '/assignment',
-            this.assignment._id,
-            'problems',
+          this.router.navigate(['/assignment', this.assignment._id, 'problems',
           ]);
         } else {
           this.router.navigateByUrl('/problem/list/me');
@@ -201,7 +197,10 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
               this.contest = res.data;
               this.isLoading = false;
             },
-            err => console.error(err)
+            err =>{
+              alert(`오류가 발생했습니다.\n${err.error}`)
+              console.error(err)
+            }
           )
       );
     }
@@ -217,7 +216,10 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
               this.assignment = res.data;
               this.isLoading = false;
             },
-            err => console.error(err)
+            err =>{
+              alert(`오류가 발생했습니다.\n${err.error}`)
+              console.error(err)
+            }
           )
       );
     }
