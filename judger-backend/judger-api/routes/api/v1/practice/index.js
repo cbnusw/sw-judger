@@ -5,7 +5,7 @@ const controller = require('./controller');
 const router = Router();
 
 router.get('/', controller.getPractices);
-router.get('/:id', controller.getPractice);
+router.get('/:id', isAuthenticated, controller.getPractice);
 router.get('/:id/my-submits', isAuthenticated, controller.getMyPracticeSubmits);
 router.get('/:id/submit/detail', isAuthenticated, controller.getSubmit);
 router.post('/', isAuthenticated, controller.createPractice);
