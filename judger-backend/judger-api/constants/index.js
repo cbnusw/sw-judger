@@ -24,10 +24,11 @@ const permissions = [
 ];
 
 const fileTypes = [
-   'Contest',
-   'Assignment',
-   'Problem',
-   'Submit'
+   "Contest",
+   "Assignment",
+   "Problem",
+   "Practice",
+   "Submit"
 ];
 
 const universities = [
@@ -39,7 +40,11 @@ const universities = [
    "공군사관학교",
 ];
 
-const parentTypes = ['Contest', 'Assignment'];
+const parentTypes = [
+   'Contest',
+   'Assignment',
+   'Practice'
+];
 
 
 const programmingLanguages = [
