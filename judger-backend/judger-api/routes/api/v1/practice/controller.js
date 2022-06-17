@@ -112,7 +112,7 @@ exports.removePractice = asyncHandler(async (req, res, next) => {
 
 exports.getMyPracticeSubmits = asyncHandler(async (req, res) => {
    const { user, params: { id } } = req;
-   const documents = await Submit.find({parentType: "Practice", user: user.info, problem: id});
+   const documents = await Submit.search({ limit: 100 }, { parentType: "Practice", user: user.info, problem: id });
    res.json(createResponse(res, documents));
 });
 
@@ -132,7 +132,8 @@ exports.getSubmit = asyncHandler(async (req, res) => {
          break;
       default:
          throw FORBIDDEN
-   };
+   }
+   ;
 
    res.json(createResponse(res, exSubmit));
 })
