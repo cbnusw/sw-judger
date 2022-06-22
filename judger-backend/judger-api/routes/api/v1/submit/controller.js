@@ -32,7 +32,7 @@ const getSubmit = asyncHandler(async (req, res) => {
    switch (user.info.toString()) {
       case(varifyDoc.writer.toString()):
          break;
-      case(exSubmit.user.toString()):
+      case(exSubmit.user._id.toString()):
          break;
       default:
          throw FORBIDDEN
