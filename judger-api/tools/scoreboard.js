@@ -1,18 +1,18 @@
-const { Submit, ScoreBoard, Contest, Problem } = require('../models');
+const { Submit, ScoreBoard } = require('../models');
 const { CONTEST_NOT_FOUND, SUBMIT_NOT_FOUND } = require("../errors");
 
 async function run(submitId) {
   const submitResult = await Submit.findById({ _id: submitId }).populate('parentId').populate('problem');
   if (!submitResult) throw SUBMIT_NOT_FOUND;
-  const { parent, user, problem, result, createdAt } = submitResult;
-  if (!parent) throw CONTEST_NOT_FOUND;
-  const { testPeriod } = parent;
+  const { parentId, user, problem, result, createdAt } = submitResult;
+  if (!parentId) throw CONTEST_NOT_FOUND;
+  const { testPeriod } = parentId;
   const start = new Date(testPeriod.start);
   const submittedAt = new Date(createdAt);
-  let scoreBoard = await ScoreBoard.findOne({ contest: parent, user });
+  let scoreBoard = await ScoreBoard.findOne({ contest: parentId._id, user });
   if (!scoreBoard) {
-    const problems = parent.problems;
-    scoreBoard = await ScoreBoard.create({ contest: parent._id, user, scores: problems.map(problem => ({ problem })) });
+    const problems = parentId.problems;
+    scoreBoard = await ScoreBoard.create({ contest: parentId._id, user, scores: problems.map(problem => ({ problem })) });
   }
   const score = scoreBoard.scores.find(elem => { return elem.problem.toString() === problem._id.toString()});
   score.right = result.type === 'done';
