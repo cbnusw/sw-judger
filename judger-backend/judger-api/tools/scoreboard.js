@@ -2,7 +2,7 @@ const { Submit, ScoreBoard } = require('../models');
 const { CONTEST_NOT_FOUND, SUBMIT_NOT_FOUND } = require("../errors");
 
 async function run(submitId) {
-  const submitResult = await Submit.findById({ _id: submitId }).populate('parentId').populate('problem');
+  const submitResult = await Submit.findById(submitId.replace(/\"/gi, "")).populate('parentId').populate('problem');
   if (!submitResult) throw SUBMIT_NOT_FOUND;
   const { parentId, user, problem, result, createdAt } = submitResult;
   if (!parentId) throw CONTEST_NOT_FOUND;
