@@ -1,46 +1,6 @@
 version: "3.9"
 
 services:
-  zookeeper:
-    image: zookeeper
-    
-    expose:
-      - "2181"
-
-    volumes:
-      - ./zookeeper/conf:/conf
-
-
-  kafka:
-    image: wurstmeister/kafka
-
-    expose:
-      - "9092"
-
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    
-    environment:
-      KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
-      KAFKA_BROKER_ID: 1
-      
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-      
-      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-
-      KAFKA_CREATE_TOPICS: "swjudge-submit:1:1,\
-                            swjudge-result:1:1"
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
-
-      KAFKA_HEAP_OPTS: "-Xms2g -Xmx6g"
-
-    depends_on:
-      - zookeeper
-
-
   judger-web:
     build:
       context: ./judger-frontend
@@ -48,11 +8,9 @@ services:
   
     ports:
       - "8999:4200"
-    
+
     depends_on:
       - judger-api 
-    links:
-      - judger-api
 
 
   judger-api:
@@ -64,18 +22,14 @@ services:
 
     ports:
       - "9001:4003"
-    
+
     volumes:
-      - ./uploads:/usr/src/app/uploads
+      - ./uploads:/uploads
       - ./server-Logs:/usr/src/app/logs
       - ./judger-backend/judger-api:/usr/src/app
       - /usr/src/app/node_modules
 
     depends_on:
-      - kafka
-      - mongodb
-    links:
-      - kafka
       - mongodb
 
 
@@ -93,10 +47,6 @@ services:
       - /app/node_modules
     
     depends_on:
-      - kafka
-      - mongodb
-    links:
-      - kafka
       - mongodb
 
 
@@ -115,8 +65,6 @@ services:
 
     depends_on:
       - mongodb
-    links:
-      - mongodb
 
 
   mongodb:
@@ -129,3 +77,9 @@ services:
 
     volumes:
       - ./mongo/mongodb:/data/db
+
+
+networks:
+  default:
+    name: sw-judger_net
+    external: true
