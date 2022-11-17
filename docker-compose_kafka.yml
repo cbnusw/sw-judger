@@ -15,7 +15,7 @@ services:
     image: wurstmeister/kafka
     
     ports:
-      - "9999:9092"
+      - "9092:9092"
     
     networks:
       default:
