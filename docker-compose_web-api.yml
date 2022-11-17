@@ -1,0 +1,122 @@
+version: "3.9"
+
+services:
+  judger-web:
+    build:
+      context: ./judger-frontend
+      dockerfile: Dockerfile
+
+    ports:
+      - "80:80"
+      - "443:443"
+    
+    volumes:
+      - ./judger-frontend/nginx/ssl:/etc/nginx/ssl
+
+
+  judger-api_1:
+      build:
+        context: ./judger-backend/judger-api
+        dockerfile: Dockerfile
+      env_file:
+        - ./judger-backend/judger-api/.env
+      environment:
+        - SUBMIT_PARTITION=0
+
+      expose:
+        - "4001"
+      
+      volumes:
+        - /uploads:/usr/src/app/uploads
+        - /server-Logs:/usr/src/app/logs
+
+
+  judger-api_2:
+      build:
+        context: ./judger-backend/judger-api
+        dockerfile: Dockerfile
+      env_file:
+        - ./judger-backend/judger-api/.env
+      environment:
+        - SUBMIT_PARTITION=1
+
+      expose:
+        - "4002"
+
+      volumes:
+        - /uploads:/usr/src/app/uploads
+        - /server-Logs:/usr/src/app/logs
+
+
+  judger-api_3:
+      build:
+        context: ./judger-backend/judger-api
+        dockerfile: Dockerfile
+      env_file:
+        - ./judger-backend/judger-api/.env
+      environment:
+        - SUBMIT_PARTITION=2
+
+      expose:
+        - "4003"
+      
+      volumes:
+        - /uploads:/usr/src/app/uploads
+        - /server-Logs:/usr/src/app/logs
+
+
+  judger-api_4:
+      build:
+        context: ./judger-backend/judger-api
+        dockerfile: Dockerfile
+      env_file:
+        - ./judger-backend/judger-api/.env
+      environment:
+        - SUBMIT_PARTITION=3
+
+      expose:
+        - "4004"
+      
+      volumes:
+        - /uploads:/usr/src/app/uploads
+        - /server-Logs:/usr/src/app/logs
+
+
+  judger-api_5:
+      build:
+        context: ./judger-backend/judger-api
+        dockerfile: Dockerfile
+      env_file:
+        - ./judger-backend/judger-api/.env
+      environment:
+        - SUBMIT_PARTITION=4
+
+      expose:
+        - "4005"
+      
+      volumes:
+        - /uploads:/usr/src/app/uploads
+        - /server-Logs:/usr/src/app/logs
+
+
+  judger-api_6:
+      build:
+        context: ./judger-backend/judger-api
+        dockerfile: Dockerfile
+      env_file:
+        - ./judger-backend/judger-api/.env
+      environment:
+        - SUBMIT_PARTITION=5
+
+      expose:
+        - "4006"
+      
+      volumes:
+        - /uploads:/usr/src/app/uploads
+        - /server-Logs:/usr/src/app/logs
+
+
+networks:
+  default:
+    name: sw-judger_net
+    external: true
