@@ -1,138 +1,84 @@
 version: "3.9"
 
 services:
-  judger-api:
-    build:
-      context: ./judger-backend/judger-api
-      dockerfile: Dockerfile
-    env_file:
-      - ./judger-backend/judger-api/.env
-
-    expose:
-      - "4003"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    
-    volumes:
-      - /uploads:/usr/src/app/uploads
-      - /server-Logs:/usr/src/app/logs
-
-
-  judger-web:
-    build:
-      context: ./judger-frontend
-      dockerfile: Dockerfile
-
-    ports:
-      - "80:80"
-      - "443:443"
-    
-    volumes:
-      - ./judger-frontend/nginx/ssl:/etc/nginx/ssl
-    
-    depends_on:
-      - judger-api
-
-
-  judger1:
+  judger_1:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
-    
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     
     volumes:
       - /uploads:/source
       - /uploads:/io
 
 
-  judger2:
+  judger_2:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
-    
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     
     volumes:
       - /uploads:/source
       - /uploads:/io
 
 
-  judger3:
+  judger_3:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
-    
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
      
     volumes:
       - /uploads:/source
       - /uploads:/io
 
 
-  judger4:
+  judger_4:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
-    
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     
     volumes:
       - /uploads:/source
       - /uploads:/io
 
 
-  judger5:
+  judger_5:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
-    
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     
     volumes:
       - /uploads:/source
       - /uploads:/io
 
 
-  judger6:
+  judger_6:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
-    
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     
     volumes:
       - /uploads:/source
       - /uploads:/io
 
 
-  judger7:
+  judger_7:
     build:
       context: ./judger-backend/judger
       dockerfile: Dockerfile
     env_file:
       - ./judger-backend/judger/.env
-    
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     
     volumes:
       - /uploads:/source
