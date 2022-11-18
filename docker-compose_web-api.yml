@@ -24,7 +24,7 @@ services:
         - SUBMIT_PARTITION=0
 
       expose:
-        - "4001"
+        - "4003"
       
       volumes:
         - /uploads:/usr/src/app/uploads
@@ -41,7 +41,7 @@ services:
         - SUBMIT_PARTITION=1
 
       expose:
-        - "4002"
+        - "4003"
 
       volumes:
         - /uploads:/usr/src/app/uploads
@@ -75,7 +75,7 @@ services:
         - SUBMIT_PARTITION=3
 
       expose:
-        - "4004"
+        - "4003"
       
       volumes:
         - /uploads:/usr/src/app/uploads
@@ -92,7 +92,7 @@ services:
         - SUBMIT_PARTITION=4
 
       expose:
-        - "4005"
+        - "4003"
       
       volumes:
         - /uploads:/usr/src/app/uploads
@@ -109,7 +109,7 @@ services:
         - SUBMIT_PARTITION=5
 
       expose:
-        - "4006"
+        - "4003"
       
       volumes:
         - /uploads:/usr/src/app/uploads
