@@ -11,6 +11,8 @@ export interface IContest{
   title?: string;
   content?: string;
   writer?: IUserInfo;
+  password?: string;
+  isPassword?: boolean;
   problems?: Array<IProblem>;
   applyingPeriod?: IPeriod;
   testPeriod: IPeriod;

@@ -80,6 +80,32 @@
     >
   </div>
 
+  <div class="mb-4">
+    <mat-checkbox color="primary" formControlName="isPassword"
+    >비밀번호 설정</mat-checkbox
+    >
+    <span class="help block">
+      <i class="las la-info-circle me-1"></i>
+      비밀번호를 설정할 경우 문제 열람에 비밀번호 입력이 필요합니다.
+    </span>
+
+    <mat-form-field class="w-20 mt-2" *ngIf="isPassword">
+      <mat-label>비밀번호</mat-label>
+      <input
+        matInput
+        autocomplete="off"
+        formControlName="password"
+        placeholder="EX. QWER1234"
+      />
+    </mat-form-field>
+
+    <span
+      class="error block relative period-error"
+      *ngIf="hasError('requiredPassword')"
+    >비밀번호를 설정해주세요.</span>
+
+  </div>
+
   <div class="flex justify-end">
     <a class="me-2" mat-flat-button (click)="cancel()">취소</a>
     <button mat-flat-button color="primary">

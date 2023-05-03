@@ -15,6 +15,7 @@ const errors = {
   FINISHED_CONTEST: '',
   PROGRESSING_CONTEST: '',
   YEAR_MONTH_REQUIRED: '',
+  CONTEST_PASSWORD_NOT_MATCH: '',
 
   // 401 Errors
   LOGIN_REQUIRED: '',

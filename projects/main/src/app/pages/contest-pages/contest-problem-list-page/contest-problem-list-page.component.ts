@@ -20,6 +20,7 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
 
   contest: IContest;
+  isWriter: boolean;
   orderableProblems: IProblem[];
 
   dragIndex = -1;
@@ -27,7 +28,8 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService,
               private route: ActivatedRoute,
               private router: Router,
-              private contestService: ContestService) {
+              private contestService: ContestService,
+  ) {
   }
 
   setReorderMode(): void {
@@ -83,7 +85,38 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
     ).subscribe(
       res => {
         this.contest = res.data;
-        this.isLoading = false;
+        if (this.contest.isPassword) {
+          this.isWriter$.subscribe(res => {
+            this.isWriter = res
+            if (this.isWriter) {
+              this.isLoading = false;
+            } else {
+              // let password: string = this.cookieService.get(this.contest._id);
+              let password: string = '';
+              if (!password) password = prompt('비밀번호를 입력하세요');
+
+              this.contestService.confirmPassword(this.contest._id, password).subscribe(res => {
+                  // this.cookieService.set(this.contest._id, password);
+                  this.isLoading = false;
+                },
+                err => {
+                  const { code } = err && err.error || {};
+                  switch (code) {
+                    case ERROR_CODES.CONTEST_NOT_FOUND:
+                      alert('찾을 수 없는 대회 문제입니다.');
+                      this.router.navigate(['/contest/detail', this.contest._id]);
+                      break;
+                    case ERROR_CODES.CONTEST_PASSWORD_NOT_MATCH:
+                      alert('비밀번호를 다시 입력해주세요');
+                      // this.cookieService.delete(this.contest._id);
+                      this.router.navigate(['/contest/detail', this.contest._id]);
+                      break;
+                  }
+                }
+              )
+            }
+          })
+        }
       },
       err => {
         const { code } = err && err.error || {};
@@ -94,11 +127,11 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
             break;
           case ERROR_CODES.IS_NOT_TEST_PERIOD:
             alert('대회 시간이 아닙니다.');
-            this.router.navigate(['/contest/detail', this.route.snapshot.params.id]);
+            this.router.navigate(['/contest/detail', this.contest._id]);
             break;
           case ERROR_CODES.IS_NOT_CONTESTANT:
             alert('대회 참가자가 아닙니다.');
-            this.router.navigate(['/contest/detail', this.route.snapshot.params.id]);
+            this.router.navigate(['/contest/detail', this.contest._id]);
             break;
           default:
             alert(err.error && err.error.message || err.message);
@@ -108,7 +141,9 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }
+
+

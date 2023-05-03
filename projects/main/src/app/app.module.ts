@@ -23,7 +23,7 @@ import { TokenInterceptor } from './interceptors/token-interceptor.service';
   ],
   providers: [
     { provide: COMPOSITION_BUFFER_MODE, useValue: false },
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

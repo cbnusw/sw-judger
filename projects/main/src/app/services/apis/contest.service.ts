@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { any } from 'codelyzer/util/function';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiBase } from '../../classes/api-base';
@@ -42,8 +43,16 @@ export class ContestService extends ApiBase {
     return this.http.get<IResponse<IContest>>(this.url`/${id}`);
   }
 
+  getContestForAdmin(id: string): Observable<IResponse<IContest>> {
+    return this.http.get<IResponse<IContest>>(this.url`/admin/${id}`);
+  }
+
   getContestProblems(id: string): Observable<IResponse<IContest>> {
     return this.http.get<IResponse<IContest>>(this.url`/${id}/problems`);
+  }
+
+  confirmPassword(id: string, pwd: string): Observable<IResponse<any>> {
+    return this.http.get<IResponse<any>>(this.url`/confirm/${id}`, { params: { password: pwd } });
   }
 
   createContest(body: IContest): Observable<IResponse<IContest>> {
@@ -67,7 +76,7 @@ export class ContestService extends ApiBase {
   }
 
   updateContestProblem(id: string, problemId: string, body: IProblem): Observable<IResponse<undefined>> {
-    console.log("updated!")
+    console.log('updated!')
     return this.http.put<IResponse<undefined>>(this.url`/${id}/problem/${problemId}`, body);
   }
 

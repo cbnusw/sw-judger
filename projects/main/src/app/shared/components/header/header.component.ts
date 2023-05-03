@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { INavMenu } from '../../models/nav-menu';
 import { MobileNavigationComponent } from '../mobile-navigation/mobile-navigation.component';
@@ -41,7 +42,10 @@ export class HeaderComponent implements OnInit {
 
   @ViewChild(MobileNavigationComponent) mobileNav: MobileNavigationComponent;
 
-  constructor(public auth: AuthService) {}
+  constructor(
+    public auth: AuthService,
+    public router: Router
+  ) {}
 
   logout(): boolean {
     this.auth.logout();

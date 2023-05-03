@@ -50,6 +50,10 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
     return this.formGroup.get('isApplyingPeriod').value;
   }
 
+  get isPassword(): boolean {
+    return this.formGroup.get('isPassword').value;
+  }
+
   onReady(editor: any): void {
     editor.plugins.get('FileRepository').createUploadAdapter = loader => {
       return new UploadAdapter(loader, this.uploadService);
@@ -69,6 +73,10 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
 
     delete (m as any).isApplyingPeriod;
 
+    if (!(m as any).isPassword) {
+      m.password = null;
+    }
+
     return m;
   }
 
@@ -80,6 +88,9 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
   protected patchFormGroup(m: IContest): void {
     if (m.applyingPeriod) {
       (m as any).isApplyingPeriod = true;
+    }
+    if (m.password) {
+      (m as any).isPassword = true;
     }
     super.patchFormGroup(m);
   }
@@ -101,7 +112,9 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
         }
       ]],
       isApplyingPeriod: [false],
+      isPassword: [false],
       applyingPeriod: [null],
+      password: [null],
     });
 
     formGroup.setValidators([
@@ -109,31 +122,37 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
         const testPeriod = form.get('testPeriod').value;
         const applyingPeriod = form.get('applyingPeriod').value;
         const isApplyingPeriod = form.get('isApplyingPeriod').value;
+        const isPassword = form.get('isPassword').value;
+        const password = form.get('password').value;
 
-        if (!isApplyingPeriod) {
-          return null;
+        if (isApplyingPeriod) {
+          if (!applyingPeriod) {
+            return { requiredApplyingPeriod: true };
+          }
+
+          let { start, end } = applyingPeriod;
+
+          start = new Date(start);
+          end = new Date(end);
+
+          if (start.getTime() >= end.getTime()) {
+            return { invalidApplyingPeriod: true };
+          }
+
+          if (testPeriod) {
+            let { start: testStart } = testPeriod;
+
+            testStart = new Date(testStart);
+
+            if (end.getTime() > testStart.getTime()) {
+              return { overlapApplyingPeriod: true };
+            }
+          }
         }
 
-        if (!applyingPeriod) {
-          return { requiredApplyingPeriod: true };
-        }
-
-        let { start, end } = applyingPeriod;
-
-        start = new Date(start);
-        end = new Date(end);
-
-        if (start.getTime() >= end.getTime()) {
-          return { invalidApplyingPeriod: true };
-        }
-
-        if (testPeriod) {
-          let { start: testStart } = testPeriod;
-
-          testStart = new Date(testStart);
-
-          if (end.getTime() > testStart.getTime()) {
-            return { overlapApplyingPeriod: true };
+        if (isPassword) {
+          if (!password) {
+            return { requiredPassword: true };
           }
         }
 
@@ -168,7 +187,7 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
         switchMap(() => this.route.params),
         map(params => params.id),
         filter(id => !!id),
-        switchMap(id => this.contestService.getContest(id))
+        switchMap(id => this.contestService.getContestForAdmin(id))
       ).subscribe(
         res => {
           if (res.data.writer._id !== this.auth.me._id) {
