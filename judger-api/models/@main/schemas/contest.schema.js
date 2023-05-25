@@ -30,6 +30,14 @@ const schema = createSchema({
     required: true,
     index: true,
   },
+  password: {
+    type: String,
+    default: null,
+  },
+  isPassword: {
+    type: Boolean,
+    default: false,
+  },
   problems: [{
     type: Schema.Types.ObjectId,
     ref: 'Problem',

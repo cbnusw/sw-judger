@@ -123,8 +123,6 @@ exports.getSubmit = asyncHandler(async (req, res) => {
       .populate({ path: 'problem' });
 
    if (!exSubmit) throw SUBMIT_NOT_FOUND;
-   console.log(exSubmit)
-   console.log(user)
    switch (user.info.toString()) {
       case(exSubmit.problem.writer.toString()):
          break;

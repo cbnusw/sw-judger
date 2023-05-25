@@ -6,17 +6,19 @@ const controller = require('./controller');
 const router = Router();
 
 router.get('/', controller.getContests);
+router.get('/admin/:id', isAuthenticated, ...hasRole(), controller.getContestForAdmin);
 router.get('/me', isAuthenticated, controller.getMyContests);
 router.get('/registered', isAuthenticated, controller.getRegisteredContests);
 router.get('/applying', controller.getApplyingContests);
 router.get('/progressing', controller.getProgressingContests);
 router.get('/:id', controller.getContest);
 router.get(
-  '/:id/problems',
-  isAuthenticated,
-  handleAccessContestProblem,
-  controller.getContestProblems
+   '/:id/problems',
+   isAuthenticated,
+   handleAccessContestProblem,
+   controller.getContestProblems
 );
+router.get('/confirm/:id', controller.confirmPassword);
 
 router.post('/', ...hasRole(), controller.createContest);
 
