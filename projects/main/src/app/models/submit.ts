@@ -18,6 +18,7 @@ export interface ISubmit {
   parentType?: string;
   user?: IUserInfo;
   source?: string;
+  code?: string;
   language?: TProgrammingLanguage;
   result?: ISubmitResult;
   createdAt?: Date;

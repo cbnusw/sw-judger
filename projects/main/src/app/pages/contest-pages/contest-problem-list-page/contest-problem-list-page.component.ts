@@ -8,6 +8,7 @@ import { IContest } from '../../../models/contest';
 import { IProblem } from '../../../models/problem';
 import { ContestService } from '../../../services/apis/contest.service';
 import { AuthService } from '../../../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'sw-contest-problem-list-page',
@@ -29,6 +30,7 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private router: Router,
               private contestService: ContestService,
+              private cookieService: CookieService,
   ) {
   }
 
@@ -91,12 +93,11 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
             if (this.isWriter) {
               this.isLoading = false;
             } else {
-              // let password: string = this.cookieService.get(this.contest._id);
-              let password: string = '';
+              let password: string = this.cookieService.get(this.contest._id);
               if (!password) password = prompt('비밀번호를 입력하세요');
 
               this.contestService.confirmPassword(this.contest._id, password).subscribe(res => {
-                  // this.cookieService.set(this.contest._id, password);
+                  this.cookieService.set(this.contest._id, password, {expires: new Date(this.contest.testPeriod.end)});
                   this.isLoading = false;
                 },
                 err => {
@@ -108,7 +109,7 @@ export class ContestProblemListPageComponent implements OnInit, OnDestroy {
                       break;
                     case ERROR_CODES.CONTEST_PASSWORD_NOT_MATCH:
                       alert('비밀번호를 다시 입력해주세요');
-                      // this.cookieService.delete(this.contest._id);
+                      this.cookieService.delete(this.contest._id);
                       this.router.navigate(['/contest/detail', this.contest._id]);
                       break;
                   }

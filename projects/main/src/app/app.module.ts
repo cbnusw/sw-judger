@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { MainPageModule } from './pages/main-page/main-page.module';
 import { SharedModule } from './shared/shared.module';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { TokenInterceptor } from './interceptors/token-interceptor.service';
   providers: [
     { provide: COMPOSITION_BUFFER_MODE, useValue: false },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

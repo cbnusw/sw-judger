@@ -29,6 +29,7 @@
     "moment": "^2.29.1",
     "ng2-pdf-viewer": "^6.4.1",
     "ngx-cookie-service": "^11.0.2",
+    "prismjs": "^1.29.0",
     "rxjs": "~6.6.0",
     "socket.io-client": "^4.1.2",
     "tslib": "^2.1.0",

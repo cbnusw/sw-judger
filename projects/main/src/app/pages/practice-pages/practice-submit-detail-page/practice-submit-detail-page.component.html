@@ -31,10 +31,8 @@
   </span>
 
   <div class="py-2 border-bottom mb-2">
-
-    <div class="border-box min-h-150 fw-700 px-2"
+    <div [innerHTML]="submit.code" class="border-box min-h-150 fw-700 px-2"
          style="white-space: pre-wrap;">
-      {{submit.code || '결과가 없습니다'}}
     </div>
   </div>
   <span class="flex justify-between border-bottom pb-2" style="font-weight: bold;">

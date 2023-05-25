@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../../guards/auth.guard';
 import { MyProblemListPageComponent } from './my-problem-list-page/my-problem-list-page.component';
 import { ProblemDetailPageComponent } from './problem-detail-page/problem-detail-page.component';
 import { ProblemFormPageComponent } from './problem-form-page/problem-form-page.component';
