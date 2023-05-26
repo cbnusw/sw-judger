@@ -87,16 +87,14 @@ export class AuthService extends RequestBase {
     );
   }
 
-  async logout(): Promise<void> {
+  logout(): void {
     const refreshToken: string = this.storageService.get(REFRESH_TOKEN_KEY);
+    this.http.get(`${environment.authHost}/logout`, { headers: { 'x-refresh-token': refreshToken } }).subscribe(
+      res => {
+        this.router.navigateByUrl('/account/login')
+      }, error => console.log(error)
+    )
     this.clear();
-    try {
-      await this.http.get(`${environment.authHost}/logout`, { headers: { 'x-refresh-token': refreshToken } }).toPromise();
-    } catch (err) {
-      console.error(err);
-    }
-    const loggedInUrl = environment.loginPageUrl;
-    loggedInUrl.startsWith('/') ? await this.router.navigateByUrl('/account/login') : location.href = loggedInUrl;
   }
 
   getMe(): void {

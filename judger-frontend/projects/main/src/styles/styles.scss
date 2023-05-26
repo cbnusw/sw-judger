@@ -2,6 +2,7 @@
 @import "variables";
 @import "mixins";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+@import 'prismjs/themes/prism.css';
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component

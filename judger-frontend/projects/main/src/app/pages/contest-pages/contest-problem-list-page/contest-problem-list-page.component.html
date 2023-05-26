@@ -22,7 +22,7 @@
   </div>
 
   <h3 class="mb-2">문제 목록</h3>
-  <div *ngIf="(isWriter$ | async) && !orderableProblems" class="flex justify-end mb-2">
+  <div *ngIf="isWriter && !orderableProblems" class="flex justify-end mb-2">
     <button *ngIf="contest?.problems.length > 1"
             class="text-white"
             mat-flat-button
@@ -36,7 +36,7 @@
        [queryParams]="{ contest: contest?._id }"
        color="primary">문제등록</a>
   </div>
-  <div *ngIf="isWriter$ && orderableProblems" class="flex justify-end mb-2">
+  <div *ngIf="isWriter && orderableProblems" class="flex justify-end mb-2">
     <button class="text-white"
             *ngIf="contest?.problems.length > 1"
             mat-flat-button

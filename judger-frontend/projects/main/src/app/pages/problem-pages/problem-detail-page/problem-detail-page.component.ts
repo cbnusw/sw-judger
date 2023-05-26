@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer/public_api';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { ERROR_CODES } from '../../../constants/error-codes';
 import { IContest } from '../../../models/contest';
 import { IProblem } from '../../../models/problem';
 import { IAssignment } from '../../../models/assignment';
@@ -32,7 +34,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private problemService: ProblemService,
     private contestService: ContestService,
-    private assignmentService: AssignmentService
+    private assignmentService: AssignmentService,
+    private cookieService: CookieService
   ) {
   }
 
@@ -195,9 +198,36 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
           .subscribe(
             res => {
               this.contest = res.data;
-              this.isLoading = false;
+              if (this.contest.isPassword) {
+                if (this.isWriter) {
+                  this.isLoading = false;
+                } else {
+                  let password: string = this.cookieService.get(this.contest._id);
+                  if (!password) password = prompt('비밀번호를 입력하세요');
+
+                  this.contestService.confirmPassword(this.contest._id, password).subscribe(res => {
+                      this.cookieService.set(this.contest._id, password, { expires: new Date(this.contest.testPeriod.end) });
+                      this.isLoading = false;
+                    },
+                    err => {
+                      const { code } = err && err.error || {};
+                      switch (code) {
+                        case ERROR_CODES.CONTEST_NOT_FOUND:
+                          alert('찾을 수 없는 대회 문제입니다.');
+                          this.router.navigate(['/contest/detail', this.contest._id]);
+                          break;
+                        case ERROR_CODES.CONTEST_PASSWORD_NOT_MATCH:
+                          alert('비밀번호를 다시 입력해주세요');
+                          this.cookieService.delete(this.contest._id);
+                          this.router.navigate(['/contest/detail', this.contest._id]);
+                          break;
+                      }
+                    }
+                  )
+                }
+              }
             },
-            err =>{
+            err => {
               alert(`오류가 발생했습니다.\n${err.error}`)
               console.error(err)
             }
@@ -216,7 +246,7 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
               this.assignment = res.data;
               this.isLoading = false;
             },
-            err =>{
+            err => {
               alert(`오류가 발생했습니다.\n${err.error}`)
               console.error(err)
             }
