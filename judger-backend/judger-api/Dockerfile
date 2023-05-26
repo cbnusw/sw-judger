@@ -10,6 +10,6 @@ RUN npm install -g pm2
 
 COPY . .
 
-EXPOSE 4000
+EXPOSE 4003
 
 CMD ["npm", "run", "start"]

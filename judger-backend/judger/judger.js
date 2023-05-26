@@ -190,6 +190,7 @@ const judge = async (config, submit) => {
 
     // console.log(config);
     const judgerResult = await judger.run(config);
+    // console.log(judgerResult);
 
     const answer = base
       .read_file(config["answer_path"])
@@ -210,6 +211,7 @@ const judge = async (config, submit) => {
     // console.log(judgerResult);
     if (judgerResult["result"] != judger.RESULT_SUCCESS) {
       console.log("result undefined");
+      console.log(judgerResult['result']);
       break;
     }
 

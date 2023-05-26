@@ -12,6 +12,7 @@ const errors = {
   BEFORE_APPLYING_PERIOD: [400, '아직 신청기간이 아닙니다.'],
   AFTER_TEST_START: [400, '대회 시작 시간이 지났습니다.'],
   CONTEST_ENROLLED: [400, '이미 신청한 대회입니다.'],
+  CONTEST_PASSWORD_NOT_MATCH: [400, '대회 비밀번호가 일치하지 않습니다.'],
   ASSIGNMENT_ENROLLED: [400, '이미 할당된 과제입니다.'],
   FILE_NOT_UPLOADED: [400, '파일 업로드에 실패했습니다.'],
   INVALID_PROBLEM_PUBLISH: [400, '잘못된 문제 공개 날짜입니다.'],
