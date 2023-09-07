@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: judger-web
+spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: angular-app
+    template:
+      metadata:
+        labels:
+          app: angular-app
+      spec:
+        containers:
+          - name: angular
+            image: sw-judger-judger-web
+            imagePullPolicy: Never
+            ports:
+              - containerPort: 4200
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: judger-web
+spec:
+    selector:
+      app: angular-app
+    ports:
+      - name: http
+        port: 80
+        targetPort: 4200
+    type: NodePort

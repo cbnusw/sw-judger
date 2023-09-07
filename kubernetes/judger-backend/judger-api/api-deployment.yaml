@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: judger-api
+  labels:
+    app: sw-judger-judger-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sw-judger-judger-api
+  template:
+    metadata:
+      labels:
+        app: sw-judger-judger-api
+    spec:
+      containers:
+        - name: sw-judger-judger-api
+          image: sw-judger-judger-api
+          imagePullPolicy: Never #이미지를 도커허브에서 가져올지
+          ports:
+            - containerPort: 4003
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: kafka-kafka-bootstrap:9092
+          volumeMounts:
+            - name: uploads-volume
+              mountPath: /usr/src/app/uploads
+      volumes:
+        - name: uploads-volume
+          persistentVolumeClaim:
+            claimName: uploads-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: judger-api
+spec:
+  selector:
+    app: sw-judger-judger-api
+  ports:
+    - name: http
+      port: 4003
+      targetPort: 4003
+      nodePort: 30000
+  type: NodePort

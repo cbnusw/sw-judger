@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: judger
+  labels:
+    app: sw-judger-judger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sw-judger-judger
+  template:
+    metadata:
+      labels:
+        app: sw-judger-judger
+    spec:
+      containers:
+        - name: sw-judger-judger
+          image: sw-judger-judger
+          imagePullPolicy: Never #이미지를 도커허브에서 가져올지
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: uploads-volume
+              mountPath: /usr/src/app/uploads
+      volumes:
+        - name: uploads-volume
+          persistentVolumeClaim:
+            claimName: uploads-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sw-judger-judger
+spec:
+  selector:
+    app: sw-judger-judger
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
