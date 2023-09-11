@@ -19,6 +19,7 @@ router.get(
    controller.getContestProblems
 );
 router.get('/confirm/:id', controller.confirmPassword);
+router.get('/enroll/me', isAuthenticated, controller.getMyEnrollContests)
 
 router.post('/', ...hasRole(), controller.createContest);
 

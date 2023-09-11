@@ -123,6 +123,22 @@ const getContestProblems = asyncHandler(async (req, res, next) => {
 });
 
 
+const getMyEnrollContests = asyncHandler(async (req, res, next) => {
+  const { user } = req;
+  
+  const contests = await Contest.find(
+    {
+      contestants: { $elemMatch: { $eq: user.info } },
+    },
+    'title'
+  );
+  if (!contests) return next(CONTEST_NOT_FOUND);
+  
+  
+  res.json(createResponse(res, contests));
+});
+
+
 const createContest = asyncHandler(async (req, res, next) => {
    const { body, user } = req;
 
@@ -304,6 +320,7 @@ exports.getProgressingContests = getProgressingContests;
 exports.getContest = getContest;
 exports.getContestForAdmin = getContestForAdmin;
 exports.getContestProblems = getContestProblems;
+exports.getMyEnrollContests = getMyEnrollContests;
 exports.createContest = createContest;
 
 exports.enrollContest = enrollContest;

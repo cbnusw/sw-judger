@@ -8,7 +8,7 @@ const {
   ASSIGNMENT_ENROLLED,
   FORBIDDEN,
   IS_NOT_ASSIGNMENT_PROBLEM,
-  PROBLEM_NOT_FOUND,
+  PROBLEM_NOT_FOUND, CONTEST_NOT_FOUND,
 } = require('../../../../errors');
 
 
@@ -79,6 +79,22 @@ const getAssignmentProblems = asyncHandler(async (req, res, next) => {
   const doc = await query.exec();
 
   res.json(createResponse(res, doc));
+});
+
+
+const getMyEnrollAssignments = asyncHandler(async (req, res, next) => {
+  const { user } = req;
+  
+  const assignments = await Assignment.find(
+    {
+      students: { $elemMatch: { $eq: user.info } },
+    },
+    ['title', 'course']
+  );
+  if (!assignments) return next(CONTEST_NOT_FOUND);
+  
+  
+  res.json(createResponse(res, assignments));
 });
 
 
@@ -241,6 +257,7 @@ exports.getRegisteredAssignments = getRegisteredAssignments;
 exports.getProgressingAssignments = getProgressingAssignments;
 exports.getAssignment = getAssignment;
 exports.getAssignmentProblems = getAssignmentProblems;
+exports.getMyEnrollAssignments = getMyEnrollAssignments;
 exports.createAssignment = createAssignment;
 exports.createAssignmentProblem = createAssignmentProblem;
 exports.enrollAssignment = enrollAssignment;

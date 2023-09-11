@@ -1,0 +1,33 @@
+<div class="main-container mt-6 flex-container main">
+  <div class="side-bar mr-12 px-6">
+    <h2 class="mb-3">마이페이지</h2>
+    <div *ngFor="let menu of menus;let i = index" class="font-lg pb-3 menu-text"
+         [ngClass]="{'black-text': i === menuIndex}" (click)="changeMenuIndex(i) ">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+           class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+      </svg>
+      {{menu}}<br>
+    </div>
+    <hr>
+    <div class="font-lg py-3" (click)="logout()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+           class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/>
+      </svg>
+      로그아웃<br>
+    </div>
+  </div>
+  <div class="w-full">
+    <ng-container [ngSwitch]="menuIndex">
+      <ng-container *ngSwitchCase="0">
+        <sw-profile-info></sw-profile-info>
+      </ng-container>
+      <ng-container *ngSwitchCase="1">
+        <sw-submit-result-list></sw-submit-result-list>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

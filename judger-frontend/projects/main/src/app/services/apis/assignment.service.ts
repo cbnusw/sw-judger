@@ -39,6 +39,10 @@ export class AssignmentService extends ApiBase {
     });
   }
 
+  getMyEnrollAssignments(): Observable<IResponse<undefined>> {
+    return this.http.get<IResponse<undefined>>(this.url`/enroll/me`);
+  }
+
   createAssignment(body: IAssignment): Observable<IResponse<IAssignment>> {
     return this.http.post<IResponse<IAssignment>>(this.url`/`, body);
   }

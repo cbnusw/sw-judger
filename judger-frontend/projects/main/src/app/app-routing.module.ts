@@ -65,6 +65,14 @@ const routes: Routes = [
         (m) => m.AccountPagesModule
       ),
   },
+  {
+    path: 'my-page',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/my-pages/my-pages.module').then(
+        (m) => m.MyPagesModule
+      ),
+  },
 ];
 
 @NgModule({

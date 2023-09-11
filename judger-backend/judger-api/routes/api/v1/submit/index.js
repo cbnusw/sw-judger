@@ -5,8 +5,8 @@ const controller = require('./controller');
 const router = Router();
 
 // router.get('/', isAuthenticated, controller.getSubmits);
-router.get('/:id', isAuthenticated, controller.getSubmit);
 router.get('/me', isAuthenticated, controller.getMySubmits);
+router.get('/:id', isAuthenticated, controller.getSubmit);
 router.get('/contest/:id', isAuthenticated, controller.getContestSubmits);
 router.get('/contest/:id/me', isAuthenticated, controller.getMyContestSubmits);
 router.get('/problem/:id', isAuthenticated,controller.getProblemSubmits);

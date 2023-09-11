@@ -45,7 +45,7 @@ const getSubmit = asyncHandler(async (req, res) => {
 
 const getMySubmits = asyncHandler(async (req, res, next) => {
    const { user } = req;
-   const documents = await Submit.search({ limit: 100 }, { user: user.info });
+   const documents = await Submit.search({ limit: 100 }, { user: user.info, parentType: { $ne: 'Practice' }});
    res.json(createResponse(res, documents));
 });
 

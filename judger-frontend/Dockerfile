@@ -1,4 +1,4 @@
-FROM node:16.13.0 AS build
+FROM node:16.14.0 AS build
 
 RUN mkdir -p /app
 

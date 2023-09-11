@@ -51,6 +51,10 @@ export class ContestService extends ApiBase {
     return this.http.get<IResponse<IContest>>(this.url`/${id}/problems`);
   }
 
+  getMyEnrollContests() : Observable<IResponse<undefined>> {
+    return this.http.get<IResponse<undefined>>(this.url`/enroll/me`);
+  }
+
   confirmPassword(id: string, pwd: string): Observable<IResponse<any>> {
     return this.http.get<IResponse<any>>(this.url`/confirm/${id}`, { params: { password: pwd } });
   }

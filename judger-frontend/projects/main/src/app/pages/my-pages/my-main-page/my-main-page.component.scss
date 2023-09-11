@@ -1,0 +1,41 @@
+.w-full {
+  width: 100%;
+}
+
+.main {
+  flex: 1 1 100%;
+}
+
+.menu-text {
+  color: gray;
+}
+
+.black-text {
+  color: black;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.side-bar {
+
+}
+
+@media (min-width: 640px) {
+  .flex-container {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 639px) {
+  .flex-container {
+    flex-direction: column;
+  }
+
+  .side-bar {
+    padding: 10px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+  }
+}

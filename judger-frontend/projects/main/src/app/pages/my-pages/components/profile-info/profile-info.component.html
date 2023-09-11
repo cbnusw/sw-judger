@@ -1,0 +1,61 @@
+<div class="profile-container container-padding w-full">
+  <img src="assets/images/profile.png" alt="Basic Image" height="260" width="260">
+  <div class="profile-section-content">
+    <p class="profile-section-item"><span class="profile-section-label">Name:</span> {{ authService.me?.name }}</p>
+    <p class="profile-section-item"><span class="profile-section-label">Phone:</span> {{ authService.me?.phone }}</p>
+    <p class="profile-section-item"><span class="profile-section-label">Email:</span> {{ authService.me?.email }}</p>
+    <p class="profile-section-item"><span
+        class="profile-section-label">University:</span> {{ authService.me?.university }}</p>
+    <p class="profile-section-item"><span
+        class="profile-section-label">Department:</span> {{ authService.me?.department }}</p>
+  </div>
+</div>
+<div class="container-padding">
+  <div class="table-header">
+    <p class="">대회 참가 내역</p>
+    <!--<p>총 {{contests.length}}건</p>-->
+  </div>
+  <hr class="table-hr">
+  <table mat-table [dataSource]="contests">
+
+    <ng-container class="no-cell" matColumnDef="no">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let row; let i = index">{{i + 1}}</td>
+    </ng-container>
+
+    <ng-container class="title-cell" matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>대회명</th>
+      <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="contestColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: contestColumns;"></tr>
+  </table>
+</div>
+<div class="container-padding">
+  <div class="table-header">
+    <p class="">과제 참가 내역</p>
+    <!--<p>총 {{assignments.length}}건</p>-->
+  </div>
+  <hr class="table-hr">
+  <table mat-table [dataSource]="assignments">
+
+    <ng-container class="no-cell" matColumnDef="no">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let row; let i = index">{{i + 1}}</td>
+    </ng-container>
+
+    <ng-container class="title-cell" matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef>교과목명</th>
+      <td mat-cell *matCellDef="let row">{{ row.course }}</td>
+    </ng-container>
+
+    <ng-container class="title-cell" matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>과제명</th>
+      <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="assignmentsColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: assignmentsColumns;"></tr>
+  </table>
+</div>

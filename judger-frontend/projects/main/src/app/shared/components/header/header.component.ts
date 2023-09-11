@@ -37,6 +37,10 @@ export class HeaderComponent implements OnInit {
     {
       name: '공지사항',
       link: '/notice',
+    },
+    {
+      name: '마이페이지',
+      link: '/my-page'
     }
   ];
 

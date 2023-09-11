@@ -1,0 +1,99 @@
+version: "3.9"
+
+services:
+  zookeeper:
+    image: zookeeper
+
+    expose:
+      - "2181"
+
+    volumes:
+      - ./zookeeper/conf:/conf
+
+  kafka:
+    image: wurstmeister/kafka
+
+    ports:
+      - "9092:9092"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    environment:
+      KAFKA_SOCKET_REQUEST_MAX_BYTES: 369295700
+      KAFKA_BROKER_ID: 1
+
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+
+      KAFKA_CREATE_TOPICS: "swjudge-submit:1:1,\
+                            swjudge-result:1:1"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+
+      KAFKA_HEAP_OPTS: "-Xms8g -Xmx16g"
+
+    depends_on:
+      - zookeeper
+
+  judger-api:
+    build:
+      context: ./judger-backend/judger-api
+      dockerfile: Dockerfile.dev
+    env_file:
+      - ./judger-backend/judger-api/.env
+
+    ports:
+      - "4003:4003"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    volumes:
+      - ./uploads:/usr/src/app/uploads
+      - ./server-Logs:/usr/src/app/logs
+      - ./judger-backend/judger-api:/usr/src/app
+      - /usr/src/app/node_modules
+
+
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+
+  judger:
+    build:
+      context: ./judger-backend/judger
+      dockerfile: Dockerfile.dev
+    env_file:
+      - ./judger-backend/judger/.env
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    volumes:
+      - ./uploads:/source
+      - ./uploads:/io
+      - ./judger-backend/judger:/app
+      - /app/node_modules
+
+    depends_on:
+      - kafka
+    links:
+      - kafka
+
+  judger-web:
+    build:
+      context: ./judger-frontend
+      dockerfile: Dockerfile.dev
+
+    ports:
+      - "8999:4200"
+
+    depends_on:
+      - judger-api
+    links:
+      - judger-api
