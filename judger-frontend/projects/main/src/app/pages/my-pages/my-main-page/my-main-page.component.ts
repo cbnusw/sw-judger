@@ -17,7 +17,7 @@ export class MyMainPageComponent {
 
   menus = [
     '프로필 정보',
-    '코드 제출 내역',
+    //'코드 제출 내역',
   ];
   menuIndex = 0;
 

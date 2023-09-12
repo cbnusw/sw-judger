@@ -1,7 +1,7 @@
 <div class="main-container mt-6 flex-container main">
   <div class="side-bar mr-12 px-6">
     <h2 class="mb-3">마이페이지</h2>
-    <div *ngFor="let menu of menus;let i = index" class="font-lg pb-3 menu-text"
+    <div *ngFor="let menu of menus;let i = index" class="font-lg pb-3 menu-container"
          [ngClass]="{'black-text': i === menuIndex}" (click)="changeMenuIndex(i) ">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
            class="w-6 h-6">
@@ -11,7 +11,7 @@
       {{menu}}<br>
     </div>
     <hr>
-    <div class="font-lg py-3" (click)="logout()">
+    <div class="font-lg py-3 menu-container black-text" (click)="logout()">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
            class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round"

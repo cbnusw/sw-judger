@@ -1,5 +1,5 @@
-<div class="profile-container container-padding w-full">
-  <img src="assets/images/profile.png" alt="Basic Image" height="260" width="260">
+<div class="profile-container mb-4 w-full">
+  <img src="assets/images/profile.png" alt="Basic Image" class="profile-image">
   <div class="profile-section-content">
     <p class="profile-section-item"><span class="profile-section-label">Name:</span> {{ authService.me?.name }}</p>
     <p class="profile-section-item"><span class="profile-section-label">Phone:</span> {{ authService.me?.phone }}</p>
@@ -10,7 +10,7 @@
         class="profile-section-label">Department:</span> {{ authService.me?.department }}</p>
   </div>
 </div>
-<div class="container-padding">
+<div class="mb-4">
   <div class="table-header">
     <p class="">대회 참가 내역</p>
     <!--<p>총 {{contests.length}}건</p>-->
@@ -32,7 +32,7 @@
     <tr mat-row *matRowDef="let row; columns: contestColumns;"></tr>
   </table>
 </div>
-<div class="container-padding">
+<div class="mb-4">
   <div class="table-header">
     <p class="">과제 참가 내역</p>
     <!--<p>총 {{assignments.length}}건</p>-->

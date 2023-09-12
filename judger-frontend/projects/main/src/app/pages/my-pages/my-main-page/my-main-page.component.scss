@@ -6,8 +6,16 @@
   flex: 1 1 100%;
 }
 
-.menu-text {
+.menu-container {
   color: gray;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.menu-container:hover {
+  cursor: pointer;
 }
 
 .black-text {
@@ -22,13 +30,13 @@
 
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .flex-container {
     flex-direction: row;
   }
 }
 
-@media (max-width: 639px) {
+@media (max-width: 1023px) {
   .flex-container {
     flex-direction: column;
   }

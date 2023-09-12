@@ -40,7 +40,8 @@ export class HeaderComponent implements OnInit {
     },
     {
       name: '마이페이지',
-      link: '/my-page'
+      link: '/my-page',
+      condition$: this.auth.isLoggedIn$,
     }
   ];
 

@@ -4,12 +4,10 @@
 
 .profile-container {
   display: flex;
+  flex-direction: row;
   margin: 0 auto;
   background-color: #fff;
-}
-
-.container-padding {
-  padding-bottom: 40px;
+  align-items: center;
 }
 
 .profile-header {
@@ -22,11 +20,9 @@
 
 .profile-image {
   width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  height: auto;
   object-fit: cover;
   margin-bottom: 20px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 .profile-name {
@@ -88,4 +84,16 @@
 
 .mat-cell, .mat-header-cell {
   text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .profile-container {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 1023px) {
+  .profile-container {
+    flex-direction: column;
+  }
 }

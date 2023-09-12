@@ -57,6 +57,14 @@ export class AuthService extends RequestBase {
     );
   }
 
+  get isLoggedIn$(): Observable<boolean> {
+    return this.me$.pipe(
+      map(me => {
+        const { role } = this.me || {};
+        return role && ['student', 'admin', 'operator'].indexOf(role) !== -1;
+      })
+    );
+  }
   get hasJudgePermission(): boolean {
     const { role, permissions } = this.me || {};
     if (role && ['admin', 'operator'].indexOf(role) !== -1) {
