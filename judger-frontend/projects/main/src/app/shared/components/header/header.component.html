@@ -18,7 +18,7 @@
        routerLink="/account/login"
        *ngIf="!auth.loggedIn">로그인</a>
     <span class="font-s mobile-d-none" *ngIf="auth.loggedIn">
-        <span *ngIf="isStudent">{{auth.me?.university}}</span> {{auth.me?.department}} {{auth.me?.name}}님 로그인 중
+        {{auth.me?.name}}님 로그인 중
         <a class="cursor pointer ms-2"
            (click)="logout()">로그아웃</a>
     </span>

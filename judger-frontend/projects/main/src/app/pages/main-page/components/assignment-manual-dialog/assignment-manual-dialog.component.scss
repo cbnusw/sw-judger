@@ -1,0 +1,39 @@
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+img {
+  border: 1px solid black;
+  max-width: 800px;
+  height: auto;
+}
+
+.image-label {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.details-container {
+  margin-left: 10px;
+}
+.close-button {
+  margin-left: auto;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+summary {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+:host {
+  position: relative;
+}

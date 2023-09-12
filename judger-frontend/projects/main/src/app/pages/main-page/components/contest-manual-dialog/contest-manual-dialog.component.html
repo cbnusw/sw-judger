@@ -1,0 +1,99 @@
+<button mat-icon-button (click)="closeDialog()" class="close-button">
+  <mat-icon>close</mat-icon>
+</button>
+<h1 class>대회 메뉴얼</h1>
+<hr class="mt-3">
+<div class="p-5">
+  <details>
+    <summary>1. 대회 신청</summary>
+    <hr class="my-2">
+    <div class="details-container">
+      <h4>참가를 원하는 대회 페이지에 들어가면 아래와 같은 화면을 볼 수 있습니다.</h4>
+      <div class="image-container">
+        <img src="assets/images/manual/before-enroll-contest.png" alt="신청 전" id="before-enroll-contest">
+        <label for="before-enroll-contest" class="image-label">< 신청 전 ></label>
+      </div>
+      <h4>위 이미지 화면 하단의 참가신청 버튼을 누르면 참가가 됩니다. 대회 신청기간에만 신청이 되니 유의해주시기 바랍니다.</h4>
+      <br>
+      <h4>대회 신청이 완료가 되면 아래 이미지처럼 자신의 정보가 표시됩니다. 만약 대회를 취소를 하고 싶을 시 화면 하단의 신청취소 버튼을 <br>누르면 됩니다.</h4>
+      <div class="image-container">
+        <img src="assets/images/manual/after-enroll-contest.png" alt="신청 후" id="after-enroll-contest">
+        <label for="after-enroll-contest" class="image-label">< 신청 후 ></label>
+      </div>
+    </div>
+  </details>
+  <details>
+    <summary>2. 대회 참여</summary>
+    <hr class="my-2">
+    <div class="details-container">
+      <h4>대회가 시작이 되면 화면 하단의 대회시작이라는 버튼을 클릭하면 대회가 시작됩니다.</h4>
+      <div class="image-container">
+        <img src="assets/images/manual/contest-page.png" alt="대회 페이지" id="contest-page">
+        <label for="contest-page" class="image-label">< 대회 페이지 ></label>
+      </div>
+      <br>
+      <h4>만약 비밀번호를 입력하는 창이 나올 시 사전에 알려준 비밀번호를 입력하면 됩니다.</h4>
+      <div class="image-container">
+        <img src="/assets/images/manual/password.png" alt="비밀번호 입력창" id="password">
+        <label for="password" class="image-label">< 비밀번호 입력창 ></label>
+      </div>
+      <br>
+      <h4>화면 문제 목록들을 확인해 볼 수 있습니다. 또한 화면 상단에서 대회 종료까지 남은 시간을 확인해볼 수 있습니다.</h4>
+      <div class="image-container">
+        <img src="/assets/images/manual/problems.png" alt="전체 대회 문제" id="problems">
+        <label for="problems" class="image-label">< 전체 대회 문제 ></label>
+      </div>
+    </div>
+  </details>
+  <details>
+    <summary>3. 문제 풀기</summary>
+    <hr class="my-2">
+    <div class="details-container">
+      <h4>시간 제한과 메모리 제한을 확인해 주시고 문제의 설명을 자세히 보고 코드로 구현하시면 됩니다.</h4>
+      <h4>화면 상단에 제출현황을 눌러 제출한 코드 결과를 확인해볼 수 있고, 소스제출 버튼을 눌러 소스제출 페이지로 이동할 수 있습니다.</h4>
+      <div class="image-container">
+        <img src="./assets/images/manual/problem.png" alt="문제" id="problem">
+        <label for="problem" class="image-label">< 문제 ></label>
+      </div>
+    </div>
+  </details>
+  <details>
+    <summary>4. 문제 제출</summary>
+    <hr class="my-2">
+    <div class="details-container">
+      <h4>해당 젓저 시스템은 소스 파일을 넣을 수 있게 되있습니다. 아래 이미지처럼 IDE에 적은 코드를 저장을 시켜줍니다.</h4>
+      <h4>※ 입력 언어가 java일 경우 클래스 이름의 Main, 파일 이름을 꼭 Main.java로 해주셔야 됩니다.</h4>
+      <div class="image-container">
+        <img src="/assets/images/manual/problem-code-ex.png" alt="코드 예시" id="problem-code-ex">
+        <label for="problem-code-ex" class="image-label">< 코드 예시 ></label>
+      </div>
+      <br>
+      <h4>저장 완료를 하면 문제 제출 페이지에서 문제풀이한 언어를 선택을 해주고 소스 파일 선택 버튼을 눌러 저장한 파일을 입력해주면 됩니다.</h4>
+      <h4>그 후 제출 버튼을 누르면 아래와 같은 결과 화면을 확인해볼 수 있습니다.</h4>
+      <h4>※ 채점을 실행하는데 몇 초 걸릴 수 있습니다.</h4>
+      <h4>※ 입출력 예시가 모두 같아도 숨겨진 입출력 예시가 있어 오답이 될 수 있습니다.</h4>
+      <div class="image-container">
+        <img src="/assets/images/manual/submit-results.png" alt="전체 제출내역" id="submit-results">
+        <label for="submit-results" class="image-label">< 전체 제출내역 ></label>
+      </div>
+      <br>
+      <h4>체점내역을 자세히 보려면 제출내역을 누르면 아래와 같은 화면을 확인해볼 수 있습니다.</h4>
+      <div class="image-container">
+        <img src="/assets/images/manual/submit-result.png" alt="개별 제출내역" id="submit-result">
+        <label for="submit-result" class="image-label">< 개별 제출내역 ></label>
+      </div>
+    </div>
+  </details>
+  <details>
+    <summary>5. 스코어보드</summary>
+    <hr class="my-2">
+    <div class="details-container">
+      <h4>스코어보드로 자신의 등수와 맞춘 내역을 확인해볼 수 있습니다.</h4>
+      <h4>※ 문제 제출횟수와 문제제출한 시간에 따라 패널티가 정해짐으로 유의하시기 바랍니다.</h4>
+      <div class="image-container">
+        <img src="/assets/images/manual/scoreboard.png" alt="스코어보드" id="scoreboard">
+        <label for="scoreboard" class="image-label">< 스코어보드 ></label>
+      </div>
+    </div>
+  </details>
+</div>
