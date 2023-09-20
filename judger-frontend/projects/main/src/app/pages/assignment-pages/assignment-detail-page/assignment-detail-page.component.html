@@ -50,7 +50,7 @@
     </button>
   </div>
 
-  <div *ngIf="isWriter$" class="flex justify-end">
+  <div *ngIf="isWriter$ || auth.hasJudgePermission" class="flex justify-end">
     <button
       class="text-white me-2"
       mat-flat-button

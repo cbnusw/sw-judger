@@ -6,6 +6,7 @@ const {
    SUBMIT_NOT_FOUND,
    RESULT_NOT_FOUND
 } = require('../../../../errors')
+const { hasRole, hasPermission } = require('../../../../utils/permission');
 
 
 const getSubmits = asyncHandler(async (req, res, next) => {
@@ -79,7 +80,9 @@ const getMyContestSubmits = asyncHandler(async (req, res, next) => {
 const getAssignmentSubmits = asyncHandler(async (req, res) => {
    const { params: { id }, query, user, } = req;
    const exAssignment = await Assignment.findById(id)
-   if (exAssignment.writer.toString() !== user.info.toString()) throw FORBIDDEN;
+   console.log(hasRole(user))
+   console.log(hasPermission(user, "judge"))
+   if (exAssignment.writer.toString() !== user.info.toString() && !(hasRole(user) && hasPermission(user, "judge"))) throw FORBIDDEN;
    const documents = await Submit.search(
       query,
       { parentId: id, parentType: "Assignment" },

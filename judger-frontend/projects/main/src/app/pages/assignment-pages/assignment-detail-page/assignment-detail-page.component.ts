@@ -23,7 +23,7 @@ export class AssignmentDetailPageComponent implements OnInit{
   private subscription: Subscription;
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private assignmentService: AssignmentService,
@@ -176,4 +176,6 @@ export class AssignmentDetailPageComponent implements OnInit{
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  protected readonly AuthService = AuthService;
 }
