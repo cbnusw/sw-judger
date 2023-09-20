@@ -29,11 +29,13 @@ const getSubmit = asyncHandler(async (req, res) => {
    else if (exSubmit.parentType === "Contest") varifyDoc = await Contest.findById(exSubmit.parentId);
 
    else throw RESULT_NOT_FOUND;
-
+   
    switch (user.info.toString()) {
       case(varifyDoc.writer.toString()):
          break;
       case(exSubmit.user._id.toString()):
+         break;
+      case(hasRole(user) && hasPermission(user, "judge") ? user.info.toString() : ""):
          break;
       default:
          throw FORBIDDEN
