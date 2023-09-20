@@ -68,6 +68,7 @@
     </button>
 
     <button
+      *ngIf="isWriter$ || isAfterTestPeriod"
       class="text-white me-2"
       mat-flat-button
       color="primary"
