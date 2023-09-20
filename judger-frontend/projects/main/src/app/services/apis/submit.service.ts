@@ -25,8 +25,10 @@ export class SubmitService extends ApiBase {
     return this.http.get<IResponse<ISubmit>>(this.url`/${id}`);
   }
 
-  getMySubmits(): Observable<IListResponse<ISubmit>> {
-    return this.http.get<IListResponse<ISubmit>>(this.url`/me`);
+  getMySubmits(params?: IParams): Observable<IListResponse<ISubmit>> {
+    return this.http.get<IListResponse<ISubmit>>(this.url`/me`, {
+      params: ApiBase.params(params),
+    });
   }
 
   getContestSubmits(id: string, params?: IParams): Observable<IListResponse<ISubmit>> {

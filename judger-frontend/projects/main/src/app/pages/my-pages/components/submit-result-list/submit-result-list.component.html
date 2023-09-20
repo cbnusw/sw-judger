@@ -3,15 +3,6 @@
     <mat-spinner></mat-spinner>
   </div>
 
-  <div class="flex align-center mb-2">
-    <mat-form-field class="w-60">
-      <mat-label>검색</mat-label>
-      <span matPrefix style="margin-right: 1rem;"><i class="las la-search"></i></span>
-      <input matInput [formControl]="keywordControl" autocomplete="off" placeholder="Ex. 문제1" />
-      <mat-hint>문제명, 언어로 검색</mat-hint>
-    </mat-form-field>
-  </div>
-
   <table mat-table [dataSource]="documents">
     <ng-container matColumnDef="no">
       <th mat-header-cell *matHeaderCellDef>#</th>
@@ -47,9 +38,7 @@
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
     <tr
         mat-row
-        *matRowDef="let row; columns: columns"
-        [routerLink]="['/submit/detail', row._id]"
-        class="cursor pointer">
+        *matRowDef="let row; columns: columns">
     </tr>
     <tr class="mat-row empty-row" *matNoDataRow>
       <td [attr.colspan]="columns.length" class="px-2">

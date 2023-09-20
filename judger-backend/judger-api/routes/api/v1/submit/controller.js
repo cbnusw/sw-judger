@@ -45,8 +45,10 @@ const getSubmit = asyncHandler(async (req, res) => {
 
 
 const getMySubmits = asyncHandler(async (req, res, next) => {
-   const { user } = req;
-   const documents = await Submit.search({ limit: 100 }, { user: user.info, parentType: { $ne: 'Practice' }});
+   const { query, user } = req;
+  
+   console.log(query)
+   const documents = await Submit.search( query, { user: user.info, parentType: { $ne: 'Practice' }});
    res.json(createResponse(res, documents));
 });
 
@@ -80,8 +82,6 @@ const getMyContestSubmits = asyncHandler(async (req, res, next) => {
 const getAssignmentSubmits = asyncHandler(async (req, res) => {
    const { params: { id }, query, user, } = req;
    const exAssignment = await Assignment.findById(id)
-   console.log(hasRole(user))
-   console.log(hasPermission(user, "judge"))
    if (exAssignment.writer.toString() !== user.info.toString() && !(hasRole(user) && hasPermission(user, "judge"))) throw FORBIDDEN;
    const documents = await Submit.search(
       query,

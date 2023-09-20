@@ -30,6 +30,12 @@
 
     <tr mat-header-row *matHeaderRowDef="contestColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: contestColumns;"></tr>
+
+    <tr class="mat-row empty-row" *matNoDataRow>
+      <td [attr.colspan]="assignments.length" class="px-2">
+        <span>참가한 대회가 없습니다.</span>
+      </td>
+    </tr>
   </table>
 </div>
 <div class="mb-4">
@@ -57,5 +63,11 @@
 
     <tr mat-header-row *matHeaderRowDef="assignmentsColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: assignmentsColumns;"></tr>
+
+    <tr class="mat-row empty-row" *matNoDataRow>
+      <td [attr.colspan]="assignments.length" class="px-2">
+        <span>참가한 과제가 없습니다.</span>
+      </td>
+    </tr>
   </table>
 </div>

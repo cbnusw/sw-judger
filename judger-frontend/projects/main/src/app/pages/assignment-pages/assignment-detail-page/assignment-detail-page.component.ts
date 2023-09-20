@@ -155,6 +155,9 @@ export class AssignmentDetailPageComponent implements OnInit{
               case (this.assignment.students.map(student => student._id).includes(res._id) ? res._id : ""):
                 this.pwInput = this.assignment.password;
                 break;
+              case (res.permissions.includes("judge")? res._id : ""):
+                this.pwInput = this.assignment.password;
+                break;
               default:
                 this.pwInput= prompt('비밀번호를 입력하시오')
             }

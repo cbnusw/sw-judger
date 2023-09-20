@@ -53,7 +53,7 @@ export class SubmitResultListComponent extends AbstractSearchDirective<ISubmit> 
   protected requestObservable(
     params: IParams | undefined
   ): Observable<IListResponse<ISubmit>> {
-    return this.submitService.getMySubmits();
+    return this.submitService.getMySubmits(params);
   }
 
   changePage(event: PageEvent): void {

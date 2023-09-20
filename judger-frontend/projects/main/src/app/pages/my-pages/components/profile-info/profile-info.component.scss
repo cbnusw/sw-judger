@@ -70,20 +70,12 @@
   margin-right: 10px;
 }
 
-.no-cell {
-  width: 10%;
-}
-
-.course-cell {
-  width: 40%;
-}
-
-.title-cell {
-  width: 90%;
-}
-
 .mat-cell, .mat-header-cell {
   text-align: center;
+}
+
+.empty-row {
+  color: rgba(0, 0, 0, 0.54);
 }
 
 @media (min-width: 1024px) {
