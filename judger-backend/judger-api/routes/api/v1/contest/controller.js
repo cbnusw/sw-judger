@@ -171,15 +171,14 @@ async function additionalDataContest(contest, userId) {
     user: userId,
   });
   if (data == null) {
-    //noData = "제출없음";
     return null;
   }
   // scores 배열의 전체 원소 수 계산
-  const totalScores = data.scores.length;
+  const total = data.scores.length;
 
   // right: true인 원소의 개수 계산
-  const trueScores = data.scores.filter((score) => score.right).length;
-  const additionalData = `${totalScores} / ${trueScores}`;
+  const right = data.scores.filter((score) => score.right).length;
+  const additionalData = { total, right };
   return additionalData;
 }
 
