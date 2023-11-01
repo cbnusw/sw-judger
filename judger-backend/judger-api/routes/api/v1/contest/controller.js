@@ -151,21 +151,22 @@ const getMyEnrollContests = asyncHandler(async (req, res, next) => {
 
   const contestData = [];
   for (const contest of contests) {
-    const contestScore = await additionalDataContest(contest, user.info);
+    const contestScore = await addContestScore(contest, user.info);
     // 대회 정보와 추가 데이터를 합치고 결과 배열에 추가
-    const contestWithAdditionalData = {
+    const contestAdditionalData = {
       ...contest.toObject(),
       contestScore,
     };
 
-    contestData.push(contestWithAdditionalData);
+    contestData.push(contestAdditionalData);
   }
-
+  const ranking = await addContestRanking(contest, user.info);
+  contestData.append(ranking);
   res.json(createResponse(res, contestData));
 });
 
-// 대회에 대한 추가 작업을 수행하는 함수
-async function additionalDataContest(contest, userId) {
+// 대회에 대한 점수 추가를 수행하는 함수
+async function addContestScore(contest, userId) {
   const data = await ScoreBoard.findOne({
     contest: contest._id,
     user: userId,
@@ -178,8 +179,21 @@ async function additionalDataContest(contest, userId) {
 
   // right: true인 원소의 개수 계산
   const right = data.scores.filter((score) => score.right).length;
-  const additionalData = { total, right };
-  return additionalData;
+  const scoreData = { total, right };
+  return scoreData;
+}
+
+// 대회에 대한 순위를 추가하는 함수
+async function addContestRanking(contest, userId) {
+  const data = await ScoreBoard.find({
+    contest: contest._id,
+  });
+  if (data == null) {
+    // 참여 대회가 없음
+    return null;
+  }
+  const rankingData = data;
+  return rankingData;
 }
 
 const createContest = asyncHandler(async (req, res, next) => {
