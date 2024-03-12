@@ -160,8 +160,8 @@ const getMyEnrollContests = asyncHandler(async (req, res, next) => {
 
     contestData.push(contestAdditionalData);
   }
-  const ranking = await addContestRanking(contest, user.info);
-  contestData.append(ranking);
+  //const ranking = await addContestRanking(contest, user.info);
+  //contestData.append(ranking);
   res.json(createResponse(res, contestData));
 });
 
@@ -184,17 +184,17 @@ async function addContestScore(contest, userId) {
 }
 
 // 대회에 대한 순위를 추가하는 함수
-async function addContestRanking(contest, userId) {
-  const data = await ScoreBoard.find({
-    contest: contest._id,
-  });
-  if (data == null) {
-    // 참여 대회가 없음
-    return null;
-  }
-  const rankingData = data;
-  return rankingData;
-}
+// async function addContestRanking(contest, userId) {
+//   const data = await ScoreBoard.find({
+//     contest: contest._id,
+//   });
+//   if (data == null) {
+//     // 참여 대회가 없음
+//     return null;
+//   }
+//   const rankingData = data;
+//   return rankingData;
+// }
 
 const createContest = asyncHandler(async (req, res, next) => {
   const { body, user } = req;
