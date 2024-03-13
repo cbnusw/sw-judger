@@ -3,18 +3,37 @@ const { createSchema } = require('../../helpers');
 const { searchPlugin } = require('../../plugins');
 const { toRegEx, toRef } = require('../../mappers');
 
-const periodSchema = createSchema({
-  start: {
-    type: Date,
-    index: true,
-    required: true,
+const periodSchema = createSchema(
+  {
+    start: {
+      type: Date,
+      index: true,
+      required: true,
+    },
+    end: {
+      type: Date,
+      index: true,
+      required: true,
+    },
   },
-  end: {
-    type: Date,
-    index: true,
-    required: true,
+  false
+);
+
+//나가기 확인을 위한 스키마 추가
+const userExitSchema = createSchema(
+  {
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: 'UserInfo',
+      required: true,
+    },
+    exit: {
+      type: Boolean,
+      default: false,
+    },
   },
-}, false);
+  { _id: false }
+); // _id 필드 생성 방지
 
 const schema = createSchema({
   title: {
@@ -38,11 +57,13 @@ const schema = createSchema({
     type: Boolean,
     default: false,
   },
-  problems: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Problem',
-    required: true,
-  }],
+  problems: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Problem',
+      required: true,
+    },
+  ],
   applyingPeriod: {
     type: periodSchema,
     default: null,
@@ -51,24 +72,29 @@ const schema = createSchema({
     type: periodSchema,
     required: true,
   },
-  contestants: [{
-    type: Schema.Types.ObjectId,
-    ref: 'UserInfo',
-    required: true,
-  }]
+  contestants: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'UserInfo',
+      required: true,
+    },
+  ],
+  userExit: [userExitSchema],
 });
 
 schema.index({ createdAt: -1 });
 
-schema.plugin(searchPlugin({
-  sort: '-createdAt',
-  populate: [{ path: 'writer' }],
-  mapper: {
-    title: toRegEx,
-    writer: toRef('UserInfo', {
-      name: toRegEx
-    }),
-  }
-}));
+schema.plugin(
+  searchPlugin({
+    sort: '-createdAt',
+    populate: [{ path: 'writer' }],
+    mapper: {
+      title: toRegEx,
+      writer: toRef('UserInfo', {
+        name: toRegEx,
+      }),
+    },
+  })
+);
 
 module.exports = schema;
