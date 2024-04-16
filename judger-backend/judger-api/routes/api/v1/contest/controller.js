@@ -27,7 +27,8 @@ const getMyContests = asyncHandler(async (req, res, next) => {
 });
 
 // 초기 대회 입장시 비밀번호 확인
-const confirmPassword = asyncHandler(async (req, res) => {
+const confirmPassword = asyncHandler(async (req, res, next) => {
+  console.log(req.user);
   const {
     params: { id },
     query: { password },
