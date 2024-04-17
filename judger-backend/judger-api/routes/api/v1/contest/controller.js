@@ -11,6 +11,7 @@ const {
   FORBIDDEN,
   PROGRESSING_CONTEST,
   CONTEST_PASSWORD_NOT_MATCH,
+  OUT_CONTEST,
 } = require('../../../../errors');
 const { async } = require('rxjs');
 
@@ -28,16 +29,23 @@ const getMyContests = asyncHandler(async (req, res, next) => {
 
 // 초기 대회 입장시 비밀번호 확인
 const confirmPassword = asyncHandler(async (req, res, next) => {
-  console.log(req.user);
   const {
     params: { id },
     query: { password },
+    user,
   } = req;
   const document = await Contest.findById(id);
 
   //대회가 존재하지 않는 경우
   if (!document) throw CONTEST_NOT_FOUND;
 
+  // userExit 배열에서 현재 로그인한 유저의 id를 찾아 exit 값을 확인합니다.
+  const userExitInfo = document.userExit.find((exitInfo) => exitInfo.id.toString() === user.info);
+
+  // 해당 유저의 exit 값이 true인 경우 접근을 거부합니다.
+  if (userExitInfo && userExitInfo.exit) {
+    throw OUT_CONTEST;
+  }
   //대회 비밀번호 입력 없시 시도 -> 비밀번호 설정이 없어 바로 접근 가능
   if (!document.password) res.json(createResponse(res));
 
@@ -343,6 +351,30 @@ const removeContest = asyncHandler(async (req, res, next) => {
   res.json(createResponse(res));
 });
 
+// 대회 나가기 버튼 api
+const exitContest = asyncHandler(async (req, res, next) => {
+  const {
+    params: { id },
+    user,
+  } = req;
+  const contest = await Contest.findById(id);
+
+  // 대회를 찾을 수 없는 경우 오류를 반환합니다.
+  if (!contest) return next(CONTEST_NOT_FOUND);
+
+  // userExit 배열에서 현재 로그인한 사용자의 ID를 찾아 exit 값을 true로 설정합니다.
+  const userExitIndex = contest.userExit.findIndex((exitInfo) => exitInfo.id.toString() === user.info);
+  if (userExitIndex !== -1) {
+    contest.userExit[userExitIndex].exit = true;
+  }
+
+  // 변경된 사항을 저장합니다.
+  await contest.save();
+
+  // 사용자를 메인 페이지로 리디렉션할 수 있도록 응답을 보냅니다.
+  res.json({ message: '성공적으로 대회에서 나왔습니다.', redirectUrl: '/contest/list' });
+});
+
 exports.getContests = getContests;
 exports.getMyContests = getMyContests;
 exports.getRegisteredContests = getRegisteredContests;
@@ -353,6 +385,7 @@ exports.getContestForAdmin = getContestForAdmin;
 exports.getContestProblems = getContestProblems;
 exports.getMyEnrollContests = getMyEnrollContests;
 exports.createContest = createContest;
+exports.exitContest = exitContest;
 
 exports.enrollContest = enrollContest;
 exports.unenrollContest = unenrollContest;
