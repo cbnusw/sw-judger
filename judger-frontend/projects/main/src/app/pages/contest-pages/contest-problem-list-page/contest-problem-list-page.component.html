@@ -1,88 +1,121 @@
 <div class="main-container mt-2" *ngIf="!isLoading">
-  <h2 class="page-title mb-2">{{contest?.title}}</h2>
+  <h2 class="page-title mb-2">{{ contest?.title }}</h2>
   <div class="flex pb-2 mb-2 border-bottom">
-    <span class="font-s me-2">작성일: {{contest?.createdAt | date: 'yyyy.MM.dd.'}}</span>
-    <span class="font-s me-auto">작성자: {{contest?.writer.name}}</span>
+    <span class="font-s me-2"
+      >작성일: {{ contest?.createdAt | date : "yyyy.MM.dd." }}</span
+    >
+    <span class="font-s me-auto">작성자: {{ contest?.writer.name }}</span>
     <span class="font-s">
-            대회시간:
-            <span class="text-primary fw-900"
-                  *ngIf="(contest?.testPeriod | periodRange | async) == -1">
-                {{contest | testPeriod}}
-              ({{contest?.testPeriod?.start | restTime | async}})
-            </span>
-            <span class="text-warn fw-900"
-                  *ngIf="(contest?.testPeriod | periodRange | async) == 0">
-                진행 중 - {{contest?.testPeriod?.end | restTime | async}} 후 종료
-            </span>
-            <span class="text-primary"
-                  *ngIf="(contest?.testPeriod | periodRange | async) == 1">
-                종료
-            </span>
-        </span>
+      대회시간:
+      <span
+        class="text-primary fw-900"
+        *ngIf="(contest?.testPeriod | periodRange | async) == -1"
+      >
+        {{ contest | testPeriod }}
+        ({{ contest?.testPeriod?.start | restTime | async }})
+      </span>
+      <span
+        class="text-warn fw-900"
+        *ngIf="(contest?.testPeriod | periodRange | async) == 0"
+      >
+        진행 중 - {{ contest?.testPeriod?.end | restTime | async }} 후 종료
+      </span>
+      <span
+        class="text-primary"
+        *ngIf="(contest?.testPeriod | periodRange | async) == 1"
+      >
+        종료
+      </span>
+    </span>
   </div>
 
   <h3 class="mb-2">문제 목록</h3>
   <div *ngIf="isWriter && !orderableProblems" class="flex justify-end mb-2">
-    <button *ngIf="contest?.problems.length > 1"
-            class="text-white"
-            mat-flat-button
-            color="accent"
-            (click)="setReorderMode()">
+    <button
+      *ngIf="contest?.problems.length > 1"
+      class="text-white"
+      mat-flat-button
+      color="accent"
+      (click)="setReorderMode()"
+    >
       순서변경
     </button>
-    <a class="ms-2" *ngIf="isBeforeTestPeriod"
-       mat-flat-button
-       routerLink="/problem/new"
-       [queryParams]="{ contest: contest?._id }"
-       color="primary">문제등록</a>
+    <a
+      class="ms-2"
+      *ngIf="isBeforeTestPeriod"
+      mat-flat-button
+      routerLink="/problem/new"
+      [queryParams]="{ contest: contest?._id }"
+      color="primary"
+      >문제등록</a
+    >
   </div>
   <div *ngIf="isWriter && orderableProblems" class="flex justify-end mb-2">
-    <button class="text-white"
-            *ngIf="contest?.problems.length > 1"
-            mat-flat-button
-            color="accent"
-            (click)="reorder()">
+    <button
+      class="text-white"
+      *ngIf="contest?.problems.length > 1"
+      mat-flat-button
+      color="accent"
+      (click)="reorder()"
+    >
       순서변경완료
     </button>
   </div>
-  <div *ngIf="contest?.problems.length === 0" class="border px-2 py-1 text-50 mb-2">
+  <div
+    *ngIf="contest?.problems.length === 0"
+    class="border px-2 py-1 text-50 mb-2"
+  >
     등록된 문제가 없습니다.
   </div>
   <ng-container *ngIf="!orderableProblems; else orderingTemplete">
-    <a *ngFor="let problem of contest?.problems; let i = index"
-       [routerLink]="['/problem/detail', problem._id]"
-       [queryParams]="{ contest: contest._id }"
-       class="block border cursor pointer px-2 py-1 hover mb-2 line-ellipsis">
-      <span class="me-auto">{{i + 1}}) {{problem.title}}</span>
+    <a
+      *ngFor="let problem of contest?.problems; let i = index"
+      [routerLink]="['/problem/detail', problem._id]"
+      [queryParams]="{ contest: contest._id }"
+      class="block border cursor pointer px-2 py-1 hover mb-2 line-ellipsis"
+    >
+      <span class="me-auto">{{ i + 1 }}) {{ problem.title }}</span>
     </a>
   </ng-container>
   <ng-template #orderingTemplete>
     <div cdkDropList (cdkDropListDropped)="drop($event)">
-      <div *ngFor="let problem of orderableProblems;let i = index"
-           cdkDrag
-           (mousedown)="dragIndex = i"
-           (mouseup)="dragIndex = -1"
-           (mouseleave)="drageIndex = -1"
-           [class.grabbing]="dragIndex === i"
-           [class.grab]="drageIndex !== i"
-           class="none-select border cursor px-2 py-1 hover mb-2 line-ellipsis">
-        {{i + 1}}) {{problem.title}}
+      <div
+        *ngFor="let problem of orderableProblems; let i = index"
+        cdkDrag
+        (mousedown)="dragIndex = i"
+        (mouseup)="dragIndex = -1"
+        (mouseleave)="drageIndex = -1"
+        [class.grabbing]="dragIndex === i"
+        [class.grab]="drageIndex !== i"
+        class="none-select border cursor px-2 py-1 hover mb-2 line-ellipsis"
+      >
+        {{ i + 1 }}) {{ problem.title }}
       </div>
     </div>
   </ng-template>
-  <div class="flex justify-end" *ngIf="(contest?.testPeriod | periodRange | async) !== -1">
-    <button type="button"
-            class="text-primary"
-            mat-flat-button
-            (click)="moveScoreBoard()"
+  <div
+    class="flex justify-end"
+    *ngIf="(contest?.testPeriod | periodRange | async) !== -1"
+  >
+    <button
+      type="button"
+      class="text-primary"
+      mat-flat-button
+      (click)="moveScoreBoard()"
     >
       스코어보드
     </button>
-    <button type="button"
-            mat-flat-button
-            color="primary"
-            [routerLink]="['/contest/detail', contest?._id]">
+    <button
+      type="button"
+      mat-flat-button
+      color="primary"
+      [routerLink]="['/contest/detail', contest?._id]"
+      style="margin-right: 1rem"
+    >
       뒤로가기
+    </button>
+    <button (click)="exitContest()" mat-flat-button color="warn">
+      <i class="las la-door-open"></i> 대회 나가기
     </button>
   </div>
 </div>

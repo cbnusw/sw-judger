@@ -12,14 +12,10 @@ router.get('/registered', isAuthenticated, controller.getRegisteredContests);
 router.get('/applying', controller.getApplyingContests);
 router.get('/progressing', controller.getProgressingContests);
 router.get('/:id', controller.getContest);
-router.get(
-   '/:id/problems',
-   isAuthenticated,
-   handleAccessContestProblem,
-   controller.getContestProblems
-);
-router.get('/confirm/:id', controller.confirmPassword);
-router.get('/enroll/me', isAuthenticated, controller.getMyEnrollContests)
+router.get('/:id/problems', isAuthenticated, handleAccessContestProblem, controller.getContestProblems);
+router.get('/confirm/:id', isAuthenticated, controller.confirmPassword);
+router.get('/enroll/me', isAuthenticated, controller.getMyEnrollContests);
+router.put('/:id/problems', isAuthenticated, controller.exitContest);
 
 router.post('/', ...hasRole(), controller.createContest);
 

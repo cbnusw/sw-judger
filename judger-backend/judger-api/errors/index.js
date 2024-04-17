@@ -1,6 +1,6 @@
 const httpErrors = require('http-errors');
 
-const createError = err => {
+const createError = (err) => {
   const e = httpErrors(err[0], err[1]);
   e.code = err[2];
   return e;
@@ -24,6 +24,7 @@ const errors = {
   PROGRESSING_CONTEST: [400, '진행 중인 테스트입니다.'],
   YEAR_MONTH_REQUIRED: [400, '연월 정보가 필요합니다.'],
   ENDED_ASSIGNMENT: [400, '이미 마감된 과제입니다.'],
+  OUT_CONTEST: [400, '이미 나간 대회입니다'],
   // 401 Errors
   LOGIN_REQUIRED: [401, '로그인이 필요합니다.'],
 
@@ -42,7 +43,7 @@ const errors = {
   SERVER_ERROR: [500, '서버 에러.'],
 };
 
-Object.keys(errors).forEach(key => {
+Object.keys(errors).forEach((key) => {
   errors[key] = createError([...errors[key], key]);
 });
 
