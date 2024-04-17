@@ -1,8 +1,8 @@
 const errors = {
   // 인증서버 오류
-  INVALID_PASSWORD: '',     // 400 Error
+  INVALID_PASSWORD: '', // 400 Error
   ACCESS_TOKEN_EXPIRED: '', // 401 Error
-  USER_NOT_FOUND: '',       // 404 Error
+  USER_NOT_FOUND: '', // 404 Error
 
   // 400 Errors
   AFTER_APPLYING_PERIOD: '',
@@ -16,6 +16,7 @@ const errors = {
   PROGRESSING_CONTEST: '',
   YEAR_MONTH_REQUIRED: '',
   CONTEST_PASSWORD_NOT_MATCH: '',
+  OUT_CONTEST: '',
 
   // 401 Errors
   LOGIN_REQUIRED: '',
@@ -32,6 +33,6 @@ const errors = {
   SERVER_ERROR: '',
 };
 
-Object.keys(errors).forEach(key => errors[key] = key);
+Object.keys(errors).forEach((key) => (errors[key] = key));
 
 export const ERROR_CODES = errors;

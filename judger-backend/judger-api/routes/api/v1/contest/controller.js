@@ -372,7 +372,7 @@ const exitContest = asyncHandler(async (req, res, next) => {
   await contest.save();
 
   // 사용자를 메인 페이지로 리디렉션할 수 있도록 응답을 보냅니다.
-  res.json({ message: '성공적으로 대회에서 나왔습니다.', redirectUrl: '/contest/list' });
+  res.json({ message: '성공적으로 대회에서 나왔습니다.' });
 });
 
 exports.getContests = getContests;
