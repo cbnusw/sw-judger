@@ -115,7 +115,13 @@ const getavailableContests = asyncHandler(async (req, res, next) => {
     return true;
   });
 
-  res.json(createResponse(res, validContests));
+  // password 필드를 제외한 문서 배열 생성
+  const validContestsWithoutPassword = validContests.map(contest => {
+    const { password, ...rest } = contest._doc;
+    return rest;
+  });
+
+  res.json(createResponse(res, validContestsWithoutPassword));
 });
 
 // 진행중인 대회 리스트
@@ -130,7 +136,13 @@ const  getongoingContests = asyncHandler(async (req, res, next) => {
     }
   );
 
-  res.json(createResponse(res, contests));
+  // password 필드를 제외한 문서 배열 생성
+  const contestsWithoutPassword = contests.documents.map(contest => {
+    const { password, ...rest } = contest._doc;
+    return rest;
+  });
+
+  res.json(createResponse(res, contestsWithoutPassword));
 });
 
 const getContest = asyncHandler(async (req, res, next) => {
