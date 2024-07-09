@@ -80,10 +80,11 @@ const getApplyingContests = asyncHandler(async (req, res, next) => {
   res.json(createResponse(res, documents));
 });
 
+// 현재 메인 페이지에서 사용하는 api 대회 시작전 + 대회 진행중 모두 포함
 const getProgressingContests = asyncHandler(async (req, res, next) => {
   const now = new Date();
 
-  const documents = await Contest.search(
+  const  documents = await Contest.search(
     {},
     {
       'testPeriod.end': { $gt: now },
@@ -91,6 +92,45 @@ const getProgressingContests = asyncHandler(async (req, res, next) => {
   );
 
   res.json(createResponse(res, documents));
+});
+
+// 대회 신청 가능 대회 리스트
+const getavailableContests = asyncHandler(async (req, res, next) => {
+  const now = new Date();
+
+  const  contests = await Contest.search(
+    {},
+    {
+      'testPeriod.start': { $gt: now },
+    }
+  );
+
+  // applyingPeriod가 있는 경우 현재 날짜와 비교하여 유효한 contest 필터링
+  const validContests = contests.documents.filter(contest => {
+    if (contest.applyingPeriod) {
+      const applyingStart = new Date(contest.applyingPeriod.start);
+      const applyingEnd = new Date(contest.applyingPeriod.end);
+      return now >= applyingStart && now <= applyingEnd;
+    }
+    return true;
+  });
+
+  res.json(createResponse(res, validContests));
+});
+
+// 진행중인 대회 리스트
+const  getongoingContests = asyncHandler(async (req, res, next) => {
+  const now = new Date();
+
+  const  contests = await Contest.search(
+    {},
+    {
+      'testPeriod.start': { $lte: now },
+      'testPeriod.end': { $gt: now },
+    }
+  );
+
+  res.json(createResponse(res, contests));
 });
 
 const getContest = asyncHandler(async (req, res, next) => {
@@ -380,6 +420,8 @@ exports.getMyContests = getMyContests;
 exports.getRegisteredContests = getRegisteredContests;
 exports.getApplyingContests = getApplyingContests;
 exports.getProgressingContests = getProgressingContests;
+exports.getavailableContests = getavailableContests;
+exports.getongoingContests = getongoingContests;
 exports.getContest = getContest;
 exports.getContestForAdmin = getContestForAdmin;
 exports.getContestProblems = getContestProblems;
