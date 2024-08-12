@@ -23,7 +23,7 @@ const getNotice = asyncHandler(async (req, res, next) => {
 
    if (!notice) throw PROBLEM_NOT_FOUND;
 
-   res.json(createResponse(res, doc));
+   res.json(createResponse(res, notice));
 });
 
 //공지사항 생성
