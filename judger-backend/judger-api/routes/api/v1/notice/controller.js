@@ -1,5 +1,4 @@
-const { Notice, File } = require('../../../../models');
-const { updateFilesByUrls, findImageUrlFromHtml, } = require('../../../../utils/file');
+const { Notice } = require('../../../../models');
 const { createResponse } = require('../../../../utils/response');
 const asyncHandler = require('express-async-handler');
 const {
@@ -13,13 +12,13 @@ const { hasRole } = require("../../../../utils/permission");
 const getNotices = asyncHandler(async (req, res, next) => {
    const { query } = req;
    const documents = await Notice.search(query);
+
    res.json(createResponse(res, documents));
 });
 
-// 단일 공지사항 내용은 아직 모르겠음
+// 단일 공지사항
 const getNotice = asyncHandler(async (req, res, next) => {
    const { params: { id }, user } = req;
-
    const notice= await Notice.findById(id);
 
    if (!notice) throw PROBLEM_NOT_FOUND;
@@ -32,12 +31,10 @@ const createNotice = asyncHandler(async (req, res, next) => {
    const { body, user } = req;
 
    body.writer = user.info;
-   const urls = findImageUrlFromHtml(body.content);
+
    const doc = await Notice.create(body);
 
-   await updateFilesByUrls(req, doc._id, 'Notice', urls);
-
-  res.json(createResponse(res, doc));
+   res.json(createResponse(res, doc));
 });
 
 // 공지사항 수정
@@ -48,14 +45,9 @@ const updateNotice = asyncHandler(async (req, res, next) => {
    if (!doc) throw PROBLEM_NOT_FOUND;
    if (String(doc.writer) !== String(user.info)) throw FORBIDDEN;
 
-   if ($set.content) {
-    const urls = findImageUrlFromHtml($set.content);
-    await updateFilesByUrls(req, doc._id, 'Notice', urls);
-   }
-
    await doc.updateOne({ $set });
 
-  res.json(createResponse(res));
+   res.json(createResponse(res));
 });
 
 // 공지사항 삭제
@@ -63,7 +55,7 @@ const removeNotice = asyncHandler(async (req, res, next) => {
    const { params: { id }, user } = req;
 
    const doc = await Notice.findById(id);
-   if (!hasRole(user) && String(notice.writer !== String(user.info))) throw FORBIDDEN;
+   if (!hasRole(user) && String(doc.writer !== String(user.info))) throw FORBIDDEN;
 
    await Promise.all([
       doc.deleteOne(),
