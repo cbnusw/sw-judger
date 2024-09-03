@@ -16,7 +16,11 @@ versions.forEach(v => {
     .filter(dir => statSync(join(apiVPath, dir)).isDirectory())
     .forEach(dir => {
       debug(`Loading: ${dir} API`);
-      r.use(`/${dir}`, require(join(apiVPath, dir)));
+      try {
+        r.use(`/${dir}`, require(join(apiVPath, dir)));
+      } catch (error) {
+        debug(`Error loading ${dir} API: ${error.message}`);
+      }
     });
 
   router.use(`/${v}`, r);
