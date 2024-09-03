@@ -10,8 +10,7 @@ const { hasRole } = require("../../../../utils/permission");
 
 // 공지사항 여러개
 const getNotices = asyncHandler(async (req, res, next) => {
-   const { query } = req;
-   const documents = await Notice.search(query);
+   const documents = await Notice.find().populate('writer', 'name role _id');
 
    res.json(createResponse(res, documents));
 });
@@ -19,7 +18,7 @@ const getNotices = asyncHandler(async (req, res, next) => {
 // 단일 공지사항
 const getNotice = asyncHandler(async (req, res, next) => {
    const { params: { id }, user } = req;
-   const notice= await Notice.findById(id).populate('writer');
+   const notice= await Notice.findById(id).populate('writer', 'name role _id');
 
    if (!notice) throw PROBLEM_NOT_FOUND;
 
