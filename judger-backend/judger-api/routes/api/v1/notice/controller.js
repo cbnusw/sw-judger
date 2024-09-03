@@ -19,7 +19,7 @@ const getNotices = asyncHandler(async (req, res, next) => {
 // 단일 공지사항
 const getNotice = asyncHandler(async (req, res, next) => {
    const { params: { id }, user } = req;
-   const notice= await Notice.findById(id);
+   const notice= await Notice.findById(id).populate('writer');
 
    if (!notice) throw PROBLEM_NOT_FOUND;
 
