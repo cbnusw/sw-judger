@@ -10,10 +10,27 @@ const { hasRole } = require("../../../../utils/permission");
 
 // 공지사항 여러개
 const getNotices = asyncHandler(async (req, res, next) => {
-   const documents = await Notice.find().populate('writer', 'name role _id');
+   const { query } = req;
+   const result = await Notice.search(query);  
+   const { documents } = result;
 
-   res.json(createResponse(res, documents));
+   // writer 내부에서 필요한 _id, name, role만 남기기
+   const filteredDocuments = documents.map(doc => ({
+      ...doc.toObject(),
+      writer: {
+         _id: doc.writer._id,
+         name: doc.writer.name,
+         role: doc.writer.role
+      }
+   }));
+
+   res.json(createResponse(res, {
+      ...result, 
+      documents: filteredDocuments  
+   }));
 });
+
+
 
 // 단일 공지사항
 const getNotice = asyncHandler(async (req, res, next) => {
