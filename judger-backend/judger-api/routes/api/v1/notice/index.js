@@ -9,5 +9,6 @@ router.get('/:id', controller.getNotice);
 router.post('/', ...hasRole(), controller.createNotice);
 router.put('/:id', ...hasRole(), controller.updateNotice);
 router.delete('/:id', ...hasRole(), controller.removeNotice);
+router.get('/me', isAuthenticated, controller.getMyNotices);
 
 module.exports = router;

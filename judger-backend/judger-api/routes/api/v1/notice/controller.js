@@ -7,6 +7,7 @@ const {
    FILE_NOT_FOUND
 } = require('../../../../errors');
 const { hasRole } = require("../../../../utils/permission");
+const { exitContest } = require('../contest/controller');
 
 // 공지사항 여러개
 const getNotices = asyncHandler(async (req, res, next) => {
@@ -80,10 +81,16 @@ const removeNotice = asyncHandler(async (req, res, next) => {
    res.json(createResponse(res));
 });
 
-//공지사항 등록 페이지
+// 자신이 작성한 공지사항
+const getMyNotices = asyncHandler(async (req, res, next) => {
+   const { query, user } = req;
+   const documents = await Notice.search(query, { writer: user.info });
+   res.json(createResponse(res, documents));
+ });
 
 exports.getNotices = getNotices;
 exports.getNotice = getNotice;
 exports.createNotice = createNotice;
 exports.updateNotice = updateNotice;
 exports.removeNotice = removeNotice;
+exports.getMyNotices = getMyNotices;
