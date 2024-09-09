@@ -7,7 +7,8 @@ const {
    FILE_NOT_FOUND
 } = require('../../../../errors');
 const { hasRole } = require("../../../../utils/permission");
-const { exitContest } = require('../contest/controller');
+const { findImageUrlFromHtml, updateFilesByUrls } = require('../../../../utils/file');
+
 
 // 공지사항 여러개
 const getNotices = asyncHandler(async (req, res, next) => {
@@ -48,8 +49,10 @@ const createNotice = asyncHandler(async (req, res, next) => {
    const { body, user } = req;
 
    body.writer = user.info;
-
+   const urls = findImageUrlFromHtml(body.content);
    const doc = await Notice.create(body);
+
+   await updateFilesByUrls(req, doc._id, 'Notice', urls);
 
    res.json(createResponse(res, doc));
 });
@@ -62,6 +65,10 @@ const updateNotice = asyncHandler(async (req, res, next) => {
    if (!doc) throw PROBLEM_NOT_FOUND;
    if (String(doc.writer) !== String(user.info)) throw FORBIDDEN;
 
+   if ($set.content) {
+      const urls = findImageUrlFromHtml($set.content);
+      await updateFilesByUrls(req, doc._id, 'Notice', urls);
+   }
    await doc.updateOne({ $set });
 
    res.json(createResponse(res));
