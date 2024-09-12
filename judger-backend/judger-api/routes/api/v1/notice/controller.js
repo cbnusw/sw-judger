@@ -7,6 +7,8 @@ const {
    FILE_NOT_FOUND
 } = require('../../../../errors');
 const { hasRole } = require("../../../../utils/permission");
+const { findImageUrlFromHtml, updateFilesByUrls } = require('../../../../utils/file');
+
 
 // 공지사항 여러개
 const getNotices = asyncHandler(async (req, res, next) => {
@@ -47,8 +49,10 @@ const createNotice = asyncHandler(async (req, res, next) => {
    const { body, user } = req;
 
    body.writer = user.info;
-
+   const urls = findImageUrlFromHtml(body.content);
    const doc = await Notice.create(body);
+
+   await updateFilesByUrls(req, doc._id, 'Notice', urls);
 
    res.json(createResponse(res, doc));
 });
@@ -61,6 +65,10 @@ const updateNotice = asyncHandler(async (req, res, next) => {
    if (!doc) throw PROBLEM_NOT_FOUND;
    if (String(doc.writer) !== String(user.info)) throw FORBIDDEN;
 
+   if ($set.content) {
+      const urls = findImageUrlFromHtml($set.content);
+      await updateFilesByUrls(req, doc._id, 'Notice', urls);
+   }
    await doc.updateOne({ $set });
 
    res.json(createResponse(res));
@@ -80,10 +88,16 @@ const removeNotice = asyncHandler(async (req, res, next) => {
    res.json(createResponse(res));
 });
 
-//공지사항 등록 페이지
+// 자신이 작성한 공지사항
+const getMyNotices = asyncHandler(async (req, res, next) => {
+   const { query, user } = req;
+   const documents = await Notice.search(query, { writer: user.info });
+   res.json(createResponse(res, documents));
+ });
 
 exports.getNotices = getNotices;
 exports.getNotice = getNotice;
 exports.createNotice = createNotice;
 exports.updateNotice = updateNotice;
 exports.removeNotice = removeNotice;
+exports.getMyNotices = getMyNotices;

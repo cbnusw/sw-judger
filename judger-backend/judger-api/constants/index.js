@@ -28,7 +28,8 @@ const fileTypes = [
    "Assignment",
    "Problem",
    "Practice",
-   "Submit"
+   "Submit",
+   "Notice"
 ];
 
 const universities = [
