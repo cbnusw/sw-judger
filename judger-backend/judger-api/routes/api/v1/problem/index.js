@@ -6,6 +6,7 @@ const router = Router();
 
 router.get('/', controller.getProblems);
 router.get('/:id', authenticate, handleAccessProblem, controller.getProblem);
+router.get('/:problemId/example-files/:fileId', controller.downloadExampleFile);
 router.post('/', ...hasProblemPermission, controller.createProblem);
 router.post('/:id/submit', isAuthenticated, handleAccessProblem, controller.createSubmit);
 router.put('/:id', ...hasProblemPermission, controller.updateProblem);

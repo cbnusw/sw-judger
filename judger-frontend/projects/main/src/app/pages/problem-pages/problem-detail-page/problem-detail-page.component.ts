@@ -12,6 +12,7 @@ import { ContestService } from '../../../services/apis/contest.service';
 import { ProblemService } from '../../../services/apis/problem.service';
 import { AssignmentService } from '../../../services/apis/assignment.service';
 import { AuthService } from '../../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'sw-problem-detail-page',
@@ -35,7 +36,8 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     private problemService: ProblemService,
     private contestService: ContestService,
     private assignmentService: AssignmentService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private http: HttpClient // HttpClient 추가
   ) {
   }
 
@@ -77,6 +79,16 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
 
     return false;
   }
+
+  // 예제 파일 다운로드 메서드 추가
+  downloadExampleFile(file: any): void {
+    const url = `http://localhost:4003/v1/problem/${file.ref}/example-files/${file._id}`; // Express 서버로 요청 보낼 URL
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = file.filename; // 다운로드될 파일 이름 설정
+    a.click();
+}
+
 
   loadPdf(e: PDFDocumentProxy): void {
     this.lastPage = (e as any)._pdfInfo.numPages;

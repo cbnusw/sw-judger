@@ -68,7 +68,12 @@ const schema = createSchema({
     type: Schema.Types.ObjectId,
     ref: 'UserInfo',
     index: true,
-  }
+  },
+  // 예제 파일 추가
+  exampleFiles: [{
+    type: Schema.Types.ObjectId,
+    ref: 'File',
+  }]
 });
 
 schema.plugin(searchPlugin({

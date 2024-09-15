@@ -128,6 +128,13 @@
       <span class="error" *ngIf="hasError('required', 'ioSet')"> 입/출력 파일셋을 하나 이상 올려야 합니다. </span>
     </div>
 
+    <!-- 예제 파일 업로드 필드 추가 -->
+    <div class="mb-4 pb-4 border-bottom">
+      <label class="block mb-1">예제 파일 (선택)</label>
+      <sw-example-file-control formControlName="exampleFiles"></sw-example-file-control>
+      <!-- 선택 항목이므로 검증 메시지 제거 -->
+    </div>
+
     <div class="flex justify-end">
       <button type="button" mat-flat-button class="block me-2" (click)="cancel()">취소</button>
       <button mat-flat-button class="block" color="primary">{{ modifying ? '수정' : '등록' }}</button>

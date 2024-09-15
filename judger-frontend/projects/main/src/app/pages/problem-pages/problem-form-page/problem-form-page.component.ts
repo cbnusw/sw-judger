@@ -99,10 +99,17 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
         maxMemory: [null, [Validators.required, Validators.min(1)]],
       }),
       score: [1, [Validators.required, Validators.min(0)]],
+      exampleFiles: [null] // 예제 파일 FormControl 추가
     });
   }
 
   protected submitObservable(m: IProblem): Observable<string> {
+
+    // 예제 파일이 없으면 서버로 보내지 않도록 설정
+    if (!m.exampleFiles) {
+      delete m.exampleFiles;
+    }
+    
     let observable: Observable<string>;
     let params: any;
     this.route.queryParams.subscribe(res => {params = res})

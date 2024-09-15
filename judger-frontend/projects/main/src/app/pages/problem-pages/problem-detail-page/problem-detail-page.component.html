@@ -57,6 +57,19 @@
       <mat-icon>arrow_forward_ios</mat-icon>
     </button>
   </div>
+
+  <!-- 예제 파일 다운로드 버튼 추가 -->
+  <div *ngIf="problem?.exampleFiles?.length > 0" class="example-files">
+    <h4>예제 파일 다운로드</h4>
+    <ul>
+      <li *ngFor="let file of problem.exampleFiles">
+        <button type="button" mat-flat-button color="primary" (click)="downloadExampleFile(file)">
+          {{ file.filename }}
+        </button>
+      </li>
+    </ul>
+  </div>
+
   <div class="flex justify-end" *ngIf="isWriter">
     <button type="button" class="text-white me-2" mat-flat-button color="accent"
             (click)="moveListPage()">

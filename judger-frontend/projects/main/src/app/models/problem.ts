@@ -22,4 +22,5 @@ export interface IProblem {
   options?: IProblemOptions;
   score?: number;
   writer?: IUserInfo;
+  exampleFiles?: Array<IFile>;
 }
