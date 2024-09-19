@@ -63,7 +63,7 @@
     <h4>예제 파일 다운로드</h4>
     <ul>
       <li *ngFor="let file of problem.exampleFiles">
-        <button type="button" mat-flat-button color="primary" (click)="downloadExampleFile(file)">
+        <button type="button" mat-flat-button color="primary" (click)="downloadExampleFile(file.ref, file._id)">
           {{ file.filename }}
         </button>
       </li>

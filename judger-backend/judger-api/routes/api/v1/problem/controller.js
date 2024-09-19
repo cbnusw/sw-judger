@@ -1,3 +1,4 @@
+const path = require('path');
 const fs = require('fs');
 const db = require('../../../../models')
 const {
@@ -45,7 +46,7 @@ exports.getProblem = asyncHandler(async (req, res, next) => {
    const query = Problem.findById(id)
       .populate({ path: 'writer' })
       .populate({ path: 'parentId' })
-      .populate({ path: 'exampleFiles', select:"_id filename url ref" }); // exampleFiles의 파일 정보 가져오기
+      .populate({ path: 'exampleFiles', select:"_id filename ref" }); // exampleFiles의 파일 정보 가져오기
 
    if (String(problem.writer) === String(user.info)) {
       query.populate({ path: 'ioSet.inFile'})
@@ -161,33 +162,34 @@ exports.removeProblem = asyncHandler(async (req, res, next) => {
    res.json(createResponse(res));
 });
 
-// 파일 다운로드 기능 API
+// 파일 다운로드 API
 exports.downloadExampleFile = asyncHandler(async (req, res, next) => {
-   const { params: { problemId, fileId } } = req;
+   const { problemId, fileId } = req.params;
 
-   // 문제를 조회하고 exampleFiles를 populate
-   const problem = await Problem.findById(problemId).populate('exampleFiles');
-   if (!problem) throw PROBLEM_NOT_FOUND;
+   // 데이터베이스에서 파일 검색
+   const file = await File.findOne({ ref: problemId, _id: fileId });
+   if (!file) {
+      return res.status(404).json({ message: 'DB에서 파일을 찾을 수 없습니다.' });
+   }
 
-   // 문제에 첨부된 파일 중 해당 파일 찾기
-   const file = problem.exampleFiles.find(file => String(file._id) === String(fileId));
-   if (!file) throw FILE_NOT_FOUND;
+   // 파일 URL을 실제 서버 내 경로로 변환
+   const fileUrl = file.url;  // 예: http://localhost:4003/uploads/filename.c
+   const uploadsDirectory = path.join('/usr/src/app/uploads'); // 컨테이너 내의 절대 경로로 수정
+   const filePath = path.join(uploadsDirectory, path.basename(fileUrl));
 
-   // 파일이 저장된 경로가 file.url에 이미 포함되어 있으므로, 바로 사용
-   const filePath = file.url;  // 이미 서버 내부 경로라면 추가적인 가공 불필요
-
-   console.log('file.url:', file.url); // 경로 확인용 로그
+   const filename = file.filename; // 다운로드될 파일 이름
+   console.log(filePath); // 경로 확인
 
    // 파일이 실제로 존재하는지 확인
    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ message: '파일을 찾을 수 없습니다.' });
+      return res.status(404).json({ message: '다운로드 파일을 찾을 수 없습니다.' });
    }
 
    // 파일 다운로드 처리
-   res.download(filePath, file.filename, (err) => {
+   res.download(filePath, filename, (err) => {
       if (err) {
-        console.error('파일 다운로드 오류:', err); // 에러 메시지 로그
-        return res.status(500).json({ message: '파일 다운로드 중 오류가 발생했습니다.', error: err.message });
+         console.error('파일 다운로드 오류:', err); // 에러 메시지 로그
+         return res.status(500).json({ message: '파일 다운로드 중 오류가 발생했습니다.', error: err.message });
       }
-    });
+   });
 });

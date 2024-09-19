@@ -80,14 +80,12 @@ export class ProblemDetailPageComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  // 예제 파일 다운로드 메서드 추가
-  downloadExampleFile(file: any): void {
-    const url = `http://localhost:4003/v1/problem/${file.ref}/example-files/${file._id}`; // Express 서버로 요청 보낼 URL
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = file.filename; // 다운로드될 파일 이름 설정
-    a.click();
-}
+  // 예제 파일 다운로드 메서드
+  downloadExampleFile(problemId: string, fileId: string): void {
+    // ProblemService에서 파일 다운로드 URL 생성
+    const downloadUrl = this.problemService.getDownloadUrl(problemId, fileId);
+    window.location.href = downloadUrl; // 브라우저에서 해당 URL로 이동하여 파일 다운로드
+  }
 
 
   loadPdf(e: PDFDocumentProxy): void {
