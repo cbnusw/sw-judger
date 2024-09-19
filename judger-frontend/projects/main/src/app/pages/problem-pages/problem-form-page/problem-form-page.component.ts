@@ -104,11 +104,6 @@ export class ProblemFormPageComponent extends AbstractFormDirective<IProblem, st
   }
 
   protected submitObservable(m: IProblem): Observable<string> {
-
-    // 예제 파일이 없으면 서버로 보내지 않도록 설정
-    if (!m.exampleFiles) {
-      delete m.exampleFiles;
-    }
     
     let observable: Observable<string>;
     let params: any;

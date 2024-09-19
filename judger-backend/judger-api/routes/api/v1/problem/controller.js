@@ -45,7 +45,7 @@ exports.getProblem = asyncHandler(async (req, res, next) => {
    const query = Problem.findById(id)
       .populate({ path: 'writer' })
       .populate({ path: 'parentId' })
-      .populate({ path: 'exampleFiles', select:"_id filename ref url" }); // exampleFiles의 파일 정보 가져오기
+      .populate({ path: 'exampleFiles', select:"_id filename url ref" }); // exampleFiles의 파일 정보 가져오기
 
    if (String(problem.writer) === String(user.info)) {
       query.populate({ path: 'ioSet.inFile'})
