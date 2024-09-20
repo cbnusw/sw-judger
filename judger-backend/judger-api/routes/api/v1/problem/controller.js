@@ -109,10 +109,11 @@ exports.updateProblem = asyncHandler(async (req, res, next) => {
    const { params: { id }, body: $set, user } = req;
    const doc = await Problem.findById(id);
 
-   $set.ioSet = ($set.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
-
    if (!doc) throw PROBLEM_NOT_FOUND;
    if (String(doc.writer) !== String(user.info)) throw FORBIDDEN;
+
+   $set.ioSet = ($set.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
+   $set.exampleFiles = ($set.exampleFiles || []).map(file => file._id); // exampleFiles 처리 추가
 
    const parentDoc = await db[doc.parentType].findById(doc.parentId);
 
@@ -122,7 +123,7 @@ exports.updateProblem = asyncHandler(async (req, res, next) => {
    const contentFile = await File.findOne({ url: $set.content });
    if (!contentFile) throw FILE_NOT_FOUND;
 
-   const ids = [...$set.ioSet.map(io => io.inFile), ...$set.ioSet.map(io => io.outFile), contentFile._id];
+   const ids = [...$set.ioSet.map(io => io.inFile), ...$set.ioSet.map(io => io.outFile), ...$set.exampleFiles, contentFile._id];
 
    await Promise.all([
       doc.updateOne({ $set }),
@@ -153,7 +154,7 @@ exports.removeProblem = asyncHandler(async (req, res, next) => {
 
    const contentFile = await File.findOne({ url: doc.content });
 
-   const ids = [...doc.ioSet.map(io => io.inFile), ...doc.ioSet.map(io => io.outFile), contentFile._id];
+   const ids = [...doc.ioSet.map(io => io.inFile), ...doc.ioSet.map(io => io.outFile), ...doc.exampleFiles.map(file => file._id), contentFile._id];
 
    await Promise.all([
       doc.deleteOne(),

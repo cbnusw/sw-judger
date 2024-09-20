@@ -51,7 +51,6 @@ export class ProblemService extends ApiBase {
   }
 
   getDownloadUrl(problemId: string, fileId: string): string {
-    // 백엔드에서 제공하는 파일 다운로드 URL 생성
     return `${this.url`/${problemId}/example-files/${fileId}`}`;
   }
 }
