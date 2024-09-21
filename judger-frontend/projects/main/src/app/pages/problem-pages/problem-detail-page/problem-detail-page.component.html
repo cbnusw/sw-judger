@@ -3,12 +3,24 @@
   <div class="flex pb-2 mb-2 border-bottom">
     <span *ngIf="contest" class="font-s me-2">대회: {{ contest?.title }}</span>
     <span *ngIf="contest" class="font-s">점수: {{ problem?.score }}</span>
-    <span *ngIf="!contest && !assignment" class="font-s me-2">대회: {{problem?.parentId?.title}}</span>
-    <span *ngIf="!contest && !assignment" class="font-s">점수: {{problem?.score}}</span>
-    <span *ngIf="assignment" class="font-s me-2">과제: {{ assignment?.title }}</span>
-    <span *ngIf="contest" class="font-s ms-auto">작성자: {{ problem?.writer.name }}</span>
-    <span *ngIf="!contest && !assignment" class="font-s ms-auto">작성자: {{problem?.writer.name}}</span>
-    <span *ngIf="assignment" class="font-s ms-auto">교수명: {{ problem?.writer.name }}</span>
+    <span *ngIf="!contest && !assignment" class="font-s me-2"
+      >대회: {{ problem?.parentId?.title }}</span
+    >
+    <span *ngIf="!contest && !assignment" class="font-s"
+      >점수: {{ problem?.score }}</span
+    >
+    <span *ngIf="assignment" class="font-s me-2"
+      >과제: {{ assignment?.title }}</span
+    >
+    <span *ngIf="contest" class="font-s ms-auto"
+      >작성자: {{ problem?.writer.name }}</span
+    >
+    <span *ngIf="!contest && !assignment" class="font-s ms-auto"
+      >작성자: {{ problem?.writer.name }}</span
+    >
+    <span *ngIf="assignment" class="font-s ms-auto"
+      >교수명: {{ problem?.writer.name }}</span
+    >
   </div>
 
   <div class="flex justify-end" *ngIf="submitable && isStudent">
@@ -32,10 +44,42 @@
     </button>
     <button
       type="button"
-      mat-flat-button color="primary"
-      (click)="submitSource()">
+      mat-flat-button
+      color="primary"
+      (click)="submitSource()"
+    >
       소스제출
     </button>
+  </div>
+
+  <!-- 예제 파일 다운로드 버튼 추가 -->
+  <div *ngIf="problem?.exampleFiles?.length > 0" class="example-files">
+    <h4 class="sub-heading">예제 파일 다운로드</h4>
+    <ul>
+      <li *ngFor="let file of problem.exampleFiles">
+        <button
+          type="button"
+          mat-flat-button
+          color="primary"
+          (click)="downloadExampleFile(file.ref, file._id)"
+        >
+          <div class="button-content">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="22.5px"
+              viewBox="0 -960 960 960"
+              width="22.5px"
+              fill="#5f6368"
+            >
+              <path
+                d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
+              />
+            </svg>
+            <span class="filename">{{ file.filename }}</span>
+          </div>
+        </button>
+      </li>
+    </ul>
   </div>
 
   <pdf-viewer
@@ -50,23 +94,50 @@
   ></pdf-viewer>
 
   <div class="flex justify-between mb-4 relative paginator">
-    <button type="button" [disabled]="(page || 1) <= 1" (click)="prevPage()" mat-icon-button>
+    <button
+      type="button"
+      [disabled]="(page || 1) <= 1"
+      (click)="prevPage()"
+      mat-icon-button
+    >
       <mat-icon>arrow_back_ios</mat-icon>
     </button>
-    <button type="button" [disabled]="page >= (lastPage || 1)" (click)="nextPage()" mat-icon-button>
+    <button
+      type="button"
+      [disabled]="page >= (lastPage || 1)"
+      (click)="nextPage()"
+      mat-icon-button
+    >
       <mat-icon>arrow_forward_ios</mat-icon>
     </button>
   </div>
+
   <div class="flex justify-end" *ngIf="isWriter">
-    <button type="button" class="text-white me-2" mat-flat-button color="accent"
-            (click)="moveListPage()">
+    <button
+      type="button"
+      class="text-white me-2"
+      mat-flat-button
+      color="accent"
+      (click)="moveListPage()"
+    >
       문제목록
     </button>
-    <button type="button" class="me-2" mat-flat-button color="primary" (click)="editProblem()">
+    <button
+      type="button"
+      class="me-2"
+      mat-flat-button
+      color="primary"
+      (click)="editProblem()"
+    >
       수정
     </button>
-    <button type="button" mat-flat-button color="warn" (click)="removeProblem()"
-    >삭제
+    <button
+      type="button"
+      mat-flat-button
+      color="warn"
+      (click)="removeProblem()"
+    >
+      삭제
     </button>
   </div>
 </div>

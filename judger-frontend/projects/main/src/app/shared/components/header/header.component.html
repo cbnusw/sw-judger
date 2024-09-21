@@ -1,34 +1,47 @@
 <div class="main-container flex align-center">
-    <a class="flex brand-wrapper grow-0 me-6" routerLink="/">
-        <img class="brand-image me-1" src="assets/images/logo.png" alt="logo image"/>
-        <div class="brand-name flex align-center">
-            <span class="text-primary font-xl fw-900 mobile-d-none me-1">SW</span><span
-            class="font-l fw-900 text-accent"> ONLINE JUDGE</span>
-        </div>
-    </a>
-    <nav class="flex align-end grow-1 font-m me-auto mobile-d-none">
-        <ng-container *ngFor="let menu of menus">
-            <a class="px-1 me-2" [routerLink]="menu.link"
-               *ngIf="!menu.condition$ || (menu.condition$ | async)">
-                {{menu.name}}
-            </a>
-        </ng-container>
-    </nav>
-    <a class="cursor pointer font-s mobile-d-none"
-       routerLink="/account/login"
-       *ngIf="!auth.loggedIn">로그인</a>
-    <span class="font-s mobile-d-none" *ngIf="auth.loggedIn">
-        {{auth.me?.name}}님 로그인 중
-        <a class="cursor pointer ms-2"
-           (click)="logout()">로그아웃</a>
-    </span>
-    <div class="ms-auto">
-        <button class="desktop-d-none" mat-icon-button (click)="openMobileNav()">
-            <mat-icon>menu</mat-icon>
-        </button>
+  <a class="flex brand-wrapper grow-0 me-6" routerLink="/">
+    <img
+      class="brand-image me-1"
+      src="assets/images/logo.png"
+      alt="logo image"
+      style="transform: scale(0.65)"
+    />
+    <div class="brand-name flex align-center">
+      <span>SW Online Judge</span>
     </div>
+  </a>
+  <nav class="flex align-end grow-1 font-m me-auto mobile-d-none mx-4">
+    <ng-container *ngFor="let menu of menus">
+      <a
+        class="px-1 me-3"
+        [routerLink]="menu.link"
+        *ngIf="!menu.condition$ || (menu.condition$ | async)"
+      >
+        {{ menu.name }}
+      </a>
+    </ng-container>
+  </nav>
+  <a
+    class="cursor pointer mobile-d-none"
+    routerLink="/account/login"
+    *ngIf="!auth.loggedIn"
+    >로그인</a
+  >
+  <div class="mobile-d-none" *ngIf="auth.loggedIn">
+    <a class="cursor pointer" routerLink="/my-page">
+      <span style="font-weight: 600">{{ auth.me?.name }}</span> 님
+    </a>
+    <a class="cursor pointer ms-4" (click)="logout()">로그아웃</a>
+  </div>
+  <div class="ms-auto">
+    <button class="desktop-d-none" mat-icon-button (click)="openMobileNav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
 </div>
-<sw-mobile-navigation *ngIf="isOpenMobileNav"
-                      [menus]="menus"
-                      (changeOpenNav)="changeOpenNav($event)">
+<sw-mobile-navigation
+  *ngIf="isOpenMobileNav"
+  [menus]="menus"
+  (changeOpenNav)="changeOpenNav($event)"
+>
 </sw-mobile-navigation>

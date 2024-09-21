@@ -1,6 +1,6 @@
 <div class="main-container mt-2">
   <ng-container *ngIf="!contest; else contestProblemTemplate">
-    <h2 class="page-title mb-2">문제 {{ modifying ? '수정' : '등록' }}</h2>
+    <h2 class="page-title mb-2">문제 {{ modifying ? "수정" : "등록" }}</h2>
     <div class="flex justify-end pb-2 mb-2 border-bottom">
       <span class="font-s">작성자: {{ auth.me?.name }}</span>
     </div>
@@ -9,19 +9,27 @@
   <ng-template #contestProblemTemplate>
     <h2 class="page-title mb-2 flex mobile-column">
       <span class="text-primary me-1">{{ contest.title }}</span>
-      <span [class.mt-2]="layout.mobile$ | async">문제 {{ modifying ? '수정' : '등록' }}</span>
+      <span [class.mt-2]="layout.mobile$ | async"
+        >문제 {{ modifying ? "수정" : "등록" }}</span
+      >
     </h2>
     <div class="flex pb-2 mb-2 border-bottom mobile-column">
-      <span class="font-s me-auto" [class.mb-1]="layout.mobile$ | async">대회시간: {{ contest | testPeriod }}</span>
+      <span class="font-s me-auto" [class.mb-1]="layout.mobile$ | async"
+        >대회시간: {{ contest | testPeriod }}</span
+      >
       <span class="font-s me-2" [class.mb-1]="layout.mobile$ | async"
-        >등록일: {{ contest?.createdAt | date: 'yyyy.MM.dd.' }}</span
+        >등록일: {{ contest?.createdAt | date : "yyyy.MM.dd." }}</span
       >
       <span class="font-s">작성자: {{ auth.me?.name }}</span>
     </div>
   </ng-template>
 
   <form [formGroup]="formGroup" (ngSubmit)="submit()">
-    <mat-form-field class="mb-2" [class.w-70]="layout.desktop$ | async" [class.w-100]="layout.mobile$ | async">
+    <mat-form-field
+      class="mb-2"
+      [class.w-70]="layout.desktop$ | async"
+      [class.w-100]="layout.mobile$ | async"
+    >
       <mat-label>제목</mat-label>
       <input
         matInput
@@ -33,7 +41,9 @@
         autocomplete="off"
       />
       <mat-hint>문제 제목을 입력해주세요.</mat-hint>
-      <mat-error *ngIf="hasError('required', 'title')">제목은 필수 입력 항목입니다.</mat-error>
+      <mat-error *ngIf="hasError('required', 'title')"
+        >제목은 필수 입력 항목입니다.</mat-error
+      >
     </mat-form-field>
 
     <div class="mb-2 flex mobile-column">
@@ -59,7 +69,9 @@
         <mat-error *ngIf="hasError('required', ['options', 'maxRealTime'])">
           테스트 당 최대 수행시간은 필수 입력 항목입니다.
         </mat-error>
-        <mat-error *ngIf="hasError('min', ['options', 'maxRealTime'])"> 최소 1ms 이상이여야 합니다. </mat-error>
+        <mat-error *ngIf="hasError('min', ['options', 'maxRealTime'])">
+          최소 1ms 이상이여야 합니다.
+        </mat-error>
       </mat-form-field>
       <mat-form-field
         class="w-100"
@@ -79,11 +91,15 @@
           required
           autocomplete="off"
         />
-        <mat-hint>테스트 당 최대 사용 메모리를 MB 단위로 입력해주세요.</mat-hint>
+        <mat-hint
+          >테스트 당 최대 사용 메모리를 MB 단위로 입력해주세요.</mat-hint
+        >
         <mat-error *ngIf="hasError('required', ['options', 'maxMemory'])">
           테스트 당 최대 사용 메모리는 필수 입력 항목입니다.
         </mat-error>
-        <mat-error *ngIf="hasError('min', ['options', 'maxMemory'])"> 최소 1MB 이상이여야 합니다. </mat-error>
+        <mat-error *ngIf="hasError('min', ['options', 'maxMemory'])">
+          최소 1MB 이상이여야 합니다.
+        </mat-error>
       </mat-form-field>
       <mat-form-field
         *ngIf="!!contest"
@@ -103,8 +119,12 @@
           autocomplete="off"
         />
         <mat-hint>문제의 점수를 입력해주세요.</mat-hint>
-        <mat-error *ngIf="hasError('required', 'score')"> 점수는 필수 입력항목입니다. </mat-error>
-        <mat-error *ngIf="hasError('min', 'score')"> 점수는 음수가 될 수 없습니다. </mat-error>
+        <mat-error *ngIf="hasError('required', 'score')">
+          점수는 필수 입력항목입니다.
+        </mat-error>
+        <mat-error *ngIf="hasError('min', 'score')">
+          점수는 음수가 될 수 없습니다.
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -118,19 +138,43 @@
 
     <div class="mb-4 pb-4 border-bottom">
       <label class="block required mb-1">문제 파일</label>
-      <sw-pdf-uploader-control formControlName="content"></sw-pdf-uploader-control>
-      <span class="error" *ngIf="hasError('required', 'content')"> 문제 파일은 필수 입력 항목입니다. </span>
+      <sw-pdf-uploader-control
+        formControlName="content"
+      ></sw-pdf-uploader-control>
+      <span class="error" *ngIf="hasError('required', 'content')">
+        문제 파일은 필수 입력 항목입니다.
+      </span>
     </div>
 
     <div class="mb-2">
       <label class="block required mb-1">입/출력 파일 셋</label>
       <sw-io-set-control formControlName="ioSet"></sw-io-set-control>
-      <span class="error" *ngIf="hasError('required', 'ioSet')"> 입/출력 파일셋을 하나 이상 올려야 합니다. </span>
+      <span class="error" *ngIf="hasError('required', 'ioSet')">
+        입/출력 파일셋을 하나 이상 올려야 합니다.
+      </span>
+    </div>
+
+    <!-- 예제 파일 업로드 필드 추가 -->
+    <div class="mb-4 pb-4 border-bottom">
+      <label class="block mb-1">예제 파일<sub>(선택)</sub></label>
+      <sw-example-file-control
+        formControlName="exampleFiles"
+      ></sw-example-file-control>
+      <!-- 선택 항목이므로 검증 메시지 제거 -->
     </div>
 
     <div class="flex justify-end">
-      <button type="button" mat-flat-button class="block me-2" (click)="cancel()">취소</button>
-      <button mat-flat-button class="block" color="primary">{{ modifying ? '수정' : '등록' }}</button>
+      <button
+        type="button"
+        mat-flat-button
+        class="block me-2"
+        (click)="cancel()"
+      >
+        취소
+      </button>
+      <button mat-flat-button class="block" color="primary">
+        {{ modifying ? "수정" : "등록" }}
+      </button>
     </div>
   </form>
 </div>

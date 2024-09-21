@@ -1,30 +1,49 @@
-<div class="main-image"
-     [class.mb-2]="layout.desktop$ | async"
-     [class.mb-1]="layout.mobile$ | async"
-     [class.flex]="layout.mobile$ | async"
-     [class.algin-center]="layout.mobile$ | async"
-     swBackgroundPosition="center"
-     swBackgroundSize="cover"
-     swBackgroundColor="rgba(0, 0, 0, 0.7)"
-     swBackgroundBlendMode="multiply"
-     swBackgroundImage="assets/images/main.jpg">
-  <div class="main-container p-4 flex column" [class.justify-center]="layout.mobile$ | async">
+<div
+  class="main-image"
+  [class.mb-2]="layout.desktop$ | async"
+  [class.mb-1]="layout.mobile$ | async"
+  [class.flex]="layout.mobile$ | async"
+  [class.algin-center]="layout.mobile$ | async"
+  swBackgroundPosition="center"
+  swBackgroundSize="cover"
+  swBackgroundColor="rgba(0, 0, 0, 0.7)"
+  swBackgroundBlendMode="multiply"
+  swBackgroundImage="assets/images/main.jpg"
+>
+  <div
+    class="main-container p-4 flex column"
+    [class.justify-center]="layout.mobile$ | async"
+  >
     <h2 class="brand-name text-primary">충북대학교 SW중심대학사업단</h2>
-    <h1 class="service-name mt-2"><span class="text-accent">ONLINE JUDGE</span> 시스템</h1>
+    <h1 class="service-name mt-2">
+      <span class="text-accent">ONLINE JUDGE</span> 시스템
+    </h1>
   </div>
 </div>
 <div class="main-container mobile-column-reverse">
   <div class="p-2 border">
     <h3>메뉴얼</h3>
     <div class="flex text-center">
-    <button class="bg-accent grow-1 m-2 py-1" mat-flat-button color="primary" (click)="openContestDialog()">
-      대회 메뉴얼
-    </button>
-    <button class="bg-accent grow-1 m-2 py-1" mat-flat-button color="primary" (click)="openAssignmentDialog()">
-      과제 메뉴얼
-    </button>
+      <button
+        class="bg-accent grow-1 m-2 py-1"
+        mat-flat-button
+        color="primary"
+        (click)="openContestDialog()"
+      >
+        대회 메뉴얼
+      </button>
+      <button
+        class="bg-accent grow-1 m-2 py-1"
+        mat-flat-button
+        color="primary"
+        (click)="openAssignmentDialog()"
+      >
+        과제 메뉴얼
+      </button>
     </div>
   </div>
+
+  <div></div>
 </div>
 <div class="main-container flex py-2 mobile-column-reverse">
   <div class="grow-1 p-2 border" [class.me-2]="layout.desktop$ | async">
@@ -32,16 +51,23 @@
     <sw-progressing-contest-list></sw-progressing-contest-list>
   </div>
 
-  <div class="p-2 border"
-       [class.shrink-0]="layout.desktop$ | async"
-       [class.w-40]="layout.desktop$ | async"
-       [class.mb-2]="layout.mobile$ | async"
-       [class.grow-1]="layout.mobile$ | async">
+  <div
+    class="p-2 border"
+    [class.shrink-0]="layout.desktop$ | async"
+    [class.w-40]="layout.desktop$ | async"
+    [class.mb-2]="layout.mobile$ | async"
+    [class.grow-1]="layout.mobile$ | async"
+  >
     <ng-container *ngIf="auth.loggedIn; else loginTamplate">
-      <p class="font-s flex justify-between align-center border-bottom mb-2 pb-1">
-                <span><span class="text-primary fw-700">
-                    <a [href]="myPageUrl">{{auth.me?.name}}</a>
-                </span>님 로그인 중</span>
+      <p
+        class="font-s flex justify-between align-center border-bottom mb-2 pb-1"
+      >
+        <span
+          ><a href="/my-page" class="text-primary fw-700">
+            <span>{{ auth.me?.name }}</span>
+          </a>
+          님</span
+        >
         <button mat-button (click)="auth.logout()">로그아웃</button>
       </p>
       <div *ngIf="isStudent">
@@ -49,7 +75,9 @@
         <sw-my-registered-contest></sw-my-registered-contest>
       </div>
       <div *ngIf="isAdmin">
-        <h3 class="text-center">관리자 권한으로 로그인중입니다</h3>
+        <h3 class="font-s text-center fw-500">
+          관리자 권한으로 로그인중입니다
+        </h3>
       </div>
     </ng-container>
     <ng-template #loginTamplate>

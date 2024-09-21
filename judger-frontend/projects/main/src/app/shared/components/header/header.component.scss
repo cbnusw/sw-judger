@@ -28,8 +28,12 @@
     flex-shrink: 0;
     font-weight: 500;
 
-    .text-primary {
-      font-weight: 900;
+    span {
+      margin: 0.25rem 0 0 -0.75rem;
+      font-size: 20px;
+      font-family: "ui-sans-serif";
+      font-weight: 800;
+      letter-spacing: -0.05rem;
     }
 
     @include mobile {
@@ -41,10 +45,12 @@
 sw-mobile-navigation {
   position: fixed;
   z-index: 100;
-  background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95));
+  background: linear-gradient(
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.95)
+  );
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
 }
-

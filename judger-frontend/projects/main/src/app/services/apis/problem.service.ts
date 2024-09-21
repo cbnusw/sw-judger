@@ -49,4 +49,8 @@ export class ProblemService extends ApiBase {
   removeProblem(id: string): Observable<IResponse<undefined>> {
     return this.http.delete<IResponse<undefined>>(this.url`/${id}`);
   }
+
+  getDownloadUrl(problemId: string, fileId: string): string {
+    return `${this.url`/${problemId}/example-files/${fileId}`}`;
+  }
 }

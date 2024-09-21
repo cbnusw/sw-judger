@@ -13,10 +13,6 @@ export class HeaderComponent implements OnInit {
   isOpenMobileNav = false;
   menus: INavMenu[] = [
     {
-      name: '연습문제',
-      link: '/practice/list'
-    },
-    {
       name: '대회',
       link: '/contest/list',
     },
@@ -25,12 +21,12 @@ export class HeaderComponent implements OnInit {
       link: '/assignment/list',
     },
     {
-      name: '대회관리',
+      name: '대회 관리',
       link: '/contest/list/me',
       condition$: this.auth.isOperator$,
     },
     {
-      name: '교과목관리',
+      name: '교과목 관리',
       link: '/assignment/list/me',
       condition$: this.auth.isOperator$,
     },
@@ -39,18 +35,14 @@ export class HeaderComponent implements OnInit {
       link: '/notice',
     },
     {
-      name: '마이페이지',
-      link: '/my-page',
-      condition$: this.auth.isLoggedIn$,
-    }
+      name: '연습문제',
+      link: '/practice/list',
+    },
   ];
 
   @ViewChild(MobileNavigationComponent) mobileNav: MobileNavigationComponent;
 
-  constructor(
-    public auth: AuthService,
-    public router: Router
-  ) {}
+  constructor(public auth: AuthService, public router: Router) {}
 
   logout(): boolean {
     this.auth.logout();
@@ -58,7 +50,7 @@ export class HeaderComponent implements OnInit {
   }
 
   get isStudent(): boolean {
-    return (this.auth.me?.role === "student");
+    return this.auth.me?.role === 'student';
   }
 
   openMobileNav(): void {

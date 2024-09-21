@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { IoSetControlModule } from '../../controls/io-set-control/io-set-control.module';
 import { PdfUploaderControlModule } from '../../controls/pdf-uploader-control/pdf-uploader-control.module';
+import {ExampleFileControlModule} from '../../controls/example-file-control/example-file-control.module';
 import { PeriodPipeModule } from '../../pipes/period-pipe/period-pipe.module';
 import { SecurePipeModule } from '../../pipes/secure-pipe/secure-pipe.module';
 import { MyProblemListPageComponent } from './my-problem-list-page/my-problem-list-page.component';
@@ -29,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
   imports: [
     CommonModule,
     IoSetControlModule,
+    ExampleFileControlModule,
     ReactiveFormsModule,
     MatInputModule,
     MatCheckboxModule,

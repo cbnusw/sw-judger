@@ -1,0 +1,17 @@
+ㅂFROM node:16.14.0
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+RUN npm i -g -y @angular/cli@11.2.19
+
+COPY ./package*.json /app/
+
+RUN npm install
+
+COPY . /app/
+
+CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
+
+EXPOSE 4200
