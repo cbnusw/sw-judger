@@ -12,37 +12,41 @@ import { AuthService } from '../../../services/auth.service';
 import { UploadService } from '../../../services/upload.service';
 
 export class UploadAdapter {
-  constructor(private loader, private uploadService: UploadService) {
-  }
+  constructor(private loader, private uploadService: UploadService) {}
 
   upload(): Promise<any> {
-    return this.loader.file.then(file => this.uploadService.upload(file).toPromise())
-      .then(res => ({ ...res.data, default: res.data.url }));
+    return this.loader.file
+      .then((file) => this.uploadService.upload(file).toPromise())
+      .then((res) => ({ ...res.data, default: res.data.url }));
   }
 }
 
 @Component({
   selector: 'sw-contest-form-page',
   templateUrl: './contest-form-page.component.html',
-  styleUrls: ['./contest-form-page.component.scss']
+  styleUrls: ['./contest-form-page.component.scss'],
 })
-export class ContestFormPageComponent extends AbstractFormDirective<IContest, string> implements OnInit {
-
+export class ContestFormPageComponent
+  extends AbstractFormDirective<IContest, string>
+  implements OnInit
+{
   errorMatcher = new ErrorMatcher(this.submitted$, this.submissionError$);
 
   Editor = DecoupledEditor;
 
   config = {
     placeholder: '여기에 대회 내용 입력',
-    language: 'ko'
+    language: 'ko',
   };
 
-  constructor(public auth: AuthService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private uploadService: UploadService,
-              private contestService: ContestService,
-              fb: FormBuilder) {
+  constructor(
+    public auth: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private uploadService: UploadService,
+    private contestService: ContestService,
+    fb: FormBuilder
+  ) {
     super(fb);
   }
 
@@ -50,21 +54,18 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
     return this.formGroup.get('isApplyingPeriod').value;
   }
 
-  get isPassword(): boolean {
-    return this.formGroup.get('isPassword').value;
-  }
-
   onReady(editor: any): void {
-    editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
       return new UploadAdapter(loader, this.uploadService);
     };
 
-    editor.ui.getEditableElement().parentElement.insertBefore(
-      editor.ui.view.toolbar.element,
-      editor.ui.getEditableElement()
-    );
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+      );
   }
-
 
   protected async mapToModel(m: IContest): Promise<IContest> {
     if (!(m as any).isApplyingPeriod) {
@@ -72,10 +73,6 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
     }
 
     delete (m as any).isApplyingPeriod;
-
-    if (!(m as any).isPassword) {
-      m.password = null;
-    }
 
     return m;
   }
@@ -89,9 +86,6 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
     if (m.applyingPeriod) {
       (m as any).isApplyingPeriod = true;
     }
-    if (m.password) {
-      (m as any).isPassword = true;
-    }
     super.patchFormGroup(m);
   }
 
@@ -99,30 +93,34 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
     const formGroup = formBuilder.group({
       title: [null, [Validators.required]],
       content: [null, [Validators.required]],
-      testPeriod: [null, [
-        Validators.required,
-        control => {
-          let { start, end } = control.value || {};
-          if (start && end) {
-            start = new Date(start);
-            end = new Date(end);
-            return start.getTime() >= end.getTime() ? { invalidPeriod: true } : null;
-          }
-          return null;
-        }
-      ]],
+      testPeriod: [
+        null,
+        [
+          Validators.required,
+          (control) => {
+            let { start, end } = control.value || {};
+            if (start && end) {
+              start = new Date(start);
+              end = new Date(end);
+              return start.getTime() >= end.getTime()
+                ? { invalidPeriod: true }
+                : null;
+            }
+            return null;
+          },
+        ],
+      ],
       isApplyingPeriod: [false],
-      isPassword: [false],
       applyingPeriod: [null],
-      password: [null],
+      isPassword: [true],
+      password: [null, [Validators.required]], // 비밀번호 필수 추가
     });
 
     formGroup.setValidators([
-      form => {
+      (form) => {
         const testPeriod = form.get('testPeriod').value;
         const applyingPeriod = form.get('applyingPeriod').value;
         const isApplyingPeriod = form.get('isApplyingPeriod').value;
-        const isPassword = form.get('isPassword').value;
         const password = form.get('password').value;
 
         if (isApplyingPeriod) {
@@ -150,25 +148,24 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
           }
         }
 
-        if (isPassword) {
-          if (!password) {
-            return { requiredPassword: true };
-          }
+        if (!password) {
+          return { requiredPassword: true };
         }
 
         return null;
-      }
+      },
     ]);
 
     return formGroup;
   }
 
   protected submitObservable(m: IContest): Observable<string> {
-    return this.modifying ?
-      this.contestService.updateContest(this.model._id, m).pipe(map(() => this.model._id)) :
-      this.contestService.createContest(m).pipe(map(res => res.data._id));
+    return this.modifying
+      ? this.contestService
+          .updateContest(this.model._id, m)
+          .pipe(map(() => this.model._id))
+      : this.contestService.createContest(m).pipe(map((res) => res.data._id));
   }
-
 
   cancel(): void {
     if (this.modifying) {
@@ -182,26 +179,28 @@ export class ContestFormPageComponent extends AbstractFormDirective<IContest, st
     super.ngOnInit();
 
     this.addSubcription(
-      this.auth.me$.pipe(
-        filter(me => !!me),
-        switchMap(() => this.route.params),
-        map(params => params.id),
-        filter(id => !!id),
-        switchMap(id => this.contestService.getContestForAdmin(id))
-      ).subscribe(
-        res => {
-          if (res.data.writer._id !== this.auth.me._id) {
-            alert('수정 권한이 없습니다.');
+      this.auth.me$
+        .pipe(
+          filter((me) => !!me),
+          switchMap(() => this.route.params),
+          map((params) => params.id),
+          filter((id) => !!id),
+          switchMap((id) => this.contestService.getContestForAdmin(id))
+        )
+        .subscribe(
+          (res) => {
+            if (res.data.writer._id !== this.auth.me._id) {
+              alert('수정 권한이 없습니다.');
+              this.router.navigateByUrl('/');
+            } else {
+              this.model = res.data;
+            }
+          },
+          (err) => {
+            alert(`${(err.error && err.error.message) || err.message}`);
             this.router.navigateByUrl('/');
-          } else {
-            this.model = res.data;
           }
-        },
-        err => {
-          alert(`${err.error && err.error.message || err.message}`);
-          this.router.navigateByUrl('/');
-        }
-      )
+        )
     );
   }
 }

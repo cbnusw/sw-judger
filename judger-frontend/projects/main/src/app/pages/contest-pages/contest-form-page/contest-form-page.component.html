@@ -81,15 +81,13 @@
   </div>
 
   <div class="mb-4">
-    <mat-checkbox color="primary" formControlName="isPassword"
-    >비밀번호 설정</mat-checkbox
-    >
+    <label class="mb-1">비밀번호 설정</label>
     <span class="help block">
       <i class="las la-info-circle me-1"></i>
-      비밀번호를 설정할 경우 문제 열람에 비밀번호 입력이 필요합니다.
+      비밀번호를 설정할 경우 문제 열람 시에 비밀번호 입력이 필요합니다.
     </span>
 
-    <mat-form-field class="w-20 mt-2" *ngIf="isPassword">
+    <mat-form-field class="w-20 mt-2">
       <mat-label>비밀번호</mat-label>
       <input
         matInput
@@ -97,13 +95,10 @@
         formControlName="password"
         placeholder="EX. QWER1234"
       />
+      <mat-error class="error block" *ngIf="hasError('required', 'password')">
+        비밀번호는 필수 입력 항목입니다.
+      </mat-error>
     </mat-form-field>
-
-    <span
-      class="error block relative period-error"
-      *ngIf="hasError('requiredPassword')"
-    >비밀번호를 설정해주세요.</span>
-
   </div>
 
   <div class="flex justify-end">

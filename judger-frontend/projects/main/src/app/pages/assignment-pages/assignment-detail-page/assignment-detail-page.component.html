@@ -3,17 +3,32 @@
   <span class="flex border-bottom pb-2 mobile-column">
     <span class="font-s me-auto">
       과제시간:&nbsp;
-      <span *ngIf="(assignment?.testPeriod | periodRange | async) === -1" class="fw-700">
+      <span
+        *ngIf="(assignment?.testPeriod | periodRange | async) === -1"
+        class="fw-700"
+      >
         {{ assignment | testPeriod }}
-        <span class="text-accent fw-700">({{ assignment.testPeriod.start | restTime | async }} 전)</span>
+        <span class="text-accent fw-700"
+          >({{ assignment.testPeriod.start | restTime | async }} 전)</span
+        >
       </span>
-      <span *ngIf="(assignment?.testPeriod | periodRange | async) === 0" class="text-warn fw-900">
-        <span class="text-warn fw-900">{{ assignment.testPeriod.end | restTime | async }} 남음</span>
+      <span
+        *ngIf="(assignment?.testPeriod | periodRange | async) === 0"
+        class="text-warn fw-900"
+      >
+        <span class="text-warn fw-900"
+          >{{ assignment.testPeriod.end | restTime | async }} 남음</span
+        >
       </span>
-      <span *ngIf="(assignment?.testPeriod | periodRange | async) === 1" class="text-primary"> 종료 </span>
+      <span
+        *ngIf="(assignment?.testPeriod | periodRange | async) === 1"
+        class="text-primary"
+      >
+        종료
+      </span>
     </span>
-    <span class="font-s me-2">과목명: {{assignment?.course}}</span>
-    <span class="font-s">교수명: {{assignment?.writer.name }}</span>
+    <span class="font-s me-2">과목명: {{ assignment?.course }}</span>
+    <span class="font-s">교수명: {{ assignment?.writer.name }}</span>
   </span>
 
   <div class="py-2 border-bottom mb-2">
@@ -21,7 +36,6 @@
   </div>
 
   <div *ngIf="isStudent" class="flex justify-end" style="padding-bottom: 10px">
-
     <button
       mat-flat-button
       color="primary"
@@ -29,24 +43,31 @@
       *ngIf="!isContestant"
       (click)="enroll()"
     >
-      <i class="las la-play"></i><span class="ms-2 mobile-d-none">과제 참여</span>
-    </button>
-
-    <button class="me-2"
-            mat-flat-button color="warn"
-            style="color: white"
-            (click)="unenroll()"
-            *ngIf="isContestant"
-    >
-      <i class="las la-play"></i><span class="ms-2 mobile-d-none">참여 취소</span>
+      <i class="las la-play"></i
+      ><span class="ms-2 mobile-d-none">과제 참여</span>
     </button>
 
     <button
-      mat-flat-button color="accent"
+      class="me-2"
+      mat-flat-button
+      color="warn"
+      style="color: white"
+      (click)="unenroll()"
+      *ngIf="isContestant"
+    >
+      <i class="las la-play"></i
+      ><span class="ms-2 mobile-d-none">참여 취소</span>
+    </button>
+
+    <button
+      mat-flat-button
+      color="accent"
       style="color: white"
       *ngIf="isContestant"
-      [routerLink]="['/assignment', assignment?._id, 'problems']">
-      <i class="las la-play"></i><span class="ms-2 mobile-d-none">문제 페이지</span>
+      [routerLink]="['/assignment', assignment?._id, 'problems']"
+    >
+      <i class="las la-play"></i
+      ><span class="ms-2 mobile-d-none">문제 페이지</span>
     </button>
   </div>
 
@@ -57,14 +78,18 @@
       color="accent"
       [routerLink]="['/assignment/edit', assignment?._id]"
     >
-      <i class="las la-edit"></i><span class="ms-2 mobile-d-none">과제 수정</span>
+      <i class="las la-edit"></i
+      ><span class="ms-2 mobile-d-none">과제 수정</span>
     </button>
 
     <button
       class="text-white me-2"
-      mat-flat-button color="accent"
-      [routerLink]="['/assignment', assignment?._id, 'submits']">
-      <i class="las la-edit"></i><span class="ms-2 mobile-d-none">과제 제출 목록</span>
+      mat-flat-button
+      color="accent"
+      [routerLink]="['/assignment', assignment?._id, 'submits']"
+    >
+      <i class="las la-edit"></i
+      ><span class="ms-2 mobile-d-none">과제 제출 목록</span>
     </button>
 
     <button
@@ -74,11 +99,19 @@
       color="primary"
       [routerLink]="['/assignment', assignment?._id, 'problems']"
     >
-      <i class="las la-folder-plus"></i><span class="ms-2 mobile-d-none">문제 등록/수정</span>
+      <i class="las la-folder-plus"></i
+      ><span class="ms-2 mobile-d-none">문제 관리</span>
     </button>
 
-    <button type="button" class="text-white" (click)="removeAssignment()" mat-flat-button color="warn">
-      <i class="las la-trash-alt"></i><span class="ms-2 mobile-d-none">과제 삭제</span>
+    <button
+      type="button"
+      class="text-white"
+      (click)="removeAssignment()"
+      mat-flat-button
+      color="warn"
+    >
+      <i class="las la-trash-alt"></i
+      ><span class="ms-2 mobile-d-none">과제 삭제</span>
     </button>
   </div>
 </div>
