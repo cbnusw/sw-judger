@@ -25,6 +25,7 @@ exports.getPractice = asyncHandler(async (req, res, next) => {
 
    const query = Problem.findById(id)
       .populate({ path: 'writer' })
+      .populate({ path: 'exampleFiles', select:"_id filename ref" }); // exampleFiles의 파일 정보 가져오기
 
    if (String(problem.writer) === String(user.info)) {
       query.populate({ path: 'ioSet.inFile' })
@@ -58,11 +59,14 @@ exports.createPractice = asyncHandler(async (req, res, next) => {
    body.ioSet = (body.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
    body.parentType = "Practice"
 
+   // 예제 파일 처리 추가
+   body.exampleFiles = (body.exampleFiles || []).map(file => file._id);
+
    const doc = await Problem.create(body);
 
    const contentFile = await File.findOne({ url: body.content });
 
-   const ids = [...body.ioSet.map(io => io.inFile), ...body.ioSet.map(io => io.outFile), contentFile._id];
+   const ids = [...body.ioSet.map(io => io.inFile), ...body.ioSet.map(io => io.outFile), contentFile._id, ...body.exampleFiles ];
 
    await Promise.all([
       updateFilesByIds(req, doc._id, 'Problem', ids)
@@ -76,6 +80,7 @@ exports.updatePractice = asyncHandler(async (req, res, next) => {
    const doc = await Problem.findById(id);
 
    $set.ioSet = ($set.ioSet || []).map(io => ({ inFile: io.inFile._id, outFile: io.outFile._id }));
+   $set.exampleFiles = ($set.exampleFiles || []).map(file => file._id); // exampleFiles 처리 추가
 
    if (!doc) throw PROBLEM_NOT_FOUND;
    if (String(doc.writer) !== String(user.info)) throw FORBIDDEN;
@@ -83,7 +88,7 @@ exports.updatePractice = asyncHandler(async (req, res, next) => {
    const contentFile = await File.findOne({ url: $set.content });
    if (!contentFile) throw FILE_NOT_FOUND;
 
-   const ids = [...$set.ioSet.map(io => io.inFile), ...$set.ioSet.map(io => io.outFile), contentFile._id];
+   const ids = [...$set.ioSet.map(io => io.inFile), ...$set.ioSet.map(io => io.outFile), contentFile._id, contentFile._id];
 
    await Promise.all([
       doc.updateOne({ $set }),
@@ -135,3 +140,34 @@ exports.getSubmit = asyncHandler(async (req, res) => {
    res.json(createResponse(res, exSubmit));
 })
 
+// 파일 다운로드 API
+exports.downloadExampleFile = asyncHandler(async (req, res, next) => {
+   const { problemId, fileId } = req.params;
+
+   // 데이터베이스에서 파일 검색
+   const file = await File.findOne({ ref: problemId, _id: fileId });
+   if (!file) {
+      return res.status(404).json({ message: 'DB에서 파일을 찾을 수 없습니다.' });
+   }
+
+   // 파일 URL을 실제 서버 내 경로로 변환
+   const fileUrl = file.url;  // 예: http://localhost:4003/uploads/filename.c
+   const uploadsDirectory = path.join('/usr/src/app/uploads'); // 컨테이너 내의 절대 경로로 수정
+   const filePath = path.join(uploadsDirectory, path.basename(fileUrl));
+
+   const filename = file.filename; // 다운로드될 파일 이름
+   console.log(filePath); // 경로 확인
+
+   // 파일이 실제로 존재하는지 확인
+   if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ message: '다운로드 파일을 찾을 수 없습니다.' });
+   }
+
+   // 파일 다운로드 처리
+   res.download(filePath, filename, (err) => {
+      if (err) {
+         console.error('파일 다운로드 오류:', err); // 에러 메시지 로그
+         return res.status(500).json({ message: '파일 다운로드 중 오류가 발생했습니다.', error: err.message });
+      }
+   });
+});
