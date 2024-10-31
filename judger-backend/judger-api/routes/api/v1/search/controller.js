@@ -6,25 +6,24 @@ const {
 } = require('../../../../models');
 const { createResponse } = require('../../../../utils/response');
 const {
-   PROBLEM_NOT_FOUND,
+   PROBLEM_NOT_FOUND,FORBIDDEN
 } = require('../../../../errors');
 const asyncHandler = require('express-async-handler');
 
-
 exports.getProblems = asyncHandler(async (req, res, next) => {
    const { query, user } = req;
-   const documents = await Problem.search(query);
-   // const documents = await Problem.search(query, { writer: user.info });
+   //const documents = await Problem.search(query);
+   const documents = await Problem.search(query, { writer: user.info });
 
    res.json(createResponse(res, documents));
 });
 
-// 여기도 자신이 작성자인지 확인하는 로직 필요
 exports.getProblem = asyncHandler(async (req, res, next) => {
    const { params: { id } } = req;
 
    const problem = await Problem.findById(id);
    if (!problem) throw PROBLEM_NOT_FOUND;
+   //if (problem.writer != user._id) throw FORBIDDEN;
 
    const pdfUrl = problem.content;
    const pdfFile = await File.findOne({ url: pdfUrl });
@@ -34,15 +33,13 @@ exports.getProblem = asyncHandler(async (req, res, next) => {
    const responseData = {
       ...problem.toObject(),
       content: {
-         _id: pdfId._id,
+         _id: pdfId ? pdfId : null,
          url: pdfUrl,
       }
    };
 
    res.json(createResponse(res, responseData));
 });
-
-// pdf 는 주소를 받지만 example 파일과 in,out 파일은 데이터를 _id만 알고 url을 모르기 때문에 db 검색 후 url 추출 다운 로직
 
 // 파일 다운로드 API
 exports.downloadFile = asyncHandler(async (req, res, next) => {
