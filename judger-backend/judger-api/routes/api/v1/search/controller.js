@@ -2,7 +2,9 @@ const path = require('path');
 const fs = require('fs');
 const {
    Problem,
-   File
+   File,
+   Contest,
+   Assignment
 } = require('../../../../models');
 const { createResponse } = require('../../../../utils/response');
 const {
@@ -12,11 +14,61 @@ const asyncHandler = require('express-async-handler');
 
 exports.getProblems = asyncHandler(async (req, res, next) => {
    const { query, user } = req;
-   //const documents = await Problem.search(query);
-   const documents = await Problem.search(query, { writer: user.info });
+   const result = await Problem.search(query, { writer: user.info });
+   const { documents } = result;
 
-   res.json(createResponse(res, documents));
+   const enrichedDocuments = await Promise.all(documents.map(async (doc) => {
+       // 부모 문제 이름 출력
+      let pTitle = null;
+
+      if (doc.parentType === 'Assignment' && doc.parentId) {
+         const assignment = await Assignment.findById(doc.parentId).select('title');
+         if (assignment) {
+            pTitle = assignment.title;
+         }
+      } else if (doc.parentType === 'Contest' && doc.parentId) {
+         const contest = await Contest.findById(doc.parentId).select('title');
+         if (contest) {
+               pTitle = contest.title;
+         }
+      }
+
+      // exampleFiles의 파일 정보를 조회하여 배열에 추가
+      const fileDetails = await Promise.all(doc.exampleFiles.map(async (fileId) => {
+         const file = await File.findById(fileId).select('_id filename url');
+         return file ? { _id: file._id, filename: file.filename, url: file.url } : null;
+      }));
+      const filteredFileDetails = fileDetails.filter(Boolean);
+
+      // ioSet의 inFile, outFile 파일 정보를 조회하여 추가
+      const enrichedIoSet = await Promise.all(doc.ioSet.map(async (io) => {
+         const inFile = await File.findById(io.inFile).select('_id filename url');
+         const outFile = await File.findById(io.outFile).select('_id filename url');
+
+         return {
+               inFile: inFile ? { _id: inFile._id, filename: inFile.filename, url: inFile.url } : null,
+               outFile: outFile ? { _id: outFile._id, filename: outFile.filename, url: outFile.url } : null
+         };
+      }));
+
+      const filteredDoc = {
+         parentTitle: pTitle,
+         ...doc.toObject(),
+         exampleFiles: filteredFileDetails,  
+         ioSet: enrichedIoSet  
+      };
+
+      return filteredDoc;
+   }));
+
+   res.json(createResponse(res, {
+      ...result,
+      documents: enrichedDocuments,
+   }));
 });
+
+
+
 
 exports.getProblem = asyncHandler(async (req, res, next) => {
    const { params: { id } } = req;
