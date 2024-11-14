@@ -16,9 +16,9 @@ const initConsumer = () => {
   consumer.on('message', async (message) => {
     debug(`comsumer message:::${message.value}, consumer partition ::: ${message.partition}`);
     const id = message.value;
-    console.log(`ID ${id} 제출 건 체점 시작`)
+    console.log(`ID ${id} 제출 건 채점 시작`)
     await run(id)
-    console.log(`ID ${id} 제출 건 체점 끝`)
+    console.log(`ID ${id} 제출 건 채점 끝`)
     });
 
   consumer.on('error', error => {

@@ -42,7 +42,7 @@ const schema = createSchema({
 });
 
 schema.index({ createdAt: -1 });
-schema.index({ parent: 1, user: 1 }, { unique: true });
+schema.index({ contest: 1, user: 1 }, { unique: true });
 
 schema.plugin(searchPlugin({
   mapper: {
