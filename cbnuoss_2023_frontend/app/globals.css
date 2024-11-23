@@ -1,0 +1,572 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  color: #1a1f27;
+  overflow-anchor: none;
+}
+
+/* 애니메이션 효과 */
+/* f7f7f7, efefef */
+.skeleton {
+  background-color: #f3f3f3;
+  background: linear-gradient(
+    90deg,
+    #f3f3f3 35%,
+    #dfdfdf 50%,
+    #f3f3f3 65%
+  ); /* 그라디언트 효과 */
+  border-radius: 3px;
+  background-size: 200% 100%; /* 애니메이션 효과 크기 */
+  animation: shimmer 3s infinite; /* 애니메이션 이름과 속도 */
+}
+
+/* Shimmer 애니메이션 */
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.window {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.075), 0 -1px 15px rgba(0, 0, 0, 0.075);
+}
+
+.zoom-btn {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  background-color: white;
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+    0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.zoom-btn:hover {
+  background-color: #f3f4f5;
+}
+
+.download-exmaple-file-btn {
+  background-color: rgba(2, 32, 71, 0.04);
+}
+
+.download-exmaple-file-btn:hover {
+  background-color: rgba(2, 32, 71, 0.0825);
+}
+
+.fade-in {
+  animation: fadeIn 3s;
+  -moz-animation: fadeIn 3s; /* Firefox */
+  -webkit-animation: fadeIn 3s; /* Safari and Chrome */
+  -o-animation: fadeIn 3s; /* Opera */
+}
+
+.fade-in-fast {
+  animation: fadeIn 0.75s;
+  -moz-animation: fadeIn 0.75s; /* Firefox */
+  -webkit-animation: fadeIn 0.75s; /* Safari and Chrome */
+  -o-animation: fadeIn 0.75s; /* Opera */
+}
+
+.bright-in {
+  animation: brightIn 3s;
+  -moz-animation: brightIn 3s; /* Firefox */
+  -webkit-animation: brightIn 3s; /* Safari and Chrome */
+  -o-animation: brightIn 3s; /* Opera */
+}
+
+.lift-up {
+  animation: liftUp 0.5s cubic-bezier(0, 0, 0.1, 1);
+  -moz-animation: liftUp 0.5s cubic-bezier(0, 0, 0.1, 1); /* Firefox */
+  -webkit-animation: liftUp 0.5s cubic-bezier(0, 0, 0.1, 1); /* Safari and Chrome */
+  -o-animation: liftUp 0.5s cubic-bezier(0, 0, 0.1, 1); /* Opera */
+}
+
+.box-shadow {
+  box-shadow: 0.25px 1px 1px rgb(255, 255, 255);
+  transition: box-shadow 0.325s;
+}
+
+.box-shadow:focus,
+.box-shadow:hover {
+  box-shadow: 0.25px 1px 1px 0 rgba(0, 0, 0, 0.2),
+    0.25px 1px 4px 0 rgba(0, 0, 0, 0.19);
+}
+
+.react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* CKEDITOR5 CSS */
+.ck-editor__editable:not(.ck-editor__nested-editable) {
+  min-height: 30rem;
+  padding: 1rem 0.75rem !important;
+  overflow: auto !important;
+}
+
+.ck-editor__editable:not(.ck-editor__nested-editable) > * {
+  margin-bottom: 20px;
+}
+
+.ck.ck-toolbar {
+  background-color: #fafafa !important;
+}
+
+.ck {
+  letter-spacing: 0.005rem;
+}
+
+.ck strong {
+  color: inherit;
+}
+
+.ck h2,
+.ck h3,
+.ck h4 {
+  font-weight: 600;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.5;
+}
+
+.ck h2 {
+  font-size: 2em;
+}
+
+.ck h3 {
+  font-size: 1.5em;
+}
+
+.ck h4 {
+  font-size: 1.25em;
+}
+
+.markdown-preview strong,
+.markdown-preview s,
+.markdown-preview u,
+.markdown-preview i {
+  color: inherit;
+}
+
+.ck ul,
+.ck ol {
+  margin-left: 1.75rem;
+  margin-top: 0.25rem !important;
+}
+
+.ck blockquote {
+  font-style: normal !important;
+  padding: 1rem 1.75rem !important;
+  margin: 0.25rem 0;
+  border-left: 0.25rem solid #2fc27b !important;
+  background-color: #fafcfe;
+}
+
+.ck p {
+  margin-bottom: 0 !important;
+}
+
+.ck .text-huge,
+.ck .text-big,
+.ck .text-small,
+.ck .text-tiny {
+  line-height: 1.5;
+}
+
+/* uiw markdown(Editor) CSS */
+.md-editor {
+  margin: 0.25rem;
+}
+
+.md-editor blockquote {
+  padding: 1rem 1.75rem !important;
+  border-left: 0.25rem solid #2fc27b !important;
+  background-color: #fafcfe;
+}
+
+/* uiw markdown(Preview) CSS */
+.code-highlight {
+  padding-bottom: 1.75rem !important;
+}
+
+.markdown-preview {
+  background-color: white !important;
+  letter-spacing: 0.04rem;
+}
+
+.markdown-preview figure {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+}
+
+.markdown-preview tr:nth-child(odd) {
+  background-color: white !important;
+}
+
+.markdown-preview tr:nth-child(even) {
+  background-color: #f7f9fc !important;
+}
+
+.markdown-preview td {
+  border-color: #d4d6da !important;
+}
+.markdown-preview p {
+  margin-bottom: 0 !important;
+}
+
+.markdown-preview strong,
+.markdown-preview s,
+.markdown-preview u,
+.markdown-preview i {
+  color: inherit;
+}
+
+.markdown-preview .text-huge {
+  font-size: 1.8em;
+}
+
+.markdown-preview .text-big {
+  font-size: 1.4em;
+}
+
+.markdown-preview .text-small {
+  font-size: 0.85em;
+}
+
+.markdown-preview .text-tiny {
+  font-size: 0.7em;
+}
+
+.markdown-preview ul,
+.markdown-preview ol {
+  margin-top: 0.25rem !important;
+}
+
+.markdown-preview ul {
+  list-style-type: disc;
+}
+
+.markdown-preview ol {
+  list-style-type: disc;
+}
+
+.markdown-preview blockquote {
+  font-style: normal !important;
+  padding: 1rem 1.75rem !important;
+  margin: 0.25rem 0 !important;
+  border-left: 0.25rem solid #2fc27b !important;
+  background-color: #fafcfe;
+}
+
+.markdown-preview .copied {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 2.05rem;
+  height: 2.15rem;
+  visibility: visible !important;
+  margin-top: 0.5rem;
+  margin-right: 0.25rem;
+  background-color: #f6f8fa !important;
+  border: 1px solid #d6d8db !important;
+  border-radius: 7px !important;
+  box-shadow: 0px 1px 1px 0px rgb(227, 229, 232) !important;
+}
+
+.markdown-preview .octicon-copy {
+  scale: 1.5;
+  margin-bottom: 0.05rem;
+  fill: rgb(102, 109, 117) !important;
+}
+
+.markdown-preview .octicon-check {
+  scale: 1.5;
+  margin-bottom: 0.05rem;
+  fill: rgb(60, 124, 58) !important;
+}
+
+.markdown-preview .copied:hover {
+  background-color: rgb(243, 244, 246) !important;
+}
+
+.markdown-preview .copied.active {
+  border: 1px solid rgb(60, 124, 58) !important;
+}
+
+/* ReactQueryDevtools Button CSS */
+.go3489369143 {
+  scale: 1.25;
+  left: 1.75rem !important;
+  bottom: 1.75rem !important;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25) !important;
+  transition: scale 0.15s ease-in-out;
+}
+
+.go3489369143:hover {
+  scale: 1.35;
+}
+
+/* CodeMirror */
+.cm-editor {
+  outline: none !important;
+}
+
+.cm-editor .cm-gutters {
+  justify-content: end !important;
+  min-width: 1.5rem;
+}
+
+.cm-editor .cm-foldGutter {
+  display: none !important;
+}
+
+.cm-editor .cm-gutterElement {
+  color: #999999 !important;
+}
+
+/* --------------- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --------------- */
+
+@keyframes brightIn {
+  from {
+    filter: brightness(80%);
+  }
+  to {
+    filter: brightness(100%);
+  }
+}
+@-moz-keyframes brightIn {
+  /* Firefox */
+  from {
+    filter: brightness(80%);
+  }
+  to {
+    filter: brightness(100%);
+  }
+}
+@-webkit-keyframes brightIn {
+  /* Safari and Chrome */
+  from {
+    filter: brightness(80%);
+  }
+  to {
+    filter: brightness(100%);
+  }
+}
+@-o-keyframes brightIn {
+  /* Opera */
+  from {
+    filter: brightness(80%);
+  }
+  to {
+    filter: brightness(100%);
+  }
+}
+
+/* --------------- */
+
+@keyframes liftUp {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes liftUp {
+  /* Firefox */
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes liftUp {
+  /* Safari and Chrome */
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@-o-keyframes liftUp {
+  /* Opera */
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
