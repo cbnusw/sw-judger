@@ -1,17 +1,12 @@
-FROM node:16.14.0
+FROM node:18-alpine
 
-RUN mkdir -p /app
+WORKDIR /usr/app
 
-WORKDIR /app
+COPY package*.json yarn.lock ./
+COPY ./ckeditor5 ./ckeditor5
 
-RUN npm i -g -y @angular/cli@11.2.19
+RUN yarn install
 
-COPY ./package*.json /app/
+COPY . .
 
-RUN npm install
-
-COPY . /app/
-
-CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
-
-EXPOSE 4200
+CMD ["yarn", "dev"]

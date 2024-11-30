@@ -1,17 +1,17 @@
-version: "3.9"
+version: '3.9'
 
 services:
   zookeeper:
     image: zookeeper
     expose:
-      - "2181"
+      - '2181'
     volumes:
       - ./zookeeper/conf:/conf
 
   kafka:
     image: wurstmeister/kafka
     ports:
-      - "9092:9092"
+      - '9092:9092'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -22,9 +22,9 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_CREATE_TOPICS: "swjudge-submit:1:1,\
-                            swjudge-result:1:1"
+        swjudge-result:1:1"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
-      KAFKA_HEAP_OPTS: "-Xms8g -Xmx16g"
+      KAFKA_HEAP_OPTS: '-Xms8g -Xmx16g'
 
   judger-api:
     build:
@@ -33,9 +33,9 @@ services:
     env_file:
       - ./judger-backend/judger-api/.env
     ports:
-      - "4003:4003"
+      - '4003:4003'
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
     volumes:
       - ./uploads:/usr/src/app/uploads
       - ./server-Logs:/usr/src/app/logs
@@ -43,7 +43,7 @@ services:
       - /usr/src/app/node_modules
     depends_on:
       - kafka
-    command: ["sh", "-c", "sleep 15 && npm run dev"]
+    command: ['sh', '-c', 'sleep 15 && npm run dev']
 
   judger:
     build:
@@ -52,7 +52,7 @@ services:
     env_file:
       - ./judger-backend/judger/.env
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
     volumes:
       - ./uploads:/source
       - ./uploads:/io
@@ -60,11 +60,11 @@ services:
       - /app/node_modules
     depends_on:
       - kafka
-    command: ["sh", "-c", "sleep 15 && npm run dev"]
+    command: ['sh', '-c', 'sleep 15 && npm run dev']
 
   judger-web:
     build:
       context: ./judger-frontend
       dockerfile: Dockerfile.dev
     ports:
-      - "8999:4200"
+      - '3000:3000'
