@@ -1,4 +1,4 @@
-FROM node:16.14.0 AS build
+FROM node:18-alpine AS build
 
 RUN mkdir -p /app
 
@@ -6,25 +6,12 @@ RUN mkdir -p /etc/nginx/ssl
 
 WORKDIR /app
 
-COPY package*.json /app/
+COPY package*.json yarn.lock ./
+COPY ./ckeditor5 ./ckeditor5
 
-RUN npm install
+RUN yarn install
 
-COPY . /app/
+COPY . .
+RUN yarn build
 
-RUN npm run build
-
-FROM nginx
-
-COPY --from=build app/dist/main /usr/share/nginx/html
-
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-
-#COPY nginx/ssl/* /etc/nginx/ssl/
-#
-#COPY nginx/ssl/swjudge.cbnu.ac.kr/* /etc/nginx/ssl/swjudge.cbnu.ac.kr/
-#
-#COPY nginx/ssl/swjudgeapi.cbnu.ac.kr/* /etc/nginx/ssl/swjudgeapi.cbnu.ac.kr/
-
-EXPOSE 80
-EXPOSE 443
+CMD ["yarn", "start"]
