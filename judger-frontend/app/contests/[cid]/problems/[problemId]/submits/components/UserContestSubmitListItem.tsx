@@ -87,6 +87,8 @@ export default function UserContestSubmitListItem({
               {loadingDots}
             </span>
           </td>
+          <td>-</td>
+          <td>-</td>
         </>
       )}
       <td className="text-[#4e5968]">

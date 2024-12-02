@@ -85,6 +85,8 @@ export default function UsersContestSubmitListItem({
               {loadingDots}
             </span>
           </td>
+          <td>-</td>
+          <td>-</td>
         </>
       )}
       <td className="text-[#4e5968]">{contestSubmitInfo.language}</td>
