@@ -29,7 +29,7 @@ export default function PrivacyPolicyModal({
       <Modal.Header>개인정보 처리방침</Modal.Header>
       <Modal.Body className="max-h-[27.5rem]">
         <div className="space-y-6">
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             SW Online Judge (https://swjudge.cbnu.ac.kr/이하 SW중심대학사업단)
             은 개인정보보호법에 따라 이용자의 개인정보 보호 및 권익을 보호하고
             개인정보와 관련한 이용자의 고충을 원활하게 처리할 수 있도록 다음과
@@ -38,7 +38,7 @@ export default function PrivacyPolicyModal({
             것입니다. 본 방침은부터 2020년 1월 1일부터 시행됩니다.
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>1. 개인정보의 처리</h2>
             목적 SW중심대학사업단은 개인정보를 다음의 목적을 위해 처리합니다.
             처리한 개인정보는 다음의 목적이외의 용도로는 사용되지 않으며 이용
@@ -51,7 +51,7 @@ export default function PrivacyPolicyModal({
             처리합니다.
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>2. 개인정보 파일 현황</h2>
             SW중심대학 사업단이 개인정보 보호법 제32조에 따라 등록․공개하는
             개인정보파일의 처리목적은 다음과 같습니다. 1. 개인정보 파일명 : SW
@@ -65,7 +65,7 @@ export default function PrivacyPolicyModal({
             바랍니다.
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>3. 개인정보의 처리 및 보유 기간</h2>① SW중심대학사업단은 법령에
             따른 개인정보 보유·이용기간 또는 정보주체로부터 개인정보를 수집시에
             동의 받은 개인정보 보유,이용기간 내에서 개인정보를 처리,보유합니다.
@@ -76,7 +76,7 @@ export default function PrivacyPolicyModal({
             불만 또는 분쟁처리에 관한 기록 : 3년
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>
               4. 정보주체와 법정대리인의 권리·의무 및 그 행사방법 이용자는
               개인정보주체로써 다음과 같은 권리를 행사할 수 있습니다.
@@ -98,13 +98,13 @@ export default function PrivacyPolicyModal({
             대리인인지를 확인합니다.
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>5. 처리하는 개인정보의 항목 작성</h2>① SW중심대학사업단은 다음의
             개인정보 항목을 처리하고 있습니다. 1. 홈페이지 회원가입 및 관리 -
             필수항목 : 이메일, 휴대전화번호, 이름, 학번
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>6. 개인정보의 파기</h2>
             SW중심대학사업단은 원칙적으로 개인정보 처리목적이 달성된 경우에는
             지체없이 해당 개인정보를 파기합니다. 파기의 절차, 기한 및 방법은
@@ -122,7 +122,7 @@ export default function PrivacyPolicyModal({
             소각을 통하여 파기합니다.
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>7. 개인정보 자동 수집 장치의 설치•운영 및 거부에 관한 사항</h2>①
             SW Online Judge은(는) 개별적인 맞춤서비스를 제공하기 위해 이용정보를
             저장하고 수시로 불러오는 ‘쿠기(cookie)’를 사용합니다. ② 쿠키는
@@ -137,7 +137,7 @@ export default function PrivacyPolicyModal({
             발생할 수 있습니다.
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>8. 개인정보 보호책임자</h2>① SW중심대학사업단은 개인정보 처리에
             관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의
             불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를
@@ -152,14 +152,14 @@ export default function PrivacyPolicyModal({
             처리해드릴 것입니다.
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>9. 개인정보 처리방침 변경</h2>① 이 개인정보처리방침은
             시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및
             정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여
             고지할 것입니다.
           </p>
           <hr />
-          <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-xs leading-relaxed text-gray-500 ">
             <h2>10. 개인정보의 안전성 확보 조치</h2>
             SW중심대학사업단은 개인정보보호법 제29조에 따라 다음과 같이 안전성
             확보에 필요한 기술적/관리적 및 물리적 조치를 하고 있습니다. 1.

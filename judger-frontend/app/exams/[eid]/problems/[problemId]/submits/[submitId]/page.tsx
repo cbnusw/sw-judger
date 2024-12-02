@@ -135,47 +135,75 @@ ${submitInfo.code}`}
           />
         </div>
 
-        <div className="relative mt-10 dark:bg-gray-800 overflow-hidden rounded-sm">
+        <div className="relative mt-10 overflow-hidden rounded-sm">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase dark:text-gray-400 text-center">
-                <tr>
-                  <th scope="col" className="px-4 py-2">
+            <table className="w-full text-sm text-left text-gray-500 ">
+              <thead className="border-y-[1.25px] border-[#d1d6db] text-xs  uppercase bg-[#f2f4f6] text-center">
+                <tr className="h-[2rem]">
+                  <th
+                    scope="col"
+                    className="font-medium text-[#333d4b] px-4 py-2"
+                  >
                     시험명
                   </th>
-                  <th scope="col" className="px-4 py-2">
+                  <th
+                    scope="col"
+                    className="font-medium text-[#333d4b] px-4 py-2"
+                  >
                     수업명
                   </th>
-                  <th scope="col" className="px-4 py-2">
+                  <th
+                    scope="col"
+                    className="font-medium text-[#333d4b] px-4 py-2"
+                  >
                     문제명
                   </th>
-                  <th scope="col" className="px-4 py-2">
+                  <th
+                    scope="col"
+                    className="font-medium text-[#333d4b] px-4 py-2"
+                  >
                     결과
                   </th>
-                  <th scope="col" className="px-4 py-2">
+                  <th
+                    scope="col"
+                    className="font-medium text-[#333d4b] px-4 py-2"
+                  >
                     메모리
                   </th>
-                  <th scope="col" className="px-4 py-2">
+                  <th
+                    scope="col"
+                    className="font-medium text-[#333d4b] px-4 py-2"
+                  >
                     시간
                   </th>
-                  <th scope="col" className="px-4 py-2">
+                  <th
+                    scope="col"
+                    className="font-medium text-[#333d4b] px-4 py-2"
+                  >
                     언어
                   </th>
-                  <th scope="col" className="px-4 py-2">
+                  <th
+                    scope="col"
+                    className="font-medium text-[#333d4b] px-4 py-2"
+                  >
                     제출 시간
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-t dark:border-gray-700 text-xs text-center bg-[#f9f9f9]">
+                <tr className="h-[2.5rem] border-b-[1.25px] border-[#d1d6db] text-xs text-center">
                   <th
                     scope="row"
-                    className="py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
                   >
                     {submitInfo.parentId.title}
                   </th>
-                  <td className="">{submitInfo.parentId.course}</td>
-                  <td className="">{submitInfo.problem.title}</td>
+                  <td className="text-[#4e5968]">
+                    {submitInfo.parentId.course}
+                  </td>
+                  <td className="font-semibold text-[#4e5968]">
+                    {submitInfo.problem.title}
+                  </td>
                   <td
                     className={`${getCodeSubmitResultTypeColor(
                       submitInfo.result.type,
@@ -184,27 +212,25 @@ ${submitInfo.code}`}
                     {getCodeSubmitResultTypeDescription(submitInfo.result.type)}
                   </td>
                   <td>
-                    <span>
+                    <span className="text-[#4e5968]">
                       {(submitInfo.result.memory / 1048576).toFixed(2)}{' '}
                     </span>
                     <span className="ml-[-1px] text-red-500">MB</span>
                   </td>
-                  <td className="">
-                    <span>{submitInfo.result.time} </span>{' '}
+                  <td>
+                    <span className="text-[#4e5968]">
+                      {submitInfo.result.time}{' '}
+                    </span>{' '}
                     <span className="ml-[-1px] text-red-500">ms</span>
                   </td>
-                  <td className="">{submitInfo.language}</td>
-                  <td className="">
+                  <td className="text-[#4e5968]">{submitInfo.language}</td>
+                  <td className="text-[#4e5968]">
                     {formatDateToYYMMDDHHMMSS(submitInfo.createdAt)}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
-
-        <div>
-          <div className="flex gap-3 justify-end"></div>
         </div>
       </div>
     </div>

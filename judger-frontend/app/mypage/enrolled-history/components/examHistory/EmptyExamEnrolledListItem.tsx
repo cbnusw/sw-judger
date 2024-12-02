@@ -9,7 +9,7 @@ export default function EmptyExamEnrolledListItem() {
       >
         1
       </th>
-      <td className="text-xs">조회된 참여 정보가 없습니다</td>
+      <td className="text-xs">조회된 참여 정보가 없어요</td>
     </tr>
   );
 }

@@ -14,10 +14,10 @@ export default function ContestContestContestantList(
   const { contestContestants } = props;
 
   return (
-    <div className="border mt-3 dark:bg-gray-800 relative overflow-hidden rounded-sm">
+    <div className="border mt-3 relative overflow-hidden rounded-sm">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400 text-center">
+        <table className="w-full text-sm text-left text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-100  text-center">
             <tr>
               <th scope="col" className="px-4 py-2">
                 학번

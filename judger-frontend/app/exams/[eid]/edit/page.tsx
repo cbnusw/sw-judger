@@ -242,7 +242,7 @@ export default function EditExam(props: DefaultProps) {
               htmlFor="floating_first_name"
               className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
                 isExamNameValidFail ? 'red' : 'gray'
-              }-500 dark:text-gray-400 duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+              }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
                 isExamNameValidFail ? 'red' : 'blue'
               }-600 peer-focus:dark:text-${
                 isExamNameValidFail ? 'red' : 'blue'
@@ -278,7 +278,7 @@ export default function EditExam(props: DefaultProps) {
               htmlFor="floating_first_name"
               className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
                 isCourseNameValidFail ? 'red' : 'gray'
-              }-500 dark:text-gray-400 duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+              }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
                 isCourseNameValidFail ? 'red' : 'blue'
               }-600 peer-focus:dark:text-${
                 isCourseNameValidFail ? 'red' : 'blue'
@@ -368,7 +368,7 @@ export default function EditExam(props: DefaultProps) {
                   htmlFor="floating_first_name"
                   className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
                     isExamPwdValidFail ? 'red' : 'gray'
-                  }-500 dark:text-gray-400 duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+                  }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
                     isExamPwdValidFail ? 'red' : 'blue'
                   }-600 peer-focus:dark:text-${
                     isExamPwdValidFail ? 'red' : 'blue'

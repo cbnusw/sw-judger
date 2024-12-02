@@ -171,7 +171,7 @@ export default function EditNotice(props: DefaultProps) {
               htmlFor="floating_first_name"
               className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
                 isNoticeNameValidFail ? 'red' : 'gray'
-              }-500 dark:text-gray-400 duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+              }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
                 isNoticeNameValidFail ? 'red' : 'blue'
               }-600 peer-focus:dark:text-${
                 isNoticeNameValidFail ? 'red' : 'blue'
@@ -205,7 +205,7 @@ export default function EditNotice(props: DefaultProps) {
                 type="checkbox"
                 checked={isCheckedUsingPwd}
                 onChange={() => setIsCheckedUsingPwd(!isCheckedUsingPwd)}
-                className="w-4 h-4 text-blue-600 border-2 border-[#757575] rounded-[0.175rem] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="w-4 h-4 text-blue-600 border-2 border-[#757575] rounded-[0.175rem] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600"
               />
             </div>
             <div className="ml-2 text-sm">
@@ -257,7 +257,7 @@ export default function EditNotice(props: DefaultProps) {
                 htmlFor="floating_first_name"
                 className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
                   isNoticePwdValidFail ? 'red' : 'gray'
-                }-500 dark:text-gray-400 duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+                }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
                   isNoticePwdValidFail ? 'red' : 'blue'
                 }-600 peer-focus:dark:text-${
                   isNoticePwdValidFail ? 'red' : 'blue'

@@ -409,7 +409,7 @@ export default function ContestProblems(props: DefaultProps) {
 
           <section className="dark:bg-gray-900">
             <div className="mx-auto w-full">
-              <div className="dark:bg-gray-800 relative overflow-hidden rounded-sm">
+              <div className="relative overflow-hidden rounded-sm">
                 <div className="overflow-x-auto">
                   <ContestProblemList
                     cid={cid}
