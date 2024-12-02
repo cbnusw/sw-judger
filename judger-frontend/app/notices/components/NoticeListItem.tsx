@@ -17,20 +17,20 @@ export default function NoticeListItem(props: NoticeListItemProps) {
 
   return (
     <tr
-      className="border-b dark:border-gray-700 text-xs text-center cursor-pointer hover:bg-gray-50 focus:bg-gray-50"
+      className="h-[2.5rem] border-b-[1.25px] border-[#d1d6db] text-xs text-center cursor-pointer hover:bg-[#e8f3ff]"
       onClick={(e) => {
         router.push(`/notices/${noticeInfo._id}`);
       }}
     >
       <th
         scope="row"
-        className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        className="px-4 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
       >
         {total - (page - 1) * 10 - index}
       </th>
-      <td className="hover:underline focus:underline">{noticeInfo.title}</td>
-      <td className="font-medium">{noticeInfo.writer.name}</td>
-      <td className="font-medium">
+      <td className="font-semibold text-[#4e5968]">{noticeInfo.title}</td>
+      <td className="text-[#4e5968]">{noticeInfo.writer.name}</td>
+      <td className="text-[#4e5968]">
         {formatDateToYYMMDD(noticeInfo.createdAt)}
       </td>
     </tr>

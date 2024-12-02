@@ -188,8 +188,9 @@ export default function ContestRankList(props: DefaultProps) {
               </Link>
             </div>
           </p>
+
           <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-gray-300">
-            <div className="flex flex-col 3md:flex-row gap-2 justify-end mt-4">
+            <div className="flex flex-col 3md:flex-row gap-2">
               {shouldShowProblemsButton() && (
                 <button
                   onClick={handleGoToContestProblems}

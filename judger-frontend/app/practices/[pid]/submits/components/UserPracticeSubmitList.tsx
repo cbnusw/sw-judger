@@ -35,27 +35,45 @@ export default function UserPracticeSubmitList({
 
   return (
     <div className="mx-auto w-full">
-      <div className="border dark:bg-gray-800 relative overflow-hidden rounded-sm">
+      <div className="relative overflow-hidden rounded-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400 text-center">
-              <tr>
-                <th scope="col" className="w-16 px-4 py-2">
+          <table className="w-full text-sm text-left text-gray-500 ">
+            <thead className="border-y-[1.25px] border-[#d1d6db] text-xs uppercase bg-[#f2f4f6] text-center">
+              <tr className="h-[2rem]">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] w-16 px-4 py-2"
+                >
                   번호
                 </th>
-                <th scope="col" className="px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] px-4 py-2"
+                >
                   결과
                 </th>
-                <th scope="col" className="px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] px-4 py-2"
+                >
                   메모리
                 </th>
-                <th scope="col" className="px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] px-4 py-2"
+                >
                   시간
                 </th>
-                <th scope="col" className="px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] px-4 py-2"
+                >
                   언어
                 </th>
-                <th scope="col" className="px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] px-4 py-2"
+                >
                   제출 시간
                 </th>
               </tr>

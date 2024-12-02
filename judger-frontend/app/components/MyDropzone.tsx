@@ -315,7 +315,7 @@ function MyDropzone(props: MyDropzoneProps) {
         htmlFor="dropzone-file"
         className={`flex flex-col items-center justify-center w-full h-40 border-2 border-gray-${
           isDragEntered ? '500' : isFileUploaded ? '500' : '300'
-        } border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600`}
+        } border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600`}
       >
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           {type === 'pdf' ? (
@@ -341,10 +341,10 @@ function MyDropzone(props: MyDropzoneProps) {
             </svg>
           )}
 
-          <p className="mt-5 mb-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-5 mb-1 text-sm text-gray-500 ">
             <span className="font-semibold text-gray-500">{guideMsg}</span>
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-gray-500 ">
             {fileNameList[0] && (type === 'pdf' || type === 'code') ? (
               <p className="text-gray-500 flex">
                 선택된 파일:

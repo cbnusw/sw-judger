@@ -34,7 +34,7 @@ export default function UserPracticeSubmitListItem({
 
   return (
     <tr
-      className="border-b dark:border-gray-700 text-xs text-center cursor-pointer hover:bg-gray-50 focus:bg-gray-50"
+      className="h-[2.5rem] border-b-[1.25px] border-[#d1d6db] text-xs text-center cursor-pointer hover:bg-[#e8f3ff]"
       onClick={(e) => {
         personalUserPracticeSubmitInfo.result &&
           router.push(
@@ -44,7 +44,7 @@ export default function UserPracticeSubmitListItem({
     >
       <th
         scope="row"
-        className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        className="px-4 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
       >
         {total - index}
       </th>
@@ -60,15 +60,17 @@ export default function UserPracticeSubmitListItem({
             )}
           </td>
           <td>
-            <span>
+            <span className="text-[#4e5968]">
               {(personalUserPracticeSubmitInfo.result.memory / 1048576).toFixed(
                 2,
               )}{' '}
             </span>
             <span className="ml-[-1px] text-red-500">MB</span>
           </td>
-          <td className="">
-            <span>{personalUserPracticeSubmitInfo.result.time} </span>{' '}
+          <td>
+            <span className="text-[#4e5968]">
+              {personalUserPracticeSubmitInfo.result.time}{' '}
+            </span>{' '}
             <span className="ml-[-1px] text-red-500">ms</span>
           </td>
         </>
@@ -80,12 +82,14 @@ export default function UserPracticeSubmitListItem({
               {loadingDots}
             </span>
           </td>
-          <td>-</td>
-          <td>-</td>
+          <td className="text-[#4e5968]">-</td>
+          <td className="text-[#4e5968]">-</td>
         </>
       )}
-      <td className="">{personalUserPracticeSubmitInfo.language}</td>
-      <td className="">
+      <td className="text-[#4e5968]">
+        {personalUserPracticeSubmitInfo.language}
+      </td>
+      <td className="text-[#4e5968]">
         {formatDateToYYMMDDHHMM(personalUserPracticeSubmitInfo.createdAt)}
       </td>
     </tr>

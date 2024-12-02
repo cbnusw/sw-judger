@@ -372,7 +372,7 @@ export default function RegisterExamProblem(props: DefaultProps) {
                 htmlFor="floating_first_name"
                 className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
                   isProblemNameValidFail ? 'red' : 'gray'
-                }-500 dark:text-gray-400 duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+                }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
                   isProblemNameValidFail ? 'red' : 'blue'
                 }-600 peer-focus:dark:text-${
                   isProblemNameValidFail ? 'red' : 'blue'
@@ -409,7 +409,7 @@ export default function RegisterExamProblem(props: DefaultProps) {
                   htmlFor="floating_first_name"
                   className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
                     isMaxExeTimeValidFail ? 'red' : 'gray'
-                  }-500 dark:text-gray-400 duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+                  }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
                     isMaxExeTimeValidFail ? 'red' : 'blue'
                   }-600 peer-focus:dark:text-${
                     isMaxExeTimeValidFail ? 'red' : 'blue'
@@ -445,7 +445,7 @@ export default function RegisterExamProblem(props: DefaultProps) {
                   htmlFor="floating_first_name"
                   className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
                     isMaxMemCapValidFail ? 'red' : 'gray'
-                  }-500 dark:text-gray-400 duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+                  }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
                     isMaxMemCapValidFail ? 'red' : 'blue'
                   }-600 peer-focus:dark:text-${
                     isMaxMemCapValidFail ? 'red' : 'blue'

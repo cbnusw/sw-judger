@@ -76,37 +76,54 @@ export default function PracticeList({ searchQuery }: PracticeListProps) {
 
   return (
     <div className="mx-auto w-full">
-      <div className="border dark:bg-gray-800 relative overflow-hidden rounded-sm">
+      <div className="relative overflow-hidden rounded-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400 text-center">
-              <tr>
-                <th scope="col" className="w-16 px-4 py-2">
+          <table className="w-full text-sm text-left text-gray-500 ">
+            <thead className="border-y-[1.25px] border-[#d1d6db] text-xs uppercase bg-[#f2f4f6] text-center">
+              <tr className="h-[2rem]">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] w-16 px-4 py-2"
+                >
                   번호
                 </th>
-                <th scope="col" className="px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] px-4 py-2"
+                >
                   문제명
                 </th>
-                <th scope="col" className="w-16 px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] w-16 px-4 py-2"
+                >
                   난이도
                 </th>
-                <th scope="col" className="w-32 px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] w-32 px-4 py-2"
+                >
                   작성자
                 </th>
               </tr>
             </thead>
             <tbody>
-              {resData?.documents.length === 0 && <EmptyPracticeListItem />}
-              {resData?.documents.map(
-                (practiceInfo: ProblemInfo, index: number) => (
-                  <PracticeListItem
-                    practiceInfo={practiceInfo}
-                    total={resData.total}
-                    page={page}
-                    index={index}
-                    key={index}
-                  />
-                ),
+              {resData?.documents.length === 0 ? (
+                <EmptyPracticeListItem />
+              ) : (
+                <>
+                  {resData?.documents.map(
+                    (practiceInfo: ProblemInfo, index: number) => (
+                      <PracticeListItem
+                        practiceInfo={practiceInfo}
+                        total={resData.total}
+                        page={page}
+                        index={index}
+                        key={index}
+                      />
+                    ),
+                  )}
+                </>
               )}
             </tbody>
           </table>
@@ -116,7 +133,7 @@ export default function PracticeList({ searchQuery }: PracticeListProps) {
         className="flex flex-col md:flex-row text-xs justify-between items-start md:items-center space-y-3 md:space-y-0 pl-1 mt-3"
         aria-label="Table navigation"
       >
-        <span className="text-gray-500 dark:text-gray-400">
+        <span className="text-gray-500 ">
           <span className="text-gray-500 dark:text-white">
             {startItemNum} - {endItemNum}
           </span>{' '}
@@ -127,7 +144,7 @@ export default function PracticeList({ searchQuery }: PracticeListProps) {
           <li>
             <button
               onClick={() => handlePagination(Number(page) - 1)}
-              className="flex items-center justify-center h-full py-1.5 px-[0.3rem] ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center h-full py-1.5 px-[0.3rem] ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700  dark:hover:bg-gray-700 dark:hover:text-white"
             >
               <span className="sr-only">Previous</span>
               <svg
@@ -149,7 +166,7 @@ export default function PracticeList({ searchQuery }: PracticeListProps) {
           <li>
             <button
               onClick={() => handlePagination(Number(page) + 1)}
-              className="flex items-center justify-center h-full py-1.5 px-[0.3rem] leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center h-full py-1.5 px-[0.3rem] leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700  dark:hover:bg-gray-700 dark:hover:text-white"
             >
               <span className="sr-only">Next</span>
               <svg
