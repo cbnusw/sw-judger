@@ -201,7 +201,7 @@ export default function ExamProblems(props: DefaultProps) {
     changingProblemOrderBtnRef.current?.blur();
 
     if (examProblemsInfo.problems.length < 2) {
-      addToast('warning', '문제가 2개 이상 등록해 주세요.');
+      addToast('warning', '문제를 2개 이상 등록해 주세요.');
       return;
     }
 

@@ -284,7 +284,7 @@ export default function ContestProblems(props: DefaultProps) {
     changingProblemOrderBtnRef.current?.blur();
 
     if (contestProblemsInfo.problems.length < 2) {
-      addToast('warning', '문제가 2개 이상 등록해 주세요.');
+      addToast('warning', '문제를 2개 이상 등록해 주세요.');
       return;
     }
 
