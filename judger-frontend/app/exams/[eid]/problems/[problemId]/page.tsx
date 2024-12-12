@@ -196,21 +196,13 @@ export default function ExamProblemDetail(props: DefaultProps) {
                 </span>
               </span>
             </div>
-            <div className="flex flex-col 3md:flex-row gap-1 3md:gap-3">
-              <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">• </span>
-                시험명:{' '}
-                <span className="font-light">
-                  {examProblemInfo.parentId.title}
-                </span>
+            <div className="flex flex-col 3md:flex-row gap-1 3md:gap-2">
+              <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
+                {examProblemInfo.parentId.title}
               </span>
-              <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
-              <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">• </span>
-                수업명:{' '}
-                <span className="font-light">
-                  {examProblemInfo.parentId.course}
-                </span>
+
+              <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
+                {examProblemInfo.parentId.course}
               </span>
             </div>
           </div>
@@ -220,7 +212,7 @@ export default function ExamProblemDetail(props: DefaultProps) {
           <div className="flex flex-col 3md:flex-row gap-2 justify-end mt-4 h-fit 3md:order-last">
             <button
               onClick={handleGoToExamProblems}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
             >
               문제 목록
             </button>
@@ -228,7 +220,7 @@ export default function ExamProblemDetail(props: DefaultProps) {
               <>
                 <button
                   onClick={handleGoToUserExamSubmits}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#cee1fc] hover:bg-[#cee1fc]"
+                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#cee1fc]"
                 >
                   내 제출 현황
                 </button>
@@ -246,7 +238,7 @@ export default function ExamProblemDetail(props: DefaultProps) {
                 <>
                   <button
                     onClick={handleEditProblem}
-                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
                   >
                     수정
                   </button>

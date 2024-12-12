@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ToastInfoStore } from '@/store/ToastInfo';
 
 // Toast 타입 정의
@@ -11,44 +11,62 @@ export interface Toast {
 }
 
 export default function Toast() {
-  const toasts = ToastInfoStore((state) => state.toasts); // Toast[] 배열
+  const toasts = ToastInfoStore((state) => state.toasts);
   const removeToast = ToastInfoStore((state) => state.removeToast);
 
   return (
-    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
-      <div className="toast-container">
-        {toasts.map((toast, index) => (
-          <ToastItem
-            key={toast.id}
-            toast={toast}
-            index={index}
-            removeToast={removeToast}
-          />
-        ))}
+    <div
+      className="fixed top-0 left-0 w-screen z-[100] pointer-events-none"
+      style={{ height: 'auto', display: 'flex', justifyContent: 'center' }}
+    >
+      <div className="relative">
+        <div className="toast-container">
+          {toasts.map((toast, index) => (
+            <ToastItem
+              key={toast.id}
+              toast={toast}
+              index={index}
+              removeToast={removeToast}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-// ToastItem 컴포넌트에 타입 지정
 interface ToastItemProps {
-  toast: Toast; // 각 Toast 객체
-  index: number; // 배열에서의 인덱스
-  removeToast: (id: string) => void; // 토스트 제거 함수
+  toast: Toast;
+  index: number;
+  removeToast: (id: string) => void;
 }
 
 function ToastItem({ toast, index, removeToast }: ToastItemProps) {
+  const [topPosition, setTopPosition] = useState(0);
+  const toastRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const timer = setTimeout(() => removeToast(toast.id), 3000);
-    return () => clearTimeout(timer); // 타이머 클린업
-  }, [toast, removeToast]);
+    const updatePosition = () => {
+      if (toastRef.current) {
+        const height = toastRef.current.offsetHeight;
+        const gap = 20; // 토스트 사이의 간격
+        setTopPosition(index * (height + gap));
+      }
+    };
+
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+
+    return () => window.removeEventListener('resize', updatePosition);
+  }, [index]);
 
   return (
     <div
+      ref={toastRef}
       className="toast"
       style={{
         position: 'absolute',
-        top: `${index * 3.9}rem`,
+        top: `${topPosition}px`,
         transition: 'top 0.3s ease',
       }}
     >
@@ -61,7 +79,7 @@ function ToastItem({ toast, index, removeToast }: ToastItemProps) {
             width="24"
           >
             <path
-              fill="#4880ee"
+              fill="#15c07e"
               d="m424-408-86-86q-11-11-28-11t-28 11q-11 11-11 28t11 28l114 114q12 12 28 12t28-12l226-226q11-11 11-28t-11-28q-11-11-28-11t-28 11L424-408Zm56 328q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"
             />
           </svg>

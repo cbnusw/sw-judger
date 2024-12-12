@@ -272,7 +272,7 @@ export default function EditNotice(props: DefaultProps) {
         <div className="mt-14 pb-2 flex justify-end gap-2">
           <button
             onClick={handleCancelNoticeEdit}
-            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
           >
             취소
           </button>

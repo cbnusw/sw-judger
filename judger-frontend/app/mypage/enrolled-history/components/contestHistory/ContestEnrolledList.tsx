@@ -20,37 +20,50 @@ export default function ContestEnrolledList() {
     queryFn: fetchEnrolledContests,
   });
 
-  const resData = data?.data.data;
-  const numberOfItems = resData?.length;
+  const resData = data?.data.data.reverse();
 
   if (isPending) return <ContestEnrolledListLoadingSkeleton />;
 
   return (
     <div className="mx-auto mt-6 w-full">
-      <div className="border relative overflow-hidden rounded-sm">
+      <div className="relative overflow-hidden rounded-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left text-gray-500 ">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-100  text-center">
+            <thead className="border-y-[1.25px] border-[#d1d6db] text-xs uppercase bg-[#f2f4f6] text-center">
               <tr>
-                <th scope="col" className="w-16 px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] w-16 px-4 py-2 hover:bg-[#e6e8eb]"
+                >
                   번호
                 </th>
-                <th scope="col" className="px-4 py-2">
+                <th
+                  scope="col"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
+                >
                   대회명
                 </th>
               </tr>
             </thead>
             <tbody>
-              {numberOfItems === 0 && <EmptyContestEnrolledListItem />}
-              {resData?.map(
-                (contestEnrolledInfo: ContestEnrolledInfo, index: number) => (
-                  <ContestEnrolledListItem
-                    contestEnrolledInfo={contestEnrolledInfo}
-                    total={numberOfItems}
-                    index={index}
-                    key={index}
-                  />
-                ),
+              {resData.length === 0 ? (
+                <EmptyContestEnrolledListItem />
+              ) : (
+                <>
+                  {resData?.map(
+                    (
+                      contestEnrolledInfo: ContestEnrolledInfo,
+                      index: number,
+                    ) => (
+                      <ContestEnrolledListItem
+                        contestEnrolledInfo={contestEnrolledInfo}
+                        total={resData.length}
+                        index={index}
+                        key={index}
+                      />
+                    ),
+                  )}
+                </>
               )}
             </tbody>
           </table>

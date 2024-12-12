@@ -84,6 +84,7 @@ export default function EditPractice(props: DefaultProps) {
   const [title, setTitle] = useState('');
   const [maxExeTime, setMaxExeTime] = useState<number>(0);
   const [maxMemCap, setMaxMemCap] = useState<number>(0);
+  const [score, setScore] = useState<number>(1);
   const [uploadedProblemPdfFileUrl, setUploadedProblemPdfFileUrl] =
     useState('');
   const [ioSetData, setIoSetData] = useState<IoSetItem[]>([]);
@@ -93,6 +94,7 @@ export default function EditPractice(props: DefaultProps) {
   const [isTitleValidFail, setIsTitleValidFail] = useState(false);
   const [isMaxExeTimeValidFail, setIsMaxExeTimeValidFail] = useState(false);
   const [isMaxMemCapValidFail, setIsMaxMemCapValidFail] = useState(false);
+  const [isScoreValidFail, setIsScoreValidFail] = useState(false);
   const [isPdfFileUploadingValidFail, setIsPdfFileUploadingValidFail] =
     useState(false);
   const [
@@ -114,7 +116,7 @@ export default function EditPractice(props: DefaultProps) {
   const maxExeTimeRef = useRef<HTMLInputElement>(null);
   const maxMemCapRef = useRef<HTMLInputElement>(null);
   const searchedResultListRef = useRef<HTMLInputElement>(null);
-  const drawerRef = useRef<HTMLDivElement>(null);
+  const scoreRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
 
@@ -126,6 +128,7 @@ export default function EditPractice(props: DefaultProps) {
       setUploadedProblemPdfFileUrl(practiceInfo.content);
       setIoSetData(practiceInfo.ioSet);
       setExampleFiles(practiceInfo.exampleFiles);
+      setScore(practiceInfo.score);
     }
   }, [practiceInfo]);
 
@@ -145,6 +148,11 @@ export default function EditPractice(props: DefaultProps) {
 
   const handleMaxMemCapChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMaxMemCap(parseInt(e.target.value));
+    setIsMaxMemCapValidFail(false);
+  };
+
+  const handleScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setScore(parseInt(e.target.value));
     setIsMaxMemCapValidFail(false);
   };
 
@@ -180,6 +188,14 @@ export default function EditPractice(props: DefaultProps) {
       return;
     }
 
+    if (!score || score <= 0) {
+      addToast('warning', '난이도를 올바르게 입력해 주세요.');
+      window.scrollTo(0, 0);
+      scoreRef.current?.focus();
+      setIsScoreValidFail(true);
+      return;
+    }
+
     if (!uploadedProblemPdfFileUrl) {
       addToast('warning', '문제 파일(PDF)을 업로드해 주세요.');
       window.scrollTo(0, 0);
@@ -201,7 +217,7 @@ export default function EditPractice(props: DefaultProps) {
         maxRealTime: maxExeTime,
         maxMemory: maxMemCap,
       },
-      score: 1, // 점수는 예제에서 1로 설정
+      score,
     };
 
     editPracticeMutation.mutate({ pid, params: practiceData });
@@ -246,7 +262,9 @@ export default function EditPractice(props: DefaultProps) {
       } else if (event.key === 'ArrowUp') {
         event.preventDefault();
         const prevIndex =
-          (currentIndex - 1 + itemList.length) % itemList.length;
+          currentIndex === -1
+            ? itemList.length - 1 // 처음에 ArrowUp 키를 누를 경우 가장 마지막 항목으로 이동
+            : (currentIndex - 1 + itemList.length) % itemList.length;
         (itemList[prevIndex] as HTMLElement).focus();
       }
     },
@@ -473,6 +491,42 @@ export default function EditPractice(props: DefaultProps) {
                   테스트 당 최대 사용 메모리를 MB 단위로 입력해 주세요
                 </p>
               </div>
+
+              <div className="flex flex-col relative z-0 w-1/3 group">
+                <input
+                  type="number"
+                  name="floating_first_name"
+                  className={`block pt-3 pb-[0.175rem] pl-0 pr-0 w-full font-normal text-gray-900 bg-transparent border-0 border-b border-gray-400 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-${
+                    isScoreValidFail ? 'pink' : 'blue'
+                  }-500 focus:border-${
+                    isScoreValidFail ? 'red' : 'blue'
+                  }-500 focus:outline-none focus:ring-0 peer`}
+                  placeholder=" "
+                  required
+                  value={score}
+                  ref={scoreRef}
+                  onChange={handleScoreChange}
+                />
+                <label
+                  htmlFor="floating_first_name"
+                  className={`peer-focus:font-light absolute text-base left-[0.1rem] font-light text-${
+                    isScoreValidFail ? 'red' : 'gray'
+                  }-500  duration-300 transform -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-[0.1rem] peer-focus:text-${
+                    isScoreValidFail ? 'red' : 'blue'
+                  }-600 peer-focus:dark:text-${
+                    isScoreValidFail ? 'red' : 'blue'
+                  }-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-[1.25rem] z-10`}
+                >
+                  난이도
+                </label>
+                <p
+                  className={`text-${
+                    isScoreValidFail ? 'red' : 'gray'
+                  }-500 text-xs tracking-widest font-light mt-1`}
+                >
+                  문제의 점수를 입력해 주세요.
+                </p>
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-1">
@@ -547,7 +601,7 @@ export default function EditPractice(props: DefaultProps) {
         <div className="mt-14 pb-2 flex justify-end gap-2">
           <button
             onClick={handleCancelPracticeEdit}
-            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
           >
             취소
           </button>

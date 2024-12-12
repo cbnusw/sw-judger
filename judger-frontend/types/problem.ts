@@ -92,6 +92,14 @@ export interface RegisterProblemParams {
     maxMemory: number;
   };
   score?: number;
+  exampleFiles?: ExampleFile[];
+}
+
+export interface ExcelProblemInfo {
+  title: string;
+  maxRealTime: number;
+  maxMemory: number;
+  score?: number;
 }
 
 export interface ProblemsInfo {

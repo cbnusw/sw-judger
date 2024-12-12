@@ -9,8 +9,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import PracticeListItem from './PracticeListItem';
 import { ProblemInfo } from '@/types/problem';
-import { RenderPaginationButtons } from '@/app/components/RenderPaginationButtons';
 import PracticeListLoadingSkeleton from './PracticeListLoadingSkeleton';
+import PaginationNav from '@/app/components/PaginationNav';
 
 interface PracticeListProps {
   searchQuery: string;
@@ -69,7 +69,7 @@ export default function PracticeList({ searchQuery }: PracticeListProps) {
     if (newPage < 1 || newPage > totalPages) return;
     const newQuery = new URLSearchParams(params.toString());
     newQuery.set('page', String(newPage));
-    router.push(`/practices?${newQuery.toString()}`);
+    router.push(`/practices?${newQuery.toString()}`, { scroll: false });
   };
 
   if (isPending) return <PracticeListLoadingSkeleton />;
@@ -83,25 +83,25 @@ export default function PracticeList({ searchQuery }: PracticeListProps) {
               <tr className="h-[2rem]">
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] w-16 px-4 py-2"
+                  className="font-medium text-[#333d4b] w-16 px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   번호
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   문제명
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] w-16 px-4 py-2"
+                  className="font-medium text-[#333d4b] w-16 px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   난이도
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] w-32 px-4 py-2"
+                  className="font-medium text-[#333d4b] w-32 px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   작성자
                 </th>
@@ -129,63 +129,12 @@ export default function PracticeList({ searchQuery }: PracticeListProps) {
           </table>
         </div>
       </div>
-      <nav
-        className="flex flex-col md:flex-row text-xs justify-between items-start md:items-center space-y-3 md:space-y-0 pl-1 mt-3"
-        aria-label="Table navigation"
-      >
-        <span className="text-gray-500 ">
-          <span className="text-gray-500 dark:text-white">
-            {startItemNum} - {endItemNum}
-          </span>{' '}
-          of{' '}
-          <span className="text-gray-500 dark:text-white">{resData.total}</span>
-        </span>
-        <ul className="inline-flex items-stretch -space-x-px">
-          <li>
-            <button
-              onClick={() => handlePagination(Number(page) - 1)}
-              className="flex items-center justify-center h-full py-1.5 px-[0.3rem] ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700  dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Previous</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-          </li>
-          {RenderPaginationButtons(page, totalPages, handlePagination)}
-          <li>
-            <button
-              onClick={() => handlePagination(Number(page) + 1)}
-              className="flex items-center justify-center h-full py-1.5 px-[0.3rem] leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700  dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Next</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-          </li>
-        </ul>
-      </nav>
+
+      <PaginationNav
+        page={page}
+        totalPages={totalPages}
+        handlePagination={handlePagination}
+      />
     </div>
   );
 }

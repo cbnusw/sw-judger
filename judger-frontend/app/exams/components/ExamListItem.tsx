@@ -21,16 +21,16 @@ export default function ExamListItem(props: ExamListItemProps) {
     >
       <th
         scope="row"
-        className="px-4 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
+        className="px-2 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
       >
         {total - (page - 1) * 10 - index}
       </th>
-      <td className="font-semibold text-start text-[#4e5968]">
+      <td className="px-2 font-semibold text-start text-[#4e5968]">
         {examInfo.title}
       </td>
-      <td className="text-start text-[#4e5968]">{examInfo.course}</td>
-      <td className="text-[#4e5968]">{examInfo.writer.name}</td>
-      <td className="text-[#4e5968]">
+      <td className="px-2 text-start text-[#4e5968]">{examInfo.course}</td>
+      <td className="px-2 text-[#4e5968]">{examInfo.writer.name}</td>
+      <td className="px-2 text-[#4e5968]">
         {formatDateToYYMMDDHHMM(examInfo.testPeriod?.start)} ~{' '}
         {formatDateToYYMMDDHHMM(examInfo.testPeriod?.end)}
       </td>

@@ -46,17 +46,17 @@ export default function UserContestSubmitListItem({
     >
       <th
         scope="row"
-        className="px-4 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
+        className="px-2 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
       >
         {total - index}
       </th>
-      <td className="font-semibold text-[#4e5968]">
+      <td className="px-2 font-semibold text-[#4e5968]">
         {personalUserContestSubmitInfo.problem.title}
       </td>
       {personalUserContestSubmitInfo.result ? (
         <>
           <td
-            className={`${getCodeSubmitResultTypeColor(
+            className={`px-2 ${getCodeSubmitResultTypeColor(
               personalUserContestSubmitInfo.result.type,
             )} font-semibold`}
           >
@@ -64,7 +64,7 @@ export default function UserContestSubmitListItem({
               personalUserContestSubmitInfo.result.type,
             )}
           </td>
-          <td>
+          <td className="px-2">
             <span className="text-[#4e5968]">
               {(personalUserContestSubmitInfo.result.memory / 1048576).toFixed(
                 2,
@@ -72,7 +72,7 @@ export default function UserContestSubmitListItem({
             </span>
             <span className="ml-[-1px] text-red-500">MB</span>
           </td>
-          <td className="">
+          <td className="px-2">
             <span className="text-[#4e5968]">
               {personalUserContestSubmitInfo.result.time}{' '}
             </span>{' '}
@@ -81,20 +81,20 @@ export default function UserContestSubmitListItem({
         </>
       ) : (
         <>
-          <td className="flex gap-[0.6rem] justify-center items-center w-[3.5rem] h-10 text-[#e67e22] font-semibold mx-auto">
+          <td className="px-2 flex gap-[0.6rem] justify-center items-center w-[3.5rem] h-10 text-[#e67e22] font-semibold mx-auto">
             채점 중
             <span className="w-1 ml-[-0.6rem] text-[#e67e22]">
               {loadingDots}
             </span>
           </td>
-          <td>-</td>
-          <td>-</td>
+          <td className="px-2">-</td>
+          <td className="px-2">-</td>
         </>
       )}
-      <td className="text-[#4e5968]">
+      <td className="px-2 text-[#4e5968]">
         {personalUserContestSubmitInfo.language}
       </td>
-      <td className="text-[#4e5968]">
+      <td className="px-2 text-[#4e5968]">
         {formatDateToYYMMDDHHMM(personalUserContestSubmitInfo.createdAt)}
       </td>
     </tr>

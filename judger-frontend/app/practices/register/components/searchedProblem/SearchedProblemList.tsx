@@ -20,6 +20,8 @@ const fetchRelatedSearchedProblemInfos = async ({ queryKey }: any) => {
       doc.parentTitle !== null || doc.parentType === 'Practice',
   );
 
+  console.log(filteredDocuments);
+
   return {
     ...response.data,
     data: { ...response.data.data, documents: filteredDocuments },

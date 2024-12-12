@@ -274,7 +274,9 @@ export default function EditContestProblem(props: DefaultProps) {
       } else if (event.key === 'ArrowUp') {
         event.preventDefault();
         const prevIndex =
-          (currentIndex - 1 + itemList.length) % itemList.length;
+          currentIndex === -1
+            ? itemList.length - 1 // 처음에 ArrowUp 키를 누를 경우 가장 마지막 항목으로 이동
+            : (currentIndex - 1 + itemList.length) % itemList.length;
         (itemList[prevIndex] as HTMLElement).focus();
       }
     },
@@ -611,7 +613,7 @@ export default function EditContestProblem(props: DefaultProps) {
         <div className="mt-14 pb-2 flex justify-end gap-2">
           <button
             onClick={handleCancelContestProblemEdit}
-            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
           >
             취소
           </button>

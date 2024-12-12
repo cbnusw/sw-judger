@@ -7,9 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 import { ContestInfo } from '@/types/contest';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import { RenderPaginationButtons } from '@/app/components/RenderPaginationButtons';
 import useDebounce from '@/hooks/useDebounce';
 import ContestListLoadingSkeleton from './ContestListLoadingSkeleton';
+import PaginationNav from '@/app/components/PaginationNav';
 
 interface ContestListProps {
   searchQuery: string;
@@ -67,7 +67,7 @@ export default function ContestList({ searchQuery }: ContestListProps) {
     if (newPage < 1 || newPage > totalPages) return;
     const newQuery = new URLSearchParams(params.toString());
     newQuery.set('page', String(newPage));
-    router.push(`/contests?${newQuery.toString()}`);
+    router.push(`/contests?${newQuery.toString()}`, { scroll: false });
   };
 
   if (isPending) return <ContestListLoadingSkeleton />;
@@ -76,36 +76,36 @@ export default function ContestList({ searchQuery }: ContestListProps) {
     <div className="mx-auto w-full">
       <div className="relative overflow-hidden rounded-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 ">
+          <table className="w-full text-sm text-left text-gray-500">
             <thead className="border-y-[1.25px] border-[#d1d6db] text-xs uppercase bg-[#f2f4f6] text-center">
-              <tr className="h-[2rem]">
+              <tr>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] w-16 px-4 py-2"
+                  className="font-medium text-[#333d4b] w-16 px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   번호
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   대회명
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   신청기간
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   대회시간
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] w-24 px-4 py-2"
+                  className="font-medium text-[#333d4b] w-24 px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   작성일
                 </th>
@@ -133,63 +133,12 @@ export default function ContestList({ searchQuery }: ContestListProps) {
           </table>
         </div>
       </div>
-      <nav
-        className="flex flex-col md:flex-row text-xs justify-between items-start md:items-center space-y-3 md:space-y-0 pl-1 mt-3"
-        aria-label="Table navigation"
-      >
-        <span className="text-gray-500 ">
-          <span className="text-gray-500 dark:text-white">
-            {startItemNum} - {endItemNum}
-          </span>{' '}
-          of{' '}
-          <span className="text-gray-500 dark:text-white">{resData.total}</span>
-        </span>
-        <ul className="inline-flex items-stretch -space-x-px">
-          <li>
-            <button
-              onClick={() => handlePagination(Number(page) - 1)}
-              className="flex items-center justify-center h-full py-1.5 px-[0.3rem] ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700  dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Previous</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-          </li>
-          {RenderPaginationButtons(page, totalPages, handlePagination)}
-          <li>
-            <button
-              onClick={() => handlePagination(Number(page) + 1)}
-              className="flex items-center justify-center h-full py-1.5 px-[0.3rem] leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700  dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Next</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-          </li>
-        </ul>
-      </nav>
+
+      <PaginationNav
+        page={page}
+        totalPages={totalPages}
+        handlePagination={handlePagination}
+      />
     </div>
   );
 }

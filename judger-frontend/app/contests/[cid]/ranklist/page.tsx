@@ -164,37 +164,41 @@ export default function ContestRankList(props: DefaultProps) {
   if (isAnyQueryPending) return <Loading />;
 
   return (
-    <div className="mt-2 mb-24 px-1 2lg:px-0 overflow-x-auto">
+    <div className="mt-4 mb-24 px-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
         <div className="flex flex-col gap-8">
-          <p className="flex items-center text-2xl font-bold tracking-tight">
-            <Image
-              src={trophyImg}
-              alt="trophy"
-              width={80}
-              height={0}
-              quality={100}
-              className="ml-[-1rem] fade-in-fast drop-shadow-lg"
-            />
-            <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
-              <span className="ml-2 text-3xl font-semibold tracking-wide">
-                대회 순위
-              </span>
-              <Link
-                href={`/contests/${cid}`}
-                className="mt-1 ml-2 3md:ml-1 text-xl font-medium cursor-pointer hover:underline hover:text-[#0038a8] focus:underline focus:text-[#0038a8] text-[#1048b8]"
-              >
-                ({contestInfo.title})
-              </Link>
+          <div className="flex items-center gap-x-2">
+            <div className="flex items-center text-2xl font-bold tracking-tight">
+              <Image
+                src={trophyImg}
+                alt="trophy"
+                width={55}
+                height={0}
+                quality={100}
+                className="fade-in-fast"
+              />
+
+              <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
+                <span className="ml-4 text-[28px] font-semibold tracking-wide">
+                  대회 순위
+                </span>
+              </div>
             </div>
-          </p>
+
+            <Link
+              href={`/contests/${cid}`}
+              className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+            >
+              {contestInfo.title}
+            </Link>
+          </div>
 
           <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-gray-300">
             <div className="flex flex-col 3md:flex-row gap-2">
               {shouldShowProblemsButton() && (
                 <button
                   onClick={handleGoToContestProblems}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
                 >
                   문제 목록
                 </button>
