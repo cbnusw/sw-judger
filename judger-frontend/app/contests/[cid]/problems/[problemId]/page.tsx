@@ -283,13 +283,10 @@ export default function ContestProblemDetail(props: DefaultProps) {
                 </span>
               </span>
             </div>
+
             <div className="flex gap-3">
-              <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">• </span>
-                대회:{' '}
-                <span className="font-light">
-                  {contestProblemInfo.parentId.title}
-                </span>
+              <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
+                {contestProblemInfo.parentId.title}
               </span>
             </div>
           </div>
@@ -299,7 +296,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
           <div className="flex flex-col 3md:flex-row gap-2 justify-end mt-4 h-fit 3md:order-last">
             <button
               onClick={handleGoToContestProblems}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
             >
               문제 목록
             </button>
@@ -307,7 +304,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
               <>
                 <button
                   onClick={handleGoToUserContestSubmits}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#cee1fc] hover:bg-[#cee1fc]"
+                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#cee1fc]"
                 >
                   내 제출 현황
                 </button>
@@ -325,7 +322,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
                 <>
                   <button
                     onClick={handleEditProblem}
-                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
                   >
                     수정
                   </button>

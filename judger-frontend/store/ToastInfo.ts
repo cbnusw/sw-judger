@@ -14,12 +14,23 @@ export interface ToastInfoStoreState {
 }
 
 export const ToastInfoStore = create<ToastInfoStoreState>()(
-  devtools((set) => ({
+  devtools((set, get) => ({
     toasts: [],
-    addToast: (type: string, message: string) =>
+    addToast: (type: string, message: string) => {
+      const id = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+      // 완전히 중복된 토스트도 포함해서 모두 생성
       set((state) => ({
-        toasts: [{ id: Date.now().toString(), type, message }, ...state.toasts],
-      })),
+        toasts: [{ id, type, message }, ...state.toasts],
+      }));
+
+      // 개별 토스트를 3초 후에 제거
+      setTimeout(() => {
+        set((state) => ({
+          toasts: state.toasts.filter((toast) => toast.id !== id),
+        }));
+      }, 3000);
+    },
     removeToast: (id: string) =>
       set((state) => ({
         toasts: state.toasts.filter((toast) => toast.id !== id),

@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import codeImg from '@/public/images/code.png';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import paperImg from '@/public/images/paper.png';
 import axiosInstance from '@/utils/axiosInstance';
 import { userInfoStore } from '@/store/UserInfo';
 import { ProblemInfo } from '@/types/problem';
@@ -93,8 +93,10 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSubmitLanguage, setSelectedSubmitLanguage] =
-    useState('언어 선택 *');
+    useState('언어 선택');
   const [code, setCode] = useState('');
+  const [isOpenSubmitLanguageList, setIsOpenSubmitLanguageList] =
+    useState(false);
 
   const [uploadService] = useState(new UploadService()); // UploadService 인스턴스 생성
   const [isSubmitBtnEnable, setIsSubmitBtnEnable] = useState(false);
@@ -105,6 +107,8 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
     setIsSelectedSubmitLanguageValidFail,
   ] = useState(false);
 
+  const submitLanguageButtonRef = useRef<HTMLButtonElement>(null);
+
   const router = useRouter();
 
   const handleGoToPracticeProblem = () => {
@@ -112,10 +116,14 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
   };
 
   const handlSelectSubmitLanguage = (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    e: React.MouseEvent<HTMLButtonElement>,
   ) => {
-    setSelectedSubmitLanguage(e.target.value);
-    setIsSelectedSubmitLanguageValidFail(false);
+    const value = e.currentTarget.getAttribute('value');
+    if (value) {
+      setSelectedSubmitLanguage(value);
+      setIsOpenSubmitLanguageList(false);
+      setIsSelectedSubmitLanguageValidFail(false);
+    }
   };
 
   const handleSubmitPracticeProblemCode = async () => {
@@ -123,7 +131,7 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
 
     setIsSubmitting(true); // 제출 시작
 
-    if (selectedSubmitLanguage === '언어 선택 *') {
+    if (selectedSubmitLanguage === '언어 선택') {
       addToast('warning', '제출 언어를 선택해 주세요.');
       window.scrollTo(0, 0);
       setIsSelectedSubmitLanguageValidFail(true);
@@ -160,11 +168,70 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
     }
   };
 
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (
+      submitLanguageButtonRef.current &&
+      !submitLanguageButtonRef.current.contains(event.target as Node)
+    ) {
+      setIsOpenSubmitLanguageList(false);
+    }
+  }, []);
+
+  const handleEscKeyPress = useCallback((event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setIsOpenSubmitLanguageList(false);
+    }
+  }, []);
+
   useEffect(() => {
-    if (selectedSubmitLanguage !== '언어 선택 *' && code !== '')
+    if (selectedSubmitLanguage !== '언어 선택' && code !== '')
       setIsSubmitBtnEnable(true);
     else setIsSubmitBtnEnable(false);
   }, [selectedSubmitLanguage, code, setIsSubmitBtnEnable]);
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (!isOpenSubmitLanguageList) return;
+
+      const activeElement = document.activeElement;
+      const itemList = document.querySelectorAll('.language-item');
+      let currentIndex = Array.prototype.indexOf.call(itemList, activeElement);
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        const nextIndex = (currentIndex + 1) % itemList.length;
+        (itemList[nextIndex] as HTMLElement).focus();
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        const prevIndex =
+          currentIndex === -1
+            ? itemList.length - 1 // 처음에 ArrowUp 키를 누를 경우 가장 마지막 항목으로 이동
+            : (currentIndex - 1 + itemList.length) % itemList.length;
+        (itemList[prevIndex] as HTMLElement).focus();
+      }
+    },
+    [isOpenSubmitLanguageList],
+  );
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('keydown', handleEscKeyPress);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('keydown', handleEscKeyPress);
+    };
+  }, [handleClickOutside, handleEscKeyPress]);
+
+  useEffect(() => {
+    if (isOpenSubmitLanguageList) {
+      document.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpenSubmitLanguageList, handleKeyDown]);
 
   useEffect(() => {
     // (로그인 한) 사용자 정보 조회 및 관리자 권한 확인, 그리고 게시글 작성자인지 확인
@@ -187,30 +254,34 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
   if (isLoading) return <SubmitPracticeProblemCodePageLoadingSkeleton />;
 
   return (
-    <div className="mt-2 mb-24 px-5 2lg:px-0 overflow-x-auto">
+    <div className="mt-4 mb-24 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <p className="flex items-center text-2xl font-bold tracking-tight">
-            <Image
-              src={codeImg}
-              alt="trophy"
-              width={70}
-              height={0}
-              quality={100}
-              className="ml-[-1rem] fade-in-fast drop-shadow-lg"
-            />
-            <div className="lift-up">
-              <span className="ml-4 text-3xl font-semibold tracking-wide">
-                코드 제출
-              </span>
-              <Link
-                href={`/practices/${pid}`}
-                className="mt-1 ml-1 text-xl font-medium cursor-pointer hover:underline hover:text-[#0038a8] focus:underline focus:text-[#0038a8] text-[#1048b8]"
-              >
-                ({practiceInfo.title})
-              </Link>
+          <div className="flex items-center gap-x-2">
+            <div className="flex items-center text-2xl font-bold tracking-tight">
+              <Image
+                src={paperImg}
+                alt="paper"
+                width={45}
+                height={0}
+                quality={100}
+                className="fade-in-fast"
+              />
+
+              <div className="lift-up">
+                <span className="ml-5 text-[28px] font-semibold tracking-wide">
+                  코드 제출
+                </span>
+              </div>
             </div>
-          </p>
+            <Link
+              href={`/practices/${pid}`}
+              className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+            >
+              {practiceInfo.title}
+            </Link>
+          </div>
+
           <div className="flex justify-between pb-3 border-b border-gray-300">
             <div className="flex gap-3">
               <span className="font-semibold">
@@ -234,40 +305,97 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
         </div>
 
         <div className="flex flex-col gap-5 mt-8 pb-5">
-          <div className="w-1/2">
-            <select
-              name="languages"
-              id="lang"
-              className={`text-sm w-full pl-0 py-1 ${
+          <div className="w-1/5 relative">
+            <button
+              onClick={() => setIsOpenSubmitLanguageList(true)}
+              ref={submitLanguageButtonRef}
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] pl-[0.825rem] pr-3 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+            >
+              {selectedSubmitLanguage}
+              <svg
+                width={23}
+                height={23}
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"
+                  fill="#b0b8c1"
+                  fillRule="evenodd"
+                ></path>
+              </svg>
+            </button>
+
+            {isOpenSubmitLanguageList && (
+              <div className="absolute top-11 z-50 flex flex-col bg-white window px-[0.375rem] py-2 rounded-[7px]">
+                <button
+                  onClick={handlSelectSubmitLanguage}
+                  className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
+                  value="C"
+                >
+                  C
+                </button>
+                <button
+                  onClick={handlSelectSubmitLanguage}
+                  className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
+                  value="C++"
+                >
+                  C++
+                </button>
+                <button
+                  onClick={handlSelectSubmitLanguage}
+                  className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
+                  value="Java"
+                >
+                  Java
+                </button>
+                <button
+                  onClick={handlSelectSubmitLanguage}
+                  className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
+                  value="JavaScript"
+                >
+                  JavaScript
+                </button>
+                <button
+                  onClick={handlSelectSubmitLanguage}
+                  className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
+                  value="Python2"
+                >
+                  Python2
+                </button>
+                <button
+                  onClick={handlSelectSubmitLanguage}
+                  className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
+                  value="Python3"
+                >
+                  Python3
+                </button>
+                <button
+                  onClick={handlSelectSubmitLanguage}
+                  className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
+                  value="Kotlin"
+                >
+                  Kotlin
+                </button>
+                <button
+                  onClick={handlSelectSubmitLanguage}
+                  className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
+                  value="Go"
+                >
+                  Go
+                </button>
+              </div>
+            )}
+
+            <p
+              className={`${
                 isSelectedSubmitLanguageValidFail
                   ? 'text-red-500'
-                  : selectedSubmitLanguage === '언어 선택 *' && 'text-gray-500'
-              }   bg-transparent border-0 border-b border-${
-                isSelectedSubmitLanguageValidFail ? 'red-500' : 'gray-400'
-              }  gray-400 appearance-none focus:outline-none focus:ring-0 focus:border-${
-                isSelectedSubmitLanguageValidFail ? 'red' : 'blue'
-              }-500 peer`}
-              value={selectedSubmitLanguage}
-              onChange={handlSelectSubmitLanguage}
+                  : 'text-[#6b7684]'
+              } text-[15px] font-light mt-2 flex gap-x-1`}
             >
-              <option disabled selected>
-                언어 선택 *
-              </option>
-              <option value="C">C</option>
-              <option value="C++">C++</option>
-              <option value="Java">Java</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="Python2">Python2</option>
-              <option value="Python3">Python3</option>
-              <option value="Kotlin">Kotlin</option>
-              <option value="Go">Go</option>
-            </select>
-            <p
-              className={`text-${
-                isSelectedSubmitLanguageValidFail ? 'red' : 'gray'
-              }-500 text-xs tracking-widest font-light mt-2`}
-            >
-              제출할 언어를 선택해 주세요
+              <span className="text-lg text-[#6b7684] leading-6">*</span> 제출할
+              언어를 선택해 주세요.
             </p>
           </div>
 

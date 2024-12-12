@@ -4,7 +4,7 @@ import Link from 'next/link';
 import UsersExamSubmitList from './components/UsersExamSubmitList';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import codeImg from '@/public/images/code.png';
+import paperImg from '@/public/images/paper.png';
 import { fetchCurrentUserInfo } from '@/utils/fetchCurrentUserInfo';
 import { UserInfo } from '@/types/user';
 import { userInfoStore } from '@/store/UserInfo';
@@ -160,70 +160,80 @@ export default function UsersExamSubmits(props: DefaultProps) {
   if (isLoading) return <UsersExamSubmitPageLoadingSkeleton />;
 
   return (
-    <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
+    <div className="mt-5 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[60rem] mx-auto">
-        <p className="flex items-center text-2xl font-semibold tracking-tight">
-          <Image
-            src={codeImg}
-            alt="trophy"
-            width={70}
-            height={0}
-            quality={100}
-            className="ml-[-1rem] fade-in-fast drop-shadow-lg"
-          />
-          <div className="lift-up">
-            <span className="ml-4 text-3xl font-semibold tracking-wide">
-              코드 제출 목록
-            </span>
-            <Link
-              href={`/exams/${eid}`}
-              className="mt-1 ml-1 text-xl font-medium cursor-pointer hover:underline hover:text-[#0038a8] focus:underline focus:text-[#0038a8] text-[#1048b8]"
-            >
-              (시험: {examInfo.title})
-            </Link>
-          </div>
-        </p>
-
-        <div className="flex mt-5 mb-4">
-          <div className="flex flex-col relative z-0 w-1/2 group">
-            <input
-              type="text"
-              name="floating_first_name"
-              className="block pl-7 pt-3 pb-[0.175rem] pr-0 w-full font-normal text-gray-900 bg-transparent border-0 border-b border-gray-400 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-              }}
+        <div className="flex items-center gap-x-2">
+          <div className="flex items-center text-2xl font-semibold tracking-tight">
+            <Image
+              src={paperImg}
+              alt="paper"
+              width={45}
+              height={0}
+              quality={100}
+              className="fade-in-fast"
             />
-            <div className="absolute pt-[0.9rem] left-[-0.9rem] flex items-center pl-3 pointer-events-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="21"
-                viewBox="0 -960 960 960"
-                width="21"
-                fill="#464646"
-                className="scale-x-[-1]"
-              >
-                <path d="M785.269-141.629 530.501-396.501q-29.502 26.199-69.036 40.003-39.533 13.805-80.64 13.805-100.978 0-170.677-69.711-69.698-69.71-69.698-169.473 0-99.764 69.423-169.558 69.423-69.795 169.62-69.795 100.198 0 169.974 69.757 69.776 69.756 69.776 169.593 0 41.752-14.411 81.136-14.41 39.385-40.064 70.298L820.05-176.667l-34.781 35.038ZM380.256-390.577q79.907 0 135.505-55.536t55.598-135.91q0-80.375-55.598-135.849-55.598-55.475-135.767-55.475-80.511 0-136.086 55.537-55.575 55.536-55.575 135.91 0 80.375 55.619 135.849 55.618 55.474 136.304 55.474Z" />
-              </svg>
+
+            <div className="lift-up">
+              <span className="ml-5 text-[28px] font-semibold tracking-wide">
+                코드 제출 목록
+              </span>
             </div>
-            <label
-              htmlFor="floating_first_name"
-              className="peer-focus:font-light absolute text-base font-light text-gray-500  duration-300 transform -translate-x-[-1.75rem] -translate-y-5 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-[1.25rem] z-10"
-            >
-              검색
-            </label>
-            <p className="text-gray-500 text-xs tracking-widest font-light mt-1">
-              이름, 학번으로 검색
-            </p>
           </div>
+          <Link
+            href={`/exams/${eid}`}
+            className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+          >
+            {examInfo.title}
+          </Link>
+        </div>
+
+        <div className="flex mt-9 mb-4">
+          <div className="w-1/2 relative h-[2.3rem] flex items-center px-3 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
+            <svg
+              fill="none"
+              width="21"
+              height="21"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m19.59 18.41-3.205-3.203c1.0712-1.3712 1.579-3.0994 1.4197-4.832-.1593-1.73274-.9735-3.3394-2.2767-4.49233s-2.9972-1.76527-4.7364-1.71212c-1.73913.05315-3.39252.76779-4.62288 1.99815s-1.945 2.88375-1.99815 4.6229c-.05316 1.7392.55918 3.4332 1.71211 4.7364s2.7596 2.1174 4.49232 2.2767c1.7327.1592 3.4608-.3485 4.832-1.4197l3.204 3.204c.1567.1541.3678.24.5876.2391.2197-.0009.4302-.0886.5856-.2439.1554-.1554.243-.3659.2439-.5856.001-.2198-.085-.431-.2391-.5876zm-4.886-3.808c-.0183.0156-.036.032-.053.049-.042.044-.042.044-.08.092-.91.886-2.197 1.424-3.571 1.424-1.19232.0001-2.348-.4121-3.27107-1.1668s-1.55672-1.8055-1.79352-2.974c-.2368-1.1686-.06217-2.38311.49428-3.43762s1.46047-1.88413 2.55878-2.34819c1.09833-.46405 2.32333-.53398 3.46733-.19793s2.1365 1.0574 2.8094 2.04174c.6728.98434.9845 2.1711.8822 3.359-.1022 1.1879-.6122 2.3039-1.4434 3.1588z"
+                fill="#8994a2"
+              ></path>
+            </svg>
+            <div className="w-full">
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full h-[2.3rem] pl-[0.625rem] pr-[1.8rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
+                placeholder="이름, 학번으로 검색"
+              />
+            </div>
+            {searchQuery && (
+              <button
+                onClick={(e) => {
+                  setSearchQuery('');
+                }}
+                className="absolute top-[0.225rem] right-1 p-1"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="25"
+                  viewBox="0 -960 960 960"
+                  width="25"
+                  fill="#a2a4a9"
+                >
+                  <path d="M480-437.847 277.076-234.924q-8.307 8.308-20.884 8.5-12.576.193-21.268-8.5-8.693-8.692-8.693-21.076t8.693-21.076L437.847-480 234.924-682.924q-8.308-8.307-8.5-20.884-.193-12.576 8.5-21.268 8.692-8.693 21.076-8.693t21.076 8.693L480-522.153l202.924-202.923q8.307-8.308 20.884-8.5 12.576-.193 21.268 8.5 8.693 8.692 8.693 21.076t-8.693 21.076L522.153-480l202.923 202.924q8.308 8.307 8.5 20.884.193 12.576-8.5 21.268-8.692 8.693-21.076 8.693t-21.076-8.693L480-437.847Z"></path>
+                </svg>
+              </button>
+            )}
+          </div>
+
           <div className="relative ml-auto mt-auto bottom-[-0.75rem]">
             <div className="flex justify-end mb-2">
               <button
                 onClick={handleDownloadSubmitsInfoList}
-                className="flex justify-center items-center gap-2 text-[0.8rem] bg-[#e8f3ff] px-3 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#cee1fc]"
+                className="flex justify-center items-center gap-2 text-[0.8rem] bg-[#e8f3ff] px-3 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#cee1fc]"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

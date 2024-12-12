@@ -111,6 +111,7 @@ export default function RegisterContestProblem(props: DefaultProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
 
   const currentTime = new Date();
+  const contestStartTime = new Date(contestInfo?.testPeriod.start);
   const contestEndTime = new Date(contestInfo?.testPeriod.end);
 
   const router = useRouter();
@@ -243,7 +244,9 @@ export default function RegisterContestProblem(props: DefaultProps) {
       } else if (event.key === 'ArrowUp') {
         event.preventDefault();
         const prevIndex =
-          (currentIndex - 1 + itemList.length) % itemList.length;
+          currentIndex === -1
+            ? itemList.length - 1 // 처음에 ArrowUp 키를 누를 경우 가장 마지막 항목으로 이동
+            : (currentIndex - 1 + itemList.length) % itemList.length;
         (itemList[prevIndex] as HTMLElement).focus();
       }
     },
@@ -276,8 +279,8 @@ export default function RegisterContestProblem(props: DefaultProps) {
       if (contestInfo) {
         const isWriter = contestInfo.writer._id === userInfo._id;
 
-        if (currentTime >= contestEndTime) {
-          addToast('warning', '종료된 대회는 문제 등록이 불가능해요.');
+        if (currentTime >= contestStartTime) {
+          addToast('warning', '대회 시작 후에는 등록할 수 없어요.');
           router.back();
           return;
         }
@@ -581,7 +584,7 @@ export default function RegisterContestProblem(props: DefaultProps) {
         <div className="mt-14 pb-2 flex justify-end gap-2">
           <button
             onClick={handleCancelContestProblemRegister}
-            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
           >
             취소
           </button>

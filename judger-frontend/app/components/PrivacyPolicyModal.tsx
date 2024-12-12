@@ -1,8 +1,5 @@
 import { Modal } from 'flowbite-react';
 import React from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { useEffect } from 'react';
 
 interface PrivacyPolicyModalProps {
   openPrivacyPolicyModal: string | undefined;
@@ -15,16 +12,11 @@ export default function PrivacyPolicyModal({
   openPrivacyPolicyModal,
   setOpenPrivacyPolicyModal,
 }: PrivacyPolicyModalProps) {
-  useEffect(() => {
-    AOS.init();
-  }, []);
-
   return (
     <Modal
       show={openPrivacyPolicyModal === 'default'}
       onClose={() => setOpenPrivacyPolicyModal(undefined)}
-      data-aos="fade-zoom"
-      data-aos-duration="300"
+      className="modal"
     >
       <Modal.Header>개인정보 처리방침</Modal.Header>
       <Modal.Body className="max-h-[27.5rem]">

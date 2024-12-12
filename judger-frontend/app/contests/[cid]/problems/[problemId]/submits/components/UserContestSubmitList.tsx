@@ -45,43 +45,43 @@ export default function UserContestSubmitList({
               <tr className="h-[2rem]">
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] w-16 px-4 py-2"
+                  className="font-medium text-[#333d4b] w-16 px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   번호
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   문제명
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   결과
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   메모리
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   시간
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   언어
                 </th>
                 <th
                   scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2"
+                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                 >
                   제출 시간
                 </th>

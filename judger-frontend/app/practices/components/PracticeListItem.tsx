@@ -21,13 +21,15 @@ export default function PracticeListItem(props: PracticeListItemProps) {
     >
       <th
         scope="row"
-        className="px-4 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
+        className="px-2 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
       >
         {total - (page - 1) * 10 - index}
       </th>
-      <td className="font-semibold text-[#4e5968]">{practiceInfo.title}</td>
-      <td className="text-[#4e5968]">{practiceInfo.score}</td>
-      <td className="text-[#4e5968]">{practiceInfo.writer.name}</td>
+      <td className="px-2 font-semibold text-[#4e5968]">
+        {practiceInfo.title}
+      </td>
+      <td className="px-2 text-[#4e5968]">{practiceInfo.score}</td>
+      <td className="px-2 text-[#4e5968]">{practiceInfo.writer.name}</td>
     </tr>
   );
 }

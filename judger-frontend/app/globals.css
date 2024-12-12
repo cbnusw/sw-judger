@@ -3,8 +3,74 @@
 @tailwind utilities;
 
 * {
-  color: #1a1f27;
+  color: #333d4b;
   overflow-anchor: none;
+}
+
+.modal {
+  background-color: rgba(246, 246, 246, 0.6);
+}
+
+.modal > div {
+  outline: none;
+}
+
+.modal > div > div {
+  background-color: #fbfafd;
+  border-radius: 1.25rem !important;
+  box-shadow: 0px 0px 18px 0px rgba(0, 27, 55, 0.1),
+    0 0 36px 0 rgba(0, 27, 55, 0.1);
+}
+
+.pagination-arrow-btn {
+  font-size: 17px;
+  min-width: 36px;
+  width: 36px;
+  padding: 0 7.5px;
+  height: 36px;
+  color: #6b7684;
+  border-radius: 9999px;
+}
+
+.pagination-arrow-btn-enabled {
+  cursor: pointer;
+}
+
+.pagination-arrow-btn-enabled:hover {
+  cursor: pointer;
+  background-color: rgba(0, 27, 55, 0.05);
+}
+
+.pagination-arrow-btn-disabled {
+  cursor: not-allowed;
+}
+
+.pagination-number-btn {
+  font-size: 17px;
+  min-width: 36px;
+  width: fit-content;
+  padding: 0 7.5px;
+  height: 36px;
+  color: #6b7684;
+  border-radius: 9999px;
+}
+
+.pagination-number-btn-enabled {
+  color: #333d4b;
+  font-weight: 500;
+  background-color: rgba(0, 27, 55, 0.1);
+}
+
+.pagination-number-btn-enabled:hover {
+  background-color: rgba(0, 27, 55, 0.1);
+}
+
+.pagination-number-btn-disabled {
+  color: #6b7684;
+}
+
+.pagination-number-btn-disabled:hover {
+  background-color: rgba(0, 27, 55, 0.05);
 }
 
 /* 애니메이션 효과 */
@@ -53,7 +119,7 @@
   }
 }
 
-.svg-animation {
+.svg-loading-animation {
   animation: animation-loading 1.5s linear infinite;
   transform-origin: center;
 }
@@ -62,7 +128,7 @@
   animation: dash-offset-animation 1.75s ease-in-out infinite;
 }
 
-.svg-animation {
+.svg-loading-animation {
   animation-composition: replace;
   animation-delay: 0s;
   animation-direction: normal;
@@ -99,13 +165,11 @@
   width: auto; /* 너비는 내용에 따라 자동 조정 */
   max-width: 90%; /* 긴 메시지 제한 */
   word-wrap: break-word; /* 긴 단어 줄바꿈 */
+}
 
-  span {
-    &:last-child {
-      color: #555e6a;
-      font-weight: 500;
-    }
-  }
+.toast span:last-child {
+  color: #555e6a;
+  font-weight: 500;
 }
 
 .window {

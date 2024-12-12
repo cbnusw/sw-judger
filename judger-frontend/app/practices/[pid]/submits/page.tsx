@@ -4,7 +4,7 @@ import Link from 'next/link';
 import UserPracticeSubmitList from './components/UserPracticeSubmitList';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import codeImg from '@/public/images/code.png';
+import paperImg from '@/public/images/paper.png';
 import axiosInstance from '@/utils/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
 import { ProblemInfo } from '@/types/problem';
@@ -82,30 +82,33 @@ export default function UserPracticeSubmits(props: DefaultProps) {
   if (isLoading) return <UserPracticeSubmitPageLoadingSkeleton />;
 
   return (
-    <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
+    <div className="mt-5 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <p className="flex items-center text-2xl font-semibold tracking-tight">
-            <Image
-              src={codeImg}
-              alt="code"
-              width={70}
-              height={0}
-              quality={100}
-              className="ml-[-1rem] fade-in-fast drop-shadow-lg"
-            />
-            <div className="lift-up">
-              <span className="ml-4 text-3xl font-semibold tracking-wide">
-                내 제출 현황
-              </span>
-              <Link
-                href={`/practices/${pid}`}
-                className="mt-1 ml-1 text-xl font-medium cursor-pointer hover:underline hover:text-[#0038a8] focus:underline focus:text-[#0038a8] text-[#1048b8]"
-              >
-                ({practiceInfo.title})
-              </Link>
+          <div className="flex items-center gap-x-2">
+            <div className="flex items-center text-2xl font-semibold tracking-tight">
+              <Image
+                src={paperImg}
+                alt="paper"
+                width={45}
+                height={0}
+                quality={100}
+                className="fade-in-fast"
+              />
+
+              <div className="lift-up">
+                <span className="ml-5 text-[28px] font-semibold tracking-wide">
+                  내 제출 현황
+                </span>
+              </div>
             </div>
-          </p>
+            <Link
+              href={`/practices/${pid}`}
+              className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+            >
+              {practiceInfo.title}
+            </Link>
+          </div>
 
           <div className="flex justify-between items-center gap-x-4 pb-3 border-gray-300">
             <button
@@ -137,7 +140,7 @@ export default function UserPracticeSubmits(props: DefaultProps) {
 
                 <button
                   onClick={handleGoToPracticeProblems}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
                 >
                   문제 목록
                 </button>

@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { Accept, useDropzone } from 'react-dropzone';
 import dynamic from 'next/dynamic';
 import { UploadService } from '@/components/utils/uploadService';
 import { ExampleFile, IoSetItem, UploadedFileInfo } from '../../types/problem';
@@ -176,14 +176,42 @@ function MyDropzone(props: MyDropzoneProps) {
       .filter((item): item is IoSetItem => item !== null); // null이 아닌 항목만 필터링
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const getAcceptTypes = (): Accept => {
+    switch (type) {
+      case 'pdf':
+        return { 'application/pdf': ['.pdf'] };
+      case 'inOut':
+        return { 'text/plain': ['.in', '.out'] };
+      case 'exampleFile':
+        return {
+          'application/temp': [
+            '.c',
+            '.cpp',
+            '.java',
+            '.js',
+            '.py',
+            '.kt',
+            '.go',
+          ],
+        };
+      default:
+        return {};
+    }
+  };
+
+  const isMultipleFileAllowed = (): boolean => {
+    const multipleFileTypes = ['inOut', 'exampleFile'];
+    return multipleFileTypes.includes(type);
+  };
+
+  const { getRootProps } = useDropzone({
     onDrop,
     onDragEnter: () => setIsDragEntered(true),
     onDragLeave: () => setIsDragEntered(false),
     onDropRejected: () => setIsDragEntered(false),
     onDropAccepted: () => setIsDragAndDropped(true),
-    accept: type === 'pdf' ? { 'application/pdf': [] } : undefined,
-    multiple: type === 'pdf' ? false : true,
+    accept: getAcceptTypes(),
+    multiple: isMultipleFileAllowed(),
   });
 
   const handleDeletePair = (
@@ -356,13 +384,6 @@ function MyDropzone(props: MyDropzoneProps) {
             ) : null}
           </p>
         </div>
-        <input
-          {...getInputProps()}
-          id="dropzone-file"
-          type="file"
-          accept={type}
-          className="hidden"
-        />
       </label>
 
       {isFileUploaded ? (

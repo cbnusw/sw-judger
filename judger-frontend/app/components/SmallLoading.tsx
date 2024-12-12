@@ -2,7 +2,12 @@ import React from 'react';
 
 export default function SmallLoading() {
   return (
-    <svg viewBox="0 0 100 100" width="24" height="24" className="svg-animation">
+    <svg
+      viewBox="0 0 100 100"
+      width="24"
+      height="24"
+      className="svg-loading-animation"
+    >
       <circle
         fill="none"
         stroke="#579cf7"

@@ -4,12 +4,12 @@ import { ContestInfo } from '@/types/contest';
 import EmptyContestContestantListItem from './EmptyContestContestantListItem';
 import ContestContestantListItem from './ContestContestantListItem';
 
-export interface ContestContestContestantListProps {
+export interface ContestContestantListProps {
   contestContestants: ContestInfo['contestants'];
 }
 
-export default function ContestContestContestantList(
-  props: ContestContestContestantListProps,
+export default function ContestContestantList(
+  props: ContestContestantListProps,
 ) {
   const { contestContestants } = props;
 
@@ -21,23 +21,38 @@ export default function ContestContestContestantList(
             <tr className="h-[2rem]">
               <th
                 scope="col"
-                className="font-medium text-[#333d4b] w-16 px-4 py-2"
+                className="font-medium text-[#333d4b] w-16 px-4 py-2 hover:bg-[#e6e8eb]"
               >
                 번호
               </th>
-              <th scope="col" className="font-medium text-[#333d4b] px-4 py-2">
+              <th
+                scope="col"
+                className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
+              >
                 학번
               </th>
-              <th scope="col" className="font-medium text-[#333d4b] px-4 py-2">
+              <th
+                scope="col"
+                className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
+              >
                 이름
               </th>
-              <th scope="col" className="font-medium text-[#333d4b] px-4 py-2">
+              <th
+                scope="col"
+                className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
+              >
                 대학교
               </th>
-              <th scope="col" className="font-medium text-[#333d4b] px-4 py-2">
+              <th
+                scope="col"
+                className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
+              >
                 학부(과)
               </th>
-              <th scope="col" className="font-medium text-[#333d4b] px-4 py-2">
+              <th
+                scope="col"
+                className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
+              >
                 이메일
               </th>
             </tr>

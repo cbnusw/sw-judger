@@ -211,6 +211,10 @@ export default function ExamProblems(props: DefaultProps) {
     }
   };
 
+  const handleRegisterMultipleExamProblem = () => {
+    router.push(`/exams/${eid}/problems/register/multiple`);
+  };
+
   const handleRegisterExamProblem = () => {
     router.push(`/exams/${eid}/problems/register`);
   };
@@ -218,40 +222,43 @@ export default function ExamProblems(props: DefaultProps) {
   if (isLoading) return <ExamProblemListPageLoadingSkeleton />;
 
   return (
-    <div className="mt-2 mb-24 px-5 2lg:px-0 overflow-x-auto">
+    <div className="mt-4 mb-24 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
         <div className="flex flex-col gap-8">
-          <p className="flex items-center text-2xl font-bold tracking-tight">
-            <Image
-              src={listImg}
-              alt="list"
-              width={70}
-              height={0}
-              quality={100}
-              className="ml-[-1rem] fade-in-fast drop-shadow-lg"
-            />
-            <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
-              <span className="ml-2 text-3xl font-semibold tracking-wide">
-                문제 목록
-              </span>
-              <Link
-                href={`/exams/${eid}`}
-                className="mt-1 ml-2 3md:ml-1 text-xl font-medium cursor-pointer hover:underline hover:text-[#0038a8] focus:underline focus:text-[#0038a8] text-[#1048b8]"
-              >
-                (시험: {title})
-              </Link>
+          <div className="flex items-center gap-x-2">
+            <div className="flex items-center text-2xl font-bold tracking-tight">
+              <Image
+                src={listImg}
+                alt="list"
+                width={47.5}
+                height={0}
+                quality={100}
+                className="fade-in-fast"
+              />
+
+              <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
+                <span className="ml-4 text-[28px] font-semibold tracking-wide">
+                  문제 목록
+                </span>
+              </div>
             </div>
-          </p>
+            <Link
+              href={`/exams/${eid}`}
+              className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+            >
+              {title}
+            </Link>
+          </div>
 
           <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-gray-300">
             <div className="flex flex-col 3md:flex-row gap-2">
               {OPERATOR_ROLES.includes(userInfo.role) &&
                 userInfo._id === examProblemsInfo.writer._id &&
-                currentTime < examEndTime && (
+                currentTime < examStartTime && (
                   <button
                     onClick={handleChangeProblemOrder}
                     ref={changingProblemOrderBtnRef}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -270,11 +277,48 @@ export default function ExamProblems(props: DefaultProps) {
                   </button>
                 )}
 
+              {OPERATOR_ROLES.includes(userInfo.role) &&
+                userInfo._id === examProblemsInfo.writer._id &&
+                currentTime < examStartTime && (
+                  <button
+                    onClick={handleRegisterMultipleExamProblem}
+                    className="flex justify-center items-center gap-x-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#d3d6da]"
+                  >
+                    <svg
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                    >
+                      <mask id="a" fill="#fff">
+                        <path
+                          d="m0 0h20v19.9996h-20z"
+                          fill="#fff"
+                          fillRule="evenodd"
+                        ></path>
+                      </mask>
+                      <g
+                        fill="#26a06b"
+                        fillRule="evenodd"
+                        transform="translate(2 2)"
+                      >
+                        <path d="m13 14.1719v5.828l7-7h-5.828c-.649 0-1.162.523-1.162 1.162"></path>
+                        <path
+                          d="m5.918 5.6036 1.971 2.893c.061.381-.228.489-.559.489h-.746c-.321-.016-.379-.033-.585-.4l-1.016-1.865-.013-.015-.013.015-1.016 1.865c-.206.367-.264.384-.585.4h-.746c-.331 0-.62-.108-.559-.489l1.971-2.893.001-.001-.038-.044-1.9-2.82c-.15-.217.122-.517.502-.517h.746c.331 0 .372.043.538.315l1.084 1.926.015.018.015-.018 1.084-1.926c.166-.272.207-.315.538-.315h.746c.38 0 .652.3.503.517l-1.901 2.82-.038.044zm12.9-5.604h-17.636c-.654 0-1.182.528-1.182 1.182v17.647c0 .654.528 1.171 1.172 1.171h10.005v-5.878c0-1.626 1.319-2.945 2.944-2.945h5.879v-9.995c0-.654-.528-1.182-1.182-1.182z"
+                          mask="url(#a)"
+                        ></path>
+                      </g>
+                    </svg>
+                    한 번에 등록
+                  </button>
+                )}
+
               {!isChagingExamProblemOrderActivate && (
                 <>
                   {OPERATOR_ROLES.includes(userInfo.role) &&
                     userInfo._id === examProblemsInfo.writer._id &&
-                    currentTime < examEndTime && (
+                    currentTime < examStartTime && (
                       <button
                         onClick={handleRegisterExamProblem}
                         className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"

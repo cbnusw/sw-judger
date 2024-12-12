@@ -24,25 +24,25 @@ export default function ContestListItem(props: ContestListItemProps) {
     >
       <th
         scope="row"
-        className="px-4 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
+        className="px-2 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
       >
         {total - (page - 1) * 10 - index}
       </th>
-      <td className="font-semibold text-start text-[#4e5968]">
+      <td className="px-2 font-semibold text-start text-[#4e5968]">
         {contestInfo.title}
       </td>
-      <td className="text-[#4e5968]">
+      <td className="px-2 text-[#4e5968]">
         {contestInfo.applyingPeriod ? (
           <>~ {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.end)}</>
         ) : (
           <>~ {formatDateToYYMMDDHHMM(contestInfo.testPeriod.start)}</>
         )}
       </td>
-      <td className="text-[#4e5968]">
+      <td className="px-2 text-[#4e5968]">
         {formatDateToYYMMDDHHMM(contestInfo.testPeriod?.start)} ~{' '}
         {formatDateToYYMMDDHHMM(contestInfo.testPeriod?.end)}
       </td>
-      <td className="text-[#4e5968]">
+      <td className="px-2 text-[#4e5968]">
         {formatDateToYYMMDD(contestInfo.createdAt)}
       </td>
     </tr>

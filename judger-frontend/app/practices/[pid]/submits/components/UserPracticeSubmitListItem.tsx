@@ -44,14 +44,14 @@ export default function UserPracticeSubmitListItem({
     >
       <th
         scope="row"
-        className="px-4 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
+        className="px-2 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
       >
         {total - index}
       </th>
       {personalUserPracticeSubmitInfo.result ? (
         <>
           <td
-            className={`${getCodeSubmitResultTypeColor(
+            className={`px-2 ${getCodeSubmitResultTypeColor(
               personalUserPracticeSubmitInfo.result.type,
             )} font-semibold`}
           >
@@ -59,7 +59,7 @@ export default function UserPracticeSubmitListItem({
               personalUserPracticeSubmitInfo.result.type,
             )}
           </td>
-          <td>
+          <td className="px-2">
             <span className="text-[#4e5968]">
               {(personalUserPracticeSubmitInfo.result.memory / 1048576).toFixed(
                 2,
@@ -67,7 +67,7 @@ export default function UserPracticeSubmitListItem({
             </span>
             <span className="ml-[-1px] text-red-500">MB</span>
           </td>
-          <td>
+          <td className="px-2">
             <span className="text-[#4e5968]">
               {personalUserPracticeSubmitInfo.result.time}{' '}
             </span>{' '}
@@ -76,20 +76,20 @@ export default function UserPracticeSubmitListItem({
         </>
       ) : (
         <>
-          <td className="flex gap-[0.6rem] justify-center items-center w-[3.5rem] h-10 text-[#e67e22] font-semibold mx-auto">
+          <td className="px-2 flex gap-[0.6rem] justify-center items-center w-[3.5rem] h-10 text-[#e67e22] font-semibold mx-auto">
             채점 중
             <span className="w-1 ml-[-0.6rem] text-[#e67e22]">
               {loadingDots}
             </span>
           </td>
-          <td className="text-[#4e5968]">-</td>
-          <td className="text-[#4e5968]">-</td>
+          <td className="px-2 text-[#4e5968]">-</td>
+          <td className="px-2 text-[#4e5968]">-</td>
         </>
       )}
-      <td className="text-[#4e5968]">
+      <td className="px-2 text-[#4e5968]">
         {personalUserPracticeSubmitInfo.language}
       </td>
-      <td className="text-[#4e5968]">
+      <td className="px-2 text-[#4e5968]">
         {formatDateToYYMMDDHHMM(personalUserPracticeSubmitInfo.createdAt)}
       </td>
     </tr>

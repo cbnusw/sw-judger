@@ -125,37 +125,37 @@ ${submitInfo.code}`}
                 <tr className="h-[2rem]">
                   <th
                     scope="col"
-                    className="font-medium text-[#333d4b] px-4 py-2"
+                    className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                   >
                     문제명
                   </th>
                   <th
                     scope="col"
-                    className="font-medium text-[#333d4b] px-4 py-2"
+                    className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                   >
                     결과
                   </th>
                   <th
                     scope="col"
-                    className="font-medium text-[#333d4b] px-4 py-2"
+                    className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                   >
                     메모리
                   </th>
                   <th
                     scope="col"
-                    className="font-medium text-[#333d4b] px-4 py-2"
+                    className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                   >
                     시간
                   </th>
                   <th
                     scope="col"
-                    className="font-medium text-[#333d4b] px-4 py-2"
+                    className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                   >
                     언어
                   </th>
                   <th
                     scope="col"
-                    className="font-medium text-[#333d4b] px-4 py-2"
+                    className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
                   >
                     제출 시간
                   </th>
@@ -165,31 +165,31 @@ ${submitInfo.code}`}
                 <tr className="h-[2.5rem] border-b-[1.25px] border-[#d1d6db] text-xs text-center">
                   <th
                     scope="row"
-                    className="py-2 font-semibold text-[#4e5968] whitespace-nowrap dark:text-white"
+                    className="px-2 py-2 font-semibold text-[#4e5968] whitespace-nowrap dark:text-white"
                   >
                     {submitInfo.problem.title}
                   </th>
                   <td
-                    className={`${getCodeSubmitResultTypeColor(
+                    className={`px-2 ${getCodeSubmitResultTypeColor(
                       submitInfo.result.type,
                     )} font-semibold`}
                   >
                     {getCodeSubmitResultTypeDescription(submitInfo.result.type)}
                   </td>
-                  <td>
+                  <td className="px-2">
                     <span className="text-[#4e5968]">
                       {(submitInfo.result.memory / 1048576).toFixed(2)}{' '}
                     </span>
                     <span className="ml-[-1px] text-red-500">MB</span>
                   </td>
-                  <td>
+                  <td className="px-2">
                     <span className="text-[#4e5968]">
                       {submitInfo.result.time}{' '}
                     </span>{' '}
                     <span className="ml-[-1px] text-red-500">ms</span>
                   </td>
-                  <td className="text-[#4e5968]">{submitInfo.language}</td>
-                  <td className="text-[#4e5968]">
+                  <td className="px-2 text-[#4e5968]">{submitInfo.language}</td>
+                  <td className="px-2 text-[#4e5968]">
                     {formatDateToYYMMDDHHMMSS(submitInfo.createdAt)}
                   </td>
                 </tr>
