@@ -14,9 +14,10 @@ import { useCountdownTimer } from '@/hooks/useCountdownTimer';
 import { fetchCurrentUserInfo } from '@/utils/fetchCurrentUserInfo';
 import { UserInfo } from '@/types/user';
 import { OPERATOR_ROLES } from '@/constants/role';
-import { formatDateToYYMMDDHHMM } from '@/utils/formatDate';
 import ExamProblemListPageLoadingSkeleton from './components/ExamProblemListPageLoadingSkeleton';
 import { ToastInfoStore } from '@/store/ToastInfo';
+import normalBellImg from '@/public/images/normal-bell.png';
+import alarmImg from '@/public/images/alarm.png';
 
 // 시험에 등록된 문제 목록 정보 조회 API
 const fetchExamProblemsDetailInfo = ({ queryKey }: any) => {
@@ -143,58 +144,84 @@ export default function ExamProblems(props: DefaultProps) {
     });
   }, [updateUserInfo, examProblemsInfo, router, addToast]);
 
-  // 시험 시간 표시에 사용할 클래스를 결정하는 함수
-  const getTimeDisplayClass = () => {
-    if (currentTime < examStartTime) {
-      // 시험 시작 전
-      return 'text-blue-500';
-    } else if (currentTime >= examStartTime && currentTime < examEndTime) {
-      // 시험 진행 중
-      return 'text-red-500';
-    }
-  };
-
   // 시험 시작까지 남은 시간 또는 시험 종료까지 남은 시간을 표시하는 함수
   const renderRemainingTime = () => {
+    const formatTime = (
+      days: number,
+      hours: number,
+      minutes: number,
+      seconds: number,
+    ): string => {
+      if (isNaN(days) || isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+        return '';
+      }
+
+      const pad = (num: number) => String(num).padStart(2, '0');
+      if (days > 0) {
+        return `${days}일 ${pad(hours)}시 ${pad(minutes)}분 ${pad(seconds)}초`;
+      }
+      if (hours > 0) {
+        return `${hours}시 ${pad(minutes)}분 ${pad(seconds)}초`;
+      }
+      if (minutes > 0) {
+        return `${minutes}분 ${pad(seconds)}초`;
+      }
+      return `${seconds}초`;
+    };
+
     if (currentTime < examStartTime) {
-      // 시험 시작 전: 시험 시작까지 남은 시간 표시
+      const formattedTime = formatTime(
+        timeUntilStart.days,
+        timeUntilStart.hours,
+        timeUntilStart.minutes,
+        timeUntilStart.seconds,
+      );
+
+      if (!formattedTime) return null;
+
       return (
-        <span className={`font-semibold ${getTimeDisplayClass()}`}>
-          {timeUntilStart.days > 0 &&
-            `(${timeUntilStart.days}일 ${timeUntilStart.hours}시간 남음)`}
-          {timeUntilStart.days === 0 &&
-            timeUntilStart.hours > 0 &&
-            `(${timeUntilStart.hours}시간 ${timeUntilStart.minutes}분 남음)`}
-          {timeUntilStart.days === 0 &&
-            timeUntilStart.hours === 0 &&
-            timeUntilStart.minutes > 0 &&
-            `(${timeUntilStart.minutes}분 ${timeUntilStart.seconds}초 남음)`}
-          {timeUntilStart.days === 0 &&
-            timeUntilStart.hours === 0 &&
-            timeUntilStart.minutes === 0 &&
-            `(${timeUntilStart.seconds}초 남음)`}
+        <span
+          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold`}
+        >
+          <Image
+            src={normalBellImg}
+            alt="normalBell"
+            width={17.5}
+            height={0}
+            quality={100}
+            className="bell-shake"
+          />
+          {formattedTime}
         </span>
       );
     } else if (currentTime >= examStartTime && currentTime < examEndTime) {
-      // 시험 진행 중: 시험 종료까지 남은 시간 표시
+      const formattedTime = formatTime(
+        timeUntilEnd.days,
+        timeUntilEnd.hours,
+        timeUntilEnd.minutes,
+        timeUntilEnd.seconds,
+      );
+
+      if (!formattedTime) return null;
+
       return (
-        <span className={`font-semibold ${getTimeDisplayClass()}`}>
-          {timeUntilEnd.days > 0 &&
-            `(${timeUntilEnd.days}일 ${timeUntilEnd.hours}시간 남음)`}
-          {timeUntilEnd.days === 0 &&
-            timeUntilEnd.hours > 0 &&
-            `(${timeUntilEnd.hours}시간 ${timeUntilEnd.minutes}분 남음)`}
-          {timeUntilEnd.days === 0 &&
-            timeUntilEnd.hours === 0 &&
-            timeUntilEnd.minutes > 0 &&
-            `(${timeUntilEnd.minutes}분 ${timeUntilEnd.seconds}초 남음)`}
-          {timeUntilEnd.days === 0 &&
-            timeUntilEnd.hours === 0 &&
-            timeUntilEnd.minutes === 0 &&
-            `(${timeUntilEnd.seconds}초 남음)`}
+        <span
+          className={`flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+        >
+          <Image
+            src={alarmImg}
+            alt="timer"
+            width={17.5}
+            height={0}
+            quality={100}
+            className="alarm-shake"
+          />
+          {formattedTime}
         </span>
       );
     }
+
+    return null;
   };
 
   const handleChangeProblemOrder = () => {
@@ -331,18 +358,15 @@ export default function ExamProblems(props: DefaultProps) {
             </div>
 
             <div className="mt-3">
-              <span className="font-semibold">
-                시험 시간:{' '}
-                <span className="font-light">
-                  {formatDateToYYMMDDHHMM(examProblemsInfo.testPeriod.start)} ~{' '}
-                  {formatDateToYYMMDDHHMM(examProblemsInfo.testPeriod.end)}{' '}
-                  {timeUntilEnd?.isPast ? (
-                    <span className="text-red-500 font-bold">(종료)</span>
-                  ) : (
-                    renderRemainingTime()
-                  )}
+              {timeUntilEnd?.isPast ? (
+                <span
+                  className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+                >
+                  종료
                 </span>
-              </span>
+              ) : (
+                <>{renderRemainingTime()}</>
+              )}
             </div>
           </div>
 

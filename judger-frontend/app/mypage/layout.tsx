@@ -8,7 +8,7 @@ import { fetchCurrentUserInfo } from '@/utils/fetchCurrentUserInfo';
 import { OPERATOR_ROLES } from '../../constants/role';
 import MyPagelayoutLoadingSkeleton from './components/MyPagelayoutLoadingSkeleton';
 
-export default function MyPagelayout({
+export default function MyPageLayout({
   children,
 }: {
   children: React.ReactNode;

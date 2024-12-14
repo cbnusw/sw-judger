@@ -1,6 +1,5 @@
 'use client';
 
-import MyDropzone from '@/app/components/MyDropzone';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -159,8 +158,8 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
   ] = useState(false);
   const [isSubmitBtnEnable, setIsSubmitBtnEnable] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const currentTime = new Date();
   const contestStartTime = new Date(
     contestProblemInfo?.parentId.testPeriod.start,
   );
@@ -169,6 +168,14 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
   const submitLanguageButtonRef = useRef<HTMLButtonElement>(null);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleGoToContestProblem = () => {
     router.push(`/contests/${cid}/problems/${problemId}`);
@@ -187,6 +194,12 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
 
   const handleSubmitContestProblemCode = async () => {
     if (isSubmitting) return;
+
+    if (currentTime >= contestEndTime) {
+      addToast('warning', '종료된 대회예요.');
+      router.push(`/contests/${cid}`);
+      return;
+    }
 
     setIsSubmitting(true); // 제출 시작
 
