@@ -1,6 +1,5 @@
 'use client';
 
-import MyDropzone from '@/app/components/MyDropzone';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -106,14 +105,22 @@ export default function SubmitExamProblemCode(props: DefaultProps) {
   ] = useState(false);
   const [isSubmitBtnEnable, setIsSubmitBtnEnable] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const currentTime = new Date();
   const examStartTime = new Date(examProblemInfo?.parentId.testPeriod.start);
   const examEndTime = new Date(examProblemInfo?.parentId.testPeriod.end);
 
   const submitLanguageButtonRef = useRef<HTMLButtonElement>(null);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleGoToExamProblem = () => {
     router.push(`/exams/${eid}/problems/${problemId}`);
@@ -132,6 +139,12 @@ export default function SubmitExamProblemCode(props: DefaultProps) {
 
   const handleSubmitExamProblemCode = async () => {
     if (isSubmitting) return;
+
+    if (currentTime >= examEndTime) {
+      addToast('warning', '종료된 시험이에요.');
+      router.push(`/exams/${eid}`);
+      return;
+    }
 
     setIsSubmitting(true); // 제출 시작
 

@@ -21,6 +21,71 @@
   box-shadow: 0px 0px 18px 0px rgba(0, 27, 55, 0.1),
     0 0 36px 0 rgba(0, 27, 55, 0.1);
 }
+.bell-shake {
+  display: inline-block;
+  animation: bell-shake-and-pause 2.75s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes bell-shake-and-pause {
+  0%,
+  60% {
+    transform: rotate(0deg);
+  }
+  6%,
+  18%,
+  30%,
+  42% {
+    transform: rotate(-10deg);
+  }
+  12%,
+  24%,
+  36% {
+    transform: rotate(10deg);
+  }
+  48% {
+    transform: rotate(5deg);
+  }
+  54% {
+    transform: rotate(-5deg);
+  }
+  57.6%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.alarm-shake {
+  display: inline-block;
+  animation: alarm-shake-and-pause 1.5s ease-in-out infinite;
+}
+
+@keyframes alarm-shake-and-pause {
+  0% {
+    transform: rotate(0deg);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: rotate(-10deg);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+  /* 마지막 50% 동안 멈추는 상태 유지 */
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
 
 .pagination-arrow-btn {
   font-size: 17px;
