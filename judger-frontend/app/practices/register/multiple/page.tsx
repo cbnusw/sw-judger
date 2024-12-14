@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import axiosInstance from '@/utils/axiosInstance';
 import React, { useEffect, useState } from 'react';
 import { ProblemInfo, RegisterProblemParams } from '@/types/problem';
@@ -26,15 +28,7 @@ const fetchPractices = async ({ queryKey }: any) => {
   return response.data;
 };
 
-interface DefaultProps {
-  params: {
-    cid: string;
-  };
-}
-
-export default function RegisterMultiplePracticeProblem(props: DefaultProps) {
-  const cid = props.params.cid;
-
+export default function RegisterMultiplePracticeProblem() {
   const updateUserInfo = userInfoStore((state: any) => state.updateUserInfo);
 
   const addToast = ToastInfoStore((state) => state.addToast);
@@ -130,24 +124,22 @@ export default function RegisterMultiplePracticeProblem(props: DefaultProps) {
 
       reader.readAsArrayBuffer(file);
     },
-    accept: {
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
-        '.xlsx',
-      ],
-    },
+    // accept: {
+    //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
+    //     '.xlsx',
+    //   ],
+    // },
     multiple: false,
   });
 
   const handleBulkRegister = async () => {
     let hasMissingData = false;
-
     // 데이터 검증
     uploadedProblemsInfo.forEach((problem) => {
       if (!problem.content || !problem.ioSet || problem.ioSet.length === 0) {
         hasMissingData = true;
       }
     });
-
     if (hasMissingData) {
       addToast(
         'warning',
@@ -155,13 +147,10 @@ export default function RegisterMultiplePracticeProblem(props: DefaultProps) {
       );
       return;
     }
-
     // 모달 창 표시
     setOpenUploadingPracticeProblemsModal('default');
-
     try {
       let successCount = 0;
-
       // 등록 요청을 순차적으로 처리
       for (const problem of uploadedProblemsInfo) {
         try {
@@ -171,22 +160,18 @@ export default function RegisterMultiplePracticeProblem(props: DefaultProps) {
               ...problem,
             },
           );
-
           // 성공 시 성공 카운트 증가
           successCount++;
         } catch (error) {
           console.error(`문제 "${problem.title}" 등록 중 에러 발생:`, error);
           addToast('error', `문제 "${problem.title}" 등록 실패.`);
         }
-
         // 각 요청 간의 지연 추가 (500ms)
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
-
       // 모든 요청 완료 후
       setUploadedProblemsInfo([]); // 상태 초기화
       addToast('success', `문제 ${successCount}개를 등록했어요.`);
-
       queryClient.invalidateQueries({
         queryKey: ['practiceList'],
       });
@@ -346,7 +331,7 @@ export default function RegisterMultiplePracticeProblem(props: DefaultProps) {
 
         {uploadedProblemsInfo.length !== 0 ? (
           <div>
-            <label
+            <div
               {...getRootProps()}
               className="mt-4 flex justify-between items-center pl-4 pr-2 py-[0.4rem] bg-white border-none outline outline-1 outline-[#e6e8ea] hover:outline-2 hover:outline-[#a3c6fa] hover:outline-offset-[-1px] rounded-[7px] duration-100"
             >
@@ -398,7 +383,7 @@ export default function RegisterMultiplePracticeProblem(props: DefaultProps) {
               >
                 삭제
               </button>
-            </label>
+            </div>
 
             <div className="mt-10">
               <div className="flex items-center gap-x-[0.6rem] mb-3">

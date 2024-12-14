@@ -384,7 +384,7 @@ export default function RegisterMultipleExamProblem(props: DefaultProps) {
 
         {uploadedProblemsInfo.length !== 0 ? (
           <div>
-            <label
+            <div
               {...getRootProps()}
               className="mt-4 flex justify-between items-center pl-4 pr-2 py-[0.4rem] bg-white border-none outline outline-1 outline-[#e6e8ea] hover:outline-2 hover:outline-[#a3c6fa] hover:outline-offset-[-1px] rounded-[7px] duration-100"
             >
@@ -436,7 +436,7 @@ export default function RegisterMultipleExamProblem(props: DefaultProps) {
               >
                 삭제
               </button>
-            </label>
+            </div>
 
             <div className="mt-10">
               <div className="flex items-center gap-x-[0.6rem] mb-3">
