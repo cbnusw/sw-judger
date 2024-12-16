@@ -111,7 +111,7 @@ export default function UsersExamSubmits(props: DefaultProps) {
       '#': index + 1,
       학번: submitInfo.user.no,
       이름: submitInfo.user.name,
-      문제명: submitInfo.problem.title,
+      문제명: submitInfo.problem?.title,
       결과: getCodeSubmitResultTypeDescription(submitInfo.result.type), // 결과 처리 로직 필요
       메모리: `${(submitInfo.result.memory / 1048576).toFixed(2)} MB`, // 메모리 단위 변환
       시간: `${submitInfo.result.time} ms`,
