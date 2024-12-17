@@ -274,6 +274,11 @@ export default function ExamDetail(props: DefaultProps) {
     );
     if (!userResponse) return;
 
+    if (currentTime >= examStartTime) {
+      addToast('warning', '시험 시작 후에는 삭제할 수 없어요.');
+      return;
+    }
+
     deleteExamMutation.mutate(eid);
   };
 
@@ -438,7 +443,7 @@ export default function ExamDetail(props: DefaultProps) {
   if (!isConfirmPassword || isPending) return <ExamDetailPageLoadingSkeleton />;
 
   return (
-    <div className="mt-6 mb-24 px-1 2lg:px-0 overflow-x-auto">
+    <div className="mt-6 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
         <div className="flex flex-col gap-8">
           <p className="text-2xl font-bold tracking-tight">{examInfo.title}</p>
