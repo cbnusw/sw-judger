@@ -489,7 +489,7 @@ export default function ContestDetail(props: DefaultProps) {
   if (isPending) return <ContestDetailPageLoadingSkeleton />;
 
   return (
-    <div className="mt-6 mb-24 px-1 2lg:px-0 overflow-x-auto">
+    <div className="mt-6 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
         <div className="flex flex-col gap-8">
           <p className="text-2xl font-bold tracking-tight">
