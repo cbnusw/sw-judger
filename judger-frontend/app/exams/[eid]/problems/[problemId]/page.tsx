@@ -179,7 +179,7 @@ export default function ExamProblemDetail(props: DefaultProps) {
                 <span className="3md:hidden text-gray-500">• </span>
                 시간 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span>{examProblemInfo.options.maxRealTime / 1000}</span>초
                 </span>
               </span>
@@ -188,7 +188,7 @@ export default function ExamProblemDetail(props: DefaultProps) {
                 <span className="3md:hidden text-gray-500">• </span>
                 메모리 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span className="mr-1">
                     {examProblemInfo.options.maxMemory}
                   </span>

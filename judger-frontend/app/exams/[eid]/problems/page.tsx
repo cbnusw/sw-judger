@@ -357,7 +357,7 @@ export default function ExamProblems(props: DefaultProps) {
               )}
             </div>
 
-            <div className="mt-3">
+            <div className="mt-3 3md:h-[1.5rem]">
               {timeUntilEnd?.isPast ? (
                 <span
                   className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}

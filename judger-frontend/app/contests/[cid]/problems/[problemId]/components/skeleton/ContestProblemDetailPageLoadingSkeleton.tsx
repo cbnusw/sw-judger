@@ -13,7 +13,12 @@ export default function ContestProblemDetailPageLoadingSkeleton() {
             <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
             <div className="skeleton w-[7.5rem]" />
           </div>
-          <div className="skeleton w-[17.5rem]" />
+          <div className="flex gap-x-2">
+            <div
+              className="skeleton w-[12.5rem] h-[1.5rem]"
+              style={{ borderRadius: '9999px' }}
+            />
+          </div>
         </div>
       </div>
 

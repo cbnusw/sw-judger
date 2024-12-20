@@ -248,7 +248,7 @@ export default function ContestRankList(props: DefaultProps) {
           <>
             <div className="flex mt-4 justify-between items-center">
               <span>
-                총:{' '}
+                총:&nbsp;
                 <span>
                   <span className="text-red-500">
                     {contestRankListInfo.length}

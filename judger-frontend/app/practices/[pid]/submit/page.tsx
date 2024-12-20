@@ -287,7 +287,7 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
               <span className="font-semibold">
                 시간 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span>{practiceInfo.options.maxRealTime / 1000}</span>초
                 </span>
               </span>
@@ -295,7 +295,7 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
               <span className="font-semibold">
                 메모리 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   {practiceInfo.options.maxMemory}
                 </span>
                 MB

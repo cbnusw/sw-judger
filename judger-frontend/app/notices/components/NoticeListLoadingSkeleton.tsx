@@ -10,9 +10,8 @@ export default function NoticeListLoadingSkeleton() {
         <div className="skeleton h-[2.15rem]" />
       </div>
 
-      <div className="mt-3 flex justify-between">
-        <div className="skeleton w-[5rem] h-[2rem]"></div>
-        <div className="skeleton w-[8rem] h-[2rem]"></div>
+      <div className="mt-3">
+        <div className="skeleton w-[15rem] h-[2rem]"></div>
       </div>
     </>
   );

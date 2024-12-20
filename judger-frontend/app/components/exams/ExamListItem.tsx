@@ -21,9 +21,9 @@ export default function ExamListItem(props: ExamProps) {
       </p>
       <div>
         <span className="text-xs">
-          <span className="font-semibold">시험 시간</span> :{' '}
+          <span className="font-semibold">시험 시간</span> :&nbsp;
           <span className="font-light">
-            {formatDateToYYMMDDHHMM(examInfo.testPeriod.start)} ~{' '}
+            {formatDateToYYMMDDHHMM(examInfo.testPeriod.start)} ~&nbsp;
             {formatDateToYYMMDDHHMM(examInfo.testPeriod.end)}
           </span>
         </span>

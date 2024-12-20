@@ -400,7 +400,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
               <span className="font-semibold">
                 점수:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span className="font-mono font-semibold text-blue-600">
                     {contestProblemInfo.score}
                   </span>
@@ -411,7 +411,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
               <span className="font-semibold">
                 시간 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span>{contestProblemInfo.options.maxRealTime / 1000}</span>초
                 </span>
               </span>
@@ -419,7 +419,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
               <span className="font-semibold">
                 메모리 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   {contestProblemInfo.options.maxMemory}
                 </span>
                 MB
@@ -541,7 +541,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
           </div>
         </div>
 
-        <div className="mt-5 pb-2 flex justify-end gap-3">
+        <div className="pb-2 flex justify-end gap-3">
           <button
             onClick={handleGoToContestProblem}
             className="px-4 py-[0.5rem] rounded-[7px] font-light"
