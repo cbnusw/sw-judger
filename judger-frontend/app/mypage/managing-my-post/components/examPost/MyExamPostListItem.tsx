@@ -35,7 +35,7 @@ export default function MyExamPostListItem(props: MyExamPostListItemProps) {
         {examInfo.course}
       </td>
       <td className="px-2 text-[#4e5968]">
-        {formatDateToYYMMDDHHMM(examInfo.testPeriod.start)} ~{' '}
+        {formatDateToYYMMDDHHMM(examInfo.testPeriod.start)} ~&nbsp;
         {formatDateToYYMMDDHHMM(examInfo.testPeriod.end)}
       </td>
       <td className="px-2 text-[#4e5968]">

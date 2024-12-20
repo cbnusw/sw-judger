@@ -450,10 +450,10 @@ export default function ExamDetail(props: DefaultProps) {
           <div className="h-fit 3md:h-[2rem] flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
             <span className="font-semibold">
               <span className="3md:hidden text-gray-500">• </span>
-              시험 시간:{' '}
+              시험 시간:&nbsp;
               <span className="font-light">
-                {formatDateToYYMMDDHHMM(examInfo.testPeriod.start)} ~{' '}
-                {formatDateToYYMMDDHHMM(examInfo.testPeriod.end)}{' '}
+                {formatDateToYYMMDDHHMM(examInfo.testPeriod.start)} ~&nbsp;
+                {formatDateToYYMMDDHHMM(examInfo.testPeriod.end)}&nbsp;
               </span>
             </span>
             <span>
@@ -554,7 +554,7 @@ export default function ExamDetail(props: DefaultProps) {
                 <>
                   <div className="flex flex-col gap-1 text-center">
                     <div className="text-[#777] text-xs">
-                      시험 시작 전까지만{' '}
+                      시험 시작 전까지만&nbsp;
                       <span className="text-red-500">응시 취소가 가능</span>
                       합니다.
                     </div>
@@ -567,7 +567,7 @@ export default function ExamDetail(props: DefaultProps) {
                 <>
                   <div className="flex flex-col gap-1 text-center">
                     <div className="text-[#777] text-xs">
-                      시험 시작 후에도{' '}
+                      시험 시작 후에도&nbsp;
                       <span className="text-blue-500">응시가 가능</span>
                       합니다.
                     </div>

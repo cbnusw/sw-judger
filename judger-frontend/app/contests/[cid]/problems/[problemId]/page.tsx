@@ -254,7 +254,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
                 <span className="3md:hidden text-gray-500">• </span>
                 점수:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span className="font-mono font-semibold text-blue-600">
                     {contestProblemInfo.score}
                   </span>
@@ -266,7 +266,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
                 <span className="3md:hidden text-gray-500">• </span>
                 시간 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span>{contestProblemInfo.options.maxRealTime / 1000}</span>초
                 </span>
               </span>
@@ -275,7 +275,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
                 <span className="3md:hidden text-gray-500">• </span>
                 메모리 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span className="mr-1">
                     {contestProblemInfo.options.maxMemory}
                   </span>

@@ -11,10 +11,15 @@ export default function ExamProblemDetailPageLoadingSkeleton() {
             <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
             <div className="skeleton w-[7.5rem]" />
           </div>
-          <div className="flex gap-x-2 h-[1.25rem]">
-            <div className="skeleton w-[12.5rem]" />
-            <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
-            <div className="skeleton w-[12.5rem]" />
+          <div className="flex gap-x-2">
+            <div
+              className="skeleton w-[12.5rem] h-[1.5rem]"
+              style={{ borderRadius: '9999px' }}
+            />
+            <div
+              className="skeleton w-[12.5rem] h-[1.5rem]"
+              style={{ borderRadius: '9999px' }}
+            />
           </div>
         </div>
       </div>

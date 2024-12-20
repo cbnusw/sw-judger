@@ -498,11 +498,12 @@ export default function ContestDetail(props: DefaultProps) {
           <div className="h-fit 3md:h-[2rem] flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
             <span className="font-semibold">
               <span className="3md:hidden text-gray-500">• </span>
-              참가신청 기간:{' '}
+              참가신청 기간:&nbsp;
               <span className="font-light">
                 {contestInfo.applyingPeriod ? (
                   <>
-                    {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.start)} ~{' '}
+                    {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.start)}{' '}
+                    ~&nbsp;
                     {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.end)}
                   </>
                 ) : (
@@ -513,10 +514,10 @@ export default function ContestDetail(props: DefaultProps) {
             <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
             <span className="flex items-center font-semibold">
               <span className="3md:hidden text-gray-500">• </span>
-              대회 시간:{' '}
+              대회 시간:&nbsp;
               <span className="flex items-center gap-x-2 font-light">
-                {formatDateToYYMMDDHHMM(contestInfo.testPeriod.start)} ~{' '}
-                {formatDateToYYMMDDHHMM(contestInfo.testPeriod.end)}{' '}
+                {formatDateToYYMMDDHHMM(contestInfo.testPeriod.start)} ~&nbsp;
+                {formatDateToYYMMDDHHMM(contestInfo.testPeriod.end)}&nbsp;
               </span>
             </span>
             <span>
@@ -531,7 +532,7 @@ export default function ContestDetail(props: DefaultProps) {
             <span>{renderRemainingTime()}</span>
             <span className="ml-0 font-semibold 3md:ml-auto">
               <span className="3md:hidden text-gray-500">• </span>
-              작성자:{' '}
+              작성자:&nbsp;
               <span className="font-light">{contestInfo.writer.name}</span>
             </span>
           </div>
@@ -619,7 +620,7 @@ export default function ContestDetail(props: DefaultProps) {
               {isEnrollContest ? (
                 <div className="flex flex-col gap-1 text-center">
                   <div className="text-[#777] text-xs">
-                    대회 시작 전까지만{' '}
+                    대회 시작 전까지만&nbsp;
                     <span className="text-red-500">신청 취소가 가능</span>
                     합니다.
                   </div>
@@ -630,7 +631,7 @@ export default function ContestDetail(props: DefaultProps) {
               ) : (
                 <div className="flex flex-col gap-1 text-center">
                   <div className="text-[#777] text-xs">
-                    대회 시작 후에는{' '}
+                    대회 시작 후에는&nbsp;
                     <span className="text-red-500">신청이 불가능</span>
                     합니다.
                   </div>
@@ -648,7 +649,7 @@ export default function ContestDetail(props: DefaultProps) {
           <p className="text-2xl font-semibold">참가자</p>
           <div className="flex mt-4 justify-between items-center">
             <span>
-              신청자 수:{' '}
+              신청자 수:&nbsp;
               <span className="text-red-500">
                 {contestInfo.contestants.length}
               </span>

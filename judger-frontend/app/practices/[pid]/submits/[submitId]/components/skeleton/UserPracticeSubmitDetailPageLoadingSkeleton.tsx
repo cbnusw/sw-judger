@@ -2,17 +2,10 @@ import UserPracticeSubmitDetailCodeLoadingSkeleton from './UserPracticeSubmitDet
 
 export default function UserPracticeSubmitDetailPageLoadingSkeleton() {
   return (
-    <div className="mt-6 mb-24 px-5 2lg:px-0 overflow-x-auto">
+    <div className="mt-8 mb-24 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[60rem] mx-auto">
-        <div className="flex justify-end gap-x-2 pb-3">
-          <div
-            className="skeleton w-[5rem] h-[2.15rem] "
-            style={{ borderRadius: '0.35rem' }}
-          />
-          <div
-            className="skeleton w-[6rem] h-[2.15rem] "
-            style={{ borderRadius: '0.35rem' }}
-          />
+        <div className="flex justify-between items-center gap-x-2 pb-3">
+          <div className="skeleton w-[4rem] h-[1.25rem]" />
         </div>
 
         <div className="border-y border-[#e4e4e4] border-t-2 border-t-gray-400">

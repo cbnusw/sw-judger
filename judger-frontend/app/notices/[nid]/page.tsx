@@ -116,7 +116,7 @@ export default function NoticeDetail(props: DefaultProps) {
           <div className="flex justify-between pb-3 border-b border-gray-300">
             <div className="flex gap-3">
               <span className="font-semibold">
-                작성일:{' '}
+                작성일:&nbsp;
                 <span className="font-light">
                   {formatDateToYYMMDDHHMM(noticeInfo.createdAt)}
                 </span>
@@ -124,7 +124,7 @@ export default function NoticeDetail(props: DefaultProps) {
             </div>
             <div className="flex gap-3">
               <span className="font-semibold">
-                작성자:{' '}
+                작성자:&nbsp;
                 <span className="font-light">{noticeInfo.writer.name}</span>
               </span>
             </div>

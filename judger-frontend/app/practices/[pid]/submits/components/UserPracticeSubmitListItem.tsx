@@ -63,14 +63,16 @@ export default function UserPracticeSubmitListItem({
             <span className="text-[#4e5968]">
               {(personalUserPracticeSubmitInfo.result.memory / 1048576).toFixed(
                 2,
-              )}{' '}
+              )}
+              &nbsp;
             </span>
             <span className="ml-[-1px] text-red-500">MB</span>
           </td>
           <td className="px-2">
             <span className="text-[#4e5968]">
-              {personalUserPracticeSubmitInfo.result.time}{' '}
-            </span>{' '}
+              {personalUserPracticeSubmitInfo.result.time}&nbsp;
+            </span>
+            &nbsp;
             <span className="ml-[-1px] text-red-500">ms</span>
           </td>
         </>

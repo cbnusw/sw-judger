@@ -39,7 +39,7 @@ export default function ContestListItem(props: ContestListItemProps) {
         )}
       </td>
       <td className="px-2 text-[#4e5968]">
-        {formatDateToYYMMDDHHMM(contestInfo.testPeriod?.start)} ~{' '}
+        {formatDateToYYMMDDHHMM(contestInfo.testPeriod?.start)} ~&nbsp;
         {formatDateToYYMMDDHHMM(contestInfo.testPeriod?.end)}
       </td>
       <td className="px-2 text-[#4e5968]">

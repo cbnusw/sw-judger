@@ -458,7 +458,7 @@ export default function RegisterMultipleContestProblem(props: DefaultProps) {
             <div className="py-2">
               <div className="flex mt-4 justify-between items-center">
                 <span className="text-[#6d7683] text-[0.825rem] font-light">
-                  총{' '}
+                  총&nbsp;
                   <span className="text-[#6d7683]">{problemsInfo.length}</span>
                   개
                 </span>

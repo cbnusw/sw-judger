@@ -133,7 +133,7 @@ export default function PracticeProblem(props: DefaultProps) {
             <div className="flex flex-col 3md:flex-row gap-1 3md:gap-3">
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">• </span>
-                시간 제한:{' '}
+                시간 제한:&nbsp;
                 <span className="font-mono font-light">
                   {practiceProblemInfo.options.maxRealTime / 1000}초
                 </span>
@@ -141,7 +141,7 @@ export default function PracticeProblem(props: DefaultProps) {
               <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">• </span>
-                메모리 제한:{' '}
+                메모리 제한:&nbsp;
                 <span className="font-mono font-light">
                   <span className="mr-1">
                     {practiceProblemInfo.options.maxMemory}
@@ -152,7 +152,7 @@ export default function PracticeProblem(props: DefaultProps) {
               <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">• </span>
-                난이도:{' '}
+                난이도:&nbsp;
                 <span className="font-mono font-light">
                   <span className="mr-1 font-mono font-semibold text-blue-600">
                     {practiceProblemInfo.score}
@@ -163,7 +163,7 @@ export default function PracticeProblem(props: DefaultProps) {
             <div className="flex gap-3">
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">• </span>
-                작성자:{' '}
+                작성자:&nbsp;
                 <span className="font-light">
                   {practiceProblemInfo.writer.name}
                 </span>

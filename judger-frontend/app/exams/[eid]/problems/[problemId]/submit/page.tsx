@@ -324,7 +324,7 @@ export default function SubmitExamProblemCode(props: DefaultProps) {
               <span className="font-semibold">
                 시간 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   <span>{examProblemInfo.options.maxRealTime / 1000}</span>초
                 </span>
               </span>
@@ -332,7 +332,7 @@ export default function SubmitExamProblemCode(props: DefaultProps) {
               <span className="font-semibold">
                 메모리 제한:
                 <span className="font-mono font-light">
-                  {' '}
+                  &nbsp;
                   {examProblemInfo.options.maxMemory}
                 </span>
                 MB
@@ -458,7 +458,7 @@ export default function SubmitExamProblemCode(props: DefaultProps) {
           </div>
         </div>
 
-        <div className="mt-5 pb-2 flex justify-end gap-3">
+        <div className="pb-2 flex justify-end gap-3">
           <button
             onClick={handleGoToExamProblem}
             className="px-4 py-[0.5rem] rounded-[7px] font-light"

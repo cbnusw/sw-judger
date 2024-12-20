@@ -1,10 +1,28 @@
 export default function UserPracticeSubmitPageLoadingSkeleton() {
   return (
     <div className="mt-6 mb-24 w-[21rem] xs:w-[90%] xl:w-[73%] mx-auto">
-      <div className="flex flex-col pb-7">
-        <div className="flex items-end gap-x-2">
+      <div className="flex flex-col pb-3">
+        <div className="flex items-center gap-x-2">
           <div className="skeleton w-[13rem] h-[3rem]" />
-          <div className="skeleton w-[22.5rem] h-[2rem]" />
+          <div
+            className="skeleton w-[22.5rem] h-[2rem]"
+            style={{ borderRadius: '9999px' }}
+          />
+        </div>
+        <div className="mt-7 flex justify-between items-center gap-x-4">
+          <div className="skeleton w-[7rem] h-[1.25rem]" />
+          <div className="flex items-center gap-x-3">
+            <div className="flex gap-x-2">
+              <div
+                className="skeleton w-[4.75rem] h-[2.15rem] "
+                style={{ borderRadius: '0.35rem' }}
+              />
+              <div
+                className="skeleton w-[5rem] h-[2.15rem] "
+                style={{ borderRadius: '0.35rem' }}
+              />
+            </div>
+          </div>
         </div>
       </div>
 

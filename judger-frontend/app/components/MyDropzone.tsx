@@ -377,7 +377,7 @@ function MyDropzone(props: MyDropzoneProps) {
               <p className="text-gray-500 flex">
                 선택된 파일:
                 <pre className="text-blue-500 font-bold">
-                  {' '}
+                  &nbsp;
                   {fileNameList[0]}
                 </pre>
               </p>
