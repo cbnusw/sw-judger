@@ -3,13 +3,13 @@
 ###### Special Thanks To Prof. K.M.Ahn
 ***
 
-###### Specs - Node, Express, Angular, Kafka, Zookeeper, MongoDB, Docker, Nginx, PM2
+###### Specs - Node, Express, Next.js, Kafka, Zookeeper, MongoDB, Docker, Nginx, PM2
 
 ***
 
 ## INFO
 
-#### 충북대학교 산하 소프트웨어중심 사업단에서 학생들의 소프트웨어 실력 향상 및 대회, 과제 제출용으로 제작한 OJ(Online Judger) 입니다. Judger 엔진은 중국 Qingdao 대학의 OJ 엔진을 사용했으며 웹과 서버는 독자 개발입니다. 웹은 Angular 기반, API서버는 Express 기반입니다. 과부하를 줄이기 위해 5대의 Judger 서버를 도커로 묶었으며 Apache Kafka를 통해 분산처리 합니다. Kafka는 4개의 파티션을 사용하며 1대는 엔진 다운 시 리밸런싱을 위한 보조 서버입니다.
+#### 충북대학교 산하 소프트웨어중심 사업단에서 학생들의 소프트웨어 실력 향상 및 대회, 과제 제출용으로 제작한 OJ(Online Judger) 입니다. Judger 엔진은 중국 Qingdao 대학의 OJ 엔진을 사용했으며 웹과 서버는 독자 개발입니다. 웹은 Next.js 기반, API서버는 Express 기반입니다. 과부하를 줄이기 위해 5대의 Judger 서버를 도커로 묶었으며 Apache Kafka를 통해 분산처리 합니다. Kafka는 4개의 파티션을 사용하며 1대는 엔진 다운 시 리밸런싱을 위한 보조 서버입니다.
 
 ## 실행법
 
@@ -32,7 +32,7 @@
 - 만약 없거나 파티션의 수가 맞지 않는다면 수정한다.
 - 파티션 수정 명령어: --alter, 파티션 생성 명령어: --create, 부트스트랩서버 주소: kafka:9092
 - 수정이 일어나고 난 후엔 API서버와 Judger를 다시 실행시켜준다. Nodemon 환경이기에 변경점 수정 후 저장해주면 재시작된다.
-6. localhost:4200으로 접속한다.
+6. localhost:3000 접속한다.
 
 ### 배포버전
 
