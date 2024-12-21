@@ -9,6 +9,8 @@ interface UserScoreInfoListItemProps {
   contestRankInfo: ContestRankInfo;
   totalScore: number;
   totalPenalty: number;
+  problemPenalties: number[];
+  minPenaltiesPerProblem: number[];
 }
 
 export default function UserScoreInfoListItem({
@@ -17,91 +19,101 @@ export default function UserScoreInfoListItem({
   contestRankInfo,
   totalScore,
   totalPenalty,
+  problemPenalties,
+  minPenaltiesPerProblem,
 }: UserScoreInfoListItemProps) {
   const router = useRouter();
 
   return (
-    <div className="flex justify-between min-h-[9rem] border border-gray-300 shadow-md">
-      <div className="flex flex-col p-3">
+    <div className="flex justify-between items-center gap-6 w-full p-4 pr-8 bg-[#f2f4f6] rounded-xl">
+      <div className="flex flex-col">
         <div className="flex items-center h-fit">
-          <div className="flex justify-center items-center w-[1.625rem] h-[1.625rem] bg-[#3870e0] rounded-sm">
-            <span className="text-white font-semibold text-base">
-              {ranking}
-            </span>
-          </div>
+          <span className="flex justify-center items-center font-medium bg-[#8c95a0] text-[17px] text-white w-6 h-6 rounded-[7px]">
+            {ranking}
+          </span>
           <div className="ml-2">
-            <span className="text-base">{contestRankInfo.user.name}</span>
+            <span className="text-[17px]">{contestRankInfo.user.name}</span>
             <span className="text-xs text-gray-600">
-              ({contestRankInfo.user.department})
+              ({contestRankInfo.user.department},{' '}
+              {contestRankInfo.user.no.slice(0, 4) +
+                '***' +
+                contestRankInfo.user.no.slice(7)}
+              )
             </span>
           </div>
         </div>
-        <div className="flex flex-wrap mt-5 gap-3">
+        <div className="flex flex-wrap mt-4 gap-2">
           {contestRankInfo.scores.map((score, index) => (
             <div
               key={index}
-              className={`relative flex flex-col justify-center items-center w-[5.5rem] h-[4.5rem] ${
-                score.right ? 'bg-[#3870e0]' : 'bg-[#e0e0e0]'
-              } border ${
-                score.right ? 'border-[#3565c4]' : 'border-[#d3d3d3]'
+              className={`relative flex flex-col justify-center items-center w-[5rem] h-[4.5rem] rounded-lg ${
+                score.right
+                  ? score.right &&
+                    problemPenalties[index] === minPenaltiesPerProblem[index]
+                    ? 'bg-[#1ab394]' // 최소 패널티로 해결한 경우
+                    : 'bg-[#3a8af9]' // 정답이지만 최소 패널티는 아닌 경우
+                  : score.tries > 0
+                  ? 'bg-[#ed5564]'
+                  : 'bg-[#e1e3e7]'
               }`}
             >
-              <div className="absolute top-[0.175rem] left-[0.175rem]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="5"
-                  viewBox="0 -960 960 960"
-                  width="5"
-                  fill="white"
-                >
-                  <path d="M480.238-137q-71.145 0-133.868-27.023t-109.12-73.348q-46.398-46.325-73.324-108.826Q137-408.699 137-479.762q0-71.145 27.023-133.868t73.348-109.12q46.325-46.398 108.826-73.324Q408.699-823 479.762-823q71.145 0 133.868 27.023t109.12 73.348q46.398 46.325 73.324 108.826Q823-551.301 823-480.238q0 71.145-27.023 133.868t-73.348 109.12q-46.325 46.398-108.826 73.324Q551.301-137 480.238-137Z" />
-                </svg>
-              </div>
               <div
-                className={`${
-                  score.right ? 'text-white' : 'text-[#3f3f3f]'
-                } text-[0.825rem] font-medium`}
+                className={`absolute top-[-1px] text-center ${
+                  score.right
+                    ? score.right &&
+                      problemPenalties[index] === minPenaltiesPerProblem[index]
+                      ? 'bg-[#009576] text-white' // 최소 패널티로 해결한 경우
+                      : 'bg-[#1c6cdb] text-white' // 정답이지만 최소 패널티는 아닌 경우
+                    : score.tries > 0
+                    ? 'bg-[#cf3746] text-white'
+                    : 'bg-[#d7d9dd] text-[#3f3f3f]'
+                } text-[17px] w-full rounded-t-lg font-medium`}
               >
-                문제 {index + 1}번
+                {String.fromCharCode('A'.charCodeAt(0) + index)}
               </div>
-              <div className="mt-1 flex flex-col text-center">
+              <div className="mt-4 flex flex-col text-center">
                 <span
                   className={`${
-                    score.right ? 'text-white' : 'text-[#3f3f3f]'
-                  } text-[0.7rem]`}
+                    score.right
+                      ? 'text-white'
+                      : score.tries > 0
+                      ? 'text-white'
+                      : 'text-[#3f3f3f]'
+                  } mt-[-0.15rem] text-2xl ${
+                    score.tries === 0 ? 'font-light' : 'font-semibold'
+                  }`}
                 >
-                  시도: {score.tries}회
+                  {score.tries === 0 ? '-' : score.tries}
                 </span>
-                <span
-                  className={`${
-                    score.right ? 'mt-[-0.2rem] text-white' : 'text-[#3f3f3f]'
-                  } text-[0.7rem]`}
-                >
-                  시간: {score.time}분
-                </span>
+
+                {score.right && (
+                  <span
+                    className={`${
+                      score.right
+                        ? 'text-white'
+                        : score.tries > 0
+                        ? 'text-white'
+                        : 'text-[#3f3f3f]'
+                    } mt-[-0.3rem] text-[0.7rem]`}
+                  >
+                    {problemPenalties[index]}
+                  </span>
+                )}
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-around border-l border-gray-300">
-        <div className="flex flex-col w-full text-center bg-[#f7f7f7]">
-          <div className="w-12 3md:w-[4.5rem] flex justify-center items-center text-[0.825rem] font-semibold bg-[#f7f7f7] h-8 border-b border-gray-300">
-            점수
-          </div>
-          <div className="flex justify-center items-center bg-white h-full">
-            {totalScore}
-          </div>
-        </div>
-        <div className="flex flex-col w-full text-center bg-[#f7f7f7]">
-          <div className="w-12 3md:w-[4.5rem] flex justify-center items-center text-[0.825rem] font-semibold bg-[#f7f7f7] h-8 border-b border-l border-gray-300">
-            패널티
-          </div>
-          <div className="flex justify-center items-center bg-white h-full border-l text-red-600">
-            {totalPenalty}
-          </div>
-        </div>
+      <div className="flex flex-col text-center">
+        <span
+          className={`text-3xl ${
+            totalScore > 0 ? 'text-[#3a8af9]' : 'text-[#676a6c]'
+          } font-medium`}
+        >
+          {totalScore}
+        </span>
+        <span className="text-xs text-[#676a6c]">{totalPenalty}</span>
       </div>
     </div>
   );

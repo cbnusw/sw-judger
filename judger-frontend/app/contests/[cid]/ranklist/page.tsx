@@ -134,7 +134,7 @@ export default function ContestRankList(props: DefaultProps) {
 
       return (
         <span
-          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold`}
+          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
         >
           <Image
             src={normalBellImg}
@@ -191,81 +191,81 @@ export default function ContestRankList(props: DefaultProps) {
     <div className="mt-4 mb-24 px-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
         <div className="flex flex-col gap-8">
-          <div className="flex items-center gap-x-2">
-            <div className="flex items-center text-2xl font-bold tracking-tight">
-              <Image
-                src={trophyImg}
-                alt="trophy"
-                width={55}
-                height={0}
-                quality={100}
-                className="fade-in-fast"
-              />
+          <div className="flex justify-between">
+            <div className="flex 3md:flex-row flex-col 3md:items-center gap-2">
+              <div className="flex items-center text-2xl font-bold tracking-tight">
+                <Image
+                  src={trophyImg}
+                  alt="trophy"
+                  width={55}
+                  height={0}
+                  quality={100}
+                  className="fade-in-fast"
+                />
 
-              <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
-                <span className="ml-4 text-[28px] font-semibold tracking-wide">
-                  대회 순위
-                </span>
+                <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
+                  <span className="ml-4 text-[28px] font-semibold tracking-wide">
+                    대회 순위
+                  </span>
+                </div>
+              </div>
+
+              <Link
+                href={`/contests/${cid}`}
+                className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+              >
+                {contestInfo.title}
+              </Link>
+
+              <div className="lift-up">
+                {timeUntilEnd?.isPast ? (
+                  <span
+                    className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+                  >
+                    종료
+                  </span>
+                ) : (
+                  <>{renderRemainingTime()}</>
+                )}
               </div>
             </div>
 
-            <Link
-              href={`/contests/${cid}`}
-              className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
-            >
-              {contestInfo.title}
-            </Link>
-          </div>
-
-          <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-gray-300">
-            <div className="flex flex-col 3md:flex-row gap-2">
-              {shouldShowProblemsButton() && (
-                <button
-                  onClick={handleGoToContestProblems}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
-                >
-                  문제 목록
-                </button>
-              )}
-            </div>
-            <div className="mt-3">
-              {timeUntilEnd?.isPast ? (
-                <span
-                  className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
-                >
-                  종료
-                </span>
-              ) : (
-                <>{renderRemainingTime()}</>
-              )}
+            <div className="flex items-center gap-x-2">
+              <div className="flex flex-col 3md:flex-row gap-2">
+                {shouldShowProblemsButton() && (
+                  <button
+                    onClick={handleGoToContestProblems}
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                  >
+                    문제 목록
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
-        {contestRankListInfo.length === 0 ? (
-          <EmptyUserScoreInfoListItem />
-        ) : (
-          <>
-            <div className="flex mt-4 justify-between items-center">
-              <span>
-                총:&nbsp;
-                <span>
-                  <span className="text-red-500">
-                    {contestRankListInfo.length}
-                  </span>
-                  명
+        <div className="mt-6">
+          {contestRankListInfo.length === 0 ? (
+            <EmptyUserScoreInfoListItem />
+          ) : (
+            <>
+              <div className="mt-7 flex items-center gap-x-[0.6rem] mb-3">
+                <span className="font-semibold text-[19px] text-[#333d4b]">
+                  제출자
                 </span>
-              </span>
-            </div>
+                <span className="text-[#6d7683] text-[0.825rem] font-light">
+                  {contestRankListInfo.length}명
+                </span>
+              </div>
 
-            <div className="my-4 pb-5">
               <UserScoreInfoList
                 cid={cid}
                 contestRankListInfo={contestRankListInfo}
               />
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
