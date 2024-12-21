@@ -27,7 +27,7 @@ export default function Profile() {
           <a
             href="https://sw7up.cbnu.ac.kr/my-page/password"
             target="_blank"
-            className="flex justify-center items-center text-black border w-24 h-7 duration-200 hover:border-black"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
           >
             비밀번호 변경
           </a>
@@ -38,7 +38,7 @@ export default function Profile() {
           <a
             href="https://sw7up.cbnu.ac.kr/my-page/info"
             target="_blank"
-            className="flex justify-center items-center text-black border w-24 h-7 duration-200 hover:border-black"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
           >
             개인정보 변경
           </a>
