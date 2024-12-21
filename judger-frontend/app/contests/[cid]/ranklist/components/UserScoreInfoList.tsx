@@ -11,37 +11,62 @@ export default function UserScoreInfoList({
   cid,
   contestRankListInfo,
 }: UserScoreInfoListProps) {
-  // 함수: ContestRankInfo 객체를 받아 totalScore와 totalPenalty를 계산
-  function calculateTotalScoreAndPenalty(contestRankInfo: ContestRankInfo): {
+  function calculateScoresAndPenalties(contestRankInfo: ContestRankInfo): {
     totalScore: number;
     totalPenalty: number;
+    problemPenalties: number[];
   } {
     let totalScore = 0;
     let totalPenalty = 0;
+    const problemPenalties: number[] = [];
 
     contestRankInfo.scores.forEach((score) => {
+      let problemPenalty = 0;
       if (score.right) {
         totalScore += score.score;
-        // 정답을 맞힌 경우에만 시도 횟수에 따른 패널티를 추가합니다.
-        totalPenalty += (score.tries - 1) * 20 + score.time;
+        problemPenalty = (score.tries - 1) * 20 + score.time;
+        totalPenalty += problemPenalty;
       }
+      problemPenalties.push(problemPenalty);
     });
 
-    return { totalScore, totalPenalty };
+    return { totalScore, totalPenalty, problemPenalties };
+  }
+
+  // 각 문제별 최소 패널티 계산
+  const minPenaltiesPerProblem: number[] = [];
+
+  if (contestRankListInfo.length > 0) {
+    const problemCount = contestRankListInfo[0].scores.length;
+    for (let problemIndex = 0; problemIndex < problemCount; problemIndex++) {
+      let minPenalty = Infinity;
+      contestRankListInfo.forEach((contestRankInfo) => {
+        const score = contestRankInfo.scores[problemIndex];
+        if (score.right) {
+          const penalty = (score.tries - 1) * 20 + score.time;
+          minPenalty = Math.min(minPenalty, penalty);
+        }
+      });
+      minPenaltiesPerProblem.push(minPenalty === Infinity ? 0 : minPenalty);
+    }
   }
 
   const rankedContestRankListInfo = contestRankListInfo
     .map((contestRankInfo) => {
-      const { totalScore, totalPenalty } =
-        calculateTotalScoreAndPenalty(contestRankInfo);
-      return { ...contestRankInfo, totalScore, totalPenalty };
+      const { totalScore, totalPenalty, problemPenalties } =
+        calculateScoresAndPenalties(contestRankInfo);
+      return {
+        ...contestRankInfo,
+        totalScore,
+        totalPenalty,
+        problemPenalties,
+      };
     })
-    // 그 다음, 총 점수가 높은 순으로 정렬하고, 점수가 같다면 패널티가 낮은 순으로 정렬합니다.
     .sort((a, b) => {
       if (a.totalScore === b.totalScore) {
-        return a.totalPenalty - b.totalPenalty; // 패널티가 낮은 순
+        return a.totalPenalty - b.totalPenalty;
       }
-      return b.totalScore - a.totalScore; // 점수가 높은 순
+      return b.totalScore - a.totalScore;
     });
 
   return (
@@ -54,6 +79,8 @@ export default function UserScoreInfoList({
           contestRankInfo={contestRankInfo}
           totalScore={contestRankInfo.totalScore}
           totalPenalty={contestRankInfo.totalPenalty}
+          problemPenalties={contestRankInfo.problemPenalties}
+          minPenaltiesPerProblem={minPenaltiesPerProblem}
         />
       ))}
     </div>
