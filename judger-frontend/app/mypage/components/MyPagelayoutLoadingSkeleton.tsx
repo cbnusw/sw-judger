@@ -1,3 +1,5 @@
+import Loading from '@/app/components/Loading';
+
 export default function MyPagelayoutLoadingSkeleton() {
   return (
     <div className="mt-6 px-5 2lg:px-0 overflow-x-auto">
@@ -7,10 +9,24 @@ export default function MyPagelayoutLoadingSkeleton() {
         </div>
         <div className="flex gap-8 mt-10">
           <div className="w-52">
-            <div className="flex flex-col items-start gap-[1.125rem] font-semibold tracking-wide">
-              <div>프로필 정보</div>
-              <div>참가 내역</div>
+            <div className="w-full text-[#4e5968] text-[17px] flex flex-col items-start gap-y-2 font-medium tracking-wide">
+              <button
+                className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start bg-opacity-5'
+                }`}
+              >
+                프로필 정보
+              </button>
+              <button
+                className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start bg-opacity-5'
+                }`}
+              >
+                참가 내역
+              </button>
             </div>
+          </div>
+
+          <div className="h-[22.5rem] flex justify-center items-center ml-5 w-full">
+            <Loading />
           </div>
         </div>
       </div>

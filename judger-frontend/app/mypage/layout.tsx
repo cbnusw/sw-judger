@@ -46,42 +46,36 @@ export default function MyPageLayout({
         </div>
         <div className="flex gap-8 mt-10">
           <div className="w-52">
-            <div className="flex flex-col items-start gap-[1.125rem] font-semibold tracking-wide">
+            <div className="w-full text-[#4e5968] text-[17px] flex flex-col items-start gap-y-2 font-medium tracking-wide">
               <button
                 onClick={() => handleChangeTab(tabNames[0])}
-                className={`${
-                  mypageTabName === tabNames[0]
-                    ? 'text-[#242424] font-bold'
-                    : 'text-[#6e6e6e] hover:text-[#3a8af9]'
-                } `}
+                className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
+                  mypageTabName === tabNames[0] && 'bg-[#022047] bg-opacity-5'
+                }`}
               >
                 프로필 정보
               </button>
               <button
                 onClick={() => handleChangeTab(tabNames[1])}
-                className={`${
-                  mypageTabName === tabNames[1]
-                    ? 'text-[#242424] font-bold'
-                    : 'text-[#6e6e6e] hover:text-[#3a8af9]'
-                } `}
+                className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
+                  mypageTabName === tabNames[1] && 'bg-[#022047] bg-opacity-5'
+                }`}
               >
                 참가 내역
               </button>
               {OPERATOR_ROLES.includes(userInfo.role) && (
                 <button
                   onClick={() => handleChangeTab(tabNames[2])}
-                  className={`${
-                    mypageTabName === tabNames[2]
-                      ? 'text-[#242424] font-bold'
-                      : 'text-[#6e6e6e] hover:text-[#3a8af9]'
-                  } `}
+                  className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
+                    mypageTabName === tabNames[2] && 'bg-[#022047] bg-opacity-5'
+                  }`}
                 >
                   작성글 관리
                 </button>
               )}
             </div>
           </div>
-          <div className="w-full mt-[-0.75rem]">{children}</div>
+          <div className="w-full ml-5 mt-[-0.75rem]">{children}</div>
         </div>
       </div>
     </div>
