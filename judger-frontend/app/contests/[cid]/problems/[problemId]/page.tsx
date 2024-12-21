@@ -251,7 +251,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
           <div className="flex flex-col 3md:flex-row 3md:justify-between gap-1 3md:gap-3 pb-3 border-b border-gray-300">
             <div className="flex flex-col 3md:flex-row gap-1 3md:gap-3">
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">• </span>
+                <span className="3md:hidden text-gray-500">•&nbsp;</span>
                 점수:
                 <span className="font-mono font-light">
                   &nbsp;
@@ -263,7 +263,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
               </span>
               <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">• </span>
+                <span className="3md:hidden text-gray-500">•&nbsp;</span>
                 시간 제한:
                 <span className="font-mono font-light">
                   &nbsp;
@@ -272,7 +272,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
               </span>
               <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">• </span>
+                <span className="3md:hidden text-gray-500">•&nbsp;</span>
                 메모리 제한:
                 <span className="font-mono font-light">
                   &nbsp;
