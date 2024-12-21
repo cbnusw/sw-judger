@@ -176,7 +176,7 @@ export default function ExamDetail(props: DefaultProps) {
 
       return (
         <span
-          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold`}
+          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
         >
           <Image
             src={normalBellImg}
@@ -446,33 +446,36 @@ export default function ExamDetail(props: DefaultProps) {
     <div className="mt-6 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
         <div className="flex flex-col gap-8">
-          <p className="text-2xl font-bold tracking-tight">{examInfo.title}</p>
+          <div className="flex gap-x-2 items-center">
+            <p className="text-2xl font-bold tracking-tight">
+              {examInfo.title}
+            </p>
+            {timeUntilEnd?.isPast ? (
+              <span
+                className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+              >
+                종료
+              </span>
+            ) : (
+              <>{renderRemainingTime()}</>
+            )}
+          </div>
           <div className="h-fit 3md:h-[2rem] flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">• </span>
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               시험 시간:&nbsp;
               <span className="font-light">
                 {formatDateToYYMMDDHHMM(examInfo.testPeriod.start)} ~&nbsp;
                 {formatDateToYYMMDDHHMM(examInfo.testPeriod.end)}&nbsp;
               </span>
             </span>
-            <span>
-              {timeUntilEnd?.isPast && (
-                <span
-                  className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
-                >
-                  종료
-                </span>
-              )}
-            </span>
-            <span>{renderRemainingTime()}</span>
             <span className="ml-0 font-semibold 3md:ml-auto">
-              <span className="3md:hidden text-gray-500">• </span>
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               수업명: <span className="font-light">{examInfo.course}</span>
             </span>
             <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">• </span>
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               작성자: <span className="font-light">{examInfo.writer.name}</span>
             </span>
           </div>

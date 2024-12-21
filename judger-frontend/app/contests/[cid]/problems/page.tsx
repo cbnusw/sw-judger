@@ -262,7 +262,7 @@ export default function ContestProblems(props: DefaultProps) {
 
       return (
         <span
-          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold`}
+          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
         >
           <Image
             src={normalBellImg}
@@ -353,6 +353,18 @@ export default function ContestProblems(props: DefaultProps) {
             >
               {contestProblemsInfo.title}
             </Link>
+
+            <div className="lift-up">
+              {timeUntilEnd?.isPast ? (
+                <span
+                  className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+                >
+                  종료
+                </span>
+              ) : (
+                <>{renderRemainingTime()}</>
+              )}
+            </div>
           </div>
 
           <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-gray-300">
@@ -458,18 +470,6 @@ export default function ContestProblems(props: DefaultProps) {
                     저장하기
                   </button>
                 )}
-            </div>
-
-            <div className="mt-3 3md:h-[1.5rem]">
-              {timeUntilEnd?.isPast ? (
-                <span
-                  className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
-                >
-                  종료
-                </span>
-              ) : (
-                <>{renderRemainingTime()}</>
-              )}
             </div>
           </div>
 

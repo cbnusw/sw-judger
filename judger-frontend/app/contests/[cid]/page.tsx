@@ -239,7 +239,7 @@ export default function ContestDetail(props: DefaultProps) {
 
       return (
         <span
-          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold`}
+          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
         >
           <Image
             src={normalBellImg}
@@ -492,12 +492,24 @@ export default function ContestDetail(props: DefaultProps) {
     <div className="mt-6 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
         <div className="flex flex-col gap-8">
-          <p className="text-2xl font-bold tracking-tight">
-            {contestInfo.title}
-          </p>
+          <div className="flex gap-x-2 items-center">
+            <p className="text-2xl font-bold tracking-tight">
+              {contestInfo.title}
+            </p>
+            {timeUntilEnd?.isPast ? (
+              <span
+                className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+              >
+                종료
+              </span>
+            ) : (
+              <>{renderRemainingTime()}</>
+            )}
+          </div>
+
           <div className="h-fit 3md:h-[2rem] flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">• </span>
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               참가신청 기간:&nbsp;
               <span className="font-light">
                 {contestInfo.applyingPeriod ? (
@@ -513,25 +525,15 @@ export default function ContestDetail(props: DefaultProps) {
             </span>
             <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
             <span className="flex items-center font-semibold">
-              <span className="3md:hidden text-gray-500">• </span>
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               대회 시간:&nbsp;
               <span className="flex items-center gap-x-2 font-light">
                 {formatDateToYYMMDDHHMM(contestInfo.testPeriod.start)} ~&nbsp;
                 {formatDateToYYMMDDHHMM(contestInfo.testPeriod.end)}&nbsp;
               </span>
             </span>
-            <span>
-              {timeUntilEnd?.isPast && (
-                <span
-                  className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
-                >
-                  종료
-                </span>
-              )}
-            </span>
-            <span>{renderRemainingTime()}</span>
             <span className="ml-0 font-semibold 3md:ml-auto">
-              <span className="3md:hidden text-gray-500">• </span>
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               작성자:&nbsp;
               <span className="font-light">{contestInfo.writer.name}</span>
             </span>
@@ -646,15 +648,15 @@ export default function ContestDetail(props: DefaultProps) {
         )}
 
         <div className="mt-8 py-2">
-          <p className="text-2xl font-semibold">참가자</p>
           <div className="flex mt-4 justify-between items-center">
-            <span>
-              신청자 수:&nbsp;
-              <span className="text-red-500">
-                {contestInfo.contestants.length}
+            <div className="mt-4 flex items-center gap-x-[0.6rem]">
+              <span className="font-semibold text-[19px] text-[#333d4b]">
+                신청자
               </span>
-              명
-            </span>
+              <span className="text-[#6d7683] text-[0.825rem] font-light">
+                {contestInfo.contestants.length}명
+              </span>
+            </div>
             <div className="flex gap-3">
               {OPERATOR_ROLES.includes(userInfo.role) && (
                 <button
