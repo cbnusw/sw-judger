@@ -124,7 +124,7 @@ export default function PracticeProblem(props: DefaultProps) {
 
   return (
     <div className="relative mt-6 mb-24 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
           <p className="text-2xl font-bold tracking-tight">
             {practiceProblemInfo.title}
