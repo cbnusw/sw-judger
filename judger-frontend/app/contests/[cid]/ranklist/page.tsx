@@ -197,14 +197,14 @@ export default function ContestRankList(props: DefaultProps) {
                 <Image
                   src={trophyImg}
                   alt="trophy"
-                  width={55}
+                  width={47.5}
                   height={0}
                   quality={100}
                   className="fade-in-fast"
                 />
 
                 <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
-                  <span className="ml-4 text-[28px] font-semibold tracking-wide">
+                  <span className="ml-4 text-2xl font-semibold tracking-wide">
                     대회 순위
                   </span>
                 </div>

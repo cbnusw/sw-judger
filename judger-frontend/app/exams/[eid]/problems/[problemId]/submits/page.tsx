@@ -105,14 +105,14 @@ export default function UserExamSubmits(props: DefaultProps) {
               <Image
                 src={paperImg}
                 alt="paper"
-                width={45}
+                width={42.5}
                 height={0}
                 quality={100}
                 className="fade-in-fast"
               />
 
               <div className="lift-up">
-                <span className="ml-5 text-[28px] font-semibold tracking-wide">
+                <span className="ml-5 text-2xl font-semibold tracking-wide">
                   내 제출 현황
                 </span>
               </div>

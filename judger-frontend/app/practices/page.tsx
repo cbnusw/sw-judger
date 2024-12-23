@@ -35,11 +35,11 @@ export default function Practices() {
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[60rem] mx-auto">
-        <p className="h-16 flex items-center text-[28px] font-semibold tracking-wide">
+        <p className="h-16 flex items-center text-2xl font-semibold tracking-wide">
           <Image
             src={pencilImg}
             alt="pencil"
-            width={45}
+            width={37.5}
             height={0}
             quality={100}
             className="fade-in-fast"
