@@ -44,14 +44,14 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`w-screen z-20 p-2 pl-3 fixed top-0 border-b border-[#e6e8ea] whitespace-nowrap bg-white`}
+      className={`w-screen h-[3.25rem] flex items-center z-20 2lg:p-0 p-2 pl-4 fixed top-0 border-b border-[#e6e8ea] whitespace-nowrap bg-white`}
     >
-      <div className="2lg:w-[60rem] flex justify-between items-center mx-auto">
+      <div className="2lg:w-[61rem] w-full flex justify-between items-center mx-auto">
         <div className="py-2 2md:py-0">
           <Link href="/">
             <div className="flex items-center gap-x-[0.175rem]">
               <Image src={logoImg} alt="logo" width={30} quality={100} />
-              <span className="hidden 2lg:block tracking-tighter text-sm font-semibold text-[#333]">
+              <span className="tracking-tighter text-sm font-bold text-[#333]">
                 SW Online Judge
               </span>
             </div>
@@ -139,9 +139,19 @@ export default function Navbar() {
           }}
           className={`block 2md:hidden px-[0.6rem] py-3 ml-auto mr-[0.1rem] rounded-full focus:outline-none text-center`}
         >
-          <div className="w-[1.1rem] h-[2px] bg-[#262626] mb-[4px]"></div>
-          <div className="w-[1.1rem] h-[2px] bg-[#262626] mb-[4px]"></div>
-          <div className="w-[1.1rem] h-[2px] bg-[#262626]"></div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={24}
+            height={24}
+            viewBox="0 0 24 24"
+            className="line-icon"
+          >
+            <path
+              fill="#B0B8C1"
+              d="M4.118 6.2h16a1.2 1.2 0 100-2.4h-16a1.2 1.2 0 100 2.4m16 4.6h-16a1.2 1.2 0 100 2.4h16a1.2 1.2 0 100-2.4m0 7h-16a1.2 1.2 0 100 2.4h16a1.2 1.2 0 100-2.4"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
           <div
             className={`absolute top-0 ${rightPos} h-screen w-full bg-white border opacity-95 transition-all duration-300 cursor-default`}
           >
