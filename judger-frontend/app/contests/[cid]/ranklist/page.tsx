@@ -189,7 +189,7 @@ export default function ContestRankList(props: DefaultProps) {
 
   return (
     <div className="mt-4 mb-24 px-1 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
           <div className="flex justify-between">
             <div className="flex 3md:flex-row flex-col 3md:items-center gap-2">

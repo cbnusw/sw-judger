@@ -248,7 +248,7 @@ export default function ExamProblems(props: DefaultProps) {
 
   return (
     <div className="mt-4 mb-24 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
           <div className="flex items-center gap-x-2">
             <div className="flex items-center text-2xl font-bold tracking-tight">
