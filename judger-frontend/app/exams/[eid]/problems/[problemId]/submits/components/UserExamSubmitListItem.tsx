@@ -81,7 +81,7 @@ export default function UserExamSubmitListItem({
         </>
       ) : (
         <>
-          <td className="px-2 flex gap-[0.6rem] justify-center items-center w-[3.5rem] h-10 text-[#e67e22] font-semibold mx-auto">
+          <td className="px-2 flex gap-[0.6rem] justify-center items-center h-10 text-[#e67e22] font-semibold mx-auto">
             채점 중
             <span className="w-1 ml-[-0.6rem] text-[#e67e22]">
               {loadingDots}
