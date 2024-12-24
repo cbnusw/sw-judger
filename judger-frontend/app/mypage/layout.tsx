@@ -41,15 +41,15 @@ export default function MyPageLayout({
   return (
     <div className="mt-6 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[60rem] mx-auto">
-        <div className="text-3xl font-semibold tracking-wide lift-up">
+        <div className="text-2xl font-semibold tracking-wide lift-up">
           마이페이지
         </div>
         <div className="flex gap-8 mt-10">
           <div className="w-52">
-            <div className="w-full text-[#4e5968] text-[17px] flex flex-col items-start gap-y-2 font-medium tracking-wide">
+            <div className="w-full text-[#4e5968] text-[15px] flex flex-col items-start gap-y-2 font-medium tracking-wide">
               <button
                 onClick={() => handleChangeTab(tabNames[0])}
-                className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
+                className={`text-inherit px-4 py-[0.7rem] rounded-[8px] w-full text-start ${
                   mypageTabName === tabNames[0] && 'bg-[#022047] bg-opacity-5'
                 }`}
               >

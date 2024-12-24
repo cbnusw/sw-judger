@@ -161,7 +161,7 @@ export default function RegisterNotice() {
             <p
               className={`text-${
                 isNoticeNameValidFail ? 'red' : 'gray'
-              }-500 text-xs tracking-widest font-light mt-1`}
+              }-500 text-xs font-light mt-1`}
             >
               제목을 입력해 주세요
             </p>

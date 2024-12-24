@@ -278,7 +278,7 @@ export default function EditContest(props: DefaultProps) {
           <p
             className={`text-${
               isContestNameValidFail ? 'red' : 'gray'
-            }-500 text-xs tracking-widest font-light mt-1`}
+            }-500 text-xs font-light mt-1`}
           >
             대회명을 입력해 주세요
           </p>

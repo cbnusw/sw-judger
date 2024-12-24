@@ -253,7 +253,7 @@ export default function EditExam(props: DefaultProps) {
             <p
               className={`text-${
                 isExamNameValidFail ? 'red' : 'gray'
-              }-500 text-xs tracking-widest font-light mt-1`}
+              }-500 text-xs font-light mt-1`}
             >
               시험명을 입력해 주세요
             </p>
@@ -289,7 +289,7 @@ export default function EditExam(props: DefaultProps) {
             <p
               className={`text-${
                 isCourseNameValidFail ? 'red' : 'gray'
-              }-500 text-xs tracking-widest font-light mt-1`}
+              }-500 text-xs font-light mt-1`}
             >
               수업명을 입력해 주세요
             </p>

@@ -160,15 +160,19 @@ export default function Navbar() {
                 e.stopPropagation();
                 setRightPos('-right-full');
               }}
-              className="w-fit ml-auto mt-2 mr-2 p-1 rounded-full cursor-pointer"
+              className="w-fit ml-auto mt-[0.575rem] mr-[0.825rem] p-1 rounded-full cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                height="33"
-                viewBox="0 -960 960 960"
-                width="33"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
               >
-                <path d="M480-455.897 265.949-241.846q-4.795 4.795-11.667 5.179-6.872.385-12.436-5.179t-5.564-12.051q0-6.488 5.564-12.052L455.897-480 241.846-694.051q-4.795-4.795-5.179-11.667-.385-6.872 5.179-12.436t12.051-5.564q6.488 0 12.052 5.564L480-504.103l214.051-214.051q4.795-4.795 11.667-5.179 6.872-.385 12.436 5.179t5.564 12.051q0 6.488-5.564 12.052L504.103-480l214.051 214.051q4.795 4.795 5.179 11.667.385 6.872-5.179 12.436t-12.051 5.564q-6.488 0-12.052-5.564L480-455.897Z" />
+                <path
+                  fill="#4c545d"
+                  fill-rule="evenodd"
+                  d="M13.815 12l5.651-5.651a1.2 1.2 0 00-1.697-1.698l-5.651 5.652-5.652-5.652a1.201 1.201 0 00-1.697 1.698L10.421 12l-5.652 5.651a1.202 1.202 0 00.849 2.049c.307 0 .614-.117.848-.351l5.652-5.652 5.651 5.652a1.198 1.198 0 001.697 0 1.2 1.2 0 000-1.698L13.815 12z"
+                ></path>
               </svg>
             </div>
             <ul className="flex flex-col items-center w-full text-base cursor-pointer pt-4">

@@ -329,7 +329,7 @@ export default function EditContestProblem(props: DefaultProps) {
 
         <div className="flex flex-col gap-5">
           <div className="relative w-2/3 mt-5">
-            <div className="h-[2.625rem] flex items-center px-3 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
+            <div className="h-[2.625rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
               <svg
                 fill="none"
                 width="21"
@@ -353,7 +353,7 @@ export default function EditContestProblem(props: DefaultProps) {
                     setIsOpenSearchedResultList(true);
                   }}
                   onChange={handleInputSearchQuery}
-                  className="w-full h-[2.625rem] pl-[0.625rem] pr-[1.8rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
+                  className="w-full h-[2.625rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
                   placeholder="등록된 문제를 검색해 보세요"
                 />
               </div>
@@ -363,7 +363,7 @@ export default function EditContestProblem(props: DefaultProps) {
                     setSearchQuery('');
                     setIsOpenSearchedResultList(false);
                   }}
-                  className="absolute top-[0.35rem] right-1 p-1"
+                  className="p-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -425,7 +425,7 @@ export default function EditContestProblem(props: DefaultProps) {
               <p
                 className={`text-${
                   isTitleValidFail ? 'red' : 'gray'
-                }-500 text-xs tracking-widest font-light mt-1`}
+                }-500 text-xs font-light mt-1`}
               >
                 문제명을 입력해 주세요
               </p>
@@ -462,7 +462,7 @@ export default function EditContestProblem(props: DefaultProps) {
                 <p
                   className={`text-${
                     isMaxExeTimeValidFail ? 'red' : 'gray'
-                  }-500 text-xs tracking-widest font-light mt-1`}
+                  }-500 text-xs font-light mt-1`}
                 >
                   테스트 당 최대 수행 시간을 ms 단위로 입력해 주세요
                 </p>
@@ -498,7 +498,7 @@ export default function EditContestProblem(props: DefaultProps) {
                 <p
                   className={`text-${
                     isMaxMemCapValidFail ? 'red' : 'gray'
-                  }-500 text-xs tracking-widest font-light mt-1`}
+                  }-500 text-xs font-light mt-1`}
                 >
                   테스트 당 최대 사용 메모리를 MB 단위로 입력해 주세요
                 </p>
@@ -534,7 +534,7 @@ export default function EditContestProblem(props: DefaultProps) {
                 <p
                   className={`text-${
                     isScoreValidFail ? 'red' : 'gray'
-                  }-500 text-xs tracking-widest font-light mt-1`}
+                  }-500 text-xs font-light mt-1`}
                 >
                   문제의 점수를 입력해 주세요
                 </p>
