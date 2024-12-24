@@ -190,12 +190,12 @@ export default function Login() {
   });
 
   return (
-    <div className="h-[22rem]">
-      <div className="w-fit 2md:w-[27rem] p-4 mx-auto">
+    <div className="h-[22rem] mt-[-5rem] md:mt-0">
+      <div className="w-full md:w-[27rem] p-4 mx-auto">
         <Link href="/" className="w-fit flex items-center gap-x-[0.175rem]">
           <Image src={logoImg} alt="list" width={29} quality={100} />
 
-          <span className="hidden 2lg:block tracking-tighter text-[1rem] leading-[1.25] font-semibold text-[#212631]">
+          <span className="tracking-tighter text-[1rem] leading-[1.25] font-bold text-[#212631]">
             SW Online Judge
           </span>
         </Link>
@@ -207,7 +207,7 @@ export default function Login() {
         <form
           onSubmit={(e) => handleSignIn(e)} // Enter 키로 제출 가능
         >
-          <div className="mt-12 flex flex-col gap-y-9">
+          <div className="mt-12 flex flex-col gap-y-5 md:gap-y-9">
             <div className="flex flex-col gap-y-[0.4rem]">
               <label htmlFor="" className="text-[#4e5968] text-[15px]">
                 학번/교번
