@@ -188,7 +188,7 @@ export default function UsersExamSubmits(props: DefaultProps) {
         </div>
 
         <div className="flex mt-9 mb-4">
-          <div className="w-1/2 relative h-[2.3rem] flex items-center px-3 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
+          <div className="w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
             <svg
               fill="none"
               width="21"
@@ -205,7 +205,7 @@ export default function UsersExamSubmits(props: DefaultProps) {
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[2.3rem] pl-[0.625rem] pr-[1.8rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
+                className="w-full h-[2.3rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
                 placeholder="이름, 학번으로 검색"
               />
             </div>
@@ -214,7 +214,7 @@ export default function UsersExamSubmits(props: DefaultProps) {
                 onClick={(e) => {
                   setSearchQuery('');
                 }}
-                className="absolute top-[0.225rem] right-1 p-1"
+                className="p-1"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

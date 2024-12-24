@@ -29,14 +29,14 @@ export default function Home() {
       <div className="flex">
         <div className="flex-col 2lg:flex-row mx-auto mt-12 mb-10 flex justify-center gap-5">
           <div className="w-[22.5rem] 3xs:w-[30rem] p-2 ">
-            <div className="mb-5">
+            <div className="mb-5 h-[40px] relative">
               <Link
                 href="/exams"
-                className="text-[#595f68] text-xl pb-[11px] border-b-2 border-[#3274ba] hover:text-black"
+                className="text-[#595f68] text-xl pb-[11px] border-b-2 border-[#3274ba] hover:text-black relative z-10"
               >
                 추가된 시험
               </Link>
-              <div className="pb-2 border-b-[1.5px] border-dotted"></div>
+              <div className="absolute bottom-0 left-0 right-0 border-b-[1.5px] border-dotted" />
             </div>
 
             <div className="flex flex-col gap-3">
@@ -45,14 +45,14 @@ export default function Home() {
           </div>
 
           <div className="w-[22.5rem] 3xs:w-[30rem] p-2 mb-8 2lg:mb-0">
-            <div className="mb-5">
+            <div className="mb-5 h-[40px] relative">
               <Link
                 href="/contests"
-                className="text-[#595f68] text-xl pb-[11px] border-b-2 border-[#3274ba] hover:text-black"
+                className="text-[#595f68] text-xl pb-[11px] border-b-2 border-[#3274ba] hover:text-black relative z-10"
               >
                 신청 가능한 대회
               </Link>
-              <div className="pb-2 border-b-[1.5px] border-dotted"></div>
+              <div className="absolute bottom-0 left-0 right-0 border-b-[1.5px] border-dotted" />
             </div>
 
             <div className="flex flex-col gap-3">
