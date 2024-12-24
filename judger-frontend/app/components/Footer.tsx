@@ -20,7 +20,7 @@ export default function Footer() {
       <div className="flex flex-col gap-y-2 mx-auto w-[47.5rem] py-10">
         <div className="flex justify-between w-full">
           <div className="flex 3md:flex-row flex-col gap-x-20 gap-y-8">
-            <div className="flex flex-col text-[0.875rem] leading-[1.25]">
+            <div className="flex flex-col text-[0.8rem] leading-[1.25]">
               <span className="text-[#b0b8c1] font-semibold">서비스</span>
               <Link
                 href="/contests"
@@ -48,7 +48,7 @@ export default function Footer() {
               </Link>
             </div>
 
-            <div className="flex flex-col text-[0.875rem] leading-[1.25]">
+            <div className="flex flex-col text-[0.8rem] leading-[1.25]">
               <span className="text-[#b0b8c1] font-semibold">관련 사이트</span>
               <a
                 target="_blank"
@@ -73,7 +73,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="flex flex-col text-[0.875rem] leading-[1.25]">
+            <div className="flex flex-col text-[0.8rem] leading-[1.25]">
               <span className="text-[#b0b8c1] font-semibold">고객센터</span>
               <span className="mt-2 text-[#6b7684] py-[0.375rem]">
                 운영시간: 평일 09:00 - 18:00 (주말 및 공휴일 휴무)
@@ -89,10 +89,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 text-xs grid grid-cols-1 gap-y-5">
-          <span className="text-[0.85rem] leading-[1.25] text-[#b0b8c1] font-semibold">
+          <span className="text-[0.75rem] leading-[1.25] text-[#b0b8c1] font-semibold">
             Copyright © 충북대학교 SW중심대학사업단. All Rights Reserved
           </span>
-          <p className="flex flex-col gap-y-[0.1rem] tracking-tight text-[0.8rem]">
+          <p className="flex flex-col gap-y-[0.1rem] tracking-tight text-[0.65rem]">
             <span className=" text-[#8b95a1]">
               28644 충청북도 청주시 서원구 충대로1(개신동)
               학연산공동기술연구원(E9동)
@@ -101,7 +101,7 @@ export default function Footer() {
               © {currentYear} 충북대학교 SW중심대학사업단. All rights reserved.
             </span>
           </p>
-          <p className="flex gap-5 text-[0.8rem]">
+          <p className="flex gap-5 text-[0.65rem]">
             <button
               onClick={() => setOpenPrivacyPolicyModal('default')}
               className="text-[#b0b8c1] hover:underline"
