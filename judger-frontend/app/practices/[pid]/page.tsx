@@ -47,7 +47,6 @@ export default function PracticeProblem(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['practiceDetailInfo', pid],
     queryFn: fetchPracticeDetailInfo,
-    retry: 0,
   });
 
   const deletePracticeMutation = useMutation({

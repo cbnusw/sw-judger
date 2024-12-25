@@ -55,7 +55,6 @@ export default function SearchedProblemList(props: SearchedProblemListProps) {
     queryKey: ['relatedSearchTagInfos', debouncedSearchQuery],
     queryFn: fetchRelatedSearchedProblemInfos,
     enabled: !!debouncedSearchQuery, // searchQuery 있을 때만 쿼리 활성화
-    retry: 0,
   });
 
   const relatedSearchedProblemInfos: ProblemInfo[] = data?.data.documents;

@@ -153,8 +153,8 @@ export default function UsersContestSubmits(props: DefaultProps) {
 
   return (
     <div className="mt-5 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
-        <div className="flex items-center gap-x-2">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
+        <div className="flex flex-col 3md:flex-row items-start 3md:items-center gap-x-2">
           <div className="flex items-center text-2xl font-semibold tracking-tight">
             <Image
               src={paperImg}
@@ -173,14 +173,14 @@ export default function UsersContestSubmits(props: DefaultProps) {
           </div>
           <Link
             href={`/contests/${cid}`}
-            className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+            className="mt-4 3md:mt-0 lift-up w-fit text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
           >
             {contestInfo.title}
           </Link>
         </div>
 
-        <div className="flex mt-9 mb-4">
-          <div className="w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
+        <div className="flex flex-col 3md:flex-row justify-between gap-2 mt-9 mb-4">
+          <div className="w-full 3md:w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
             <svg
               fill="none"
               width="21"
@@ -221,28 +221,26 @@ export default function UsersContestSubmits(props: DefaultProps) {
             )}
           </div>
 
-          <div className="relative ml-auto mt-auto bottom-[-0.75rem]">
-            <div className="flex justify-end mb-2">
-              <button
-                onClick={handleDownloadSubmitsInfoList}
-                className="flex justify-center items-center gap-2 text-[0.8rem] bg-[#e8f3ff] px-3 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#cee1fc]"
+          <div className="w-full 3md:w-fit mt-2 3md:mt-0 flex gap-2">
+            <button
+              onClick={handleDownloadSubmitsInfoList}
+              className="w-full flex justify-center items-center gap-2 text-[0.8rem] bg-[#e8f3ff] px-3 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#cee1fc]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="22"
-                  height="22"
-                >
-                  <g fill="#487fee">
-                    <path d="M11.21 15.4c.21.21.5.32.78.32s.56-.11.78-.32L18 10.16c.43-.43.43-1.13 0-1.56s-1.13-.43-1.56 0l-3.35 3.35V2.78c0-.61-.49-1.1-1.1-1.1s-1.1.49-1.1 1.1v9.18L7.53 8.61c-.43-.43-1.13-.43-1.56 0s-.43 1.13 0 1.56l5.24 5.23z"></path>
-                    <path d="M21.38 13.09c-.61 0-1.1.49-1.1 1.1v4.21c0 .72-.58 1.3-1.3 1.3H5c-.72 0-1.3-.58-1.3-1.3v-4.21c0-.61-.49-1.1-1.1-1.1s-1.1.49-1.1 1.1v4.21c0 1.93 1.57 3.5 3.5 3.5h13.98c1.93 0 3.5-1.57 3.5-3.5v-4.21c0-.61-.49-1.1-1.1-1.1z"></path>
-                  </g>
-                </svg>
-                <span className="text-[#487fee] whitespace-nowrap">
-                  제출 목록 다운로드
-                </span>
-              </button>
-            </div>
+                <g fill="#487fee">
+                  <path d="M11.21 15.4c.21.21.5.32.78.32s.56-.11.78-.32L18 10.16c.43-.43.43-1.13 0-1.56s-1.13-.43-1.56 0l-3.35 3.35V2.78c0-.61-.49-1.1-1.1-1.1s-1.1.49-1.1 1.1v9.18L7.53 8.61c-.43-.43-1.13-.43-1.56 0s-.43 1.13 0 1.56l5.24 5.23z"></path>
+                  <path d="M21.38 13.09c-.61 0-1.1.49-1.1 1.1v4.21c0 .72-.58 1.3-1.3 1.3H5c-.72 0-1.3-.58-1.3-1.3v-4.21c0-.61-.49-1.1-1.1-1.1s-1.1.49-1.1 1.1v4.21c0 1.93 1.57 3.5 3.5 3.5h13.98c1.93 0 3.5-1.57 3.5-3.5v-4.21c0-.61-.49-1.1-1.1-1.1z"></path>
+                </g>
+              </svg>
+              <span className="text-[#487fee] whitespace-nowrap">
+                제출 목록 다운로드
+              </span>
+            </button>
           </div>
         </div>
 

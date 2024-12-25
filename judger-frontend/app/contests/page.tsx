@@ -28,7 +28,7 @@ export default function Contests() {
 
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <p className="h-16 flex items-center text-2xl font-semibold tracking-wide">
           <Image
             src={trophyImg}
@@ -41,9 +41,9 @@ export default function Contests() {
           <span className="ml-4 lift-up">대회 목록</span>
         </p>
 
-        <div className="mt-7 mb-4">
-          <div className="flex">
-            <div className="w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
+        <div className="mt-5 mb-4">
+          <div className="flex flex-col 3md:flex-row justify-between gap-2 items-start">
+            <div className="w-full 3md:w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
               <svg
                 fill="none"
                 width="21"
@@ -85,17 +85,13 @@ export default function Contests() {
             </div>
 
             {OPERATOR_ROLES.includes(userInfo.role) && (
-              <div className="relative ml-auto mt-auto bottom-[-0.75rem]">
-                <div className="flex justify-end mb-2">
-                  <div className="flex">
-                    <Link
-                      href="contests/register"
-                      className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
-                    >
-                      등록하기
-                    </Link>
-                  </div>
-                </div>
+              <div className="w-full 3md:w-fit mt-2 3md:mt-0 flex gap-2">
+                <Link
+                  href="contests/register"
+                  className="w-full flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                >
+                  등록하기
+                </Link>
               </div>
             )}
           </div>

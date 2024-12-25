@@ -50,7 +50,6 @@ export default function ExamProblemDetail(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['examProblemDetailInfo', problemId],
     queryFn: fetchExamProblemDetailInfo,
-    retry: 0,
   });
 
   const deleteExamMutation = useMutation({
@@ -173,7 +172,7 @@ export default function ExamProblemDetail(props: DefaultProps) {
           <p className="text-2xl font-bold tracking-tight">
             {examProblemInfo.title}
           </p>
-          <div className="flex flex-col 3md:flex-row 3md:justify-between gap-1 3md:gap-3 pb-3 border-b border-gray-300">
+          <div className="flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
             <div className="flex flex-col 3md:flex-row gap-1 3md:gap-3">
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">•&nbsp;</span>
@@ -196,7 +195,7 @@ export default function ExamProblemDetail(props: DefaultProps) {
                 </span>
               </span>
             </div>
-            <div className="flex flex-col 3md:flex-row gap-1 3md:gap-2">
+            <div className="mt-2 3md:mt-0 flex flex-col 3md:flex-row gap-2 ml-0 3md:ml-auto">
               <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
                 {examProblemInfo.parentId.title}
               </span>

@@ -57,7 +57,6 @@ export default function EditExamProblem(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['examProblemDetailInfo', problemId],
     queryFn: fetchExamProblemDetailInfo,
-    retry: 0,
   });
 
   const editExamProblemeMutation = useMutation({
@@ -306,7 +305,7 @@ export default function EditExamProblem(props: DefaultProps) {
 
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <p className="text-2xl font-semibold">시험 문제 등록</p>
 
         <div className="flex flex-col gap-5">

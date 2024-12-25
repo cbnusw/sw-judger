@@ -109,7 +109,7 @@ export default function UserScoreInfoListItem({
         <span
           className={`text-3xl ${
             totalScore > 0 ? 'text-[#3a8af9]' : 'text-[#676a6c]'
-          } font-medium`}
+          } font-semibold`}
         >
           {totalScore}
         </span>

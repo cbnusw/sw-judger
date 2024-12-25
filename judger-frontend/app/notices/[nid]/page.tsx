@@ -46,7 +46,6 @@ export default function NoticeDetail(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['noticeDetailInfo', nid],
     queryFn: fetchNoticeDetailInfo,
-    retry: 0,
   });
 
   const deleteNoticeMutation = useMutation({
@@ -110,26 +109,27 @@ export default function NoticeDetail(props: DefaultProps) {
     <div className="mt-6 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
+          <div className="flex flex-col 3md:flex-row gap-x-2 items-start 3md:items-center"></div>
           <p className="text-2xl font-bold tracking-tight">
             {noticeInfo.title}
           </p>
-          <div className="flex justify-between pb-3 border-b border-gray-300">
-            <div className="flex gap-3">
-              <span className="font-semibold">
-                작성일:&nbsp;
-                <span className="font-light">
-                  {formatDateToYYMMDDHHMM(noticeInfo.createdAt)}
-                </span>
+
+          <div className="h-fit 3md:h-[2rem] flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
+            <span className="font-semibold">
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
+              작성일:&nbsp;
+              <span className="font-light">
+                {formatDateToYYMMDDHHMM(noticeInfo.createdAt)}
               </span>
-            </div>
-            <div className="flex gap-3">
-              <span className="font-semibold">
-                작성자:&nbsp;
-                <span className="font-light">{noticeInfo.writer.name}</span>
-              </span>
-            </div>
+            </span>
+            <span className="ml-0 font-semibold 3md:ml-auto">
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
+              작성자:&nbsp;
+              <span className="font-light">{noticeInfo.writer.name}</span>
+            </span>
           </div>
         </div>
+
         <div className="border-b mt-8 mb-4 pb-5">
           <MarkdownPreview
             className="markdown-preview"

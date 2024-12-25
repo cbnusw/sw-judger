@@ -63,7 +63,6 @@ export default function EditExam(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['examDetailInfo', eid],
     queryFn: fetchExamDetailInfo,
-    retry: 0,
   });
 
   const editExamMutation = useMutation({
@@ -220,7 +219,7 @@ export default function EditExam(props: DefaultProps) {
 
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <p className="text-2xl font-semibold">시험 등록</p>
         <div className="flex gap-5 mt-5 mb-8">
           <div className="flex flex-col relative z-0 w-2/5 group">

@@ -113,7 +113,6 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['contestProblemDetailInfo', problemId],
     queryFn: fetchContestProblemDetailInfo,
-    retry: 0,
   });
 
   const submitCodeMutation = useMutation({
@@ -368,9 +367,9 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
 
   return (
     <div className="mt-4 mb-24 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <div className="flex items-center gap-x-2">
+          <div className="flex flex-col 3md:flex-row items-start 3md:items-center gap-x-2">
             <div className="flex items-center text-2xl font-bold tracking-tight">
               <Image
                 src={paperImg}
@@ -390,42 +389,45 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
 
             <Link
               href={`/contests/${cid}/problems/${problemId}`}
-              className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
             >
               {contestProblemInfo.title}
             </Link>
           </div>
-          <div className="flex justify-between pb-3 border-b border-gray-300">
-            <div className="flex gap-3">
-              <span className="font-semibold">
-                점수:
-                <span className="font-mono font-light">
-                  &nbsp;
-                  <span className="font-mono font-semibold text-blue-600">
-                    {contestProblemInfo.score}
-                  </span>
-                  점
+
+          <div className="flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
+            <span className="font-semibold">
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
+              점수:
+              <span className="font-mono font-light">
+                &nbsp;
+                <span className="font-mono font-semibold text-blue-600">
+                  {contestProblemInfo.score}
                 </span>
+                점
               </span>
-              <span className='relative bottom-[0.055rem] font-thin before:content-["|"]' />
-              <span className="font-semibold">
-                시간 제한:
-                <span className="font-mono font-light">
-                  &nbsp;
-                  <span>{contestProblemInfo.options.maxRealTime / 1000}</span>초
-                </span>
+            </span>
+            <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
+            <span className="font-semibold">
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
+              시간 제한:
+              <span className="font-mono font-light">
+                &nbsp;
+                <span>{contestProblemInfo.options.maxRealTime / 1000}</span>초
               </span>
-              <span className='relative bottom-[0.055rem] font-thin before:content-["|"]' />
-              <span className="font-semibold">
-                메모리 제한:
-                <span className="font-mono font-light">
-                  &nbsp;
-                  {contestProblemInfo.options.maxMemory}
-                </span>
-                MB
+            </span>
+            <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
+            <span className="font-semibold">
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
+              메모리 제한:
+              <span className="font-mono font-light">
+                &nbsp;
+                {contestProblemInfo.options.maxMemory}
               </span>
-            </div>
-            <div className="flex gap-3">
+              MB
+            </span>
+
+            <div className="mt-2 3md:mt-0 flex-col 3md:flex-row gap-2 ml-0 3md:ml-auto">
               <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
                 {contestProblemInfo.parentId.title}
               </span>
@@ -434,7 +436,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
         </div>
 
         <div className="flex flex-col gap-5 mt-8 pb-5">
-          <div className="w-1/5 relative">
+          <div className="w-full relative">
             <button
               onClick={() => setIsOpenSubmitLanguageList(true)}
               ref={submitLanguageButtonRef}

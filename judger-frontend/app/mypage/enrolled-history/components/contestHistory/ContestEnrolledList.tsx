@@ -28,7 +28,7 @@ export default function ContestEnrolledList() {
     <div className="mx-auto mt-6 w-full">
       <div className="relative overflow-hidden rounded-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 ">
+          <table className="w-[60rem] 3xs:w-full text-sm text-left text-gray-500">
             <thead className="border-y-[1.25px] border-[#d1d6db] text-xs uppercase bg-[#f2f4f6] text-center">
               <tr>
                 <th

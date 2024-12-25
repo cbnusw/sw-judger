@@ -34,7 +34,7 @@ export default function Practices() {
 
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <p className="h-16 flex items-center text-2xl font-semibold tracking-wide">
           <Image
             src={pencilImg}
@@ -47,9 +47,9 @@ export default function Practices() {
           <span className="ml-4 lift-up">연습문제 목록</span>
         </p>
 
-        <div className="mt-7 mb-4">
-          <div className="flex">
-            <div className="w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
+        <div className="mt-5 mb-4">
+          <div className="flex flex-col 3md:flex-row justify-between gap-2 items-start">
+            <div className="w-full 3md:w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
               <svg
                 fill="none"
                 width="21"
@@ -91,50 +91,46 @@ export default function Practices() {
             </div>
 
             {OPERATOR_ROLES.includes(userInfo.role) && (
-              <div className="relative ml-auto mt-auto bottom-[-0.75rem]">
-                <div className="flex justify-end mb-2">
-                  <div className="flex gap-2">
-                    <button
-                      onClick={handleRegisterMultiplePracticeProblem}
-                      className="flex justify-center items-center gap-x-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#d3d6da]"
+              <div className="w-full 3md:w-fit mt-2 3md:mt-0 flex flex-col 3md:flex-row gap-2">
+                <button
+                  onClick={handleRegisterMultiplePracticeProblem}
+                  className="flex justify-center items-center gap-x-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#d3d6da]"
+                >
+                  <svg
+                    height="24"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask id="a" fill="#fff">
+                      <path
+                        d="m0 0h20v19.9996h-20z"
+                        fill="#fff"
+                        fillRule="evenodd"
+                      ></path>
+                    </mask>
+                    <g
+                      fill="#26a06b"
+                      fillRule="evenodd"
+                      transform="translate(2 2)"
                     >
-                      <svg
-                        height="24"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlnsXlink="http://www.w3.org/1999/xlink"
-                      >
-                        <mask id="a" fill="#fff">
-                          <path
-                            d="m0 0h20v19.9996h-20z"
-                            fill="#fff"
-                            fillRule="evenodd"
-                          ></path>
-                        </mask>
-                        <g
-                          fill="#26a06b"
-                          fillRule="evenodd"
-                          transform="translate(2 2)"
-                        >
-                          <path d="m13 14.1719v5.828l7-7h-5.828c-.649 0-1.162.523-1.162 1.162"></path>
-                          <path
-                            d="m5.918 5.6036 1.971 2.893c.061.381-.228.489-.559.489h-.746c-.321-.016-.379-.033-.585-.4l-1.016-1.865-.013-.015-.013.015-1.016 1.865c-.206.367-.264.384-.585.4h-.746c-.331 0-.62-.108-.559-.489l1.971-2.893.001-.001-.038-.044-1.9-2.82c-.15-.217.122-.517.502-.517h.746c.331 0 .372.043.538.315l1.084 1.926.015.018.015-.018 1.084-1.926c.166-.272.207-.315.538-.315h.746c.38 0 .652.3.503.517l-1.901 2.82-.038.044zm12.9-5.604h-17.636c-.654 0-1.182.528-1.182 1.182v17.647c0 .654.528 1.171 1.172 1.171h10.005v-5.878c0-1.626 1.319-2.945 2.944-2.945h5.879v-9.995c0-.654-.528-1.182-1.182-1.182z"
-                            mask="url(#a)"
-                          ></path>
-                        </g>
-                      </svg>
-                      한 번에 등록
-                    </button>
+                      <path d="m13 14.1719v5.828l7-7h-5.828c-.649 0-1.162.523-1.162 1.162"></path>
+                      <path
+                        d="m5.918 5.6036 1.971 2.893c.061.381-.228.489-.559.489h-.746c-.321-.016-.379-.033-.585-.4l-1.016-1.865-.013-.015-.013.015-1.016 1.865c-.206.367-.264.384-.585.4h-.746c-.331 0-.62-.108-.559-.489l1.971-2.893.001-.001-.038-.044-1.9-2.82c-.15-.217.122-.517.502-.517h.746c.331 0 .372.043.538.315l1.084 1.926.015.018.015-.018 1.084-1.926c.166-.272.207-.315.538-.315h.746c.38 0 .652.3.503.517l-1.901 2.82-.038.044zm12.9-5.604h-17.636c-.654 0-1.182.528-1.182 1.182v17.647c0 .654.528 1.171 1.172 1.171h10.005v-5.878c0-1.626 1.319-2.945 2.944-2.945h5.879v-9.995c0-.654-.528-1.182-1.182-1.182z"
+                        mask="url(#a)"
+                      ></path>
+                    </g>
+                  </svg>
+                  한 번에 등록
+                </button>
 
-                    <Link
-                      href="/practices/register"
-                      className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
-                    >
-                      등록하기
-                    </Link>
-                  </div>
-                </div>
+                <Link
+                  href="/practices/register"
+                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                >
+                  등록하기
+                </Link>
               </div>
             )}
           </div>
