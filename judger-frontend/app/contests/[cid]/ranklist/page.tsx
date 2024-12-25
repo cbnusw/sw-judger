@@ -43,7 +43,10 @@ export default function ContestRankList(props: DefaultProps) {
 
   const results = useQueries({
     queries: [
-      { queryKey: ['contestDetailInfo', cid], queryFn: fetchContestDetailInfo },
+      {
+        queryKey: ['contestDetailInfoInRankList', cid],
+        queryFn: fetchContestDetailInfo,
+      },
       {
         queryKey: ['contestRankListInfo', cid],
         queryFn: fetchContestRankListInfo,

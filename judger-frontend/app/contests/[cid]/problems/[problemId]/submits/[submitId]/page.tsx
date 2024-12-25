@@ -104,7 +104,7 @@ export default function UserContestSubmitDetail(props: DefaultProps) {
   const [isPasswordChecked, setIsPasswordChecked] = useState(false);
 
   const { isPending, data } = useQuery({
-    queryKey: ['submitInfo', submitId],
+    queryKey: ['submitInfoInUserContestProblem', submitId],
     queryFn: fetchSubmitInfo,
   });
 

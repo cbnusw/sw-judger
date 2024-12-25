@@ -55,7 +55,7 @@ export default function EditExamProblem(props: DefaultProps) {
   const addToast = ToastInfoStore((state) => state.addToast);
 
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['examProblemDetailInfo', problemId],
+    queryKey: ['examProblemDetailInfoInEdit', problemId],
     queryFn: fetchExamProblemDetailInfo,
   });
 

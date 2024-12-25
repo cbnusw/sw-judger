@@ -42,7 +42,7 @@ export default function UsersContestSubmitDetail(props: DefaultProps) {
   const addToast = ToastInfoStore((state) => state.addToast);
 
   const { isPending, data } = useQuery({
-    queryKey: ['submitInfo', submitId],
+    queryKey: ['submitInfoInUsersContestProblem', submitId],
     queryFn: fetchSubmitInfo,
   });
 

@@ -44,7 +44,7 @@ export default function UsersContestSubmits(props: DefaultProps) {
   const addToast = ToastInfoStore((state) => state.addToast);
 
   const { isPending, data } = useQuery({
-    queryKey: ['contestDetailInfo', cid],
+    queryKey: ['contestDetailInfoInUsersSubmits', cid],
     queryFn: fetchContestDetailInfo,
   });
 

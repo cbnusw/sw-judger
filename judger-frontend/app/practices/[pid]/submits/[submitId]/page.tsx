@@ -48,7 +48,7 @@ export default function UserPracticeSubmitDetail(props: DefaultProps) {
   const submitId = props.params.submitId;
 
   const { isPending, data } = useQuery({
-    queryKey: ['submitInfo', submitId],
+    queryKey: ['submitInfoInUserPracticeProblem', submitId],
     queryFn: fetchSubmitInfo,
   });
 

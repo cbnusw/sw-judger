@@ -79,11 +79,11 @@ export default function RegisterMultipleExamProblem(props: DefaultProps) {
   const results = useQueries({
     queries: [
       {
-        queryKey: ['fetchExamDetailInfo', eid],
+        queryKey: ['examDetailInfoInRegisterMultipleProblem', eid],
         queryFn: fetchExamDetailInfo,
       },
       {
-        queryKey: ['examProblemsDetailInfo', eid],
+        queryKey: ['examProblemsDetailInfoInRegisterMultipleProblem', eid],
         queryFn: fetchExamProblemsDetailInfo,
       },
     ],

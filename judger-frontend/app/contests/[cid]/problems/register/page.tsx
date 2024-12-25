@@ -43,7 +43,7 @@ export default function RegisterContestProblem(props: DefaultProps) {
   const addToast = ToastInfoStore((state) => state.addToast);
 
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['contestDetailInfo', cid],
+    queryKey: ['contestDetailInfoInRegisterProblem', cid],
     queryFn: fetchContestDetailInfo,
   });
 

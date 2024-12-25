@@ -91,7 +91,7 @@ export default function UserContestSubmits(props: DefaultProps) {
   const [isPasswordChecked, setIsPasswordChecked] = useState(false);
 
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['contestProblemDetailInfo', problemId],
+    queryKey: ['contestProblemDetailInfoInSubmits', problemId],
     queryFn: fetchContestProblemDetailInfo,
   });
 

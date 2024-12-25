@@ -58,7 +58,7 @@ export default function SubmitExamProblemCode(props: DefaultProps) {
   const addToast = ToastInfoStore((state) => state.addToast);
 
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['examProblemDetailInfo', problemId],
+    queryKey: ['examProblemDetailInfoInSubmit', problemId],
     queryFn: fetchExamProblemDetailInfo,
   });
 
