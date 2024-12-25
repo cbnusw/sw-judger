@@ -16,10 +16,10 @@ export default function Footer() {
   >();
 
   return (
-    <div className="w-full flex justify-start mt-auto font-light text-[10px] pt-5 pb-10 px-3 leading-[1.175rem] bg-[#191f28]">
-      <div className="flex flex-col gap-y-2 mx-auto w-[47.5rem] py-10">
+    <div className="w-full flex justify-start mt-auto font-light text-[10px] pt-5 pb-10 px-5 leading-[1.175rem] bg-[#191f28]">
+      <div className="flex flex-col w-[25rem] 2md:w-[40rem] 2lg:w-[47.5rem] mx-auto py-10">
         <div className="flex justify-between w-full">
-          <div className="flex 3md:flex-row flex-col gap-x-20 gap-y-8">
+          <div className="flex flex-wrap gap-x-20 gap-y-8">
             <div className="flex flex-col text-[0.8rem] leading-[1.25]">
               <span className="text-[#b0b8c1] font-semibold">서비스</span>
               <Link
