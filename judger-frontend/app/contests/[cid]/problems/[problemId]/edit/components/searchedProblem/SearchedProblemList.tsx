@@ -50,7 +50,10 @@ export default function SearchedProblemList(props: SearchedProblemListProps) {
   } = props;
 
   const { isPending, data } = useQuery({
-    queryKey: ['relatedSearchTagInfos', debouncedSearchQuery],
+    queryKey: [
+      'relatedSearchTagInfosInContestProblemEdit',
+      debouncedSearchQuery,
+    ],
     queryFn: fetchRelatedSearchedProblemInfos,
     enabled: !!debouncedSearchQuery, // searchQuery 있을 때만 쿼리 활성화
   });

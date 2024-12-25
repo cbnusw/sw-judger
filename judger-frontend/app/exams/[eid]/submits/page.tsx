@@ -45,7 +45,7 @@ export default function UsersExamSubmits(props: DefaultProps) {
   const addToast = ToastInfoStore((state) => state.addToast);
 
   const { isPending, data } = useQuery({
-    queryKey: ['examDetailInfo', eid],
+    queryKey: ['examDetailInfoInUsersSubmits', eid],
     queryFn: fetchExamDetailInfo,
   });
 

@@ -55,7 +55,7 @@ export default function EditContestProblem(props: DefaultProps) {
   const addToast = ToastInfoStore((state) => state.addToast);
 
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['contestProblemDetailInfo', problemId],
+    queryKey: ['contestProblemDetailInfoInEdit', problemId],
     queryFn: fetchContestProblemDetailInfo,
   });
 

@@ -81,9 +81,12 @@ export default function RegisterMultipleContestProblem(props: DefaultProps) {
 
   const results = useQueries({
     queries: [
-      { queryKey: ['contestDetailInfo', cid], queryFn: fetchContestDetailInfo },
       {
-        queryKey: ['contestProblemsDetailInfo', cid],
+        queryKey: ['contestDetailInfoInRegisterMultipleProblem', cid],
+        queryFn: fetchContestDetailInfo,
+      },
+      {
+        queryKey: ['contestProblemsDetailInfoInRegisterMultipleProblem', cid],
         queryFn: fetchContestProblemsDetailInfo,
       },
     ],

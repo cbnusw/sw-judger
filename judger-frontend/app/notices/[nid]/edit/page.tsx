@@ -57,7 +57,7 @@ export default function EditNotice(props: DefaultProps) {
   const addToast = ToastInfoStore((state) => state.addToast);
 
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['noticeDetailInfo', nid],
+    queryKey: ['noticeDetailInfoInEdit', nid],
     queryFn: fetchNoticeDetailInfo,
   });
 
