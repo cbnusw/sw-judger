@@ -45,7 +45,6 @@ export default function RegisterContestProblem(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['contestDetailInfo', cid],
     queryFn: fetchContestDetailInfo,
-    retry: 0,
   });
 
   const registerContestProblemMutation = useMutation({
@@ -300,7 +299,7 @@ export default function RegisterContestProblem(props: DefaultProps) {
 
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <p className="text-2xl font-semibold">대회 문제 등록</p>
 
         <div className="flex flex-col gap-5">

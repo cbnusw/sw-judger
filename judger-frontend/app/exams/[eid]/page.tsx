@@ -67,7 +67,6 @@ export default function ExamDetail(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['examDetailInfo', eid],
     queryFn: fetchExamDetailInfo,
-    retry: 0,
   });
 
   const deleteExamMutation = useMutation({
@@ -176,7 +175,7 @@ export default function ExamDetail(props: DefaultProps) {
 
       return (
         <span
-          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
         >
           <Image
             src={normalBellImg}
@@ -201,7 +200,7 @@ export default function ExamDetail(props: DefaultProps) {
 
       return (
         <span
-          className={`flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-4 3md:mt-0 flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
         >
           <Image
             src={alarmImg}
@@ -446,13 +445,13 @@ export default function ExamDetail(props: DefaultProps) {
     <div className="mt-6 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <div className="flex gap-x-2 items-center">
+          <div className="flex flex-col 3md:flex-row gap-x-2 items-start 3md:items-center">
             <p className="text-2xl font-bold tracking-tight">
               {examInfo.title}
             </p>
             {timeUntilEnd?.isPast ? (
               <span
-                className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+                className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
               >
                 종료
               </span>

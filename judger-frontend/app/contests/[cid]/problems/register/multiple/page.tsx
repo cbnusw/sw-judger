@@ -255,12 +255,12 @@ export default function RegisterMultipleContestProblem(props: DefaultProps) {
 
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto min-h-[40rem]">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <button
           onClick={() => {
             router.push(`/contests/${cid}/problems`);
           }}
-          className="flex items-center gap-x-1"
+          className="flex items-center gap-x-1 p-2 pl-0 hover hover:text-black"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -271,7 +271,7 @@ export default function RegisterMultipleContestProblem(props: DefaultProps) {
           >
             <path d="M233-440h607q17 0 28.5-11.5T880-480q0-17-11.5-28.5T840-520H233l155-156q11-11 11.5-27.5T388-732q-11-11-28-11t-28 11L108-508q-6 6-8.5 13T97-480q0 8 2.5 15t8.5 13l224 224q11 11 27.5 11t28.5-11q12-12 12-28.5T388-285L233-440Z" />
           </svg>
-          <span className="text-[#656565] text-xs font-light hover:text-black py-[0.5rem]">
+          <span className="text-[#656565] text-xs font-light text-inherit">
             뒤로가기
           </span>
         </button>

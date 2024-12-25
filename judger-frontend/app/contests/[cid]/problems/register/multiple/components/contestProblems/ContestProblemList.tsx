@@ -18,7 +18,7 @@ export default function ContestProblemList({
   return (
     <div className="mt-3 relative overflow-hidden rounded-sm">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 ">
+        <table className="w-[60rem] 3xs:w-full text-sm text-left text-gray-500">
           <thead className="border-y-[1.25px] border-[#d1d6db] text-[15px] uppercase bg-[#f2f4f6] text-center">
             <tr className="h-[2.75rem]">
               <th

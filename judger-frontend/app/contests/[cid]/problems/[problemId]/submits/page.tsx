@@ -93,7 +93,6 @@ export default function UserContestSubmits(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['contestProblemDetailInfo', problemId],
     queryFn: fetchContestProblemDetailInfo,
-    retry: 0,
   });
 
   const resData = data?.data.data;
@@ -175,9 +174,9 @@ export default function UserContestSubmits(props: DefaultProps) {
 
   return (
     <div className="mt-5 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <div className="flex items-center gap-x-2">
+          <div className="flex flex-col 3md:flex-row items-start 3md:items-center gap-x-2">
             <div className="flex items-center text-2xl font-semibold tracking-tight">
               <Image
                 src={paperImg}
@@ -196,16 +195,16 @@ export default function UserContestSubmits(props: DefaultProps) {
             </div>
             <Link
               href={`/contests/${cid}/problems/${problemId}`}
-              className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
             >
               {contestProblemInfo.title}
             </Link>
           </div>
 
-          <div className="flex justify-between items-center gap-x-4 pb-3 border-gray-300">
+          <div className="flex flex-col 3md:flex-row justify-between items-start 3md:items-center gap-x-4 mb-4 3md:mb-3 border-gray-300">
             <button
               onClick={handleGoToContestProblem}
-              className="flex items-center gap-x-1"
+              className="flex items-center gap-x-1 p-2 pl-0 hover hover:text-black"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -216,29 +215,29 @@ export default function UserContestSubmits(props: DefaultProps) {
               >
                 <path d="M233-440h607q17 0 28.5-11.5T880-480q0-17-11.5-28.5T840-520H233l155-156q11-11 11.5-27.5T388-732q-11-11-28-11t-28 11L108-508q-6 6-8.5 13T97-480q0 8 2.5 15t8.5 13l224 224q11 11 27.5 11t28.5-11q12-12 12-28.5T388-285L233-440Z" />
               </svg>
-              <span className="text-[#656565] text-xs font-light hover:text-black">
+              <span className="text-[#656565] text-xs font-light text-inherit">
                 문제로 돌아가기
               </span>
             </button>
 
-            <div className="flex items-center gap-x-3">
+            <div className="w-full 3md:w-fit flex flex-col 3md:flex-row mt-2 3md:mt-0 items-start 3md:items-center gap-x-3">
               <div className="flex gap-2">
                 <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
                   {contestProblemInfo.parentId.title}
                 </span>
               </div>
 
-              <div className="flex gap-2">
+              <div className="mt-4 3md:mt-0 w-full 3md:w-fit flex flex-col 3md:flex-row items-start 3md:items-center gap-2">
                 <button
                   onClick={handleGoToSubmitContestProblemCode}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                  className="w-full 3md:w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
                 >
                   제출하기
                 </button>
 
                 <button
                   onClick={handleGoToContestProblems}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                  className="w-full 3md:w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
                 >
                   문제 목록
                 </button>

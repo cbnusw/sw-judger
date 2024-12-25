@@ -3,7 +3,7 @@ import Loading from '@/app/components/Loading';
 export default function MyPagelayoutLoadingSkeleton() {
   return (
     <div className="mt-6 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="text-2xl font-semibold tracking-wide lift-up">
           마이페이지
         </div>

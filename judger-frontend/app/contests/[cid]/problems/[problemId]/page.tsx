@@ -99,7 +99,6 @@ export default function ContestProblemDetail(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['contestProblemDetailInfo', problemId],
     queryFn: fetchContestProblemDetailInfo,
-    retry: 0,
   });
 
   const deleteContestMutation = useMutation({
@@ -248,7 +247,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
           <p className="text-2xl font-bold tracking-tight">
             {contestProblemInfo.title}
           </p>
-          <div className="flex flex-col 3md:flex-row 3md:justify-between gap-1 3md:gap-3 pb-3 border-b border-gray-300">
+          <div className="flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
             <div className="flex flex-col 3md:flex-row gap-1 3md:gap-3">
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">•&nbsp;</span>
@@ -284,7 +283,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
               </span>
             </div>
 
-            <div className="flex gap-3">
+            <div className="mt-2 3md:mt-0 flex gap-2 ml-0 3md:ml-auto">
               <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
                 {contestProblemInfo.parentId.title}
               </span>

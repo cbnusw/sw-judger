@@ -111,7 +111,6 @@ export default function ContestProblems(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['contestProblemsDetailInfo', cid],
     queryFn: fetchContestProblemsDetailInfo,
-    retry: 0,
   });
 
   const resData = data?.data.data;
@@ -262,7 +261,7 @@ export default function ContestProblems(props: DefaultProps) {
 
       return (
         <span
-          className={`w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-2 3md:mt-0 w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
         >
           <Image
             src={normalBellImg}
@@ -290,7 +289,7 @@ export default function ContestProblems(props: DefaultProps) {
 
       return (
         <span
-          className={`flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-2 3md:mt-0 flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
         >
           <Image
             src={alarmImg}
@@ -329,7 +328,7 @@ export default function ContestProblems(props: DefaultProps) {
     <div className="mt-4 mb-24 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <div className="flex items-center gap-x-2">
+          <div className="flex flex-col 3md:flex-row items-start 3md:items-center gap-x-2">
             <div className="flex items-center text-2xl font-bold tracking-tight">
               <Image
                 src={listImg}
@@ -349,7 +348,7 @@ export default function ContestProblems(props: DefaultProps) {
 
             <Link
               href={`/contests/${cid}`}
-              className="lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
             >
               {contestProblemsInfo.title}
             </Link>
@@ -357,7 +356,7 @@ export default function ContestProblems(props: DefaultProps) {
             <div className="lift-up">
               {timeUntilEnd?.isPast ? (
                 <span
-                  className={`w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+                  className={`mt-2 3md:mt-0 w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
                 >
                   종료
                 </span>

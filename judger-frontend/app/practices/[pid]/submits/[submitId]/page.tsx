@@ -50,7 +50,6 @@ export default function UserPracticeSubmitDetail(props: DefaultProps) {
   const { isPending, data } = useQuery({
     queryKey: ['submitInfo', submitId],
     queryFn: fetchSubmitInfo,
-    retry: 0,
   });
 
   const updateUserInfo = userInfoStore((state: any) => state.updateUserInfo);
@@ -89,11 +88,11 @@ export default function UserPracticeSubmitDetail(props: DefaultProps) {
 
   return (
     <div className="mt-6 mb-24 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex justify-between items-center pb-3">
           <button
             onClick={handleGoToPracticeSubmits}
-            className="flex items-center gap-x-1"
+            className="flex items-center gap-x-1 p-2 pl-0 hover hover:text-black"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +103,7 @@ export default function UserPracticeSubmitDetail(props: DefaultProps) {
             >
               <path d="M233-440h607q17 0 28.5-11.5T880-480q0-17-11.5-28.5T840-520H233l155-156q11-11 11.5-27.5T388-732q-11-11-28-11t-28 11L108-508q-6 6-8.5 13T97-480q0 8 2.5 15t8.5 13l224 224q11 11 27.5 11t28.5-11q12-12 12-28.5T388-285L233-440Z" />
             </svg>
-            <span className="text-[#656565] text-xs font-light hover:text-black py-[0.5rem]">
+            <span className="text-[#656565] text-xs font-light text-inherit">
               뒤로가기
             </span>
           </button>
@@ -120,7 +119,7 @@ ${submitInfo.code}`}
 
         <div className="relative mt-10 overflow-hidden rounded-sm">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 ">
+            <table className="w-[60rem] 3xs:w-full text-sm text-left text-gray-500">
               <thead className="border-y-[1.25px] border-[#d1d6db] text-xs text-gray-700 uppercase bg-[#f2f4f6] text-center">
                 <tr className="h-[2rem]">
                   <th

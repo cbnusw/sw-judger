@@ -54,7 +54,6 @@ export default function EditContest(props: DefaultProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['contestDetailInfo', cid],
     queryFn: fetchContestDetailInfo,
-    retry: 0,
   });
 
   const editContestMutation = useMutation({
@@ -246,7 +245,7 @@ export default function EditContest(props: DefaultProps) {
 
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
-      <div className="flex flex-col w-[60rem] mx-auto">
+      <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <p className="text-2xl font-semibold">대회 등록</p>
         <div className="flex flex-col relative z-0 w-1/2 group mt-5 mb-8">
           <input
