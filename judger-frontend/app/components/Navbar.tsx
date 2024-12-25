@@ -137,7 +137,7 @@ export default function Navbar() {
           onClick={(e) => {
             setRightPos('right-0');
           }}
-          className={`block 2md:hidden px-[0.6rem] py-3 ml-auto mr-[0.1rem] rounded-full focus:outline-none text-center`}
+          className={`block 2md:hidden px-[0.6rem] py-3 ml-auto rounded-full focus:outline-none text-center`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,7 @@ export default function Navbar() {
                 e.stopPropagation();
                 setRightPos('-right-full');
               }}
-              className="w-fit ml-auto mt-[0.575rem] mr-[0.825rem] p-1 rounded-full cursor-pointer"
+              className="w-fit ml-auto mt-[0.575rem] mr-[0.815rem] p-1 rounded-full cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
