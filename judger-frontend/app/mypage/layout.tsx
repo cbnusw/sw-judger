@@ -44,38 +44,36 @@ export default function MyPageLayout({
         <div className="text-2xl font-semibold tracking-wide lift-up">
           마이페이지
         </div>
-        <div className="flex gap-8 mt-10">
-          <div className="w-52">
-            <div className="w-full text-[#4e5968] text-[15px] flex flex-col items-start gap-y-2 font-medium tracking-wide">
+        <div className="flex flex-col 3md:flex-row gap-10 3md:gap-12 mt-10">
+          <div className="w-full 3md:w-52 flex flex-col text-[#4e5968] text-[15px] items-start gap-y-2 font-medium tracking-wide">
+            <button
+              onClick={() => handleChangeTab(tabNames[0])}
+              className={`text-inherit px-4 py-[0.7rem] rounded-[8px] w-full text-start ${
+                mypageTabName === tabNames[0] && 'bg-[#022047] bg-opacity-5'
+              }`}
+            >
+              프로필 정보
+            </button>
+            <button
+              onClick={() => handleChangeTab(tabNames[1])}
+              className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
+                mypageTabName === tabNames[1] && 'bg-[#022047] bg-opacity-5'
+              }`}
+            >
+              참가 내역
+            </button>
+            {OPERATOR_ROLES.includes(userInfo.role) && (
               <button
-                onClick={() => handleChangeTab(tabNames[0])}
-                className={`text-inherit px-4 py-[0.7rem] rounded-[8px] w-full text-start ${
-                  mypageTabName === tabNames[0] && 'bg-[#022047] bg-opacity-5'
-                }`}
-              >
-                프로필 정보
-              </button>
-              <button
-                onClick={() => handleChangeTab(tabNames[1])}
+                onClick={() => handleChangeTab(tabNames[2])}
                 className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
-                  mypageTabName === tabNames[1] && 'bg-[#022047] bg-opacity-5'
+                  mypageTabName === tabNames[2] && 'bg-[#022047] bg-opacity-5'
                 }`}
               >
-                참가 내역
+                작성글 관리
               </button>
-              {OPERATOR_ROLES.includes(userInfo.role) && (
-                <button
-                  onClick={() => handleChangeTab(tabNames[2])}
-                  className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
-                    mypageTabName === tabNames[2] && 'bg-[#022047] bg-opacity-5'
-                  }`}
-                >
-                  작성글 관리
-                </button>
-              )}
-            </div>
+            )}
           </div>
-          <div className="w-full ml-5 mt-[-0.75rem]">{children}</div>
+          <div className="w-full">{children}</div>
         </div>
       </div>
     </div>
