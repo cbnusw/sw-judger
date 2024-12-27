@@ -106,8 +106,6 @@ export default function EditPractice(props: DefaultProps) {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isOpenSearchedResultList, setIsOpenSearchedResultList] =
     useState<boolean>(false);
-  const [isSuccessSearchResult, setIsSuccessSearchResult] =
-    useState<boolean>(false);
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   useState<boolean>(false);
 
