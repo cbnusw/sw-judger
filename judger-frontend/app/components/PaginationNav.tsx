@@ -58,14 +58,14 @@ export default function PaginationNav({
               </svg>
             </button>
           </li>
-          <li className="flex items-center gap-x-[0.35rem] order-1 3xs:order-2">
+          <div className="flex items-center gap-x-[0.35rem] order-1 3xs:order-2">
             {RenderPaginationButtons(
               page,
               totalPages,
               handlePagination,
               isSmallScreen,
             )}
-          </li>
+          </div>
         </div>
         <li>
           <button
@@ -78,7 +78,6 @@ export default function PaginationNav({
             disabled={page >= totalPages}
           >
             <svg
-              enable-background="new 0 0 24 24"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               className="scale-125"
