@@ -41,13 +41,13 @@ export default function ManagingMyPost() {
 
   return (
     <div className="mb-20">
-      <div className="flex border-b font-medium text-[0.925rem] leading-[1.375rem] pb-[1.5px]">
+      <div className="flex border-b text-[0.925rem] leading-[1.375rem] pb-[1.5px]">
         <div>
           <button
             onClick={() => handleChangeCategory('contest')}
-            className={`w-[4.75rem] py-2 tracking-wide ${
-              category !== 'contest' ? 'text-[#505967]' : 'font-semibold'
-            } hover:bg-[#f3f4f5] rounded-[7px]`}
+            className={`w-fit px-4 py-2 ${
+              category !== 'contest' ? 'text-[#6b7684]' : 'font-semibold'
+            } rounded-[7px] duration-200 hover:font-semibold`}
           >
             대회
           </button>
@@ -59,9 +59,9 @@ export default function ManagingMyPost() {
           <div>
             <button
               onClick={() => handleChangeCategory('exam')}
-              className={`w-[4.75rem] py-2 tracking-wide ${
-                category !== 'exam' ? 'text-[#505967]' : 'font-semibold'
-              } hover:bg-[#f3f4f5] rounded-[7px]`}
+              className={`w-fit px-4 py-2 ${
+                category !== 'exam' ? 'text-[#6b7684]' : 'font-semibold'
+              } rounded-[7px] duration-200 hover:font-semibold`}
             >
               시험
             </button>
@@ -74,9 +74,9 @@ export default function ManagingMyPost() {
           <div>
             <button
               onClick={() => handleChangeCategory('practice')}
-              className={`w-[4.75rem] py-2 tracking-wide ${
-                category !== 'practice' ? 'text-[#505967]' : 'font-semibold'
-              } hover:bg-[#f3f4f5] rounded-[7px]`}
+              className={`w-fit px-4 py-2 ${
+                category !== 'practice' ? 'text-[#6b7684]' : 'font-semibold'
+              } rounded-[7px] duration-200 hover:font-semibold`}
             >
               연습문제
             </button>
@@ -89,9 +89,9 @@ export default function ManagingMyPost() {
           <div>
             <button
               onClick={() => handleChangeCategory('notice')}
-              className={`w-[4.75rem] py-2 tracking-wide ${
-                category !== 'notice' ? 'text-[#505967]' : 'font-semibold'
-              } hover:bg-[#f3f4f5] rounded-[7px]`}
+              className={`w-fit px-4 py-2 ${
+                category !== 'notice' ? 'text-[#6b7684]' : 'font-semibold'
+              } rounded-[7px] duration-200 hover:font-semibold`}
             >
               공지사항
             </button>
