@@ -2,6 +2,7 @@ export const RenderPaginationButtons = (
   currentPage: number,
   totalPages: number,
   handlePagination: (page: number) => void,
+  isSmallScreen: boolean,
 ) => {
   let buttons: JSX.Element[] = [];
   let startPage, endPage;
@@ -11,25 +12,28 @@ export const RenderPaginationButtons = (
     totalPages = 1;
   }
 
-  if (totalPages <= 7) {
-    // 총 페이지가 7 이하인 경우 모든 페이지 버튼 표시
+  const buttonsToShow = isSmallScreen ? 3 : 5;
+  const offset = isSmallScreen ? 0 : 2;
+
+  if (totalPages <= buttonsToShow) {
+    // 총 페이지가 표시할 버튼 수 이하인 경우 모든 페이지 버튼 표시
     startPage = 1;
     endPage = totalPages;
   } else {
-    // 현재 페이지가 1~5인 경우 처음 7개 버튼 표시
-    if (currentPage <= 5) {
+    // 현재 페이지가 시작부분에 있는 경우
+    if (currentPage < buttonsToShow) {
       startPage = 1;
-      endPage = 7;
+      endPage = buttonsToShow;
     }
-    // 현재 페이지가 마지막 5페이지 이내인 경우 마지막 7개 버튼 표시
-    else if (currentPage >= totalPages - 4) {
-      startPage = totalPages - 6;
+    // 현재 페이지가 마지막부분에 있는 경우
+    else if (currentPage > totalPages - (buttonsToShow - 1)) {
+      startPage = totalPages - (buttonsToShow - 1);
       endPage = totalPages;
     }
-    // 그 외의 경우 현재 페이지를 중심으로 -2, +2 버튼 표시 (5개)
+    // 중간에 있는 경우 현재 페이지를 중심으로 offset만큼 양쪽으로 표시
     else {
-      startPage = currentPage - 2;
-      endPage = currentPage + 2;
+      startPage = currentPage - offset;
+      endPage = currentPage + offset;
     }
   }
 
@@ -53,15 +57,18 @@ export const RenderPaginationButtons = (
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width={25}
-            height={25}
+            width="24px"
+            height="24px"
             viewBox="0 0 24 24"
           >
-            <path
-              fill="#B0B8C1"
-              d="M5.23 14a2 2 0 11.001-4.001A2 2 0 015.23 14m6.771 0a2 2 0 110-4 2 2 0 010 4m6.77 0a2 2 0 11.001-4.001A2 2 0 0118.771 14"
-              fillRule="evenodd"
-            ></path>
+            <defs>
+              <path id="icn-navigation-more-a" d="M0 0h24v24H0z"></path>
+            </defs>
+            <g fill="#333d4b">
+              <path d="M4.8 10.4c.9 0 1.6.7 1.6 1.6 0 .4-.2.8-.5 1.1-.3.3-.7.5-1.1.5-.9 0-1.6-.7-1.6-1.6s.7-1.6 1.6-1.6z"></path>
+              <circle cx="19.2" cy="12" r="1.6"></circle>
+              <circle cx="12" cy="12" r="1.6"></circle>
+            </g>
           </svg>
         </li>,
       );
@@ -96,15 +103,18 @@ export const RenderPaginationButtons = (
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width={25}
-            height={25}
+            width="24px"
+            height="24px"
             viewBox="0 0 24 24"
           >
-            <path
-              fill="#B0B8C1"
-              d="M5.23 14a2 2 0 11.001-4.001A2 2 0 015.23 14m6.771 0a2 2 0 110-4 2 2 0 010 4m6.77 0a2 2 0 11.001-4.001A2 2 0 0118.771 14"
-              fillRule="evenodd"
-            ></path>
+            <defs>
+              <path id="icn-navigation-more-a" d="M0 0h24v24H0z"></path>
+            </defs>
+            <g fill="#333d4b">
+              <path d="M4.8 10.4c.9 0 1.6.7 1.6 1.6 0 .4-.2.8-.5 1.1-.3.3-.7.5-1.1.5-.9 0-1.6-.7-1.6-1.6s.7-1.6 1.6-1.6z"></path>
+              <circle cx="19.2" cy="12" r="1.6"></circle>
+              <circle cx="12" cy="12" r="1.6"></circle>
+            </g>
           </svg>
         </li>,
       );
