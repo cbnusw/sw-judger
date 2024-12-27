@@ -7,6 +7,12 @@
   overflow-anchor: none;
 }
 
+.sub-navbar {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 .modal {
   background-color: rgba(246, 246, 246, 0.6);
 }
