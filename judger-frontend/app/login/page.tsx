@@ -196,7 +196,7 @@ export default function Login() {
           <Image src={logoImg} alt="list" width={29} quality={100} />
 
           <span className="tracking-tighter text-[1rem] leading-[1.25] font-bold text-[#212631]">
-            SW Online Judge
+            Judge
           </span>
         </Link>
 
