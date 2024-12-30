@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchCurrentUserInfo } from '@/utils/fetchCurrentUserInfo';
 import { usePathname } from 'next/navigation';
 import logoImg from '@/public/images/cube-logo.png';
+import logoWhiteImg from '@/public/images/cube-logo-white.png';
 import Image from 'next/image';
 
 // 로그아웃 API
@@ -32,6 +33,8 @@ export default function Navbar() {
   const removeUserInfo = userInfoStore((state: any) => state.removeUserInfo);
 
   const [isOpenSubNavbar, setIsOpenSubNavbar] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false); // 스크롤 상태 추가
+  const [isHomePage, setIsHomePage] = useState(false);
   const navbarRef = useRef<HTMLElement>(null);
   const subNavbarRef = useRef<HTMLDivElement | null>(null);
 
@@ -102,15 +105,45 @@ export default function Navbar() {
   }, [handleClickOutside]);
 
   useEffect(() => {
+    if (pathname === '/') {
+      setIsHomePage(true);
+      return;
+    }
+
+    setIsHomePage(false);
+  }, [pathname]);
+
+  useEffect(() => {
     // (로그인 한) 사용자 정보 조회
     const activeAuthorization = localStorage.getItem('activeAuthorization');
     if (activeAuthorization) fetchCurrentUserInfo(updateUserInfo);
   }, [updateUserInfo]);
 
+  useEffect(() => {
+    const handleInitialScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    handleInitialScroll(); // 초기 스크롤 상태 설정
+    window.addEventListener('scroll', handleInitialScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleInitialScroll);
+    };
+  }, []);
+
   return (
     <nav
       ref={navbarRef}
-      className={`w-screen h-[3.25rem] flex items-center z-30 2lg:p-0 py-2 pl-4 pr-0 fixed top-0 border-b border-[#e6e8ea] whitespace-nowrap bg-white`}
+      className={`w-screen h-[3.25rem] flex items-center z-30 2lg:p-0 py-2 pl-4 pr-0 fixed top-0 whitespace-nowrap ${
+        isScrolled || !isHomePage
+          ? 'border-b border-[#e6e8ea] bg-white'
+          : 'bg-[#191f28] 2md:bg-transparent'
+      }`}
     >
       <div className="2lg:w-[61rem] w-full flex justify-between items-center mx-auto">
         <div className="py-2 2md:py-0 z-20">
@@ -122,9 +155,18 @@ export default function Navbar() {
             }}
           >
             <div className="flex items-center gap-x-[0.175rem]">
-              <Image src={logoImg} alt="logo" width={30} quality={100} />
-              <span className="tracking-tighter text-sm font-bold text-[#333]">
-                SW Online Judge
+              <Image
+                src={isScrolled || !isHomePage ? logoImg : logoWhiteImg}
+                alt="logo"
+                width={30}
+                quality={100}
+              />
+              <span
+                className={`tracking-tight text-[1rem] font-bold ${
+                  isScrolled || !isHomePage ? 'text-[#333]' : 'text-white'
+                }`}
+              >
+                Judge
               </span>
             </div>
           </Link>
@@ -132,55 +174,96 @@ export default function Navbar() {
 
         <div className="hidden 2md:flex gap-x-14">
           <div className="w-fit hidden ml-16 2md:block">
-            <div className="flex gap-4 text-[0.825rem] text-[#4e5968] mx-auto">
+            <div
+              className={`flex gap-4 text-[0.825rem] ${
+                isScrolled || !isHomePage ? 'text-[#4e5968]' : 'text-white'
+              } mx-auto`}
+            >
               <Link
                 href="/contests"
-                className={`${
+                className={`$${
                   currentPathKeyword === 'contests' && 'font-semibold'
-                } px-3 py-2 rounded-md hover:bg-[#f3f4f5] hover:text-[#0057b3]`}
+                } ${
+                  isScrolled || !isHomePage
+                    ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                    : 'hover:bg-[#22262a]'
+                } px-3 py-2 rounded-md`}
               >
                 대회
               </Link>
               <Link
                 href="/exams"
-                className={`${
+                className={`$${
                   currentPathKeyword === 'exams' && 'font-semibold'
-                } px-3 py-2 rounded-md hover:bg-[#f3f4f5] hover:text-[#0057b3]`}
+                } ${
+                  isScrolled || !isHomePage
+                    ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                    : 'hover:bg-[#22262a]'
+                } px-3 py-2 rounded-md`}
               >
                 시험
               </Link>
               <Link
                 href="/practices"
-                className={`${
+                className={`$${
                   currentPathKeyword === 'practices' && 'font-semibold'
-                } px-3 py-2 rounded-md hover:bg-[#f3f4f5] hover:text-[#0057b3]`}
+                } ${
+                  isScrolled || !isHomePage
+                    ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                    : 'hover:bg-[#22262a]'
+                } px-3 py-2 rounded-md`}
               >
                 연습문제
               </Link>
               <Link
                 href="/notices"
-                className={`${
+                className={`$${
                   currentPathKeyword === 'notices' && 'font-semibold'
-                } px-3 py-2 rounded-md hover:bg-[#f3f4f5] hover:text-[#0057b3]`}
+                } ${
+                  isScrolled || !isHomePage
+                    ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                    : 'hover:bg-[#22262a]'
+                } px-3 py-2 rounded-md`}
               >
                 공지사항
               </Link>
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 w-[10rem] text-[0.825rem] text-[#4e5968]">
+          <div
+            className={`flex justify-end items-center gap-3 w-[10rem] text-[0.825rem] ${
+              isScrolled || !isHomePage ? 'text-[#4e5968]' : 'text-white'
+            }
+              `}
+          >
             {userInfo.isAuth ? (
               <>
                 <Link
                   href="/mypage/profile"
-                  className={`${
+                  className={`$${
                     currentPathKeyword === 'mypage' && 'font-semibold'
-                  } px-3 py-2 rounded-md hover:bg-[#f3f4f5]`}
+                  } px-3 py-2 rounded-md ${
+                    isScrolled || !isHomePage
+                      ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                      : 'hover:bg-[#22262a]'
+                  }`}
                 >
-                  <span className="font-semibold">{userInfo.name}</span> 님
+                  <span
+                    className={`font-semibold ${
+                      isScrolled || !isHomePage
+                        ? 'text-[#4e5968]'
+                        : 'text-white'
+                    }`}
+                  >
+                    {userInfo.name}&nbsp;님
+                  </span>
                 </Link>
                 <button
-                  className="px-3 py-2 rounded-md hover:bg-[#f3f4f5] hover:text-[#0057b3]"
+                  className={`px-3 py-2 rounded-md ${
+                    isScrolled || !isHomePage
+                      ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
+                      : 'bg-[#22262a] hover:bg-[#454850] text-[#487fee]'
+                  }`}
                   onClick={() => logoutMutation.mutate()}
                 >
                   로그아웃
@@ -190,14 +273,22 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="px-3 py-2 rounded-md hover:bg-[#f3f4f5] hover:text-[#0057b3]"
+                  className={`px-3 py-2 rounded-md ${
+                    isScrolled || !isHomePage
+                      ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                      : 'hover:bg-[#22262a]'
+                  }`}
                 >
                   로그인
                 </Link>
                 <a
                   href="https://sw7up.cbnu.ac.kr/account/join"
                   target="_blank"
-                  className="px-3 py-2 rounded-md hover:bg-[#f3f4f5] hover:text-[#0057b3]"
+                  className={`px-3 py-2 rounded-md ${
+                    isScrolled || !isHomePage
+                      ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
+                      : 'bg-[#22262a] hover:bg-[#454850] text-[#487fee]'
+                  }`}
                 >
                   회원가입
                 </a>
@@ -219,7 +310,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
               >
                 <path
-                  fill="#B0B8C1"
+                  fill={`${isScrolled || !isHomePage ? '#B0B8C1' : '#fff'}`}
                   fillRule="evenodd"
                   d="M13.815 12l5.651-5.651a1.2 1.2 0 00-1.697-1.698l-5.651 5.652-5.652-5.652a1.201 1.201 0 00-1.697 1.698L10.421 12l-5.652 5.651a1.202 1.202 0 00.849 2.049c.307 0 .614-.117.848-.351l5.652-5.652 5.651 5.652a1.198 1.198 0 001.697 0 1.2 1.2 0 000-1.698L13.815 12z"
                 ></path>
@@ -232,7 +323,7 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
               >
                 <path
-                  fill="#B0B8C1"
+                  fill={`${isScrolled || !isHomePage ? '#B0B8C1' : '#fff'}`}
                   d="M4.118 6.2h16a1.2 1.2 0 100-2.4h-16a1.2 1.2 0 100 2.4m16 4.6h-16a1.2 1.2 0 100 2.4h16a1.2 1.2 0 100-2.4m0 7h-16a1.2 1.2 0 100 2.4h16a1.2 1.2 0 100-2.4"
                 ></path>
               </svg>
@@ -242,63 +333,26 @@ export default function Navbar() {
 
         <div
           ref={subNavbarRef}
-          className="2md:hidden absolute top-[3.15rem] left-0 w-full bg-white overflow-hidden sub-navbar"
+          className={`2md:hidden absolute top-[3.15rem] left-0 w-full ${
+            isScrolled || !isHomePage ? 'bg-white' : 'bg-[#191f28]'
+          } overflow-hidden sub-navbar`}
         >
-          <ul className="flex flex-col items-center w-full font-light text-[15px] cursor-pointer text-start text-[#4e5968]">
-            {userInfo.isAuth ? (
-              <>
-                <Link
-                  href="/mypage/profile"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    collapseSubNavbar();
-                  }}
-                  className="hover:bg-[#022047] hover:bg-opacity-5 py-[0.9rem] px-5 w-full"
-                >
-                  <span className="font-semibold">{userInfo.name}</span> 님
-                </Link>
-                <button
-                  className="hover:bg-[#022047] hover:bg-opacity-5 py-[0.9rem] text-start px-5 w-full"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    collapseSubNavbar();
-                    logoutMutation.mutate();
-                  }}
-                >
-                  로그아웃
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsOpenSubNavbar(false);
-                  }}
-                  className="hover:bg-[#022047] hover:bg-opacity-5 py-[0.9rem] px-5 w-full"
-                >
-                  로그인
-                </Link>
-                <a
-                  href="https://sw7up.cbnu.ac.kr/account/join"
-                  target="_blank"
-                  className="hover:bg-[#022047] hover:bg-opacity-5 py-[0.9rem] px-5 w-full"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  회원가입
-                </a>
-              </>
-            )}
+          <ul
+            className={`flex flex-col items-center w-full font-medium text-[17px] cursor-pointer text-start ${
+              isScrolled || !isHomePage ? 'text-[#4e5968]' : 'text-white'
+            }`}
+          >
             <Link
               href="/contests"
               onClick={(e) => {
                 e.stopPropagation();
                 collapseSubNavbar();
               }}
-              className="hover:bg-[#022047] hover:bg-opacity-5 py-[0.9rem] px-5 w-full"
+              className={`${
+                isScrolled || !isHomePage
+                  ? 'hover:bg-[#022047] hover:bg-opacity-5'
+                  : 'hover:bg-[#d9d9ff] hover:bg-opacity-[0.11]'
+              } py-[1.25rem] px-5 w-full`}
             >
               대회
             </Link>
@@ -308,7 +362,11 @@ export default function Navbar() {
                 e.stopPropagation();
                 collapseSubNavbar();
               }}
-              className="hover:bg-[#022047] hover:bg-opacity-5 py-[0.9rem] px-5 w-full"
+              className={`${
+                isScrolled || !isHomePage
+                  ? 'hover:bg-[#022047] hover:bg-opacity-5'
+                  : 'hover:bg-[#d9d9ff] hover:bg-opacity-[0.11]'
+              } py-[1.25rem] px-5 w-full`}
             >
               시험
             </Link>
@@ -318,7 +376,11 @@ export default function Navbar() {
                 e.stopPropagation();
                 collapseSubNavbar();
               }}
-              className="hover:bg-[#022047] hover:bg-opacity-5 py-[0.9rem] px-5 w-full"
+              className={`${
+                isScrolled || !isHomePage
+                  ? 'hover:bg-[#022047] hover:bg-opacity-5'
+                  : 'hover:bg-[#d9d9ff] hover:bg-opacity-[0.11]'
+              } py-[1.25rem] px-5 w-full`}
             >
               연습문제
             </Link>
@@ -328,10 +390,88 @@ export default function Navbar() {
                 e.stopPropagation();
                 collapseSubNavbar();
               }}
-              className="hover:bg-[#022047] hover:bg-opacity-5 py-[0.9rem] px-5 w-full"
+              className={`${
+                isScrolled || !isHomePage
+                  ? 'hover:bg-[#022047] hover:bg-opacity-5'
+                  : 'hover:bg-[#d9d9ff] hover:bg-opacity-[0.11]'
+              } py-[1.25rem] px-5 w-full`}
             >
               공지사항
             </Link>
+
+            <div className="w-full flex flex-col gap-y-4 px-4 my-4 text-[17px]">
+              {userInfo.isAuth ? (
+                <>
+                  <Link
+                    href="/mypage/profile"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      collapseSubNavbar();
+                    }}
+                    className={`w-full flex justify-center items-center gap-[0.375rem] ${
+                      isScrolled || !isHomePage
+                        ? 'bg-[#e8f3ff] hover:bg-[#cee1fc] text-[#487fee]'
+                        : 'bg-[#d9d9ff] bg-opacity-[0.11] hover:bg-[#505460] hover:bg-opacity-100 text-[#487fee]'
+                    } px-4 py-[0.85rem] rounded-[8px] font-medium `}
+                  >
+                    <span
+                      className={`${
+                        isScrolled || !isHomePage
+                          ? 'text-[#487fee]'
+                          : 'text-[#487fee]'
+                      } font-semibold`}
+                    >
+                      {userInfo.name}&nbsp;님
+                    </span>
+                  </Link>
+                  <button
+                    className={`w-full flex justify-center items-center gap-[0.375rem] ${
+                      isScrolled || !isHomePage
+                        ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
+                        : 'bg-[#d9d9ff] bg-opacity-[0.11] hover:bg-[#505460] hover:bg-opacity-100 text-[#487fee]'
+                    } px-4 py-[0.85rem] rounded-[8px] font-medium focus:bg-[#1c6cdb] `}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      collapseSubNavbar();
+                      logoutMutation.mutate();
+                    }}
+                  >
+                    로그아웃
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsOpenSubNavbar(false);
+                    }}
+                    className={`flex justify-center items-center gap-[0.375rem] ${
+                      isScrolled || !isHomePage
+                        ? 'bg-[#e8f3ff] hover:bg-[#cee1fc] text-[#487fee]'
+                        : 'bg-[#d9d9ff] bg-opacity-[0.11] hover:bg-[#505460] hover:bg-opacity-100 text-[#487fee]'
+                    } px-4 py-[0.75rem] rounded-[8px] font-medium`}
+                  >
+                    로그인
+                  </Link>
+                  <a
+                    href="https://sw7up.cbnu.ac.kr/account/join"
+                    target="_blank"
+                    className={`flex justify-center items-center gap-[0.375rem] ${
+                      isScrolled || !isHomePage
+                        ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
+                        : 'bg-[#d9d9ff] bg-opacity-[0.11] hover:bg-[#505460] hover:bg-opacity-100 text-[#487fee]'
+                    } px-4 py-[0.75rem] rounded-[8px] font-medium`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    회원가입
+                  </a>
+                </>
+              )}
+            </div>
           </ul>
         </div>
       </div>

@@ -513,8 +513,8 @@ export default function ContestDetail(props: DefaultProps) {
               <span className="font-light">
                 {contestInfo.applyingPeriod ? (
                   <>
-                    {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.start)}{' '}
-                    ~&nbsp;
+                    {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.start)}
+                    &nbsp;~&nbsp;
                     {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.end)}
                   </>
                 ) : (
