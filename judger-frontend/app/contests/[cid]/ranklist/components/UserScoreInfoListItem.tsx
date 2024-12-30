@@ -34,7 +34,7 @@ export default function UserScoreInfoListItem({
           <div className="ml-2">
             <span className="text-[17px]">{contestRankInfo.user.name}</span>
             <span className="text-xs text-gray-600">
-              ({contestRankInfo.user.department},{' '}
+              ({contestRankInfo.user.department},&nbsp;
               {contestRankInfo.user.no.slice(0, 4) +
                 '***' +
                 contestRankInfo.user.no.slice(7)}
