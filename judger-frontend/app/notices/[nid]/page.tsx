@@ -109,7 +109,6 @@ export default function NoticeDetail(props: DefaultProps) {
     <div className="mt-6 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <div className="flex flex-col 3md:flex-row gap-x-2 items-start 3md:items-center"></div>
           <p className="text-2xl font-bold tracking-tight">
             {noticeInfo.title}
           </p>
