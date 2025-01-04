@@ -1,46 +1,29 @@
-name: ssh for dev deploy # workflow의 이름을 지정해준다.
+name: ssh for dev deploy
 
-on: # 작동 트리거로 설정할 부분을 작성하는 곳이다.
-  push: # 이 스크립트는 개발서버용 이므로 dev 브렌치에 push될 때 작동하도록 해두었다.
+on:
+  push:
     branches: [main]
 
-# jobs에선 action의 단계(step)를 설정할 수 있다.
-# 여러 개의 job을 사용할 수 있고, job끼리 서로 정보를 교환할 수도 있다.
 jobs:
   build:
-    name: Build # job의 이름을 지정해 준다.
-    runs-on: ubuntu-latest # job을 실행할 환경을 정해준다.
+    name: Build
+    runs-on: ubuntu-latest
 
     steps:
-      # Github Actions는 해당 프로젝트를 리눅스 환경에 checkout하고 나서 실행한다.
-      # 꼭 필요한 과정!
-      # 누가 만들어 놓은 Action을 사용할 때에는 uses 키워드를 사용한다.
       - uses: actions/checkout@v2
 
-      # step의 이름을 지정해준다.
       - name: SSH Remote Commands
-        # 위에 말했던 appleboy의 Action을 사용
         uses: appleboy/ssh-action@v0.1.4
-        # with라는 키워드로 Action에 값을 전달할 수 있다.
-        # 아까 설정했던 secrets를 사용해서 값을 가져오자.
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
-          # ssh 연결이 아무리 늦어도 20초 정도면 된다.
-          # 이 이상 끌게되면 사실상 접속 실패이므로 40초 타임아웃을 걸어두자
           timeout: 40s
-
-          # ssh 접속이 되면 실행할 스크립트
           script: |
             echo "#START"
             cd /home/soft1/prod_2022/sw-judger
 
-            echo "############# DOCKER-COMPOSE UP #############"
-            cd /home/soft1/prod_2022/sw-judger || { echo "Directory not found! Exiting."; exit 1; }
-
-            # Git Pull
             echo "############# GIT PULL #############"
             if git pull origin main; then
               echo "Git pull successful"
@@ -50,15 +33,11 @@ jobs:
             fi
 
             echo "############# DOCKER-COMPOSE DOWN #############"
-            docker-compose -f docker-compose_prod.yml down --volumes --remove-orphans || { echo "Failed to stop existing containers"; exit 1; }
+            docker-compose -f docker-compose_prod.yml down --remove-orphans || { echo "Failed to stop existing containers"; exit 1; }
 
-            echo "############# DOCKER SYSTEM PRUNE #############"
-            docker system prune -f --volumes || { echo "Failed to clean up Docker resources"; exit 1; }
+            echo "############# DOCKER SYSTEM AND VOLUME PRUNE #############"
+            docker system prune -f || { echo "Failed to prune Docker system!"; }
+            docker volume prune -f || { echo "Failed to prune Docker volumes!"; }
 
-            echo "############# DOCKER-COMPOSE UP #############"
-            if docker-compose -f docker-compose_prod.yml up -d --build; then
-              echo "Docker Compose executed successfully"
-            else
-              echo "Docker Compose execution failed!"
-              exit 1
-            fi
+            echo "############# DOCKER-COMPOSE UP WITH CACHE #############"
+            docker-compose -f docker-compose_prod.yml up -d --build --remove-orphans || { echo "Failed to build and start Docker Compose! Exiting."; exit 1; }
