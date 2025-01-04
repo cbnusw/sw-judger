@@ -3,50 +3,44 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  # CI 작업
   ci:
     name: Continuous Integration
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 코드 체크아웃
-      - name: Checkout code
+      - name: Check out repository
         uses: actions/checkout@v2
 
-      # 2. 의존성 설치
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm install
+        working-directory: ./judger-frontend
 
-      # 3. 코드 품질 검사 (Lint)
-      - name: Lint code
-        run: |
-          npm run lint
+      - name: Run lint
+        run: npm run lint
+        working-directory: ./judger-frontend
 
-      # 4. 테스트 실행
       - name: Run tests
-        run: |
-          npm test
+        run: npm test
+        working-directory: ./judger-frontend
 
-      # 5. 빌드 실행
-      - name: Build application
-        run: |
-          npm run build
-
-  # CD 작업
   cd:
     name: Continuous Deployment
+    needs: ci
     runs-on: ubuntu-latest
-    needs: ci # CI 작업 성공 시에만 실행
 
     steps:
-      # 1. 코드 체크아웃
-      - name: Checkout code
+      - name: Check out repository
         uses: actions/checkout@v2
 
-      # 2. 서버 배포 (SSH를 사용)
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@v0.1.4
         with:
