@@ -1,33 +1,58 @@
-name: CI/CD Pipeline
+name: ssh for dev deploy # workflow의 이름을 지정해준다.
 
-on:
-  push:
-    branches:
-      - main
+on: # 작동 트리거로 설정할 부분을 작성하는 곳이다.
+  push: # 이 스크립트는 개발서버용 이므로 dev 브렌치에 push될 때 작동하도록 해두었다.
+    branches: [dev]
 
+# jobs에선 action의 단계(step)를 설정할 수 있다.
+# 여러 개의 job을 사용할 수 있고, job끼리 서로 정보를 교환할 수도 있다.
 jobs:
-  deploy:
-    name: Deploy to Production via SSH
-    runs-on: ubuntu-latest
+  build:
+    name: Build # job의 이름을 지정해 준다.
+    runs-on: ubuntu-latest # job을 실행할 환경을 정해준다.
 
     steps:
-      # 1. Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      # Github Actions는 해당 프로젝트를 리눅스 환경에 checkout하고 나서 실행한다.
+      # 꼭 필요한 과정!
+      # 누가 만들어 놓은 Action을 사용할 때에는 uses 키워드를 사용한다.
+      - uses: actions/checkout@v2
 
-      # 2. Set up SSH
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+      # step의 이름을 지정해준다.
+      - name: SSH Remote Commands
+        # 위에 말했던 appleboy의 Action을 사용
+        uses: appleboy/ssh-action@v0.1.4
+        # with라는 키워드로 Action에 값을 전달할 수 있다.
+        # 아까 설정했던 secrets를 사용해서 값을 가져오자.
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          # ssh 연결이 아무리 늦어도 20초 정도면 된다.
+          # 이 이상 끌게되면 사실상 접속 실패이므로 40초 타임아웃을 걸어두자
+          timeout: 40s
 
-      # 3. Deploy using Docker Compose on the server
-      - name: Deploy application
-        run: |
-          ssh -i ~/.ssh/id_rsa -p ${{ secrets.DEPLOY_PORT }} ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
+          # ssh 접속이 되면 실행할 스크립트
+          script: |
+            echo "#START"
             cd /home/soft1/prod_2022/sw-judger
-            docker-compose -f docker-compose_prod.yml down
-            docker-compose -f docker-compose_prod.yml up -d --build --remove-orphans
-          EOF
+
+            echo "############# GIT PULL #############"
+            pass=$(sudo git pull origin dev)
+            echo $pass
+            if [ -n "$pass" ]; then 
+              echo "############# SH BACK-DEPLOY.SH #############"
+              build='Successfully built'
+              pass2=$(sh back-deploy.sh)
+              echo $pass2
+              if [[ "${pass2}" == *"${build}"* ]]; then 
+                echo "############# DOCKER-COMPOSE UP #############"
+                sudo docker-compose_prod.yml up -d --build
+              else 
+                echo "############## Build Fail!! ##############"
+                exit 1;
+              fi
+            else
+              echo "############## git pull: Error ##############"
+              exit 1;
+            fi
