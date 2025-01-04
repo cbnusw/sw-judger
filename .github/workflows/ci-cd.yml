@@ -7,49 +7,15 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to Production
+    name: Deploy to Production via SSH
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Cache Node.js modules for judger
-        uses: actions/cache@v3
-        with:
-          path: sw-judger/judger-backend/judger/node_modules
-          key: ${{ runner.os }}-node-judger-${{ hashFiles('sw-judger/judger-backend/judger/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-judger-
-
-      - name: Install dependencies for judger
-        working-directory: sw-judger/judger-backend/judger
-        run: npm ci
-
-      - name: Cache Node.js modules for judger-api
-        uses: actions/cache@v3
-        with:
-          path: sw-judger/judger-backend/judger-api/node_modules
-          key: ${{ runner.os }}-node-judger-api-${{ hashFiles('sw-judger/judger-backend/judger-api/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-judger-api-
-
-      - name: Install dependencies for judger-api
-        working-directory: sw-judger/judger-backend/judger-api
-        run: npm ci
-
-      - name: Cache Node.js modules for frontend
-        uses: actions/cache@v3
-        with:
-          path: sw-judger/judger-frontend/node_modules
-          key: ${{ runner.os }}-node-frontend-${{ hashFiles('sw-judger/judger-frontend/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-frontend-
-
-      - name: Install dependencies for frontend
-        working-directory: sw-judger/judger-frontend
-        run: npm ci
-
+      # 2. Set up SSH
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
@@ -57,9 +23,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
 
+      # 3. Deploy using Docker Compose on the server
       - name: Deploy application
         run: |
           ssh -i ~/.ssh/id_rsa -p ${{ secrets.DEPLOY_PORT }} ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
-            cd /home/soft1/tools
-            ./deploy_shell || { echo "Deployment failed!"; exit 1; }
+            cd /home/soft1/prod_2022/sw-judger
+            docker-compose -f docker-compose_prod.yml down
+            docker-compose -f docker-compose_prod.yml up -d --build --remove-orphans
           EOF
