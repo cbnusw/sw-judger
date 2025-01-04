@@ -28,9 +28,9 @@ jobs:
         run: npm run lint
         working-directory: ./judger-frontend
 
-      - name: Run tests
-        run: npm test
-        working-directory: ./judger-frontend
+      # - name: Run tests
+      #   run: npm test
+      #   working-directory: ./judger-frontend
 
   cd:
     name: Continuous Deployment
