@@ -29,21 +29,13 @@ export default function Contests() {
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
-        <p className="h-16 flex items-center text-2xl font-semibold tracking-wide">
-          <Image
-            src={trophyImg}
-            alt="trophy"
-            width={47.5}
-            height={0}
-            quality={100}
-            className="fade-in-fast"
-          />
-          <span className="ml-4 lift-up">대회 목록</span>
+        <p className="h-16 flex items-center text-[32px] font-semibold tracking-wide">
+          <span className="lift-up">대회 목록</span>
         </p>
 
         <div className="mt-5 mb-4">
           <div className="flex flex-col 3md:flex-row justify-between gap-2 items-start">
-            <div className="w-full 3md:w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-lg hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
+            <div className="w-full 3md:w-1/2 h-[2.3rem] flex items-center pl-3 pr-1 outline outline-1 outline-[#e6e8ea] rounded-md hover:outline-[#93bcfa] hover:outline-2 focus-within:outline-[#93bcfa] focus-within:outline-2">
               <svg
                 fill="none"
                 width="21"

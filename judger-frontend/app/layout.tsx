@@ -25,7 +25,9 @@ export default function RootLayout({
           <ConditionalNavbar />
           <SpeedInsights />
           <Toast />
-          <main className="w-full mx-auto pt-20 mb-[10rem]">{children}</main>
+          <main className="w-full mx-auto pt-[6rem] mb-[10rem]">
+            {children}
+          </main>
           <Footer />
         </Providers>
       </body>

@@ -209,10 +209,11 @@ export default function Login() {
         >
           <div className="mt-12 flex flex-col gap-y-5 md:gap-y-9">
             <div className="flex flex-col gap-y-[0.4rem]">
-              <label htmlFor="" className="text-[#4e5968] text-[15px]">
+              <label htmlFor="user-id" className="text-[#4e5968] text-[15px]">
                 학번/교번
               </label>
               <input
+                id="user-id"
                 type="text"
                 ref={idInputRef}
                 onChange={(e) => {
@@ -236,10 +237,14 @@ export default function Login() {
             </div>
 
             <div className="flex h-[6rem] flex-col gap-y-[0.4rem]">
-              <label htmlFor="" className="text-[#4e5968] text-[15px]">
+              <label
+                htmlFor="user-password"
+                className="text-[#4e5968] text-[15px]"
+              >
                 비밀번호
               </label>
               <input
+                id="user-password"
                 type="password"
                 ref={pwdInputRef}
                 onChange={(e) => {
