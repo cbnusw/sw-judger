@@ -141,7 +141,9 @@ export default function Navbar() {
       ref={navbarRef}
       className={`w-screen h-[3.25rem] flex items-center z-30 2lg:p-0 py-2 pl-4 pr-0 fixed top-0 whitespace-nowrap ${
         isScrolled || !isHomePage
-          ? 'border-b border-[#e6e8ea] bg-white'
+          ? isScrolled
+            ? 'border-b border-[#e6e8ea] bg-white'
+            : 'bg-white'
           : 'bg-[#191f28] 2md:bg-transparent'
       }`}
     >
@@ -181,7 +183,7 @@ export default function Navbar() {
             >
               <Link
                 href="/contests"
-                className={`$${
+                className={`${
                   currentPathKeyword === 'contests' && 'font-semibold'
                 } ${
                   isScrolled || !isHomePage
@@ -193,7 +195,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/exams"
-                className={`$${
+                className={`${
                   currentPathKeyword === 'exams' && 'font-semibold'
                 } ${
                   isScrolled || !isHomePage
@@ -205,7 +207,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/practices"
-                className={`$${
+                className={`${
                   currentPathKeyword === 'practices' && 'font-semibold'
                 } ${
                   isScrolled || !isHomePage
@@ -217,7 +219,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/notices"
-                className={`$${
+                className={`${
                   currentPathKeyword === 'notices' && 'font-semibold'
                 } ${
                   isScrolled || !isHomePage
@@ -240,7 +242,7 @@ export default function Navbar() {
               <>
                 <Link
                   href="/mypage/profile"
-                  className={`$${
+                  className={`${
                     currentPathKeyword === 'mypage' && 'font-semibold'
                   } px-3 py-2 rounded-md ${
                     isScrolled || !isHomePage
