@@ -49,7 +49,12 @@ jobs:
               exit 1
             fi
 
-            # Docker Compose 실행
+            echo "############# DOCKER-COMPOSE DOWN #############"
+            docker-compose -f docker-compose_prod.yml down --volumes --remove-orphans || { echo "Failed to stop existing containers"; exit 1; }
+
+            echo "############# DOCKER SYSTEM PRUNE #############"
+            docker system prune -f --volumes || { echo "Failed to clean up Docker resources"; exit 1; }
+
             echo "############# DOCKER-COMPOSE UP #############"
             if docker-compose -f docker-compose_prod.yml up -d --build; then
               echo "Docker Compose executed successfully"
