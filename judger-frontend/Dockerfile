@@ -8,7 +8,7 @@ COPY package*.json yarn.lock ./
 COPY ./ckeditor5 ./ckeditor5
 
 # 4. 의존성 설치 (이 단계는 캐시 활용 가능)
-RUN yarn install
+RUN yarn install --production
 
 # 5. 소스 코드 복사 (자주 변경됨)
 COPY . .
