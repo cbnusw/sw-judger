@@ -72,7 +72,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-[-5rem]">
+    <div className="mt-[-6rem]">
       <div className="relative h-screen flex flex-col gap-6 justify-center items-center bg-[url('/images/main.jpg')] bg-cover bg-center bright-in">
         <span className="mb-[7.5rem] sm:mb-0 text-4xl sm:text-5xl text-center text-white tracking-[0.05em] leading-normal sm:leading-normal font-semibold fade-in px-5 uppercase">
           생각의 전환
