@@ -38,21 +38,21 @@ jobs:
             cd /home/soft1/prod_2022/sw-judger
 
             echo "############# GIT PULL #############"
-            pass=$(sudo git pull origin dev)
-            echo $pass
-            if [ -n "$pass" ]; then 
-              echo "############# SH BACK-DEPLOY.SH #############"
-              build='Successfully built'
-              pass2=$(sh back-deploy.sh)
-              echo $pass2
-              if [[ "${pass2}" == *"${build}"* ]]; then 
-                echo "############# DOCKER-COMPOSE UP #############"
-                sudo docker-compose_prod.yml up -d --build
-              else 
-                echo "############## Build Fail!! ##############"
-                exit 1;
-              fi
+            if git pull origin main; then
+              echo "Git pull successful"
             else
-              echo "############## git pull: Error ##############"
+              echo "Git pull failed!"
+              exit 1
+            fi
+
+            echo "############# SH BACK-DEPLOY.SH #############"
+            build='Successfully built'
+            pass2=$(sh back-deploy.sh)
+            echo $pass2
+            if [[ "${pass2}" == *"${build}"* ]]; then 
+              echo "############# DOCKER-COMPOSE UP #############"
+              docker-compose -f docker-compose_prod.yml up -d --build
+            else 
+              echo "############## Build Fail!! ##############"
               exit 1;
             fi
