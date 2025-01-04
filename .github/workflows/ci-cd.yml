@@ -2,7 +2,7 @@ name: ssh for dev deploy # workflow의 이름을 지정해준다.
 
 on: # 작동 트리거로 설정할 부분을 작성하는 곳이다.
   push: # 이 스크립트는 개발서버용 이므로 dev 브렌치에 push될 때 작동하도록 해두었다.
-    branches: [dev]
+    branches: [main]
 
 # jobs에선 action의 단계(step)를 설정할 수 있다.
 # 여러 개의 job을 사용할 수 있고, job끼리 서로 정보를 교환할 수도 있다.
