@@ -40,4 +40,6 @@ jobs:
             docker volume prune -f || { echo "Failed to prune Docker volumes!"; }
 
             echo "############# DOCKER-COMPOSE UP WITH CACHE #############"
+            export DOCKER_BUILDKIT=1
+            export COMPOSE_DOCKER_CLI_BUILD=1
             docker-compose -f docker-compose_prod.yml up -d --build --remove-orphans || { echo "Failed to build and start Docker Compose! Exiting."; exit 1; }
