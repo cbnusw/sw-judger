@@ -37,6 +37,10 @@ jobs:
             echo "#START"
             cd /home/soft1/prod_2022/sw-judger
 
+            echo "############# DOCKER-COMPOSE UP #############"
+            cd /home/soft1/prod_2022/sw-judger || { echo "Directory not found! Exiting."; exit 1; }
+
+            # Git Pull
             echo "############# GIT PULL #############"
             if git pull origin main; then
               echo "Git pull successful"
@@ -45,14 +49,11 @@ jobs:
               exit 1
             fi
 
-            echo "############# SH BACK-DEPLOY.SH #############"
-            build='Successfully built'
-            pass2=$(sh back-deploy.sh)
-            echo $pass2
-            if [[ "${pass2}" == *"${build}"* ]]; then 
-              echo "############# DOCKER-COMPOSE UP #############"
-              docker-compose -f docker-compose_prod.yml up -d --build
-            else 
-              echo "############## Build Fail!! ##############"
-              exit 1;
+            # Docker Compose 실행
+            echo "############# DOCKER-COMPOSE UP #############"
+            if docker-compose -f docker-compose_prod.yml up -d --build; then
+              echo "Docker Compose executed successfully"
+            else
+              echo "Docker Compose execution failed!"
+              exit 1
             fi
