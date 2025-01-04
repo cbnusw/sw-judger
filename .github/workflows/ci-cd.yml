@@ -1,0 +1,72 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.17.0'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./judger-frontend
+
+      - name: Run lint
+        run: npm run lint
+        working-directory: ./judger-frontend
+
+      # - name: Run tests
+      #   run: npm test
+      #   working-directory: ./judger-frontend
+
+  cd:
+    name: Continuous Deployment
+    needs: ci
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          timeout: 40s
+          script: |
+            echo "#START"
+            cd /home/soft1/prod_2022/sw-judger
+
+            echo "############# GIT PULL #############"
+            if git pull origin main; then
+              echo "Git pull successful"
+            else
+              echo "Git pull failed!"
+              exit 1
+            fi
+
+            echo "############# DOCKER-COMPOSE DOWN #############"
+            docker-compose -f docker-compose_prod.yml down --remove-orphans || { echo "Failed to stop existing containers"; exit 1; }
+
+            echo "############# DOCKER SYSTEM AND VOLUME PRUNE #############"
+            docker system prune -f || { echo "Failed to prune Docker system!"; }
+            docker volume prune -f || { echo "Failed to prune Docker volumes!"; }
+
+            echo "############# DOCKER-COMPOSE UP #############"
+            docker-compose -f docker-compose_prod.yml up -d --build --remove-orphans || { echo "Failed to build and start Docker Compose! Exiting."; exit 1; }
