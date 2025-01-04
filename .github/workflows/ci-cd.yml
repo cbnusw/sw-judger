@@ -14,20 +14,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Cache Node.js modules
+      - name: Cache Node.js modules for judger
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: sw-judger/judger-backend/judger/node_modules
+          key: ${{ runner.os }}-node-judger-${{ hashFiles('sw-judger/judger-backend/judger/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-judger-
 
-      - name: Install dependencies
+      - name: Install dependencies for judger
+        working-directory: sw-judger/judger-backend/judger
+        run: npm ci
+
+      - name: Cache Node.js modules for judger-api
+        uses: actions/cache@v3
+        with:
+          path: sw-judger/judger-backend/judger-api/node_modules
+          key: ${{ runner.os }}-node-judger-api-${{ hashFiles('sw-judger/judger-backend/judger-api/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-judger-api-
+
+      - name: Install dependencies for judger-api
+        working-directory: sw-judger/judger-backend/judger-api
+        run: npm ci
+
+      - name: Cache Node.js modules for frontend
+        uses: actions/cache@v3
+        with:
+          path: sw-judger/judger-frontend/node_modules
+          key: ${{ runner.os }}-node-frontend-${{ hashFiles('sw-judger/judger-frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-frontend-
+
+      - name: Install dependencies for frontend
+        working-directory: sw-judger/judger-frontend
         run: npm ci
 
       - name: Set up SSH
