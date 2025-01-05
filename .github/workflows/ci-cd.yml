@@ -101,7 +101,7 @@ jobs:
 
             echo "############# DOCKER SYSTEM AND VOLUME PRUNE #############"
             docker system prune -a --volumes -f || { echo "Failed to prune Docker system!"; exit 1; }
-            docker volume prune -f || { echo "Failed to prune Docker volumes!"; exit 1; }
+            docker volume rm $(docker volume ls -q) || { echo "Failed to remove all Docker volumes!"; exit 1; }
 
             # 컨테이너 빌드 및 시작
             docker-compose -f docker-compose_prod.yml up -d --build --remove-orphans || { echo "Failed to build and start Docker Compose! Exiting."; exit 1; }
