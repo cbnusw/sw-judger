@@ -21,18 +21,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'
-          cache: 'npm'
 
-      # 3. judger-frontend 의존성 설치 및 검사
+      # 3. judger-frontend 의존성 캐시 복원 및 설치
       - name: Restore npm cache for frontend
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('judger-frontend/package-lock.json') }}
+          key: ${{ runner.os }}-npm-cache-frontend-${{ hashFiles('judger-frontend/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-cache-
+            ${{ runner.os }}-npm-cache-frontend-
 
-      - name: Install frontend dependencies
+      - name: Install dependencies for frontend
         run: npm install
         working-directory: ./judger-frontend
 
@@ -40,29 +39,29 @@ jobs:
         run: npm run lint
         working-directory: ./judger-frontend
 
-      # 4. judger 의존성 설치 및 검사
-      - name: Restore npm cache for judger
+      # 4. judger-backend/judger 의존성 캐시 복원 및 설치
+      - name: Restore npm cache for backend judger
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('judger-backend/judger/package-lock.json') }}
+          key: ${{ runner.os }}-npm-cache-judger-${{ hashFiles('judger-backend/judger/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-cache-
+            ${{ runner.os }}-npm-cache-judger-
 
-      - name: Install backend judger dependencies
+      - name: Install dependencies for backend judger
         run: npm install
         working-directory: ./judger-backend/judger
 
-      # 5. judger-api 의존성 설치 및 검사
-      - name: Restore npm cache for judger-api
+      # 5. judger-backend/judger-api 의존성 캐시 복원 및 설치
+      - name: Restore npm cache for backend judger-api
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('judger-backend/judger-api/package-lock.json') }}
+          key: ${{ runner.os }}-npm-cache-judger-api-${{ hashFiles('judger-backend/judger-api/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-cache-
+            ${{ runner.os }}-npm-cache-judger-api-
 
-      - name: Install backend judger-api dependencies
+      - name: Install dependencies for backend judger-api
         run: npm install
         working-directory: ./judger-backend/judger-api
 
