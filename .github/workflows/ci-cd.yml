@@ -19,6 +19,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'
+          cache: 'npm'
+
+      - name: Restore npm cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
 
       - name: Install dependencies
         run: npm install
