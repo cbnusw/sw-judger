@@ -73,4 +73,11 @@ jobs:
             fi
 
             echo "############# DOCKER-COMPOSE DOWN #############"
-            docker-compose -f docker-compose_prod.yml down --remove-orphans || { echo "Failed to stop existing containers"; exit
+            docker-compose -f docker-compose_prod.yml down --remove-orphans || { echo "Failed to stop existing containers"; exit 1; }
+
+            echo "############# DOCKER SYSTEM AND VOLUME PRUNE #############"
+            docker system prune -f || { echo "Failed to prune Docker system!"; }
+            docker volume prune -f || { echo "Failed to prune Docker volumes!"; }
+
+            echo "############# DOCKER-COMPOSE UP #############"
+            docker-compose -f docker-compose_prod.yml up -d --build --remove-orphans || { echo "Failed to build and start Docker Compose! Exiting."; exit 1; }
