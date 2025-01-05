@@ -12,34 +12,59 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 코드 체크아웃
       - name: Check out repository
         uses: actions/checkout@v2
 
+      # 2. Node.js 설정
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'
           cache: 'npm'
 
-      - name: Restore npm cache
+      # 3. judger-frontend 의존성 설치 및 검사
+      - name: Restore npm cache for frontend
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('judger-frontend/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm install
         working-directory: ./judger-frontend
 
-      - name: Run lint
+      - name: Run lint for frontend
         run: npm run lint
         working-directory: ./judger-frontend
 
-      # - name: Run tests
-      #   run: npm test
-      #   working-directory: ./judger-frontend
+      # 4. judger 의존성 설치 및 검사
+      - name: Restore npm cache for judger
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('judger-backend/judger/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
+
+      - name: Install backend judger dependencies
+        run: npm install
+        working-directory: ./judger-backend/judger
+
+      # 5. judger-api 의존성 설치 및 검사
+      - name: Restore npm cache for judger-api
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('judger-backend/judger-api/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
+
+      - name: Install backend judger-api dependencies
+        run: npm install
+        working-directory: ./judger-backend/judger-api
 
   cd:
     name: Continuous Deployment
@@ -47,9 +72,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 코드 체크아웃
       - name: Check out repository
         uses: actions/checkout@v2
 
+      # 2. 원격 서버 배포
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@v0.1.4
         with:
