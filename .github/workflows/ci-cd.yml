@@ -41,7 +41,7 @@ jobs:
         run: npm install
         working-directory: ./judger-backend/judger-api
 
-  cd:
+   cd:
     name: Continuous Deployment
     needs: ci
     runs-on: ubuntu-latest
@@ -76,8 +76,17 @@ jobs:
             docker-compose -f docker-compose_prod.yml down --remove-orphans || { echo "Failed to stop existing containers"; exit 1; }
 
             echo "############# DOCKER SYSTEM AND VOLUME PRUNE #############"
-            docker system prune -f || { echo "Failed to prune Docker system!"; }
-            docker volume prune -f || { echo "Failed to prune Docker volumes!"; }
+            # 불필요한 Docker 데이터 정리
+            docker system prune -a --volumes -f || { echo "Failed to prune Docker system!"; exit 1; }
 
             echo "############# DOCKER-COMPOSE UP #############"
+            # Docker 로그 파일 크기 제한 설정
+            sed -i '/services:/a\
+              logging:\\n\
+                driver: "json-file"\\n\
+                options:\\n\
+                  max-size: "10m"\\n\
+                  max-file: "3"\\n' docker-compose_prod.yml || { echo "Failed to update logging config"; exit 1; }
+
+            # 컨테이너 빌드 및 시작
             docker-compose -f docker-compose_prod.yml up -d --build --remove-orphans || { echo "Failed to build and start Docker Compose! Exiting."; exit 1; }
