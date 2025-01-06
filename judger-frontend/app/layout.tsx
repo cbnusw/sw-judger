@@ -51,6 +51,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/images/cube-logo.png" />
+        <meta
+          name="google-site-verification"
+          content="isENqoS-vEJn7rno17EZWfhCbHez5XsiJAMitll0aE4"
+        />
       </head>
       <body className="text-sm">
         <Providers>
