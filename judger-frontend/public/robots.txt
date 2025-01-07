@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://swjudge.cbnu.ac.kr
+
+# Sitemaps
+Sitemap: https://swjudge.cbnu.ac.kr/sitemap.xml
