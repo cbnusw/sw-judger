@@ -10,15 +10,20 @@ export const metadata = {
   description:
     '충북 도내 대학 재학생들의 소프트웨어 역량을 강화하고, 프로그래밍 학습과 대회 참여를 지원하는 OJ 플랫폼입니다. 코딩 테스트 대비 및 과제 채점을 위한 최적의 환경을 제공합니다.',
   keywords: [
+    'Judge',
+    'judge',
     '충북대학교',
     'Online Judge',
-    'SWJudge',
+    'online judge',
+    'SW Judge',
+    'sw judge',
     '프로그래밍',
     '코딩테스트',
     '경진대회',
     '시험',
     '자동 채점',
     'OJ 플랫폼',
+    'oj 플랫폼',
   ],
   authors: [
     { name: '충북대학교 Judge 개발팀', url: 'https://swjudge.cbnu.ac.kr' },
@@ -39,6 +44,12 @@ export const metadata = {
     ],
     locale: 'ko_KR',
     type: 'website',
+  },
+  verification: {
+    google: 'isENqoS-vEJn7rno17EZWfhCbHez5XsiJAMitll0aE4',
+    other: {
+      'naver-site-verification': '4680748cf1601b2eb8da101955fd513f9be65c3c',
+    },
   },
 };
 
