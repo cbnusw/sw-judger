@@ -1,3 +1,6 @@
+@import url('https://static.toss.im/tps/main.css');
+@import url('https://static.toss.im/tps/others.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +8,9 @@
 * {
   color: #333d4b;
   overflow-anchor: none;
+  font-family: 'Toss Product Sans', -apple-system, BlinkMacSystemFont,
+    'Apple SD Gothic Neo', Pretendard, Roboto, 'Noto Sans KR', 'Segoe UI',
+    'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 .sub-navbar {

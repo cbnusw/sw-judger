@@ -36,7 +36,7 @@ export default function Practices() {
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <p className="h-16 flex items-center text-[32px] font-semibold tracking-wide">
-          <span className="lift-up">연습문제 목록</span>
+          <span className="lift-up">연습문제</span>
         </p>
 
         <div className="mt-5 mb-4">
