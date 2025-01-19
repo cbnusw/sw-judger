@@ -3,7 +3,6 @@ import Footer from './components/Footer';
 import Toast from './components/toast/Toast';
 import './globals.css';
 import Providers from '@/utils/Providers';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata = {
   title: 'Judge',
@@ -70,7 +69,6 @@ export default function RootLayout({
       <body className="text-sm">
         <Providers>
           <ConditionalNavbar />
-          <SpeedInsights />
           <Toast />
           <main className="w-full mx-auto pt-[6rem] mb-[10rem]">
             {children}

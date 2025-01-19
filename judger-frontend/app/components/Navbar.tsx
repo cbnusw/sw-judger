@@ -164,7 +164,7 @@ export default function Navbar() {
                 quality={100}
               />
               <span
-                className={`tracking-tight text-[1rem] font-bold ${
+                className={`tracking-tight text-[1rem] font-extrabold ${
                   isScrolled || !isHomePage ? 'text-[#333]' : 'text-white'
                 }`}
               >
