@@ -254,7 +254,7 @@ export default function Login() {
                   });
                 }}
                 onBlur={verifyPwdInputValueValidFail}
-                className={`h-[2.5rem] text-lg tracking-[0.01em] text-[rgba(0,12,30,0.75)] font-light flex items-center rounded-[7px] duration-100 px-[0.825rem] ${
+                className={`h-[2.5rem] text-[0.875rem] tracking-[0.01em] text-[rgba(0,12,30,0.75)] font-light flex items-center rounded-[7px] duration-100 px-[0.825rem] ${
                   isPwdInputValidFail
                     ? STR_WRONG_CASE_INPUT_ELEMENT_STYLE_CLASSNAME
                     : STR_RIGHT_CASE_INPUT_ELEMENT_STYLE_CLASSNAME
