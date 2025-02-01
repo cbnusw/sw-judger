@@ -139,13 +139,15 @@ export default function Navbar() {
   return (
     <nav
       ref={navbarRef}
-      className={`w-screen h-[3.25rem] flex items-center z-30 2lg:p-0 py-2 pl-4 pr-0 fixed top-0 whitespace-nowrap ${
+      className={`w-screen h-[3.25rem] flex items-center z-30 2lg:p-0 py-2 pl-4 pr-0 fixed top-0 whitespace-nowrap
+      ${
         isScrolled || !isHomePage
           ? isScrolled
-            ? 'border-b border-[#e6e8ea] bg-white'
-            : 'bg-white'
+            ? 'border-b border-[#001b37] border-opacity-10 bg-white bg-opacity-50 backdrop-blur-md'
+            : 'bg-white backdrop-blur-sm'
           : 'bg-[#191f28] 2md:bg-transparent'
-      }`}
+      }
+    `}
     >
       <div className="2lg:w-[61rem] w-full flex justify-between items-center mx-auto">
         <div className="py-2 2md:py-0 z-20">
@@ -187,7 +189,7 @@ export default function Navbar() {
                   currentPathKeyword === 'contests' && 'font-semibold'
                 } ${
                   isScrolled || !isHomePage
-                    ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                    ? 'hover:bg-[#022047] hover:bg-opacity-5 hover:text-[#0057b3]'
                     : 'hover:bg-[#22262a]'
                 } px-3 py-2 rounded-md`}
               >
@@ -199,7 +201,7 @@ export default function Navbar() {
                   currentPathKeyword === 'exams' && 'font-semibold'
                 } ${
                   isScrolled || !isHomePage
-                    ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                    ? 'hover:bg-[#022047] hover:bg-opacity-5 hover:text-[#0057b3]'
                     : 'hover:bg-[#22262a]'
                 } px-3 py-2 rounded-md`}
               >
@@ -211,7 +213,7 @@ export default function Navbar() {
                   currentPathKeyword === 'practices' && 'font-semibold'
                 } ${
                   isScrolled || !isHomePage
-                    ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                    ? 'hover:bg-[#022047] hover:bg-opacity-5 hover:text-[#0057b3]'
                     : 'hover:bg-[#22262a]'
                 } px-3 py-2 rounded-md`}
               >
@@ -223,7 +225,7 @@ export default function Navbar() {
                   currentPathKeyword === 'notices' && 'font-semibold'
                 } ${
                   isScrolled || !isHomePage
-                    ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
+                    ? 'hover:bg-[#022047] hover:bg-opacity-5 hover:text-[#0057b3]'
                     : 'hover:bg-[#22262a]'
                 } px-3 py-2 rounded-md`}
               >
