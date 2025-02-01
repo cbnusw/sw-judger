@@ -59,7 +59,7 @@ export default function Practices() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full h-[2.3rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
-                  placeholder="문제명, 작성자명으로 검색"
+                  placeholder="문제명으로 검색"
                 />
               </div>
               {searchQuery && (
@@ -129,7 +129,7 @@ export default function Practices() {
         </div>
 
         {isInitialized && (
-          <section className="dark:bg-gray-900">
+          <section className="mt-6">
             <PracticeList searchQuery={searchQuery} />
           </section>
         )}

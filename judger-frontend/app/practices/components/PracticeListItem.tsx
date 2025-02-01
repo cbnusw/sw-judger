@@ -1,4 +1,5 @@
 import { ProblemInfo } from '@/types/problem';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
@@ -15,21 +16,16 @@ export default function PracticeListItem(props: PracticeListItemProps) {
   const router = useRouter();
 
   return (
-    <tr
-      className="h-[2.5rem] border-b-[1.25px] border-[#d1d6db] text-xs text-center cursor-pointer hover:bg-[#e8f3ff]"
-      onClick={() => router.push(`practices/${practiceInfo._id}`)}
+    <Link
+      href={`practices/${practiceInfo._id}`}
+      className="flex items-center gap-2 w-full px-3 py-[0.6rem] cursor-pointer bg-[#f2f4f6] hover:bg-[#d3d6da] rounded-[7px]"
     >
-      <th
-        scope="row"
-        className="px-2 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
-      >
-        {total - (page - 1) * 10 - index}
-      </th>
-      <td className="px-2 font-semibold text-[#4e5968]">
+      <span className="flex justify-center items-center font-medium bg-[#8c95a0] text-[14px] text-white w-5 h-5 rounded-[7px]">
+        {String.fromCharCode('A'.charCodeAt(0) + index)}
+      </span>
+      <span className="px-2 font-semibold text-[#4e5968]">
         {practiceInfo.title}
-      </td>
-      <td className="px-2 text-[#4e5968]">{practiceInfo.score}</td>
-      <td className="px-2 text-[#4e5968]">{practiceInfo.writer.name}</td>
-    </tr>
+      </span>
+    </Link>
   );
 }
