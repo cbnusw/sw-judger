@@ -4,7 +4,10 @@ import { OPERATOR_ROLES } from '@/constants/role';
 import { userInfoStore } from '@/store/UserInfo';
 import { NoticeInfo } from '@/types/notice';
 import axiosInstance from '@/utils/axiosInstance';
-import { formatDateToYYMMDDHHMM } from '@/utils/formatDate';
+import {
+  formatDateToYYMMDDHHMM,
+  formatDateToYYMMDDWithDot,
+} from '@/utils/formatDate';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import dynamic from 'next/dynamic';
@@ -106,30 +109,27 @@ export default function NoticeDetail(props: DefaultProps) {
   if (isPending) return <NoticeDetailLoadingSkeleton />;
 
   return (
-    <div className="mt-6 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
+    <div className="mt-10 mb-24 px-1 pb-1 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
-        <div className="flex flex-col gap-8">
-          <p className="text-2xl font-bold tracking-tight">
-            {noticeInfo.title}
+        <div className="flex flex-col gap-2">
+          <p className="h-16 flex items-center text-[42px] font-bold tracking-wide">
+            <span className="lift-up">공지사항</span>
           </p>
 
-          <div className="h-fit 3md:h-[2rem] flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
+          <td className="mt-7 font-semibold text-[#4e5968] text-[24px] leading-[2rem]">
+            {noticeInfo.title}
+          </td>
+
+          <div className="flex flex-col 3md:items-center 3md:flex-row pb-6 gap-1 3md:gap-3 border-b border-[#e5e8eb]">
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              작성일:&nbsp;
-              <span className="font-light">
-                {formatDateToYYMMDDHHMM(noticeInfo.createdAt)}
-              </span>
-            </span>
-            <span className="ml-0 font-semibold 3md:ml-auto">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              작성자:&nbsp;
-              <span className="font-light">{noticeInfo.writer.name}</span>
+              <td className="text-[#8b95a1] text-[14px] font-extralight">
+                {formatDateToYYMMDDWithDot(noticeInfo.createdAt)}
+              </td>
             </span>
           </div>
         </div>
 
-        <div className="border-b mt-8 mb-4 pb-5">
+        <div className="border-b border-[#e5e8eb] mt-9 mb-4 pb-10">
           <MarkdownPreview
             className="markdown-preview"
             source={noticeInfo.content}

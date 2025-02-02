@@ -76,63 +76,35 @@ export default function NoticeList({ searchQuery }: NoticeListProps) {
     <div className="mx-auto w-full">
       <div className="relative overflow-hidden rounded-sm">
         <div className="overflow-x-auto">
-          <table className="w-[60rem] 3xs:w-full text-sm text-left text-gray-500">
-            <thead className="border-y-[1.25px] border-[#d1d6db] text-xs uppercase bg-[#f2f4f6] text-center">
-              <tr className="h-[2rem]">
-                <th
-                  scope="col"
-                  className="font-medium text-[#333d4b] w-16 px-4 py-2 hover:bg-[#e6e8eb]"
-                >
-                  번호
-                </th>
-                <th
-                  scope="col"
-                  className="font-medium text-[#333d4b] px-4 py-2 hover:bg-[#e6e8eb]"
-                >
-                  제목
-                </th>
-                <th
-                  scope="col"
-                  className="font-medium text-[#333d4b] w-32 px-4 py-2 hover:bg-[#e6e8eb]"
-                >
-                  작성자
-                </th>
-                <th
-                  scope="col"
-                  className="font-medium text-[#333d4b] w-24 px-4 py-2 hover:bg-[#e6e8eb]"
-                >
-                  작성일
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {resData?.documents.length === 0 ? (
-                <EmptyNoticeListItem />
-              ) : (
-                <>
-                  {resData?.documents.map(
-                    (noticeInfo: NoticeInfo, index: number) => (
-                      <NoticeListItem
-                        noticeInfo={noticeInfo}
-                        total={resData.total}
-                        page={page}
-                        index={index}
-                        key={index}
-                      />
-                    ),
-                  )}
-                </>
-              )}
-            </tbody>
-          </table>
+          <div className="w-[60rem] 3xs:w-full text-sm text-left text-gray-500">
+            {resData?.documents.length === 0 ? (
+              <EmptyNoticeListItem />
+            ) : (
+              <>
+                {resData?.documents.map(
+                  (noticeInfo: NoticeInfo, index: number) => (
+                    <NoticeListItem
+                      noticeInfo={noticeInfo}
+                      total={resData.total}
+                      page={page}
+                      index={index}
+                      key={index}
+                    />
+                  ),
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
 
-      <PaginationNav
-        page={page}
-        totalPages={totalPages}
-        handlePagination={handlePagination}
-      />
+      <div className="mt-10">
+        <PaginationNav
+          page={page}
+          totalPages={totalPages}
+          handlePagination={handlePagination}
+        />
+      </div>
     </div>
   );
 }
