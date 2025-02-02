@@ -1,5 +1,6 @@
 import { NoticeInfo } from '@/types/notice';
-import { formatDateToYYMMDD } from '@/utils/formatDate';
+import { formatDateToYYMMDDWithDot } from '@/utils/formatDate';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
@@ -13,26 +14,23 @@ interface NoticeListItemProps {
 export default function NoticeListItem(props: NoticeListItemProps) {
   const { noticeInfo, total, page, index } = props;
 
-  const router = useRouter();
+  const lastPage = Math.ceil(total / 10);
 
   return (
-    <tr
-      className="h-[2.5rem] border-b-[1.25px] border-[#d1d6db] text-xs text-center cursor-pointer hover:bg-[#e8f3ff]"
-      onClick={(e) => {
-        router.push(`/notices/${noticeInfo._id}`);
-      }}
+    <Link
+      href={`/notices/${noticeInfo._id}`}
+      className={`flex flex-col items-start gap-y-1 py-5 ${
+        ((lastPage > page && index + 1 !== 10) ||
+          (lastPage === page && index + 1 !== total % 10)) &&
+        'border-b-[0.5px] border-[#ededef]'
+      } text-center cursor-pointer`}
     >
-      <th
-        scope="row"
-        className="px-2 py-2 font-normal text-[#4e5968] whitespace-nowrap dark:text-white"
-      >
-        {total - (page - 1) * 10 - index}
-      </th>
-      <td className="px-2 font-semibold text-[#4e5968]">{noticeInfo.title}</td>
-      <td className="px-2 text-[#4e5968]">{noticeInfo.writer.name}</td>
-      <td className="px-2 text-[#4e5968]">
-        {formatDateToYYMMDD(noticeInfo.createdAt)}
-      </td>
-    </tr>
+      <span className="font-semibold text-[#4e5968] text-[18px]">
+        {noticeInfo.title}
+      </span>
+      <span className="text-[#8b95a1] text-[14px] font-extralight">
+        {formatDateToYYMMDDWithDot(noticeInfo.createdAt)}
+      </span>
+    </Link>
   );
 }
