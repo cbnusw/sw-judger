@@ -55,6 +55,19 @@ export function formatDateToYYMMDD(dateString: string): string {
   return `${year}/${month}/${day}`;
 }
 
+export function formatDateToYYMMDDWithDot(dateString: string): string {
+  // Date 객체 생성
+  const date = new Date(dateString);
+
+  // 연도, 월, 일을 추출
+  const year = date.getFullYear().toString(); // 연도의 마지막 두 자리
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth()는 0부터 시작하므로 1을 더함
+  const day = date.getDate().toString().padStart(2, '0');
+
+  // 'YY/MM/DD' 형식으로 문자열 구성
+  return `${year}. ${month}. ${day}`;
+}
+
 export interface TimeDifference {
   isPast: boolean;
   days: number;

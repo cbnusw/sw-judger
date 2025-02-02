@@ -11,6 +11,8 @@
   font-family: 'Toss Product Sans', -apple-system, BlinkMacSystemFont,
     'Apple SD Gothic Neo', Pretendard, Roboto, 'Noto Sans KR', 'Segoe UI',
     'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .sub-navbar {
@@ -336,10 +338,6 @@
   background-color: #fafafa !important;
 }
 
-.ck {
-  letter-spacing: 0.005rem;
-}
-
 .ck strong {
   color: inherit;
 }
@@ -365,17 +363,23 @@
   font-size: 1.25em;
 }
 
-.markdown-preview strong,
-.markdown-preview s,
-.markdown-preview u,
-.markdown-preview i {
-  color: inherit;
+.ck figure {
+  margin: 0 !important;
 }
 
 .ck ul,
 .ck ol {
   margin-left: 1.75rem;
   margin-top: 0.25rem !important;
+}
+
+.ck li::marker {
+  font-size: 0.5em;
+  color: #4e5968;
+}
+
+.ck li {
+  padding-left: 0.3rem !important;
 }
 
 .ck blockquote {
@@ -387,7 +391,13 @@
 }
 
 .ck p {
-  margin-bottom: 0 !important;
+  margin-bottom: 16px !important;
+  color: #4e5968;
+}
+
+.ck figcaption {
+  font-size: 16px !important;
+  color: #4e5968 !important;
 }
 
 .ck .text-huge,
@@ -415,13 +425,26 @@
 
 .markdown-preview {
   background-color: white !important;
-  letter-spacing: 0.04rem;
+}
+
+.markdown-preview figcaption {
+  padding: 0.375rem;
+  color: #4e5968;
+  background-color: #f7f7f7;
+  text-align: center;
+}
+
+.markdown-preview strong,
+.markdown-preview s,
+.markdown-preview u,
+.markdown-preview i {
+  color: inherit;
 }
 
 .markdown-preview figure {
+  width: fit-content;
   margin-left: 0 !important;
   margin-right: 0 !important;
-  width: 100% !important;
 }
 
 .markdown-preview tr:nth-child(odd) {
@@ -431,12 +454,17 @@
 .markdown-preview tr:nth-child(even) {
   background-color: #f7f9fc !important;
 }
-
-.markdown-preview td {
+ㅑ .markdown-preview td {
   border-color: #d4d6da !important;
 }
-.markdown-preview p {
+
+.markdown-preview td > p {
   margin-bottom: 0 !important;
+}
+
+.markdown-preview p {
+  color: #4e5968;
+  margin-bottom: 16px;
 }
 
 .markdown-preview strong,
@@ -444,6 +472,10 @@
 .markdown-preview u,
 .markdown-preview i {
   color: inherit;
+}
+
+.markdown-preview strong {
+  font-weight: 700 !important;
 }
 
 .markdown-preview .text-huge {
@@ -473,6 +505,15 @@
 
 .markdown-preview ol {
   list-style-type: disc;
+}
+
+.markdown-preview li::marker {
+  font-size: 0.5em;
+  color: #4e5968;
+}
+
+.markdown-preview li {
+  padding-left: 0.3rem !important;
 }
 
 .markdown-preview blockquote {
