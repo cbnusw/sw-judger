@@ -195,21 +195,22 @@ export default function Login() {
         <Link href="/" className="w-fit flex items-center gap-x-[0.175rem]">
           <Image src={logoImg} alt="list" width={29} quality={100} />
 
-          <span className="tracking-tighter text-[1rem] leading-[1.25] font-bold text-[#212631]">
+          <span className="tracking-tighter text-[1rem] leading-[1.25] font-black text-[#212631]">
             Judge
           </span>
         </Link>
 
-        <p className="mt-11 text-[#47515f] text-[1.275rem] font-semibold">
-          로그인
-        </p>
+        <p className="mt-11 text-[#47515f] text-[1.275rem] font-bold">로그인</p>
 
         <form
           onSubmit={(e) => handleSignIn(e)} // Enter 키로 제출 가능
         >
           <div className="mt-12 flex flex-col gap-y-5 md:gap-y-9">
             <div className="flex flex-col gap-y-[0.4rem]">
-              <label htmlFor="user-id" className="text-[#4e5968] text-[15px]">
+              <label
+                htmlFor="user-id"
+                className="text-[#4e5968] text-[15px] font-medium"
+              >
                 학번/교번
               </label>
               <input
@@ -223,14 +224,14 @@ export default function Login() {
                   });
                 }}
                 onBlur={verifyIdInputValueValidFail}
-                className={`h-[2.5rem] text-[0.8rem] text-[rgba(0,12,30,0.75)] font-light flex items-center rounded-[7px] duration-100 px-[0.825rem] ${
+                className={`h-[2.5rem] text-[0.8rem] text-[rgba(0,12,30,0.75)] flex items-center rounded-[7px] duration-100 px-[0.825rem] ${
                   isIdInputValidFail
                     ? STR_WRONG_CASE_INPUT_ELEMENT_STYLE_CLASSNAME
                     : STR_RIGHT_CASE_INPUT_ELEMENT_STYLE_CLASSNAME
                 }`}
               />
               {isIdInputValidFail && (
-                <span className="text-[0.825rem] text-[#e85257] font-light">
+                <span className="text-[0.825rem] text-[#e85257]">
                   {idValidFailMsg}
                 </span>
               )}
@@ -239,7 +240,7 @@ export default function Login() {
             <div className="flex h-[6rem] flex-col gap-y-[0.4rem]">
               <label
                 htmlFor="user-password"
-                className="text-[#4e5968] text-[15px]"
+                className="text-[#4e5968] text-[15px] font-medium"
               >
                 비밀번호
               </label>
@@ -254,14 +255,14 @@ export default function Login() {
                   });
                 }}
                 onBlur={verifyPwdInputValueValidFail}
-                className={`h-[2.5rem] text-[0.875rem] tracking-[0.01em] text-[rgba(0,12,30,0.75)] font-light flex items-center rounded-[7px] duration-100 px-[0.825rem] ${
+                className={`h-[2.5rem] text-[0.875rem] tracking-[0.01em] text-[rgba(0,12,30,0.75)]  flex items-center rounded-[7px] duration-100 px-[0.825rem] ${
                   isPwdInputValidFail
                     ? STR_WRONG_CASE_INPUT_ELEMENT_STYLE_CLASSNAME
                     : STR_RIGHT_CASE_INPUT_ELEMENT_STYLE_CLASSNAME
                 }`}
               />
               {isPwdInputValidFail && (
-                <span className="text-[0.825rem] text-[#e85257] font-light">
+                <span className="text-[0.825rem] text-[#e85257]">
                   {pwdValidFailMsg}
                 </span>
               )}
@@ -269,7 +270,7 @@ export default function Login() {
           </div>
 
           <div className="mt-1 flex justify-between items-center">
-            <div className="flex items-center gap-x-1 text-[0.825rem] text-[#6b7684] font-light">
+            <div className="flex items-center gap-x-1 text-[0.825rem] text-[#6b7684]">
               <a
                 target="_blank"
                 href="https://sw7up.cbnu.ac.kr/account/join"
@@ -295,7 +296,7 @@ export default function Login() {
                 isSubmitting
                   ? 'opacity-70 px-2'
                   : ' hover:bg-[#1c6cdb] px-[0.775rem]'
-              } flex justify-center items-center text-[0.8rem] py-[0.6em] rounded-[6px] font-medium bg-[#3183f6]`}
+              } flex justify-center items-center text-[0.8rem] py-[0.6em] rounded-[6px] font-semibold bg-[#3183f6]`}
             >
               {isSubmitting && <SmallLoading />}
               <span className={`${isSubmitting && 'ml-[0.3rem]'} text-white`}>

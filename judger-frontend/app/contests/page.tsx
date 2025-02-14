@@ -29,7 +29,7 @@ export default function Contests() {
   return (
     <div className="mt-2 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
-        <p className="h-16 flex items-center text-[32px] font-semibold tracking-wide">
+        <p className="h-16 flex items-center text-[32px] font-bold tracking-wide">
           <span className="lift-up">대회 목록</span>
         </p>
 
@@ -52,7 +52,7 @@ export default function Contests() {
                 <input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-[2.3rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
+                  className="w-full h-[2.3rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem]"
                   placeholder="대회명으로 검색"
                 />
               </div>
@@ -80,7 +80,7 @@ export default function Contests() {
               <div className="w-full 3md:w-fit mt-2 3md:mt-0 flex gap-2">
                 <Link
                   href="contests/register"
-                  className="w-full flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                  className="w-full flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#1c6cdb]"
                 >
                   등록하기
                 </Link>

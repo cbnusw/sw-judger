@@ -338,7 +338,7 @@ export default function EditPractice(props: DefaultProps) {
                     setIsOpenSearchedResultList(true);
                   }}
                   onChange={handleInputSearchQuery}
-                  className="w-full h-[2.625rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
+                  className="w-full h-[2.625rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem]"
                   placeholder="등록된 문제를 검색해 보세요"
                 />
               </div>

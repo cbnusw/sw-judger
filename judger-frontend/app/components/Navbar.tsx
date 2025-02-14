@@ -166,7 +166,7 @@ export default function Navbar() {
                 quality={100}
               />
               <span
-                className={`tracking-tight text-[1rem] font-extrabold ${
+                className={`tracking-tight text-[1rem] font-black ${
                   isScrolled || !isHomePage ? 'text-[#333]' : 'text-white'
                 }`}
               >
@@ -186,7 +186,9 @@ export default function Navbar() {
               <Link
                 href="/contests"
                 className={`${
-                  currentPathKeyword === 'contests' && 'font-semibold'
+                  currentPathKeyword === 'contests'
+                    ? 'font-bold'
+                    : 'font-medium'
                 } ${
                   isScrolled || !isHomePage
                     ? 'hover:bg-[#022047] hover:bg-opacity-5 hover:text-[#0057b3]'
@@ -198,7 +200,7 @@ export default function Navbar() {
               <Link
                 href="/exams"
                 className={`${
-                  currentPathKeyword === 'exams' && 'font-semibold'
+                  currentPathKeyword === 'exams' ? 'font-bold' : 'font-medium'
                 } ${
                   isScrolled || !isHomePage
                     ? 'hover:bg-[#022047] hover:bg-opacity-5 hover:text-[#0057b3]'
@@ -210,7 +212,9 @@ export default function Navbar() {
               <Link
                 href="/practices"
                 className={`${
-                  currentPathKeyword === 'practices' && 'font-semibold'
+                  currentPathKeyword === 'practices'
+                    ? 'font-bold'
+                    : 'font-medium'
                 } ${
                   isScrolled || !isHomePage
                     ? 'hover:bg-[#022047] hover:bg-opacity-5 hover:text-[#0057b3]'
@@ -222,7 +226,7 @@ export default function Navbar() {
               <Link
                 href="/notices"
                 className={`${
-                  currentPathKeyword === 'notices' && 'font-semibold'
+                  currentPathKeyword === 'notices' ? 'font-bold' : 'font-medium'
                 } ${
                   isScrolled || !isHomePage
                     ? 'hover:bg-[#022047] hover:bg-opacity-5 hover:text-[#0057b3]'
@@ -259,11 +263,12 @@ export default function Navbar() {
                         : 'text-white'
                     }`}
                   >
-                    {userInfo.name}&nbsp;님
+                    {userInfo.name}&nbsp;
+                    <span className="font-medium text-inherit">님</span>
                   </span>
                 </Link>
                 <button
-                  className={`px-3 py-2 rounded-md ${
+                  className={`px-3 py-2 rounded-md font-medium ${
                     isScrolled || !isHomePage
                       ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
                       : 'bg-[#22262a] hover:bg-[#454850] text-[#487fee]'
@@ -280,7 +285,7 @@ export default function Navbar() {
                   className={`px-3 py-2 rounded-md ${
                     isScrolled || !isHomePage
                       ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
-                      : 'hover:bg-[#22262a]'
+                      : 'hover:bg-[#22262a] font-medium'
                   }`}
                 >
                   로그인
@@ -291,7 +296,7 @@ export default function Navbar() {
                   className={`px-3 py-2 rounded-md ${
                     isScrolled || !isHomePage
                       ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
-                      : 'bg-[#22262a] hover:bg-[#454850] text-[#487fee]'
+                      : 'bg-[#22262a] hover:bg-[#454850] text-[#487fee] font-medium'
                   }`}
                 >
                   회원가입

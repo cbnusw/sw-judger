@@ -41,7 +41,7 @@ export default function MyPageLayout({
   return (
     <div className="mt-6 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
-        <div className="text-2xl font-semibold tracking-wide lift-up">
+        <div className="text-2xl font-bold tracking-wide lift-up">
           마이페이지
         </div>
         <div className="flex flex-col 3md:flex-row gap-10 3md:gap-12 mt-10">

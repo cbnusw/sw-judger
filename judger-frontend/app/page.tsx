@@ -74,7 +74,7 @@ export default function Home() {
   return (
     <div className="mt-[-6rem]">
       <div className="relative h-screen flex flex-col gap-6 justify-center items-center bg-[url('/images/main.jpg')] bg-cover bg-center bright-in">
-        <span className="mb-[7.5rem] sm:mb-0 text-4xl sm:text-5xl text-center text-white tracking-[0.05em] leading-normal sm:leading-normal font-semibold fade-in px-5 uppercase">
+        <span className="mb-[7.5rem] sm:mb-0 text-4xl sm:text-5xl text-center text-white tracking-[0.05em] leading-normal sm:leading-normal font-bold fade-in px-5 uppercase">
           생각의 전환
           <br /> 새로운 가치가 <br className="block sm:hidden" /> 되도록
         </span>
@@ -104,7 +104,7 @@ export default function Home() {
             <div className="mb-5 h-[40px] relative">
               <Link
                 href="/exams"
-                className="text-[#595f68] text-xl pb-[11px] border-b-2 border-[#3274ba] hover:text-black relative z-10"
+                className="text-[#595f68] text-xl font-medium pb-[11px] border-b-2 border-[#3274ba] hover:text-black relative z-10"
               >
                 추가된 시험
               </Link>
@@ -120,7 +120,7 @@ export default function Home() {
             <div className="mb-5 h-[40px] relative">
               <Link
                 href="/contests"
-                className="text-[#595f68] text-xl pb-[11px] border-b-2 border-[#3274ba] hover:text-black relative z-10"
+                className="text-[#595f68] text-xl font-medium pb-[11px] border-b-2 border-[#3274ba] hover:text-black relative z-10"
               >
                 신청 가능한 대회
               </Link>
@@ -138,14 +138,14 @@ export default function Home() {
         <div className="flex-col 2lg:flex-row mx-auto mb-10 flex justify-center gap-6">
           <Link href="/practices" className="flex relative">
             <div className="flex flex-col gap-4 w-[22.5rem] 3xs:w-[30rem] px-6 py-[1.825rem] 2lg:mb-0 rounded-[0.825rem] bg-gradient-to-r from-[#293584] to-[#6aa0dd]">
-              <p className="text-base text-white font-semibold tracking-wider">
+              <p className="text-base text-white font-bold tracking-wider">
                 연습문제
               </p>
               <div className="flex flex-col gap-1">
-                <span className="text-white text-sm font-normal tracking-wider">
+                <span className="text-white text-sm font-medium tracking-wider">
                   프로그래밍 테스트를 앞두고 계시다면
                 </span>
-                <span className="text-white text-sm font-normal tracking-wider">
+                <span className="text-white text-sm font-medium tracking-wider">
                   미리 사용법을 익혀보세요.
                 </span>
               </div>
@@ -234,14 +234,14 @@ export default function Home() {
           </Link>
           <Link href="/notices" className="flex relative">
             <div className="flex flex-col gap-4 w-[22.5rem] 3xs:w-[30rem] px-6 py-[1.825rem] 2lg:mb-0 rounded-[0.825rem] bg-gradient-to-r from-[#357ad4] to-[#5ac3c7]">
-              <p className="text-base text-white font-semibold tracking-wider">
+              <p className="text-base text-white font-bold tracking-wider">
                 공지사항
               </p>
               <div className="flex flex-col gap-1">
-                <span className="text-white text-sm font-normal tracking-wider">
+                <span className="text-white text-sm font-medium tracking-wider">
                   자동 채점 시스템에 대한 정보와
                 </span>
-                <span className="text-white text-sm font-normal tracking-wider">
+                <span className="text-white text-sm font-medium tracking-wider">
                   업데이트 소식을 전합니다.
                 </span>
               </div>
