@@ -48,7 +48,7 @@ export default function MyPageLayout({
           <div className="w-full 3md:w-52 flex flex-col text-[#4e5968] text-[15px] items-start gap-y-2 font-medium tracking-wide">
             <button
               onClick={() => handleChangeTab(tabNames[0])}
-              className={`text-inherit px-4 py-[0.7rem] rounded-[8px] w-full text-start ${
+              className={`text-inherit px-4 py-[0.7rem] rounded-[8px] w-full text-start font-semibold ${
                 mypageTabName === tabNames[0] && 'bg-[#022047] bg-opacity-5'
               }`}
             >
@@ -56,7 +56,7 @@ export default function MyPageLayout({
             </button>
             <button
               onClick={() => handleChangeTab(tabNames[1])}
-              className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
+              className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start font-semibold ${
                 mypageTabName === tabNames[1] && 'bg-[#022047] bg-opacity-5'
               }`}
             >
@@ -65,7 +65,7 @@ export default function MyPageLayout({
             {OPERATOR_ROLES.includes(userInfo.role) && (
               <button
                 onClick={() => handleChangeTab(tabNames[2])}
-                className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start ${
+                className={`text-inherit px-4 py-[0.8rem] rounded-[8px] w-full text-start font-semibold ${
                   mypageTabName === tabNames[2] && 'bg-[#022047] bg-opacity-5'
                 }`}
               >

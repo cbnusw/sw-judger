@@ -264,11 +264,11 @@ export default function Navbar() {
                     }`}
                   >
                     {userInfo.name}&nbsp;
-                    <span className="font-medium text-inherit">님</span>
+                    <span className="font-semibold text-inherit">님</span>
                   </span>
                 </Link>
                 <button
-                  className={`px-3 py-2 rounded-md font-medium ${
+                  className={`px-3 py-2 rounded-md font-semibold ${
                     isScrolled || !isHomePage
                       ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
                       : 'bg-[#22262a] hover:bg-[#454850] text-[#487fee]'
@@ -282,10 +282,10 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className={`px-3 py-2 rounded-md ${
+                  className={`px-3 py-2 rounded-md font-semibold ${
                     isScrolled || !isHomePage
                       ? 'hover:bg-[#f3f4f5] hover:text-[#0057b3]'
-                      : 'hover:bg-[#22262a] font-medium'
+                      : 'hover:bg-[#22262a]'
                   }`}
                 >
                   로그인
@@ -293,10 +293,10 @@ export default function Navbar() {
                 <a
                   href="https://sw7up.cbnu.ac.kr/account/join"
                   target="_blank"
-                  className={`px-3 py-2 rounded-md ${
+                  className={`px-3 py-2 rounded-md font-semibold ${
                     isScrolled || !isHomePage
                       ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
-                      : 'bg-[#22262a] hover:bg-[#454850] text-[#487fee] font-medium'
+                      : 'bg-[#22262a] hover:bg-[#454850] text-[#487fee]'
                   }`}
                 >
                   회원가입
@@ -421,7 +421,7 @@ export default function Navbar() {
                       isScrolled || !isHomePage
                         ? 'bg-[#e8f3ff] hover:bg-[#cee1fc] text-[#487fee]'
                         : 'bg-[#d9d9ff] bg-opacity-[0.11] hover:bg-[#505460] hover:bg-opacity-100 text-[#487fee]'
-                    } px-4 py-[0.85rem] rounded-[8px] font-medium `}
+                    } px-4 py-[0.85rem] rounded-[8px] font-semibold `}
                   >
                     <span
                       className={`${
@@ -438,7 +438,7 @@ export default function Navbar() {
                       isScrolled || !isHomePage
                         ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
                         : 'bg-[#d9d9ff] bg-opacity-[0.11] hover:bg-[#505460] hover:bg-opacity-100 text-[#487fee]'
-                    } px-4 py-[0.85rem] rounded-[8px] font-medium focus:bg-[#1c6cdb] `}
+                    } px-4 py-[0.85rem] rounded-[8px] font-semibold focus:bg-[#1c6cdb] `}
                     onClick={(e) => {
                       e.stopPropagation();
                       collapseSubNavbar();
@@ -460,7 +460,7 @@ export default function Navbar() {
                       isScrolled || !isHomePage
                         ? 'bg-[#e8f3ff] hover:bg-[#cee1fc] text-[#487fee]'
                         : 'bg-[#d9d9ff] bg-opacity-[0.11] hover:bg-[#505460] hover:bg-opacity-100 text-[#487fee]'
-                    } px-4 py-[0.75rem] rounded-[8px] font-medium`}
+                    } px-4 py-[0.75rem] rounded-[8px] font-semibold`}
                   >
                     로그인
                   </Link>
@@ -471,7 +471,7 @@ export default function Navbar() {
                       isScrolled || !isHomePage
                         ? 'bg-[#3a8af9] hover:bg-[#1c6cdb] text-white'
                         : 'bg-[#d9d9ff] bg-opacity-[0.11] hover:bg-[#505460] hover:bg-opacity-100 text-[#487fee]'
-                    } px-4 py-[0.75rem] rounded-[8px] font-medium`}
+                    } px-4 py-[0.75rem] rounded-[8px] font-semibold`}
                     onClick={(e) => {
                       e.stopPropagation();
                     }}

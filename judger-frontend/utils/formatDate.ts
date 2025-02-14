@@ -68,6 +68,21 @@ export function formatDateToYYMMDDWithDot(dateString: string): string {
   return `${year}. ${month}. ${day}`;
 }
 
+export function formatDateToYYMMDDHHMMWithDot(dateString: string): string {
+  // Date 객체 생성
+  const date = new Date(dateString);
+
+  // 연도, 월, 일, 시간, 분을 추출
+  const year = date.getFullYear().toString().slice(-2);
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  // 'YY.MM.DD HH:MM' 형식으로 문자열 구성
+  return `${year}. ${month}. ${day} ${hours}:${minutes}`;
+}
+
 export interface TimeDifference {
   isPast: boolean;
   days: number;

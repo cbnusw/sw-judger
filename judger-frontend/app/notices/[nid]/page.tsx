@@ -4,10 +4,7 @@ import { OPERATOR_ROLES } from '@/constants/role';
 import { userInfoStore } from '@/store/UserInfo';
 import { NoticeInfo } from '@/types/notice';
 import axiosInstance from '@/utils/axiosInstance';
-import {
-  formatDateToYYMMDDHHMM,
-  formatDateToYYMMDDWithDot,
-} from '@/utils/formatDate';
+import { formatDateToYYMMDDWithDot } from '@/utils/formatDate';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import dynamic from 'next/dynamic';
@@ -116,9 +113,9 @@ export default function NoticeDetail(props: DefaultProps) {
             <span className="lift-up">공지사항</span>
           </p>
 
-          <td className="mt-7 font-semibold text-[#4e5968] text-[24px] leading-[2rem]">
+          <p className="mt-7 font-bold text-[#4e5968] text-[24px] leading-[2rem]">
             {noticeInfo.title}
-          </td>
+          </p>
 
           <div className="flex flex-col 3md:items-center 3md:flex-row pb-6 gap-1 3md:gap-3 border-b border-[#e5e8eb]">
             <span className="font-semibold">

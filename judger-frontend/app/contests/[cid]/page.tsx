@@ -6,7 +6,11 @@ import { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '@/utils/axiosInstance';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ContestInfo } from '@/types/contest';
-import { formatDateToYYMMDDHHMM } from '@/utils/formatDate';
+import {
+  formatDateToYYMMDDHHMM,
+  formatDateToYYMMDDHHMMWithDot,
+  formatDateToYYMMDDWithDot,
+} from '@/utils/formatDate';
 import { useCountdownTimer } from '@/hooks/useCountdownTimer';
 import { userInfoStore } from '@/store/UserInfo';
 import ContestContestantList from './components/ContestContestantList';
@@ -349,7 +353,7 @@ export default function ContestDetail(props: DefaultProps) {
 
   const handleUnEnrollContest = () => {
     const userResponse = confirm(
-      '대회 참가 신청을 취소하시겠습니까?\n참가신청 기간 이후에는 다시 신청할 수 없어요.',
+      '대회 참가 신청을 취소하시겠습니까?\n신청 기간 이후에는 다시 신청할 수 없어요.',
     );
     if (!userResponse) return;
 
@@ -492,7 +496,7 @@ export default function ContestDetail(props: DefaultProps) {
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col 3md:flex-row gap-x-2 items-start 3md:items-center">
-            <p className="text-2xl font-bold tracking-tight">
+            <p className="text-2xl font-extrabold tracking-tight">
               {contestInfo.title}
             </p>
             {timeUntilEnd?.isPast ? (
@@ -506,40 +510,58 @@ export default function ContestDetail(props: DefaultProps) {
             )}
           </div>
 
-          <div className="h-fit 3md:h-[2rem] flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
+          <div className="mt-1 p-3 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[15px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
             <span className="font-semibold">
               <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              참가신청 기간:&nbsp;
-              <span className="font-light">
+              <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                신청 기간
+              </span>
+              <span className="ml-2 font-normal">
                 {contestInfo.applyingPeriod ? (
                   <>
-                    {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.start)}
+                    {formatDateToYYMMDDHHMMWithDot(
+                      contestInfo.applyingPeriod.start,
+                    )}
                     &nbsp;~&nbsp;
-                    {formatDateToYYMMDDHHMM(contestInfo.applyingPeriod.end)}
+                    {formatDateToYYMMDDHHMMWithDot(
+                      contestInfo.applyingPeriod.end,
+                    )}
                   </>
                 ) : (
-                  <>~ {formatDateToYYMMDDHHMM(contestInfo.testPeriod.start)}</>
+                  <>
+                    ~{' '}
+                    {formatDateToYYMMDDHHMMWithDot(
+                      contestInfo.testPeriod.start,
+                    )}
+                  </>
                 )}
               </span>
             </span>
-            <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
+            <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
             <span className="flex items-center font-semibold">
               <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              대회 시간:&nbsp;
-              <span className="flex items-center gap-x-2 font-light">
-                {formatDateToYYMMDDHHMM(contestInfo.testPeriod.start)} ~&nbsp;
-                {formatDateToYYMMDDHHMM(contestInfo.testPeriod.end)}&nbsp;
+              <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                대회 시간
+              </span>
+              <span className="flex items-center gap-x-2 ml-2 font-normal">
+                {formatDateToYYMMDDHHMMWithDot(contestInfo.testPeriod.start)}{' '}
+                ~&nbsp;
+                {formatDateToYYMMDDHHMMWithDot(contestInfo.testPeriod.end)}
+                &nbsp;
               </span>
             </span>
-            <span className="ml-0 font-semibold 3md:ml-auto">
+            {/* <span className="ml-0 font-semibold 3md:ml-auto">
               <span className="3md:hidden text-gray-500">•&nbsp;</span>
               작성자:&nbsp;
               <span className="font-light">{contestInfo.writer.name}</span>
+            </span> */}
+            <span className="ml-0 3md:ml-auto text-[#8b95a1] text-[14px]">
+              {formatDateToYYMMDDWithDot(contestInfo.createdAt)}
             </span>
           </div>
         </div>
 
-        <div className="border-b mt-8 mb-4 pb-5">
+        <div className="border-b border-[#e5e8eb] mt-8 mb-4 pb-5">
           <MarkdownPreview
             className="markdown-preview"
             source={contestInfo.content}
@@ -572,7 +594,7 @@ export default function ContestDetail(props: DefaultProps) {
           <div className="flex gap-2 flex-col 3md:flex-row">
             <button
               onClick={handleGoToContestRankList}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#cee1fc]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#cee1fc]"
             >
               대회 순위
             </button>
@@ -673,7 +695,7 @@ export default function ContestDetail(props: DefaultProps) {
                       <path d="M21.38 13.09c-.61 0-1.1.49-1.1 1.1v4.21c0 .72-.58 1.3-1.3 1.3H5c-.72 0-1.3-.58-1.3-1.3v-4.21c0-.61-.49-1.1-1.1-1.1s-1.1.49-1.1 1.1v4.21c0 1.93 1.57 3.5 3.5 3.5h13.98c1.93 0 3.5-1.57 3.5-3.5v-4.21c0-.61-.49-1.1-1.1-1.1z"></path>
                     </g>
                   </svg>
-                  <span className="text-[#487fee] whitespace-nowrap">
+                  <span className="text-[#487fee] whitespace-nowrap font-semibold">
                     명단 다운로드
                   </span>
                 </button>

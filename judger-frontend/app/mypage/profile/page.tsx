@@ -14,9 +14,9 @@ export default function Profile() {
 
   return (
     <div className="mb-20">
-      <p className="text-2xl font-semibold">회원정보</p>
+      <p className="text-2xl font-bold">회원정보</p>
       <div className="border-t-[3px] mt-4 border-black" />
-      <div className="flex flex-col mt-4 tracking-tight text-xs">
+      <div className="flex flex-col mt-4 tracking-tight text-xs font-medium">
         <div className="flex items-center pb-3 border-b ">
           <span className="w-[6rem] 3md:w-[11rem] text-sm">학번</span>
           <span className="w-fit font-bold">{userInfo.no}</span>

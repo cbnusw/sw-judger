@@ -80,7 +80,7 @@ export default function Contests() {
               <div className="w-full 3md:w-fit mt-2 3md:mt-0 flex gap-2">
                 <Link
                   href="contests/register"
-                  className="w-full flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#1c6cdb]"
+                  className="w-full flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#1c6cdb]"
                 >
                   등록하기
                 </Link>

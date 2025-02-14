@@ -159,7 +159,7 @@ export default function PracticeProblem(props: DefaultProps) {
                 </span>
               </span>
             </div>
-            <div className="flex gap-3">
+            {/* <div className="flex gap-3">
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">•&nbsp;</span>
                 작성자:&nbsp;
@@ -167,7 +167,7 @@ export default function PracticeProblem(props: DefaultProps) {
                   {practiceProblemInfo.writer.name}
                 </span>
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
 

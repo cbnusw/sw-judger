@@ -16,7 +16,7 @@ export default function NotFound({ message }: NotFoundProps) {
         quality={100}
         className="rounded-md object-cover"
       />
-      <span className="font-light text-sm text-[#8b95a1]">{message}</span>
+      <span className="font-medium text-sm text-[#8b95a1]">{message}</span>
     </div>
   );
 }
