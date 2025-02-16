@@ -197,7 +197,7 @@ export default function UsersContestSubmits(props: DefaultProps) {
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[2.3rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem] font-extralight"
+                className="w-full h-[2.3rem] pl-[0.625rem] pr-[0.25rem] outline-none placeholder-[#888e96] text-[0.825rem]"
                 placeholder="이름, 학번, 언어로 검색"
               />
             </div>

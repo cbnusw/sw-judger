@@ -13,7 +13,7 @@ export default function PracticeDetailPageLoadingSkeleton() {
             <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
             <div className="skeleton w-[7.5rem]" />
           </div>
-          <div className="skeleton w-[7.5rem]" />
+          {/* <div className="skeleton w-[7.5rem]" /> */}
         </div>
       </div>
 

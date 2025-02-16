@@ -1,8 +1,6 @@
 import { NoticeInfo } from '@/types/notice';
 import { formatDateToYYMMDDWithDot } from '@/utils/formatDate';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React from 'react';
 
 interface NoticeListItemProps {
   noticeInfo: NoticeInfo;
