@@ -7,7 +7,10 @@ import { ExamInfo } from '@/types/exam';
 import { UserInfo } from '@/types/user';
 import axiosInstance from '@/utils/axiosInstance';
 import { fetchCurrentUserInfo } from '@/utils/fetchCurrentUserInfo';
-import { formatDateToYYMMDDHHMM } from '@/utils/formatDate';
+import {
+  formatDateToYYMMDDHHMMWithDot,
+  formatDateToYYMMDDWithDot,
+} from '@/utils/formatDate';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -446,7 +449,7 @@ export default function ExamDetail(props: DefaultProps) {
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col 3md:flex-row gap-x-2 items-start 3md:items-center">
-            <p className="text-2xl font-bold tracking-tight">
+            <p className="text-2xl font-extrabold tracking-tight">
               {examInfo.title}
             </p>
             {timeUntilEnd?.isPast ? (
@@ -459,27 +462,41 @@ export default function ExamDetail(props: DefaultProps) {
               <>{renderRemainingTime()}</>
             )}
           </div>
-          <div className="h-fit 3md:h-[2rem] flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
-            <span className="font-semibold">
+
+          <div className="mt-1 px-3 py-2 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[14px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
+            <span className="flex items-center font-semibold">
               <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              시험 시간:&nbsp;
-              <span className="font-light">
-                {formatDateToYYMMDDHHMM(examInfo.testPeriod.start)} ~&nbsp;
-                {formatDateToYYMMDDHHMM(examInfo.testPeriod.end)}&nbsp;
+              <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                시험 시간
+              </span>
+              <span className="flex items-center gap-x-2 ml-2 font-normal">
+                {formatDateToYYMMDDHHMMWithDot(examInfo.testPeriod.start)}{' '}
+                ~&nbsp;
+                {formatDateToYYMMDDHHMMWithDot(examInfo.testPeriod.end)}&nbsp;
               </span>
             </span>
-            <span className="ml-0 font-semibold 3md:ml-auto">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              수업명: <span className="font-light">{examInfo.course}</span>
-            </span>
-            <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
+            <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
             <span className="font-semibold">
               <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              작성자: <span className="font-light">{examInfo.writer.name}</span>
+              <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                수업명
+              </span>
+              <span className="ml-2 font-normal">{examInfo.course}</span>
+            </span>
+            <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
+            <span className="font-semibold">
+              <span className="3md:hidden text-gray-500">•&nbsp;</span>
+              <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                작성자
+              </span>
+              <span className="ml-2 font-normal">{examInfo.writer.name}</span>
+            </span>
+            <span className="ml-0 3md:ml-auto text-[#8b95a1]">
+              {formatDateToYYMMDDWithDot(examInfo.createdAt)}
             </span>
           </div>
         </div>
-        <div className="border-b mt-8 mb-4 pb-5">
+        <div className="border-b border-[#e5e8eb] mt-8 mb-4 pb-5">
           <MarkdownPreview
             className="markdown-preview"
             source={examInfo.content}
@@ -513,7 +530,7 @@ export default function ExamDetail(props: DefaultProps) {
             {shouldShowSubmitsButton() && (
               <button
                 onClick={handleGoToExamSubmits}
-                className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
               >
                 코드 제출 목록
               </button>
@@ -521,7 +538,7 @@ export default function ExamDetail(props: DefaultProps) {
             {shouldShowProblemsButton() && (
               <button
                 onClick={handleGoToExamProblems}
-                className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
               >
                 문제 목록
               </button>
@@ -532,13 +549,13 @@ export default function ExamDetail(props: DefaultProps) {
                 <>
                   <button
                     onClick={handleEditExam}
-                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
                   >
                     수정
                   </button>
                   <button
                     onClick={handleDeleteExam}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#f8d6d7]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#f8d6d7]"
                   >
                     삭제
                   </button>

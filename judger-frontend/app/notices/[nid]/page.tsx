@@ -4,10 +4,7 @@ import { OPERATOR_ROLES } from '@/constants/role';
 import { userInfoStore } from '@/store/UserInfo';
 import { NoticeInfo } from '@/types/notice';
 import axiosInstance from '@/utils/axiosInstance';
-import {
-  formatDateToYYMMDDHHMM,
-  formatDateToYYMMDDWithDot,
-} from '@/utils/formatDate';
+import { formatDateToYYMMDDWithDot } from '@/utils/formatDate';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import dynamic from 'next/dynamic';
@@ -116,9 +113,9 @@ export default function NoticeDetail(props: DefaultProps) {
             <span className="lift-up">공지사항</span>
           </p>
 
-          <td className="mt-7 font-semibold text-[#4e5968] text-[24px] leading-[2rem]">
+          <p className="mt-7 font-bold text-[#4e5968] text-[24px] leading-[2rem]">
             {noticeInfo.title}
-          </td>
+          </p>
 
           <div className="flex flex-col 3md:items-center 3md:flex-row pb-6 gap-1 3md:gap-3 border-b border-[#e5e8eb]">
             <span className="font-semibold">
@@ -165,13 +162,13 @@ export default function NoticeDetail(props: DefaultProps) {
                 <>
                   <button
                     onClick={handleEditNotice}
-                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
                   >
                     수정
                   </button>
                   <button
                     onClick={handleDeleteNotice}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#f8d6d7]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#f8d6d7]"
                   >
                     삭제
                   </button>
