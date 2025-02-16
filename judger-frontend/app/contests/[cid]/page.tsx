@@ -510,7 +510,7 @@ export default function ContestDetail(props: DefaultProps) {
             )}
           </div>
 
-          <div className="mt-1 p-3 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[15px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
+          <div className="mt-1 px-3 py-2 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[14px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
             <span className="font-semibold">
               <span className="3md:hidden text-gray-500">•&nbsp;</span>
               <span className="rounded-full bg-[#eaecef] px-2 py-1">
@@ -555,7 +555,7 @@ export default function ContestDetail(props: DefaultProps) {
               작성자:&nbsp;
               <span className="font-light">{contestInfo.writer.name}</span>
             </span> */}
-            <span className="ml-0 3md:ml-auto text-[#8b95a1] text-[14px]">
+            <span className="ml-0 3md:ml-auto text-[#8b95a1]">
               {formatDateToYYMMDDWithDot(contestInfo.createdAt)}
             </span>
           </div>

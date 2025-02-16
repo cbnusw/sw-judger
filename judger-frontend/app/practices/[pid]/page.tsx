@@ -125,35 +125,42 @@ export default function PracticeProblem(props: DefaultProps) {
     <div className="relative mt-6 mb-24 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <p className="text-2xl font-bold tracking-tight">
+          <p className="text-2xl font-extrabold tracking-tight">
             {practiceProblemInfo.title}
           </p>
-          <div className="flex flex-col 3md:flex-row 3md:justify-between gap-1 3md:gap-3 pb-3 border-b border-gray-300">
-            <div className="flex flex-col 3md:flex-row gap-1 3md:gap-3">
+
+          <div className="mt-1 p-3 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[14px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
+            <div className="flex flex-col 3md:flex-row gap-2 3md:gap-2">
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">•&nbsp;</span>
-                시간 제한:&nbsp;
-                <span className="font-mono font-light">
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  시간 제한
+                </span>
+                <span className="ml-2 font-mono font-normal">
                   {practiceProblemInfo.options.maxRealTime / 1000}초
                 </span>
               </span>
-              <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
+              <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">•&nbsp;</span>
-                메모리 제한:&nbsp;
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  메모리 제한
+                </span>
                 <span className="font-mono font-light">
-                  <span className="mr-1">
+                  <span className="ml-2 mr-1 font-mono font-normal">
                     {practiceProblemInfo.options.maxMemory}
                   </span>
                   MB
                 </span>
               </span>
-              <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
+              <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
               <span className="font-semibold">
                 <span className="3md:hidden text-gray-500">•&nbsp;</span>
-                난이도:&nbsp;
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  난이도
+                </span>
                 <span className="font-mono font-light">
-                  <span className="mr-1 font-mono font-semibold text-blue-600">
+                  <span className="ml-2 mr-1 font-mono font-semibold text-blue-600">
                     {practiceProblemInfo.score}
                   </span>
                 </span>
@@ -175,7 +182,7 @@ export default function PracticeProblem(props: DefaultProps) {
           <div className="flex flex-col 3md:flex-row gap-2 justify-end mt-4 h-fit 3md:order-last">
             <button
               onClick={handleGoToPracticeProblems}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
             >
               문제 목록
             </button>
@@ -184,13 +191,13 @@ export default function PracticeProblem(props: DefaultProps) {
                 <>
                   <button
                     onClick={handleGoToUserPracticeSubmits}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#cee1fc]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#cee1fc]"
                   >
                     내 제출 현황
                   </button>
                   <button
                     onClick={handleGoToSubmitPracticeProblemCode}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#1c6cdb]"
                   >
                     제출하기
                   </button>
@@ -202,13 +209,13 @@ export default function PracticeProblem(props: DefaultProps) {
                 <>
                   <button
                     onClick={handleEditPractice}
-                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
                   >
                     수정
                   </button>
                   <button
                     onClick={handleDeletePractice}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#f8d6d7]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#f8d6d7]"
                   >
                     삭제
                   </button>
