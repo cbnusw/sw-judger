@@ -48,11 +48,11 @@ export default function RegisterContest() {
       switch (httpStatusCode) {
         case 200:
           const cid = resData?.data._id;
-          addToast('success', '대회가 등록되었어요.');
+          addToast('success', '대회가 등록되었어요');
           router.push(`/contests/${cid}`);
           break;
         default:
-          addToast('error', '등록 중에 에러가 발생했어요.');
+          addToast('error', '등록 중에 에러가 발생했어요');
       }
     },
   });
@@ -105,7 +105,7 @@ export default function RegisterContest() {
 
   const handleRegisterContest = () => {
     if (!title) {
-      addToast('warning', '대회명을 입력해 주세요.');
+      addToast('warning', '대회명을 입력해 주세요');
       window.scrollTo(0, 0);
       contestNameRef.current?.focus();
       setIsContestNameValidFail(true);
@@ -113,18 +113,18 @@ export default function RegisterContest() {
     }
 
     if (!content) {
-      addToast('warning', '본문을 입력해 주세요.');
+      addToast('warning', '본문을 입력해 주세요');
       window.scrollTo(0, 0);
       return;
     }
 
     if (!contestStartDateTime || !contestEndDateTime) {
-      addToast('warning', '대회 시간을 설정해 주세요.');
+      addToast('warning', '대회 시간을 설정해 주세요');
       return;
     }
 
     if (!contestProblemsPwd) {
-      addToast('warning', '문제 열람 비밀번호를 입력해 주세요.');
+      addToast('warning', '문제 열람 비밀번호를 입력해 주세요');
       contestProblemsPwdRef.current?.focus();
       setIsContestProblemsPwdValidFail(true);
       return;
@@ -134,20 +134,20 @@ export default function RegisterContest() {
       isCheckedAppliedPeriod &&
       (!contestAppliedStartDateTime || !contestAppliedEndDateTime)
     ) {
-      addToast('warning', '신청 기간을 설정해 주세요.');
+      addToast('warning', '신청 기간을 설정해 주세요');
       return;
     }
 
     // 대회 시작 시간과 종료 시간의 유효성 검사
     if (contestStartDateTime >= contestEndDateTime) {
-      addToast('warning', '대회 종료 시간은 시작 시간 이후로 설정해 주세요.');
+      addToast('warning', '대회 종료 시간은 시작 시간 이후로 설정해 주세요');
       return;
     }
 
     // 대회 신청 기간 설정이 활성화되어 있고, 시작 시간과 종료 시간의 유효성 검사
     if (isCheckedAppliedPeriod) {
       if (contestAppliedStartDateTime >= contestAppliedEndDateTime) {
-        addToast('warning', '신청 종료 시간은 시작 시간 이후로 설정해 주세요.');
+        addToast('warning', '신청 종료 시간은 시작 시간 이후로 설정해 주세요');
         return;
       }
 
@@ -191,7 +191,7 @@ export default function RegisterContest() {
         return;
       }
 
-      addToast('warning', '접근 권한이 없어요.');
+      addToast('warning', '접근 권한이 없어요');
       router.push('/');
     });
   }, [updateUserInfo, router, addToast]);
@@ -472,13 +472,13 @@ export default function RegisterContest() {
           <div className="mt-14 pb-2 flex justify-end gap-2">
             <button
               onClick={handleCancelContestRegister}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#d3d6da]"
             >
               취소
             </button>
             <button
               onClick={handleRegisterContest}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-5 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#1c6cdb]"
             >
               등록
             </button>

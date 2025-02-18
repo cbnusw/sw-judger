@@ -78,16 +78,16 @@ export default function ContestProblems(props: DefaultProps) {
         case 400:
           switch (resData.code) {
             case 'CONTEST_PASSWORD_NOT_MATCH':
-              addToast('warning', '비밀번호가 일치하지 않아요.');
+              addToast('warning', '비밀번호가 일치하지 않아요');
               deleteCookie(cid);
               router.back();
               break;
             default:
-              addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+              addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
           }
           break;
         default:
-          addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+          addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
       }
     },
     onSuccess: (data) => {
@@ -100,7 +100,7 @@ export default function ContestProblems(props: DefaultProps) {
           setIsPasswordChecked(true);
           break;
         default:
-          addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+          addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
       }
     },
   });
@@ -124,10 +124,10 @@ export default function ContestProblems(props: DefaultProps) {
 
       switch (httpStatusCode) {
         case 200:
-          addToast('success', '문제 순서가 변경되었어요.');
+          addToast('success', '문제 순서가 변경되었어요');
           break;
         default:
-          addToast('error', '문제 순서 변경 중에 에러가 발생했어요.');
+          addToast('error', '문제 순서 변경 중에 에러가 발생했어요');
       }
     },
   });
@@ -206,7 +206,7 @@ export default function ContestProblems(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -261,7 +261,7 @@ export default function ContestProblems(props: DefaultProps) {
 
       return (
         <span
-          className={`mt-2 3md:mt-0 w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-2 3md:mt-0 w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-bold`}
         >
           <Image
             src={normalBellImg}
@@ -289,7 +289,7 @@ export default function ContestProblems(props: DefaultProps) {
 
       return (
         <span
-          className={`mt-2 3md:mt-0 flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-2 3md:mt-0 flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-bold`}
         >
           <Image
             src={alarmImg}
@@ -311,7 +311,7 @@ export default function ContestProblems(props: DefaultProps) {
     changingProblemOrderBtnRef.current?.blur();
 
     if (contestProblemsInfo.problems.length < 2) {
-      addToast('warning', '문제를 2개 이상 등록해 주세요.');
+      addToast('warning', '문제를 2개 이상 등록해 주세요');
       return;
     }
 
@@ -340,7 +340,7 @@ export default function ContestProblems(props: DefaultProps) {
               />
 
               <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
-                <span className="ml-4 text-2xl font-semibold tracking-wide">
+                <span className="ml-4 text-2xl font-bold tracking-wide">
                   문제 목록
                 </span>
               </div>
@@ -348,7 +348,7 @@ export default function ContestProblems(props: DefaultProps) {
 
             <Link
               href={`/contests/${cid}`}
-              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-bold hover:bg-[#cee1fc]"
             >
               {contestProblemsInfo.title}
             </Link>
@@ -356,7 +356,7 @@ export default function ContestProblems(props: DefaultProps) {
             <div className="lift-up">
               {timeUntilEnd?.isPast ? (
                 <span
-                  className={`mt-2 3md:mt-0 w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+                  className={`mt-2 3md:mt-0 w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-bold`}
                 >
                   종료
                 </span>
@@ -366,13 +366,13 @@ export default function ContestProblems(props: DefaultProps) {
             </div>
           </div>
 
-          <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-gray-300">
+          <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-[#e5e8eb]">
             <div className="flex flex-col 3md:flex-row gap-2">
               {!isChagingContestProblemOrderActivate && (
                 <>
                   <button
                     onClick={handleGoToContestRankList}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#cee1fc]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#cee1fc]"
                   >
                     대회 순위
                   </button>
@@ -383,7 +383,7 @@ export default function ContestProblems(props: DefaultProps) {
                       <button
                         onClick={handleChangeProblemOrder}
                         ref={changingProblemOrderBtnRef}
-                        className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#d3d6da]"
+                        className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#d3d6da]"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -403,7 +403,7 @@ export default function ContestProblems(props: DefaultProps) {
                     currentTime < contestStartTime && (
                       <button
                         onClick={handleRegisterMultipleContestProblem}
-                        className="flex justify-center items-center gap-x-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#d3d6da]"
+                        className="flex justify-center items-center gap-x-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#d3d6da]"
                       >
                         <svg
                           height="24"
@@ -440,7 +440,7 @@ export default function ContestProblems(props: DefaultProps) {
                     currentTime < contestStartTime && (
                       <button
                         onClick={handleRegisterContestProblem}
-                        className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                        className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#1c6cdb]"
                       >
                         문제 등록
                       </button>
@@ -455,7 +455,7 @@ export default function ContestProblems(props: DefaultProps) {
                   <button
                     onClick={handleChangeProblemOrder}
                     ref={changingProblemOrderBtnRef}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

@@ -28,12 +28,14 @@ export default function UserScoreInfoListItem({
     <div className="flex justify-between items-center gap-6 w-full p-4 pr-8 bg-[#f2f4f6] rounded-xl">
       <div className="flex flex-col">
         <div className="flex items-center h-fit">
-          <span className="flex justify-center items-center font-medium bg-[#8c95a0] text-[17px] text-white w-6 h-6 rounded-[7px]">
+          <span className="flex justify-center items-center font-bold bg-[#8c95a0] text-[17px] text-white w-6 h-6 rounded-[7px]">
             {ranking}
           </span>
           <div className="ml-2">
-            <span className="text-[17px]">{contestRankInfo.user.name}</span>
-            <span className="text-xs text-gray-600">
+            <span className="text-[17px] font-semibold">
+              {contestRankInfo.user.name}
+            </span>
+            <span className="ml-1 text-xs text-gray-600 font-semibold">
               ({contestRankInfo.user.department},&nbsp;
               {contestRankInfo.user.no.slice(0, 4) +
                 '***' +
@@ -80,7 +82,7 @@ export default function UserScoreInfoListItem({
                       ? 'text-white'
                       : 'text-[#3f3f3f]'
                   } mt-[-0.15rem] text-2xl ${
-                    score.tries === 0 ? 'font-light' : 'font-semibold'
+                    score.tries === 0 ? 'font-light' : 'font-bold'
                   }`}
                 >
                   {score.tries === 0 ? '-' : score.tries}
@@ -94,7 +96,7 @@ export default function UserScoreInfoListItem({
                         : score.tries > 0
                         ? 'text-white'
                         : 'text-[#3f3f3f]'
-                    } mt-[-0.3rem] text-[0.7rem]`}
+                    } mt-[-0.3rem] text-[0.8rem] font-semibold`}
                   >
                     {problemPenalties[index]}
                   </span>
@@ -109,11 +111,13 @@ export default function UserScoreInfoListItem({
         <span
           className={`text-3xl ${
             totalScore > 0 ? 'text-[#3a8af9]' : 'text-[#676a6c]'
-          } font-semibold`}
+          } font-extrabold`}
         >
           {totalScore}
         </span>
-        <span className="text-xs text-[#676a6c]">{totalPenalty}</span>
+        <span className="text-[0.8rem] text-[#676a6c] font-semibold">
+          {totalPenalty}
+        </span>
       </div>
     </div>
   );
