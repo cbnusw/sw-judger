@@ -71,10 +71,10 @@ export default function ExamProblems(props: DefaultProps) {
 
       switch (httpStatusCode) {
         case 200:
-          addToast('success', '문제 순서가 변경되었어요.');
+          addToast('success', '문제 순서가 변경되었어요');
           break;
         default:
-          addToast('error', '문제 순서 변경 중에 에러가 발생했어요.');
+          addToast('error', '문제 순서 변경 중에 에러가 발생했어요');
       }
     },
   });
@@ -135,7 +135,7 @@ export default function ExamProblems(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -225,7 +225,7 @@ export default function ExamProblems(props: DefaultProps) {
     changingProblemOrderBtnRef.current?.blur();
 
     if (examProblemsInfo.problems.length < 2) {
-      addToast('warning', '문제를 2개 이상 등록해 주세요.');
+      addToast('warning', '문제를 2개 이상 등록해 주세요');
       return;
     }
 
@@ -261,14 +261,14 @@ export default function ExamProblems(props: DefaultProps) {
               />
 
               <div className="lift-up flex flex-col 3md:flex-row 3md:items-end">
-                <span className="ml-4 text-2xl font-semibold tracking-wide">
+                <span className="ml-4 text-2xl font-bold tracking-wide">
                   문제 목록
                 </span>
               </div>
             </div>
             <Link
               href={`/exams/${eid}`}
-              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-bold hover:bg-[#cee1fc]"
             >
               {examProblemsInfo.title}
             </Link>
@@ -286,7 +286,7 @@ export default function ExamProblems(props: DefaultProps) {
             </div>
           </div>
 
-          <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-gray-300">
+          <div className="flex flex-col 3md:flex-row justify-between pb-3 border-b border-[#e5e8eb]">
             <div className="flex flex-col 3md:flex-row gap-2">
               {OPERATOR_ROLES.includes(userInfo.role) &&
                 userInfo._id === examProblemsInfo.writer._id &&
@@ -294,7 +294,7 @@ export default function ExamProblems(props: DefaultProps) {
                   <button
                     onClick={handleChangeProblemOrder}
                     ref={changingProblemOrderBtnRef}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#d3d6da]"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -318,7 +318,7 @@ export default function ExamProblems(props: DefaultProps) {
                 currentTime < examStartTime && (
                   <button
                     onClick={handleRegisterMultipleExamProblem}
-                    className="flex justify-center items-center gap-x-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#d3d6da]"
+                    className="flex justify-center items-center gap-x-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#d3d6da]"
                   >
                     <svg
                       height="24"
@@ -357,7 +357,7 @@ export default function ExamProblems(props: DefaultProps) {
                     currentTime < examStartTime && (
                       <button
                         onClick={handleRegisterExamProblem}
-                        className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                        className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#1c6cdb]"
                       >
                         문제 등록
                       </button>

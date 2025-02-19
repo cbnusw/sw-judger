@@ -57,11 +57,11 @@ export default function RegisterExamProblem(props: DefaultProps) {
       switch (httpStatusCode) {
         case 200:
           const problemId = resData?.data._id;
-          addToast('success', '문제가 등록되었어요.');
+          addToast('success', '문제가 등록되었어요');
           router.push(`/exams/${eid}/problems/${problemId}`);
           break;
         default:
-          addToast('error', '등록 중에 에러가 발생했어요.');
+          addToast('error', '등록 중에 에러가 발생했어요');
       }
     },
   });
@@ -137,7 +137,7 @@ export default function RegisterExamProblem(props: DefaultProps) {
 
   const handleRegisterExamProblem = () => {
     if (!title) {
-      addToast('warning', '문제명을 입력해 주세요.');
+      addToast('warning', '문제명을 입력해 주세요');
       window.scrollTo(0, 0);
       problemNameRef.current?.focus();
       setIsProblemNameValidFail(true);
@@ -145,7 +145,7 @@ export default function RegisterExamProblem(props: DefaultProps) {
     }
 
     if (!maxExeTime || maxExeTime <= 0) {
-      addToast('warning', '최대 실행 시간을 올바르게 입력해 주세요.');
+      addToast('warning', '최대 실행 시간을 올바르게 입력해 주세요');
       window.scrollTo(0, 0);
       maxExeTimeRef.current?.focus();
       setIsMaxExeTimeValidFail(true);
@@ -153,7 +153,7 @@ export default function RegisterExamProblem(props: DefaultProps) {
     }
 
     if (!maxMemCap || maxMemCap <= 0) {
-      addToast('warning', '최대 메모리 사용량을 올바르게 입력해 주세요.');
+      addToast('warning', '최대 메모리 사용량을 올바르게 입력해 주세요');
       window.scrollTo(0, 0);
       maxMemCapRef.current?.focus();
       setIsMaxMemCapValidFail(true);
@@ -161,13 +161,13 @@ export default function RegisterExamProblem(props: DefaultProps) {
     }
 
     if (!isProblemFileUploadingValidFail) {
-      addToast('warning', '문제 파일(PDF)을 업로드해 주세요.');
+      addToast('warning', '문제 파일(PDF)을 업로드해 주세요');
       window.scrollTo(0, 0);
       return;
     }
 
     if (ioSetData.length === 0) {
-      addToast('warning', '입/출력 파일 셋(in/out)을 업로드해 주세요.');
+      addToast('warning', '입/출력 파일 셋(in/out)을 업로드해 주세요');
       return;
     }
 
@@ -263,7 +263,7 @@ export default function RegisterExamProblem(props: DefaultProps) {
         const isWriter = examInfo.writer._id === userInfo._id;
 
         if (currentTime >= examEndTime) {
-          addToast('warning', '종료된 시험은 문제 등록이 불가능해요.');
+          addToast('warning', '종료된 시험은 문제 등록이 불가능해요');
           router.back();
           return;
         }
@@ -273,7 +273,7 @@ export default function RegisterExamProblem(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -530,13 +530,13 @@ export default function RegisterExamProblem(props: DefaultProps) {
         <div className="mt-14 pb-2 flex justify-end gap-2">
           <button
             onClick={handleCancelExamProblemRegister}
-            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
           >
             취소
           </button>
           <button
             onClick={handleRegisterExamProblem}
-            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-5 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#1c6cdb]"
           >
             등록
           </button>
