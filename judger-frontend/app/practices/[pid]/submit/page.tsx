@@ -73,12 +73,12 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
           router.push(`/practices/${pid}/submits`);
           break;
         default:
-          addToast('error', '코드 제출 중에 에러가 발생했어요.');
+          addToast('error', '코드 제출 중에 에러가 발생했어요');
       }
     },
     onError: (error) => {
       console.error('Error submitting code:', error);
-      addToast('error', '코드 제출 중에 에러가 발생했어요.');
+      addToast('error', '코드 제출 중에 에러가 발생했어요');
     },
     onSettled: () => {
       setIsSubmitting(false);
@@ -131,7 +131,7 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
     setIsSubmitting(true); // 제출 시작
 
     if (selectedSubmitLanguage === '언어 선택') {
-      addToast('warning', '제출 언어를 선택해 주세요.');
+      addToast('warning', '제출 언어를 선택해 주세요');
       window.scrollTo(0, 0);
       setIsSelectedSubmitLanguageValidFail(true);
       return;
@@ -139,7 +139,7 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
 
     // 코드 입력 확인
     if (!code.trim()) {
-      addToast('warning', '코드를 입력해 주세요.');
+      addToast('warning', '코드를 입력해 주세요');
       setIsSubmitting(false);
       return;
     }
@@ -161,7 +161,7 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
         addToast,
       );
     } catch (error) {
-      addToast('error', '코드 제출 중에 에러가 발생했어요.');
+      addToast('error', '코드 제출 중에 에러가 발생했어요');
     } finally {
       setIsSubmitting(false);
     }
@@ -244,7 +244,7 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -282,9 +282,8 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
             </Link>
           </div>
 
-          <div className="flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
+          <div className="flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-[#e5e8eb]">
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               시간 제한:
               <span className="font-mono font-light">
                 &nbsp;
@@ -293,7 +292,6 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
             </span>
             <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               메모리 제한:
               <span className="font-mono font-light">
                 &nbsp;
@@ -394,8 +392,8 @@ export default function SubmitPracticeProblemCode(props: DefaultProps) {
                   : 'text-[#6b7684]'
               } text-[15px] font-light mt-2 flex gap-x-1`}
             >
-              <span className="text-lg text-[#6b7684] leading-6">*</span> 제출할
-              언어를 선택해 주세요.
+              <span className="text-base text-[#6b7684] leading-5">*</span>{' '}
+              제출할 언어를 선택해 주세요.
             </p>
           </div>
 

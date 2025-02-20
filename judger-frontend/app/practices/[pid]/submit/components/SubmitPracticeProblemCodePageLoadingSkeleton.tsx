@@ -1,7 +1,7 @@
 export default function SubmitPracticeProblemCodePageLoadingSkeleton() {
   return (
     <div className="mt-6 mb-24 w-[21rem] xs:w-[90%] xl:w-[73%] mx-auto">
-      <div className="flex flex-col pb-3 border-b border-gray-300">
+      <div className="flex flex-col pb-3 border-b border-[#e5e8eb]">
         <div className="flex items-center gap-x-2">
           <div className="skeleton w-[13rem] h-[3rem]" />
           <div
