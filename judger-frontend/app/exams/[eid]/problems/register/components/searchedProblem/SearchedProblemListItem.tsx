@@ -121,7 +121,7 @@ const SearchedProblemListItem = forwardRef<
       setExampleFiles(newExampleFiles);
     } catch (error) {
       console.error('File upload error:', error);
-      addToast('error', '파일 업로드 중에 오류가 발생했어요.');
+      addToast('error', '파일 업로드 중에 오류가 발생했어요');
     }
   };
 

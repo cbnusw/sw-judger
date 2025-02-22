@@ -20,7 +20,7 @@ export const submitCodeData = async (
 
     await submitCodeMutation.mutateAsync({ problemId, params: submitCodeData });
   } catch (error) {
-    addToast('error', '코드 제출 중에 에러가 발생했어요.');
+    addToast('error', '코드 제출 중에 에러가 발생했어요');
     throw error;
   }
 };

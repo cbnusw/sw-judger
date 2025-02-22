@@ -56,18 +56,18 @@ export default function NoticeDetail(props: DefaultProps) {
 
       switch (httpStatusCode) {
         case 200:
-          addToast('success', '공지사항이 삭제되었어요.');
+          addToast('success', '공지사항이 삭제되었어요');
           router.push('/notices');
           break;
         default:
-          addToast('error', '삭제 중에 에러가 발생했어요.');
+          addToast('error', '삭제 중에 에러가 발생했어요');
       }
     },
     onError: (error: AxiosError) => {
       const resData: any = error.response?.data;
       switch (resData.status) {
         default:
-          addToast('error', '삭제 중에 에러가 발생했어요.');
+          addToast('error', '삭제 중에 에러가 발생했어요');
       }
     },
   });

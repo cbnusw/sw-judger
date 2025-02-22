@@ -34,7 +34,7 @@ export default function ManagingMyPost() {
 
   // 비관리자 회원의 접근 시 로그인 페이지로 리다이렉트 수행
   if (!OPERATOR_ROLES.includes(userInfo.role)) {
-    addToast('warning', '접근 권한이 없어요.');
+    addToast('warning', '접근 권한이 없어요');
     router.push('/');
     return;
   }

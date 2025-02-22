@@ -7,7 +7,6 @@ import axiosInstance from '@/utils/axiosInstance';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ContestInfo } from '@/types/contest';
 import {
-  formatDateToYYMMDDHHMM,
   formatDateToYYMMDDHHMMWithDot,
   formatDateToYYMMDDWithDot,
 } from '@/utils/formatDate';
@@ -86,11 +85,11 @@ export default function ContestDetail(props: DefaultProps) {
 
       switch (httpStatusCode) {
         case 200:
-          addToast('success', '대회가 삭제되었어요.');
+          addToast('success', '대회가 삭제되었어요');
           router.push('/contests');
           break;
         default:
-          addToast('error', '삭제 중에 에러가 발생했어요.');
+          addToast('error', '삭제 중에 에러가 발생했어요');
       }
     },
     onError: (error: AxiosError) => {
@@ -99,14 +98,14 @@ export default function ContestDetail(props: DefaultProps) {
         case 400:
           switch (resData.code) {
             case 'AFTER_TEST_START':
-              addToast('warning', '대회 시작 후에는 삭제할 수 없어요.');
+              addToast('warning', '대회 시작 후에는 삭제할 수 없어요');
               break;
             default:
-              addToast('error', '삭제 중에 에러가 발생했어요.');
+              addToast('error', '삭제 중에 에러가 발생했어요');
           }
           break;
         default:
-          addToast('error', '삭제 중에 에러가 발생했어요.');
+          addToast('error', '삭제 중에 에러가 발생했어요');
       }
     },
   });
@@ -120,7 +119,7 @@ export default function ContestDetail(props: DefaultProps) {
       switch (httpStatusCode) {
         case 200:
           setIsEnrollContest(true);
-          addToast('success', '신청이 완료되었어요.');
+          addToast('success', '신청이 완료되었어요');
 
           // 쿼리 데이터 업데이트
           const updatedContestants = [...contestInfo.contestants, userInfo];
@@ -136,7 +135,7 @@ export default function ContestDetail(props: DefaultProps) {
           });
           break;
         default:
-          addToast('error', '신청 중에 에러가 발생했어요.');
+          addToast('error', '신청 중에 에러가 발생했어요');
       }
     },
     onError: (error: AxiosError) => {
@@ -145,14 +144,14 @@ export default function ContestDetail(props: DefaultProps) {
         case 400:
           switch (resData.code) {
             case 'BEFORE_APPLYING_PERIOD':
-              addToast('warning', '대회 신청 기간이 아니에요.');
+              addToast('warning', '대회 신청 기간이 아니에요');
               break;
             default:
-              addToast('error', '신청 중에 에러가 발생했어요.');
+              addToast('error', '신청 중에 에러가 발생했어요');
           }
           break;
         default:
-          addToast('error', '신청 중에 에러가 발생했어요.');
+          addToast('error', '신청 중에 에러가 발생했어요');
       }
     },
   });
@@ -166,7 +165,7 @@ export default function ContestDetail(props: DefaultProps) {
       switch (httpStatusCode) {
         case 200:
           setIsEnrollContest(false);
-          addToast('success', '신청이 취소되었어요.');
+          addToast('success', '신청이 취소되었어요');
           const updatedContestants = contestInfo.contestants.filter(
             (contestant) => contestant._id !== userInfo._id,
           );
@@ -184,7 +183,7 @@ export default function ContestDetail(props: DefaultProps) {
           });
           break;
         default:
-          addToast('error', '취소 중에 에러가 발생했어요.');
+          addToast('error', '취소 중에 에러가 발생했어요');
       }
     },
   });
@@ -242,7 +241,7 @@ export default function ContestDetail(props: DefaultProps) {
 
       return (
         <span
-          className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-bold`}
         >
           <Image
             src={normalBellImg}
@@ -270,7 +269,7 @@ export default function ContestDetail(props: DefaultProps) {
 
       return (
         <span
-          className={`mt-4 3md:mt-0 flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-4 3md:mt-0 flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-bold`}
         >
           <Image
             src={alarmImg}
@@ -348,6 +347,12 @@ export default function ContestDetail(props: DefaultProps) {
     const userResponse = confirm('대회 참가 신청을 하시겠습니까?');
     if (!userResponse) return;
 
+    if (userInfo.role === '') {
+      addToast('warning', '로그인을 진행해 주세요');
+      router.push('/login');
+      return;
+    }
+
     enrollContestMutation.mutate(cid);
   };
 
@@ -369,7 +374,7 @@ export default function ContestDetail(props: DefaultProps) {
         return (
           <button
             onClick={handleUnEnrollContest}
-            className="flex gap-[0.6rem] items-center w-fit h-11 text-[#3870e0] text-lg font-medium border-[1.5px] border-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] box-shadow transition duration-75"
+            className="flex gap-[0.6rem] items-center w-fit h-11 text-[#3870e0] text-lg font-semibold border-[1.5px] border-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] box-shadow transition duration-75"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -388,7 +393,7 @@ export default function ContestDetail(props: DefaultProps) {
         return (
           <button
             onClick={handleEnrollContest}
-            className="flex gap-[0.6rem] items-center w-fit h-11 text-white text-lg font-medium bg-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] hover:bg-[#3464c2] transition duration-75"
+            className="flex gap-[0.6rem] items-center w-fit h-11 text-white text-lg font-semibold bg-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] hover:bg-[#3464c2] transition duration-75"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -409,7 +414,7 @@ export default function ContestDetail(props: DefaultProps) {
     ) {
       // 대회 진행 중
       return (
-        <div className="flex gap-[0.6rem] justify-center items-center w-[9rem] h-11 text-[#3870e0] text-lg font-medium border-[1.5px] border-[#3870e0] py-[0.5rem] rounded-[3rem]">
+        <div className="flex gap-[0.6rem] justify-center items-center w-[9rem] h-11 text-[#3870e0] text-lg font-semibold border-[1.5px] border-[#3870e0] py-[0.5rem] rounded-[3rem]">
           대회 진행 중
           <span className="w-1 ml-[-0.6rem] text-[#3870e0]">{loadingDots}</span>
         </div>
@@ -501,7 +506,7 @@ export default function ContestDetail(props: DefaultProps) {
             </p>
             {timeUntilEnd?.isPast ? (
               <span
-                className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+                className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-bold`}
               >
                 종료
               </span>
@@ -512,7 +517,6 @@ export default function ContestDetail(props: DefaultProps) {
 
           <div className="mt-1 px-3 py-2 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[14px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               <span className="rounded-full bg-[#eaecef] px-2 py-1">
                 신청 기간
               </span>
@@ -539,7 +543,6 @@ export default function ContestDetail(props: DefaultProps) {
             </span>
             <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
             <span className="flex items-center font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               <span className="rounded-full bg-[#eaecef] px-2 py-1">
                 대회 시간
               </span>
@@ -551,7 +554,7 @@ export default function ContestDetail(props: DefaultProps) {
               </span>
             </span>
             {/* <span className="ml-0 font-semibold 3md:ml-auto">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
+              
               작성자:&nbsp;
               <span className="font-light">{contestInfo.writer.name}</span>
             </span> */}
@@ -602,7 +605,7 @@ export default function ContestDetail(props: DefaultProps) {
               userInfo._id === contestInfo.writer._id && (
                 <button
                   onClick={handleGoToUsersContestSubmits}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
                 >
                   코드 제출 목록
                 </button>
@@ -610,7 +613,7 @@ export default function ContestDetail(props: DefaultProps) {
             {shouldShowProblemsButton() && (
               <button
                 onClick={handleGoToContestProblems}
-                className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
               >
                 문제 목록
               </button>
@@ -620,13 +623,13 @@ export default function ContestDetail(props: DefaultProps) {
                 <>
                   <button
                     onClick={handleEditContest}
-                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
                   >
                     수정
                   </button>
                   <button
                     onClick={handleDeleteContest}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#f8d6d7]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#f8d6d7]"
                   >
                     삭제
                   </button>
@@ -635,10 +638,10 @@ export default function ContestDetail(props: DefaultProps) {
           </div>
         </div>
 
-        {userInfo.role === 'student' && (
+        {(userInfo.role === 'student' || userInfo.role === '') && (
           <div className="mt-4">
             <p className="text-2xl font-semibold mt-10 ">참여 방법</p>
-            <div className="flex flex-col items-center gap-4 mt-4 mx-auto bg-[#fafafa] w-full py-[1.75rem] border border-[#e4e4e4] border-t-2 border-t-gray-400">
+            <div className="flex flex-col items-center gap-4 mt-4 mx-auto bg-[#fafafa] w-full py-[1.75rem] font-semibold border border-[#e4e4e4] border-t-2 border-t-gray-400">
               {renderContestActionButton()}
               {isEnrollContest ? (
                 <div className="flex flex-col gap-1 text-center">
@@ -674,7 +677,7 @@ export default function ContestDetail(props: DefaultProps) {
               <span className="font-semibold text-[19px] text-[#333d4b]">
                 신청자
               </span>
-              <span className="text-[#6d7683] text-[0.825rem] font-light">
+              <span className="text-[#6d7683] text-[0.825rem]">
                 {contestInfo.contestants.length}명
               </span>
             </div>

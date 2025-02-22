@@ -73,16 +73,16 @@ export default function UserContestSubmitDetail(props: DefaultProps) {
         case 400:
           switch (resData.code) {
             case 'CONTEST_PASSWORD_NOT_MATCH':
-              addToast('warning', '비밀번호가 일치하지 않아요.');
+              addToast('warning', '비밀번호가 일치하지 않아요');
               deleteCookie(cid);
               router.back();
               break;
             default:
-              addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+              addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
           }
           break;
         default:
-          addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+          addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
       }
     },
     onSuccess: (data) => {
@@ -95,7 +95,7 @@ export default function UserContestSubmitDetail(props: DefaultProps) {
           setIsPasswordChecked(true);
           break;
         default:
-          addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+          addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
       }
     },
   });
@@ -165,7 +165,7 @@ export default function UserContestSubmitDetail(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -195,7 +195,7 @@ export default function UserContestSubmitDetail(props: DefaultProps) {
             >
               <path d="M233-440h607q17 0 28.5-11.5T880-480q0-17-11.5-28.5T840-520H233l155-156q11-11 11.5-27.5T388-732q-11-11-28-11t-28 11L108-508q-6 6-8.5 13T97-480q0 8 2.5 15t8.5 13l224 224q11 11 27.5 11t28.5-11q12-12 12-28.5T388-285L233-440Z" />
             </svg>
-            <span className="text-[#656565] text-xs font-light text-inherit">
+            <span className="text-[#656565] text-xs text-inherit">
               뒤로가기
             </span>
           </button>
@@ -203,7 +203,7 @@ export default function UserContestSubmitDetail(props: DefaultProps) {
           <div className="flex gap-2">
             <button
               onClick={handleGoToContestProblems}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
             >
               문제 목록
             </button>

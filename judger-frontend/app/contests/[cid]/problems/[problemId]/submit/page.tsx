@@ -80,16 +80,16 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
         case 400:
           switch (resData.code) {
             case 'CONTEST_PASSWORD_NOT_MATCH':
-              addToast('warning', '비밀번호가 일치하지 않아요.');
+              addToast('warning', '비밀번호가 일치하지 않아요');
               deleteCookie(cid);
               router.back();
               break;
             default:
-              addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+              addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
           }
           break;
         default:
-          addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+          addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
       }
     },
     onSuccess: (data) => {
@@ -102,7 +102,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
           setIsPasswordChecked(true);
           break;
         default:
-          addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+          addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
       }
     },
   });
@@ -126,12 +126,12 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
           router.push(`/contests/${cid}/problems/${problemId}/submits`);
           break;
         default:
-          addToast('error', '코드 제출 중에 에러가 발생했어요.');
+          addToast('error', '코드 제출 중에 에러가 발생했어요');
       }
     },
     onError: (error) => {
       console.error('Error submitting code:', error);
-      addToast('error', '코드 제출 중에 에러가 발생했어요.');
+      addToast('error', '코드 제출 중에 에러가 발생했어요');
     },
     onSettled: () => {
       setIsSubmitting(false);
@@ -195,7 +195,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
     if (isSubmitting) return;
 
     if (currentTime >= contestEndTime) {
-      addToast('warning', '종료된 대회예요.');
+      addToast('warning', '종료된 대회예요');
       router.push(`/contests/${cid}`);
       return;
     }
@@ -203,7 +203,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
     setIsSubmitting(true); // 제출 시작
 
     if (selectedSubmitLanguage === '언어 선택') {
-      addToast('warning', '제출 언어를 선택해 주세요.');
+      addToast('warning', '제출 언어를 선택해 주세요');
       window.scrollTo(0, 0);
       setIsSelectedSubmitLanguageValidFail(true);
       return;
@@ -211,7 +211,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
 
     // 코드 입력 확인
     if (!code.trim()) {
-      addToast('warning', '코드를 입력해 주세요.');
+      addToast('warning', '코드를 입력해 주세요');
       setIsSubmitting(false);
       return;
     }
@@ -238,7 +238,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
         addToast,
       );
     } catch (error) {
-      addToast('error', '코드 제출 중에 에러가 발생했어요.');
+      addToast('error', '코드 제출 중에 에러가 발생했어요');
     } finally {
       setIsSubmitting(false);
     }
@@ -356,7 +356,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -381,7 +381,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
               />
 
               <div className="lift-up">
-                <span className="ml-5 text-2xl font-semibold tracking-wide">
+                <span className="ml-5 text-2xl font-bold tracking-wide">
                   코드 제출
                 </span>
               </div>
@@ -389,49 +389,55 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
 
             <Link
               href={`/contests/${cid}/problems/${problemId}`}
-              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-bold hover:bg-[#cee1fc]"
             >
               {contestProblemInfo.title}
             </Link>
           </div>
 
-          <div className="flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
-            <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              점수:
-              <span className="font-mono font-light">
-                &nbsp;
-                <span className="font-mono font-semibold text-blue-600">
-                  {contestProblemInfo.score}
+          <div className="mt-1 p-3 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[14px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
+            <div className="flex flex-col 3md:flex-row gap-2 3md:gap-2">
+              <span className="font-semibold">
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  점수
                 </span>
-                점
+                <span className="font-mono font-light">
+                  <span className="ml-2 mr-1 font-mono font-semibold text-blue-600">
+                    {contestProblemInfo.score}
+                  </span>
+                  점
+                </span>
               </span>
-            </span>
-            <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
-            <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              시간 제한:
-              <span className="font-mono font-light">
-                &nbsp;
-                <span>{contestProblemInfo.options.maxRealTime / 1000}</span>초
-              </span>
-            </span>
-            <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
-            <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
-              메모리 제한:
-              <span className="font-mono font-light">
-                &nbsp;
-                {contestProblemInfo.options.maxMemory}
-              </span>
-              MB
-            </span>
 
-            <div className="mt-2 3md:mt-0 flex-col 3md:flex-row gap-2 ml-0 3md:ml-auto">
-              <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
-                {contestProblemInfo.parentId.title}
+              <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
+
+              <span className="font-semibold">
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  시간 제한
+                </span>
+                <span className="ml-2 font-mono font-normal">
+                  {contestProblemInfo.options.maxRealTime / 1000}초
+                </span>
+              </span>
+
+              <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
+
+              <span className="font-semibold">
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  메모리 제한
+                </span>
+                <span className="font-mono font-light">
+                  <span className="ml-2 mr-1 font-mono font-normal">
+                    {contestProblemInfo.options.maxMemory}
+                  </span>
+                  MB
+                </span>
               </span>
             </div>
+
+            <span className="ml-0 3md:ml-auto font-medium text-[#8b95a1]">
+              {contestProblemInfo.parentId.title}
+            </span>
           </div>
         </div>
 
@@ -440,7 +446,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
             <button
               onClick={() => setIsOpenSubmitLanguageList(true)}
               ref={submitLanguageButtonRef}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] pl-[0.825rem] pr-3 py-[0.5rem] rounded-[7px] font-medium focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] pl-[0.825rem] pr-3 py-[0.5rem] rounded-[7px] font-semibold focus:bg-[#d3d6da] hover:bg-[#d3d6da]"
             >
               {selectedSubmitLanguage}
               <svg
@@ -458,7 +464,7 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
             </button>
 
             {isOpenSubmitLanguageList && (
-              <div className="absolute top-11 z-50 flex flex-col bg-white window px-[0.375rem] py-2 rounded-[7px]">
+              <div className="absolute top-11 z-50 flex flex-col bg-white window px-[0.375rem] py-2 rounded-[7px] font-semibold">
                 <button
                   onClick={handlSelectSubmitLanguage}
                   className="language-item p-3 pr-7 text-start text-[#4e5968] focus:bg-[#f2f4f6] hover:bg-[#f2f4f6] rounded-[7px] focus:outline-none"
@@ -525,8 +531,8 @@ export default function SubmitContestProblemCode(props: DefaultProps) {
                   : 'text-[#6b7684]'
               } text-[15px] font-light mt-2 flex gap-x-1`}
             >
-              <span className="text-lg text-[#6b7684] leading-6">*</span> 제출할
-              언어를 선택해 주세요.
+              <span className="text-base text-[#6b7684] leading-5">*</span>{' '}
+              제출할 언어를 선택해 주세요.
             </p>
           </div>
 

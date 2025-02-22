@@ -75,7 +75,7 @@ export default function UserExamSubmits(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -111,20 +111,20 @@ export default function UserExamSubmits(props: DefaultProps) {
               />
 
               <div className="lift-up">
-                <span className="ml-5 text-2xl font-semibold tracking-wide">
+                <span className="ml-5 text-2xl font-bold tracking-wide">
                   내 제출 현황
                 </span>
               </div>
             </div>
             <Link
               href={`/exams/${eid}/problems/${problemId}`}
-              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+              className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-bold hover:bg-[#cee1fc]"
             >
               {examProblemInfo.title}
             </Link>
           </div>
 
-          <div className="flex flex-col 3md:flex-row justify-between items-start 3md:items-center gap-x-4 mb-4 3md:mb-3 border-gray-300">
+          <div className="flex flex-col 3md:flex-row justify-between items-start 3md:items-center gap-x-4 mb-4 3md:mb-3 border-[#e5e8eb]">
             <button
               onClick={handleGoToExamProblem}
               className="flex items-center gap-x-1 p-2 pl-0 hover hover:text-black"
@@ -138,32 +138,33 @@ export default function UserExamSubmits(props: DefaultProps) {
               >
                 <path d="M233-440h607q17 0 28.5-11.5T880-480q0-17-11.5-28.5T840-520H233l155-156q11-11 11.5-27.5T388-732q-11-11-28-11t-28 11L108-508q-6 6-8.5 13T97-480q0 8 2.5 15t8.5 13l224 224q11 11 27.5 11t28.5-11q12-12 12-28.5T388-285L233-440Z" />
               </svg>
-              <span className="text-[#656565] text-xs font-light text-inherit">
+              <span className="text-[#656565] text-xs text-inherit">
                 문제로 돌아가기
               </span>
             </button>
 
             <div className="w-full 3md:w-fit flex flex-col 3md:flex-row mt-2 3md:mt-0 items-start 3md:items-center gap-x-3">
-              <div className="flex flex-col 3md:flex-row gap-2">
-                <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
-                  123123123
+              <div className="flex gap-2">
+                <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-bold whitespace-nowrap">
+                  {examProblemInfo.parentId.title}
                 </span>
-                <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
-                  123123123
+
+                <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-bold whitespace-nowrap">
+                  {examProblemInfo.parentId.course}
                 </span>
               </div>
 
               <div className="mt-4 3md:mt-0 w-full flex flex-col 3md:flex-row items-start 3md:items-center gap-2">
                 <button
                   onClick={handleGoToSubmitExamProblemCode}
-                  className="w-full 3md:w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                  className="w-full 3md:w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#1c6cdb]"
                 >
                   제출하기
                 </button>
 
                 <button
                   onClick={handleGoToExamProblems}
-                  className="w-full 3md:w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                  className="w-full 3md:w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
                 >
                   문제 목록
                 </button>

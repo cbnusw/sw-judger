@@ -80,11 +80,11 @@ export default function ExamDetail(props: DefaultProps) {
 
       switch (httpStatusCode) {
         case 200:
-          addToast('success', '시험이 삭제되었어요.');
+          addToast('success', '시험이 삭제되었어요');
           router.push('/exams');
           break;
         default:
-          addToast('error', '삭제 중에 에러가 발생했어요.');
+          addToast('error', '삭제 중에 에러가 발생했어요');
       }
     },
   });
@@ -98,10 +98,10 @@ export default function ExamDetail(props: DefaultProps) {
       switch (httpStatusCode) {
         case 200:
           setIsEnrollExam(true);
-          addToast('success', '신청이 완료되었어요.');
+          addToast('success', '신청이 완료되었어요');
           break;
         default:
-          addToast('error', '신청 중 에러가 발생했어요.');
+          addToast('error', '신청 중 에러가 발생했어요');
       }
     },
   });
@@ -115,10 +115,10 @@ export default function ExamDetail(props: DefaultProps) {
       switch (httpStatusCode) {
         case 200:
           setIsEnrollExam(false);
-          addToast('success', '신청이 취소되었어요.');
+          addToast('success', '신청이 취소되었어요');
           break;
         default:
-          addToast('error', '취소 중에 에러가 발생했어요.');
+          addToast('error', '취소 중에 에러가 발생했어요');
       }
     },
   });
@@ -178,7 +178,7 @@ export default function ExamDetail(props: DefaultProps) {
 
       return (
         <span
-          className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-2 text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-bold`}
         >
           <Image
             src={normalBellImg}
@@ -203,7 +203,7 @@ export default function ExamDetail(props: DefaultProps) {
 
       return (
         <span
-          className={`mt-4 3md:mt-0 flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+          className={`mt-4 3md:mt-0 flex justify-center items-center gap-2 text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-bold`}
         >
           <Image
             src={alarmImg}
@@ -277,7 +277,7 @@ export default function ExamDetail(props: DefaultProps) {
     if (!userResponse) return;
 
     if (currentTime >= examStartTime) {
-      addToast('warning', '시험 시작 후에는 삭제할 수 없어요.');
+      addToast('warning', '시험 시작 후에는 삭제할 수 없어요');
       return;
     }
 
@@ -321,7 +321,7 @@ export default function ExamDetail(props: DefaultProps) {
         return (
           <button
             onClick={handleUnEnrollExam}
-            className="flex gap-[0.6rem] items-center w-fit h-11 text-[#3870e0] text-lg font-medium border-[1.5px] border-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] box-shadow transition duration-75"
+            className="flex gap-[0.6rem] items-center w-fit h-11 text-[#3870e0] text-lg font-semibold border-[1.5px] border-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] box-shadow transition duration-75"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +341,7 @@ export default function ExamDetail(props: DefaultProps) {
       return (
         <button
           onClick={handleEnrollExam}
-          className="flex gap-[0.6rem] items-center w-fit h-11 text-white text-lg font-medium bg-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] focus:bg-[#3464c2] hover:bg-[#3464c2] transition duration-75"
+          className="flex gap-[0.6rem] items-center w-fit h-11 text-white text-lg font-semibold bg-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] focus:bg-[#3464c2] hover:bg-[#3464c2] transition duration-75"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -359,7 +359,7 @@ export default function ExamDetail(props: DefaultProps) {
       // 시험 진행 중
       if (isEnrollExam) {
         return (
-          <div className="flex gap-[0.6rem] justify-center items-center w-[9rem] h-11 text-[#3870e0] text-lg font-medium border-[1.5px] border-[#3870e0] py-[0.5rem] rounded-[3rem]">
+          <div className="flex gap-[0.6rem] justify-center items-center w-[9rem] h-11 text-[#3870e0] text-lg font-semibold border-[1.5px] border-[#3870e0] py-[0.5rem] rounded-[3rem]">
             시험 진행 중
             <span className="w-1 ml-[-0.6rem] text-[#3870e0]">
               {loadingDots}
@@ -372,7 +372,7 @@ export default function ExamDetail(props: DefaultProps) {
       return (
         <button
           onClick={handleEnrollExam}
-          className="flex gap-[0.6rem] items-center w-fit h-11 text-white text-lg font-medium bg-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] focus:bg-[#3464c2] hover:bg-[#3464c2] transition duration-75"
+          className="flex gap-[0.6rem] items-center w-fit h-11 text-white text-lg font-semibold bg-[#3870e0] px-4 py-[0.5rem] rounded-[3rem] focus:bg-[#3464c2] hover:bg-[#3464c2] transition duration-75"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -436,7 +436,7 @@ export default function ExamDetail(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '비밀번호가 일치하지 않아요.');
+        addToast('warning', '비밀번호가 일치하지 않아요');
         router.back();
       }
     });
@@ -454,7 +454,7 @@ export default function ExamDetail(props: DefaultProps) {
             </p>
             {timeUntilEnd?.isPast ? (
               <span
-                className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-semibold`}
+                className={`mt-4 3md:mt-0 w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-3 py-1 rounded-full font-bold`}
               >
                 종료
               </span>
@@ -465,7 +465,6 @@ export default function ExamDetail(props: DefaultProps) {
 
           <div className="mt-1 px-3 py-2 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[14px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
             <span className="flex items-center font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               <span className="rounded-full bg-[#eaecef] px-2 py-1">
                 시험 시간
               </span>
@@ -477,7 +476,6 @@ export default function ExamDetail(props: DefaultProps) {
             </span>
             <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               <span className="rounded-full bg-[#eaecef] px-2 py-1">
                 수업명
               </span>
@@ -485,7 +483,6 @@ export default function ExamDetail(props: DefaultProps) {
             </span>
             <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
             <span className="font-semibold">
-              <span className="3md:hidden text-gray-500">•&nbsp;</span>
               <span className="rounded-full bg-[#eaecef] px-2 py-1">
                 작성자
               </span>
@@ -567,7 +564,7 @@ export default function ExamDetail(props: DefaultProps) {
         {userInfo.role === 'student' && (
           <div className="mt-4">
             <p className="text-2xl font-semibold mt-10 ">참여 방법</p>
-            <div className="flex flex-col items-center gap-4 mt-4 mx-auto bg-[#fafafa] w-full py-[1.75rem] border border-[#e4e4e4] border-t-2 border-t-gray-400">
+            <div className="flex flex-col items-center gap-4 mt-4 mx-auto bg-[#fafafa] w-full py-[1.75rem] font-semibold border border-[#e4e4e4] border-t-2 border-t-gray-400">
               {renderExamActionButton()}
               {isEnrollExam ? (
                 <>
