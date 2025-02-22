@@ -82,7 +82,7 @@ export default function Login() {
   ) => {
     const idInputValue = e.target.value;
     if (idInputValue === '') {
-      setIdValidFailMsg('학번/교번을 입력해 주세요.');
+      setIdValidFailMsg('학번/교번을 입력해 주세요');
       setIsIdInputValidFail(true);
     } else {
       setIsIdInputValidFail(false);
@@ -94,7 +94,7 @@ export default function Login() {
   ) => {
     const pwdInputValue = e.target.value;
     if (pwdInputValue === '') {
-      setPwdValidFailMsg('비밀번호를 입력해 주세요.');
+      setPwdValidFailMsg('비밀번호를 입력해 주세요');
       setIsPwdInputValidFail(true);
     } else {
       setIsPwdInputValidFail(false);
@@ -108,14 +108,14 @@ export default function Login() {
 
     if (!userAccountInfo.id) {
       idInputRef.current?.focus();
-      setIdValidFailMsg('학번/교번을 입력해 주세요.');
+      setIdValidFailMsg('학번/교번을 입력해 주세요');
       setIsIdInputValidFail(true);
       return;
     }
 
     if (!userAccountInfo.pwd) {
       pwdInputRef.current?.focus();
-      setPwdValidFailMsg('비밀번호를 입력해 주세요.');
+      setPwdValidFailMsg('비밀번호를 입력해 주세요');
       setIsPwdInputValidFail(true);
       return;
     }
@@ -135,20 +135,20 @@ export default function Login() {
         case 400:
           switch (resData.code) {
             case 'REG_NUMBER_REQUIRED':
-              addToast('error', '로그인 중에 에러가 발생했어요.');
+              addToast('error', '로그인 중에 에러가 발생했어요');
               break;
             case 'INVALID_PASSWORD':
-              addToast('warning', '정확한 로그인 정보를 입력해 주세요.');
+              addToast('warning', '정확한 로그인 정보를 입력해 주세요');
               break;
             default:
-              addToast('error', '로그인 중에 에러가 발생했어요.');
+              addToast('error', '로그인 중에 에러가 발생했어요');
           }
           break;
         case 404:
-          addToast('warning', '정확한 로그인 정보를 입력해 주세요.');
+          addToast('warning', '정확한 로그인 정보를 입력해 주세요');
           break;
         default:
-          addToast('error', '로그인 중에 에러가 발생했어요.');
+          addToast('error', '로그인 중에 에러가 발생했어요');
       }
     },
     onSuccess: (data) => {

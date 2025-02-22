@@ -1,7 +1,7 @@
 export default function ExamProblemListPageLoadingSkeleton() {
   return (
     <div className="mt-6 mb-24 w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
-      <div className="flex flex-col pb-[4.6rem] border-b border-gray-300">
+      <div className="flex flex-col pb-[4.6rem] border-b border-[#e5e8eb]">
         <div className="flex items-center gap-x-2">
           <div className="skeleton w-[10.5rem] h-[3rem]" />
           <div

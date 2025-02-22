@@ -86,7 +86,7 @@ export default function UsersContestSubmits(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -166,14 +166,14 @@ export default function UsersContestSubmits(props: DefaultProps) {
             />
 
             <div className="lift-up">
-              <span className="ml-5 text-2xl font-semibold tracking-wide">
+              <span className="ml-4 text-2xl font-bold tracking-wide">
                 코드 제출 목록
               </span>
             </div>
           </div>
           <Link
             href={`/contests/${cid}`}
-            className="mt-4 3md:mt-0 lift-up w-fit text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-semibold hover:bg-[#cee1fc]"
+            className="mt-4 3md:mt-0 lift-up w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-3 py-1 rounded-full font-bold hover:bg-[#cee1fc]"
           >
             {contestInfo.title}
           </Link>
@@ -237,7 +237,7 @@ export default function UsersContestSubmits(props: DefaultProps) {
                   <path d="M21.38 13.09c-.61 0-1.1.49-1.1 1.1v4.21c0 .72-.58 1.3-1.3 1.3H5c-.72 0-1.3-.58-1.3-1.3v-4.21c0-.61-.49-1.1-1.1-1.1s-1.1.49-1.1 1.1v4.21c0 1.93 1.57 3.5 3.5 3.5h13.98c1.93 0 3.5-1.57 3.5-3.5v-4.21c0-.61-.49-1.1-1.1-1.1z"></path>
                 </g>
               </svg>
-              <span className="text-[#487fee] whitespace-nowrap">
+              <span className="text-[#487fee] whitespace-nowrap font-semibold">
                 제출 목록 다운로드
               </span>
             </button>

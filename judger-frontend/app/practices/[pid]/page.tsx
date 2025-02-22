@@ -57,11 +57,11 @@ export default function PracticeProblem(props: DefaultProps) {
 
       switch (httpStatusCode) {
         case 200:
-          addToast('success', '연습문제가 삭제되었어요.');
+          addToast('success', '연습문제가 삭제되었어요');
           router.push('/practices');
           break;
         default:
-          addToast('error', '삭제 중에 에러가 발생했어요.');
+          addToast('error', '삭제 중에 에러가 발생했어요');
       }
     },
   });
@@ -132,7 +132,6 @@ export default function PracticeProblem(props: DefaultProps) {
           <div className="mt-1 p-3 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[14px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
             <div className="flex flex-col 3md:flex-row gap-2 3md:gap-2">
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">•&nbsp;</span>
                 <span className="rounded-full bg-[#eaecef] px-2 py-1">
                   시간 제한
                 </span>
@@ -140,9 +139,10 @@ export default function PracticeProblem(props: DefaultProps) {
                   {practiceProblemInfo.options.maxRealTime / 1000}초
                 </span>
               </span>
+
               <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
+
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">•&nbsp;</span>
                 <span className="rounded-full bg-[#eaecef] px-2 py-1">
                   메모리 제한
                 </span>
@@ -155,7 +155,6 @@ export default function PracticeProblem(props: DefaultProps) {
               </span>
               <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">•&nbsp;</span>
                 <span className="rounded-full bg-[#eaecef] px-2 py-1">
                   난이도
                 </span>
@@ -168,7 +167,7 @@ export default function PracticeProblem(props: DefaultProps) {
             </div>
             {/* <div className="flex gap-3">
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">•&nbsp;</span>
+                
                 작성자:&nbsp;
                 <span className="font-light">
                   {practiceProblemInfo.writer.name}
@@ -247,7 +246,7 @@ export default function PracticeProblem(props: DefaultProps) {
                         >
                           <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
                         </svg>
-                        <span className="text-[#4e5968] group-hover:text-[#0056b3] font-semibold">
+                        <span className="text-[#4e5968] group-hover:text-[#0056b3] font-bold">
                           {exampleFile.filename}
                         </span>
                       </button>

@@ -69,11 +69,11 @@ export default function EditNotice(props: DefaultProps) {
 
       switch (httpStatusCode) {
         case 200:
-          addToast('success', '공지사항 정보가 수정되었어요.');
+          addToast('success', '공지사항 정보가 수정되었어요');
           router.push(`/notices/${nid}`);
           break;
         default:
-          addToast('warning', '수정 중에 에러가 발생했어요.');
+          addToast('warning', '수정 중에 에러가 발생했어요');
       }
     },
   });
@@ -114,7 +114,7 @@ export default function EditNotice(props: DefaultProps) {
 
   const handleEditNotice = () => {
     if (!title) {
-      addToast('warning', '제목을 입력해 주세요.');
+      addToast('warning', '제목을 입력해 주세요');
       window.scrollTo(0, 0);
       noticeNameRef.current?.focus();
       setIsNoticeNameValidFail(true);
@@ -122,7 +122,7 @@ export default function EditNotice(props: DefaultProps) {
     }
 
     if (!content) {
-      addToast('warning', '본문을 입력해 주세요.');
+      addToast('warning', '본문을 입력해 주세요');
       window.scrollTo(0, 0);
       return;
     }
@@ -138,7 +138,7 @@ export default function EditNotice(props: DefaultProps) {
         return;
       }
 
-      addToast('warning', '접근 권한이 없어요.');
+      addToast('warning', '접근 권한이 없어요');
       router.push('/');
     });
   }, [updateUserInfo, router, addToast]);
@@ -271,13 +271,13 @@ export default function EditNotice(props: DefaultProps) {
         <div className="mt-14 pb-2 flex justify-end gap-2">
           <button
             onClick={handleCancelNoticeEdit}
-            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#d3d6da]"
           >
             취소
           </button>
           <button
             onClick={handleEditNotice}
-            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+            className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-5 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#1c6cdb]"
           >
             수정
           </button>

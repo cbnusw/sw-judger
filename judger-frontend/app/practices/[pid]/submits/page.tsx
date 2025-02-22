@@ -60,7 +60,7 @@ export default function UserPracticeSubmits(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -109,7 +109,7 @@ export default function UserPracticeSubmits(props: DefaultProps) {
             </Link>
           </div>
 
-          <div className="flex flex-col 3md:flex-row justify-between items-start 3md:items-center gap-x-4 mb-4 3md:mb-3 border-gray-300">
+          <div className="flex flex-col 3md:flex-row justify-between items-start 3md:items-center gap-x-4 mb-4 3md:mb-3 border-[#e5e8eb]">
             <button
               onClick={handleGoToPracticeProblem}
               className="flex items-center gap-x-1 p-2 pl-0 hover hover:text-black"

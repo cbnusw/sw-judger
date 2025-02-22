@@ -47,11 +47,11 @@ export default function RegisterExam() {
       switch (httpStatusCode) {
         case 200:
           const eid = resData?.data._id;
-          addToast('success', '대회가 등록되었어요.');
+          addToast('success', '대회가 등록되었어요');
           router.push(`/exams/${eid}`);
           break;
         default:
-          addToast('error', '등록 중에 에러가 발생했어요.');
+          addToast('error', '등록 중에 에러가 발생했어요');
       }
     },
   });
@@ -103,7 +103,7 @@ export default function RegisterExam() {
 
   const handleRegisterExam = () => {
     if (!title) {
-      addToast('warning', '시험명을 입력해 주세요.');
+      addToast('warning', '시험명을 입력해 주세요');
       window.scrollTo(0, 0);
       examNameRef.current?.focus();
       setIsExamNameValidFail(true);
@@ -111,7 +111,7 @@ export default function RegisterExam() {
     }
 
     if (!courseName) {
-      addToast('warning', '수업명을 입력해 주세요.');
+      addToast('warning', '수업명을 입력해 주세요');
       window.scrollTo(0, 0);
       courseNameRef.current?.focus();
       setIsCourseNameValidFail(true);
@@ -119,24 +119,24 @@ export default function RegisterExam() {
     }
 
     if (!content) {
-      addToast('warning', '본문을 입력해 주세요.');
+      addToast('warning', '본문을 입력해 주세요');
       window.scrollTo(0, 0);
       return;
     }
 
     if (!examStartDateTime || !examEndDateTime) {
-      addToast('warning', '시험 시간을 설정해 주세요.');
+      addToast('warning', '시험 시간을 설정해 주세요');
       return;
     }
 
     // 시험 시작 시간과 종료 시간의 유효성 검사
     if (examStartDateTime >= examEndDateTime) {
-      addToast('warning', '시험 종료 시간은 시작 시간 이후로 설정해 주세요.');
+      addToast('warning', '시험 종료 시간은 시작 시간 이후로 설정해 주세요');
       return;
     }
 
     if (!examPwd) {
-      addToast('warning', '시험 비밀번호를 입력해 주세요.');
+      addToast('warning', '시험 비밀번호를 입력해 주세요');
       examPwdRef.current?.focus();
       setIsExamPwdValidFail(true);
       return;
@@ -166,7 +166,7 @@ export default function RegisterExam() {
         return;
       }
 
-      addToast('warning', '접근 권한이 없어요.');
+      addToast('warning', '접근 권한이 없어요');
       router.push('/');
     });
   }, [updateUserInfo, router, addToast]);
@@ -338,13 +338,13 @@ export default function RegisterExam() {
           <div className="mt-14 pb-2 flex justify-end gap-2">
             <button
               onClick={handleCancelExamRegister}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-5 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
             >
               취소
             </button>
             <button
               onClick={handleRegisterExam}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-5 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-5 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#1c6cdb]"
             >
               등록
             </button>

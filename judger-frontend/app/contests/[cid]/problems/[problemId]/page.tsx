@@ -69,16 +69,16 @@ export default function ContestProblemDetail(props: DefaultProps) {
         case 400:
           switch (resData.code) {
             case 'CONTEST_PASSWORD_NOT_MATCH':
-              addToast('warning', '비밀번호가 일치하지 않아요.');
+              addToast('warning', '비밀번호가 일치하지 않아요');
               deleteCookie(cid);
               router.back();
               break;
             default:
-              addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+              addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
           }
           break;
         default:
-          addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+          addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
       }
     },
     onSuccess: (data) => {
@@ -91,7 +91,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
           setIsPasswordChecked(true);
           break;
         default:
-          addToast('error', '비밀번호 확인 중에 에러가 발생했어요.');
+          addToast('error', '비밀번호 확인 중에 에러가 발생했어요');
       }
     },
   });
@@ -109,11 +109,11 @@ export default function ContestProblemDetail(props: DefaultProps) {
 
       switch (httpStatusCode) {
         case 200:
-          addToast('success', '문제가 삭제되었어요.');
+          addToast('success', '문제가 삭제되었어요');
           router.push(`/contests/${cid}/problems`);
           break;
         default:
-          addToast('error', '삭제 중에 에러가 발생했어요.');
+          addToast('error', '삭제 중에 에러가 발생했어요');
       }
     },
   });
@@ -231,7 +231,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
@@ -244,38 +244,43 @@ export default function ContestProblemDetail(props: DefaultProps) {
     <div className="mt-6 mb-24 px-5 2lg:px-0 overflow-x-auto">
       <div className="flex flex-col w-[21rem] xs:w-[90%] xl:w-[60rem] mx-auto">
         <div className="flex flex-col gap-8">
-          <p className="text-2xl font-bold tracking-tight">
+          <p className="text-2xl font-extrabold tracking-tight">
             {contestProblemInfo.title}
           </p>
-          <div className="flex flex-col 3md:items-center 3md:flex-row pb-3 gap-1 3md:gap-3 border-b border-gray-300">
-            <div className="flex flex-col 3md:flex-row gap-1 3md:gap-3">
+
+          <div className="mt-1 p-3 flex flex-col 3md:items-center 3md:flex-row gap-2 text-[14px] border-y-[1.25px] border-[#d1d6db] bg-[#f6f7f9]">
+            <div className="flex flex-col 3md:flex-row gap-2 3md:gap-2">
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">•&nbsp;</span>
-                점수:
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  점수
+                </span>
                 <span className="font-mono font-light">
-                  &nbsp;
-                  <span className="font-mono font-semibold text-blue-600">
+                  <span className="ml-2 mr-1 font-mono font-semibold text-blue-600">
                     {contestProblemInfo.score}
                   </span>
                   점
                 </span>
               </span>
-              <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
+
+              <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
+
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">•&nbsp;</span>
-                시간 제한:
-                <span className="font-mono font-light">
-                  &nbsp;
-                  <span>{contestProblemInfo.options.maxRealTime / 1000}</span>초
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  시간 제한
+                </span>
+                <span className="ml-2 font-mono font-normal">
+                  {contestProblemInfo.options.maxRealTime / 1000}초
                 </span>
               </span>
-              <span className='hidden relative bottom-[0.055rem] font-thin before:content-["|"] 3md:block' />
+
+              <span className='hidden relative bottom-[0.055rem] font-semibold before:content-["・"] 3md:block text-[#8b95a1]' />
+
               <span className="font-semibold">
-                <span className="3md:hidden text-gray-500">•&nbsp;</span>
-                메모리 제한:
+                <span className="rounded-full bg-[#eaecef] px-2 py-1">
+                  메모리 제한
+                </span>
                 <span className="font-mono font-light">
-                  &nbsp;
-                  <span className="mr-1">
+                  <span className="ml-2 mr-1 font-mono font-normal">
                     {contestProblemInfo.options.maxMemory}
                   </span>
                   MB
@@ -283,11 +288,9 @@ export default function ContestProblemDetail(props: DefaultProps) {
               </span>
             </div>
 
-            <div className="mt-2 3md:mt-0 flex gap-2 ml-0 3md:ml-auto">
-              <span className="w-fit flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-3 py-1 rounded-full font-semibold">
-                {contestProblemInfo.parentId.title}
-              </span>
-            </div>
+            <span className="ml-0 3md:ml-auto font-medium text-[#8b95a1]">
+              {contestProblemInfo.parentId.title}
+            </span>
           </div>
         </div>
 
@@ -295,7 +298,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
           <div className="flex flex-col 3md:flex-row gap-2 justify-end mt-4 h-fit 3md:order-last">
             <button
               onClick={handleGoToContestProblems}
-              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+              className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
             >
               문제 목록
             </button>
@@ -303,13 +306,13 @@ export default function ContestProblemDetail(props: DefaultProps) {
               <>
                 <button
                   onClick={handleGoToUserContestSubmits}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#cee1fc]"
+                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#487fee] bg-[#e8f3ff] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#cee1fc]"
                 >
                   내 제출 현황
                 </button>
                 <button
                   onClick={handleGoToSubmitContestProblemCode}
-                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#1c6cdb]"
+                  className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-white bg-[#3a8af9] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#1c6cdb]"
                 >
                   제출하기
                 </button>
@@ -321,13 +324,13 @@ export default function ContestProblemDetail(props: DefaultProps) {
                 <>
                   <button
                     onClick={handleEditProblem}
-                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-medium  hover:bg-[#d3d6da]"
+                    className="3md:ml-4 3md:mt-0 ml-0 mt-4 flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#4e5968] bg-[#f2f4f6] px-4 py-[0.5rem] rounded-[7px] font-semibold  hover:bg-[#d3d6da]"
                   >
                     수정
                   </button>
                   <button
                     onClick={handleDeleteProblem}
-                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-medium hover:bg-[#f8d6d7]"
+                    className="flex justify-center items-center gap-[0.375rem] text-[0.8rem] text-[#de5257] bg-[#fcefee] px-4 py-[0.5rem] rounded-[7px] font-semibold hover:bg-[#f8d6d7]"
                   >
                     삭제
                   </button>
@@ -359,7 +362,7 @@ export default function ContestProblemDetail(props: DefaultProps) {
                         >
                           <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
                         </svg>
-                        <span className="text-[#4e5968] group-hover:text-[#0056b3] font-semibold">
+                        <span className="text-[#4e5968] group-hover:text-[#0056b3] font-bold">
                           {exampleFile.filename}
                         </span>
                       </button>

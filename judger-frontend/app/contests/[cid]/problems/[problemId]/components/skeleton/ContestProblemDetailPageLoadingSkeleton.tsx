@@ -3,7 +3,7 @@ import ContestProblemDetailPdfLoadingSkeleton from './ContestProblemDetailPdfLoa
 export default function ContestProblemDetailPageLoadingSkeleton() {
   return (
     <div className="mt-6 mb-24 w-[21rem] xs:w-[90%] xl:w-[72.5%] mx-auto">
-      <div className="flex flex-col pb-3 border-b border-gray-300">
+      <div className="flex flex-col pb-3 border-b border-[#e5e8eb]">
         <div className="skeleton w-[15rem] h-[2rem]" />
         <div className="mt-8 flex justify-between">
           <div className="flex gap-x-2 h-[1.25rem]">

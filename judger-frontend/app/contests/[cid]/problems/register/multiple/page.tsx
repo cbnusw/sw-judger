@@ -238,7 +238,7 @@ export default function RegisterMultipleContestProblem(props: DefaultProps) {
         const isWriter = contestInfo.writer._id === userInfo._id;
 
         if (currentTime >= contestStartTime) {
-          addToast('warning', '대회 시작 후에는 등록할 수 없어요.');
+          addToast('warning', '대회 시작 후에는 등록할 수 없어요');
           router.back();
           return;
         }
@@ -248,7 +248,7 @@ export default function RegisterMultipleContestProblem(props: DefaultProps) {
           return;
         }
 
-        addToast('warning', '접근 권한이 없어요.');
+        addToast('warning', '접근 권한이 없어요');
         router.push('/');
       }
     });
