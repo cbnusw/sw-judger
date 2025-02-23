@@ -454,7 +454,8 @@
 .markdown-preview tr:nth-child(even) {
   background-color: #f7f9fc !important;
 }
-ㅑ .markdown-preview td {
+
+.markdown-preview td {
   border-color: #d4d6da !important;
 }
 
