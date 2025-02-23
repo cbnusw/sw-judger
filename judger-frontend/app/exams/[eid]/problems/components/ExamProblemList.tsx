@@ -5,6 +5,7 @@ import {
   Draggable,
   DropResult,
   Droppable,
+  DroppableProps,
 } from 'react-beautiful-dnd';
 import { useRouter } from 'next/navigation';
 import EmptyExamProblemListItem from './EmptyExamProblemListItem';
@@ -16,6 +17,24 @@ interface ExamProblemListProps {
   problemsInfo: ProblemInfo[];
   setProblemsInfo: (problemsInfo: ProblemInfo[]) => void;
 }
+
+// Droppable을 감싸는 커스텀 컴포넌트
+const CustomDroppable: React.FC<DroppableProps> = ({
+  children,
+  droppableId = 'defaultDroppableId',
+  ...props
+}) => {
+  return (
+    <Droppable droppableId={droppableId} {...props}>
+      {(provided, snapshot) => (
+        <>
+          {children(provided, snapshot)}
+          {provided.placeholder}
+        </>
+      )}
+    </Droppable>
+  );
+};
 
 export default function ExamProblemList({
   eid,
@@ -45,7 +64,7 @@ export default function ExamProblemList({
       {/* 드래그 영역 */}
       <DragDropContext onDragEnd={handleChange}>
         {/* 드래그 놓을 수 있는 영역 */}
-        <Droppable droppableId="DropLand">
+        <CustomDroppable droppableId="DropLand">
           {/* 드래그 Div 생성 */}
           {(provided, snapshot) => (
             // CCS가 적용된 Div
@@ -99,7 +118,7 @@ export default function ExamProblemList({
               ))}
             </div>
           )}
-        </Droppable>
+        </CustomDroppable>
       </DragDropContext>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   Draggable,
   DropResult,
   Droppable,
+  DroppableProps,
 } from 'react-beautiful-dnd';
 import { useRouter } from 'next/navigation';
 import { ProblemInfo } from '@/types/problem';
@@ -14,15 +15,36 @@ interface ContestProblemListProps {
   cid: string;
   isChagingContestProblemOrderActivate: boolean;
   problemsInfo: ProblemInfo[];
-  setProblemsInfo: (problemsInfo: ProblemInfo[]) => void;
+  setProblemsInfo: React.Dispatch<React.SetStateAction<ProblemInfo[]>>;
 }
 
-export default function ContestProblemList({
-  cid,
-  isChagingContestProblemOrderActivate,
-  problemsInfo,
-  setProblemsInfo,
-}: ContestProblemListProps) {
+// Droppable을 감싸는 커스텀 컴포넌트
+
+const CustomDroppable: React.FC<DroppableProps> = ({
+  children,
+  droppableId = 'defaultDroppableId',
+  ...props
+}) => {
+  return (
+    <Droppable droppableId={droppableId} {...props}>
+      {(provided, snapshot) => (
+        <>
+          {children(provided, snapshot)}
+          {provided.placeholder}
+        </>
+      )}
+    </Droppable>
+  );
+};
+
+export default function ContestProblemList(props: ContestProblemListProps) {
+  const {
+    cid,
+    isChagingContestProblemOrderActivate,
+    problemsInfo,
+    setProblemsInfo,
+  } = props;
+
   const router = useRouter();
 
   const handleChangeProblemOrder = (result: DropResult) => {
@@ -45,7 +67,7 @@ export default function ContestProblemList({
       {/* 드래그 영역 */}
       <DragDropContext onDragEnd={handleChangeProblemOrder}>
         {/* 드래그 놓을 수 있는 영역 */}
-        <Droppable droppableId="DropLand">
+        <CustomDroppable droppableId="DropLand">
           {/* 드래그 Div 생성 */}
           {(provided, snapshot) => (
             // CCS가 적용된 Div
@@ -60,11 +82,7 @@ export default function ContestProblemList({
                     <Draggable draggableId={problem._id} index={idx}>
                       {(provided, snapshot) => (
                         <div
-                          ref={
-                            isChagingContestProblemOrderActivate
-                              ? provided.innerRef
-                              : null
-                          }
+                          ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
@@ -101,7 +119,7 @@ export default function ContestProblemList({
               ))}
             </div>
           )}
-        </Droppable>
+        </CustomDroppable>
       </DragDropContext>
     </div>
   );
