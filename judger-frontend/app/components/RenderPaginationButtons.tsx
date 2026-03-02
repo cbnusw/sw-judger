@@ -43,7 +43,7 @@ export const RenderPaginationButtons = (
       <li key="first-page">
         <button
           onClick={() => handlePagination(1)}
-          className="pagination-number-btn pagination--number-btn-disabled"
+          className="pagination-number-btn pagination-number-btn-disabled"
         >
           1
         </button>
